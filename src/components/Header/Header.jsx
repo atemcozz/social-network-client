@@ -8,26 +8,36 @@ const Header = () => {
   const [sideMenu, setSideMenu] = useState(false);
   return (
     <header className="bg-back shadow-lg w-full fixed h-16 top-0 left-0 z-20">
-      <Transition
-        show={sideMenu}
-        enter="transition-opacity duration-250"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity duration-250"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
-        <div
-          className={`fixed z-50  inset-0 bg-[rgba(0,0,0,0.75)]`}
-          onClick={() => setSideMenu(false)}
+      <Transition show={sideMenu}>
+        <Transition.Child
+          enter="transition-opacity duration-500"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-500"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
         >
           <div
-            className={`fixed inset-y-0 left-0 bg-back w-4/6 rounded-br-3xl rounded-tr-3xl p-4 transition-opacity duration-500 ease-in-out`}
-            onClick={(e) => e.stopPropagation()}
+            className={`fixed z-50 inset-0 bg-[rgba(0,0,0,0.75)]`}
+            onClick={() => setSideMenu(false)}
           >
-            <NavActions />
+            <Transition.Child
+              enter="transition ease-in-out duration-500 transform"
+              enterFrom="-translate-x-full"
+              enterTo="translate-x-0"
+              leave="transition ease-in-out duration-500 transform"
+              leaveFrom="translate-x-0"
+              leaveTo="-translate-x-full"
+            >
+              <div
+                className={`fixed h-screen inset-y-0 left-0 bg-back w-4/6 rounded-br-3xl rounded-tr-3xl p-4`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <NavActions />
+              </div>
+            </Transition.Child>
           </div>
-        </div>{" "}
+        </Transition.Child>
       </Transition>
       <div className="flex justify-between items-center mx-auto h-full max-w-screen-xl p-2">
         <div className="flex items-center justify-between gap-3">
@@ -36,7 +46,7 @@ const Header = () => {
             className="md:hidden"
             onClick={() => setSideMenu(true)}
           >
-            <GiHamburgerMenu size={"1.5rem"} />
+            <GiHamburgerMenu size={"2rem"} />
           </Button>
           <div className=" text-xl font-bold text-text-base">
             {" "}
