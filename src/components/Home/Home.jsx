@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Post from "../Post/Post";
 import NavActions from "../UI/Sidemenu/NavActions";
-
 const Home = () => {
   return (
     <div className="bg-back-darker mt-16 text-text-base">

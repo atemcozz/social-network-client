@@ -1,7 +1,8 @@
 import React from "react";
 import Button from "../UI/Button/Button";
 import CheckButton from "../UI/Button/CheckButton";
-import { BsChatLeftTextFill, BsHeart, BsBookmark } from "react-icons/bs";
+import LikeButton from "../UI/Button/LikeButton";
+import { BsChatLeftTextFill, BsBookmark } from "react-icons/bs";
 
 const Post = () => {
   return (
@@ -15,7 +16,7 @@ const Post = () => {
           />
         </div>
         <div className="flex flex-col">
-          <div className="font-semibold text-lg">Вася Пупкин</div>
+          <div className="font-semibold text-lg">Username</div>
           <div className="font-light text-xs">Санкт-Петербург</div>
         </div>
       </div>
@@ -34,10 +35,8 @@ const Post = () => {
       </div>
       <div className="flex justify-between items-center">
         <div className="flex gap-2 items-center">
-          <CheckButton>
-            <BsHeart size={"1.5rem"} />
-            <div>0</div>
-          </CheckButton>
+          <LikeButton count={0} />
+
           <Button variant="outlined">
             <BsChatLeftTextFill size={"1.5rem"} />
             <div>0</div>
