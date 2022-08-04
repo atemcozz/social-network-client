@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../UI/Button/Button";
+import CheckButton from "../UI/Button/CheckButton";
 import { BsChatLeftTextFill, BsHeart, BsBookmark } from "react-icons/bs";
 
 const Post = () => {
@@ -26,26 +27,26 @@ const Post = () => {
           alt="img"
         />
       </div>
-      <div className="p-2 bg-back-lighter rounded-lg shadow -mt-6 mb-4 w-11/12 self-center ">
+      <div className="p-2 bg-back-lighter rounded-lg shadow -mt-6 mb-4 w-11/12 self-center break-words">
         Description of this photo. Many many many many many symbols...
         Description of this photo. Many many many many many symbols...
         Description of this photo. Many many many many many symbols...
       </div>
-      <div className="flex justify-between">
-        <div className="flex gap-2">
-          <Button variant="outlined">
+      <div className="flex justify-between items-center">
+        <div className="flex gap-2 items-center">
+          <CheckButton>
             <BsHeart size={"1.5rem"} />
             <div>0</div>
-          </Button>
+          </CheckButton>
           <Button variant="outlined">
             <BsChatLeftTextFill size={"1.5rem"} />
             <div>0</div>
           </Button>
         </div>
         <div>
-          <Button variant="outlined">
+          <CheckButton>
             <BsBookmark size={"1.5rem"} />
-          </Button>
+          </CheckButton>
         </div>
       </div>
     </div>

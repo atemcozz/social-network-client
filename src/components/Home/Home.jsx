@@ -10,17 +10,19 @@ const Home = () => {
           <NavActions />
         </div>
       </div> */}
-      <div className="py-4 md:px-4 flex mx-auto max-w-screen-xl justify-between">
+      <div className="py-4 md:px-4 flex mx-auto max-w-screen-lg justify-center">
         <aside className="hidden md:block h-min bg-back w-72 p-4 rounded-lg">
           <NavActions />
         </aside>
         <div className="w-full px-4 min-h-screen flex flex-col gap-4">
+          <div className="font-bold text-xl pl-6">Популярное</div>
           <Post />
           <Post />
           <Post />
           <Post />
           <Post />
         </div>
+        <aside className="hidden md:block h-96 bg-back w-72 p-4 rounded-lg"></aside>
       </div>
     </div>
   );
