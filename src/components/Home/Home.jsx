@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Post from "../Post/Post";
 import NavActions from "../UI/Sidemenu/NavActions";
 const Home = () => {

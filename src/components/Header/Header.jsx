@@ -2,23 +2,33 @@ import React, { useState } from "react";
 import Button from "../UI/Button/Button";
 import { GiHamburgerMenu } from "react-icons/gi";
 import NavActions from "../UI/Sidemenu/NavActions";
+import { Transition } from "@headlessui/react";
+
 const Header = () => {
   const [sideMenu, setSideMenu] = useState(false);
   return (
-    <header className="bg-back shadow-lg w-full fixed h-16 top-0 left-0 z-20  ">
-      <div
-        className={`z-50  inset-0 bg-[rgba(0,0,0,0.75)] ${
-          sideMenu ? "fixed" : "hidden"
-        } `}
-        onClick={() => setSideMenu(false)}
+    <header className="bg-back shadow-lg w-full fixed h-16 top-0 left-0 z-20">
+      <Transition
+        show={sideMenu}
+        enter="transition-opacity duration-250"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-250"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
       >
         <div
-          className="fixed inset-y-0 left-0 bg-back w-4/6 rounded-br-3xl rounded-tr-3xl p-4"
-          onClick={(e) => e.stopPropagation()}
+          className={`fixed z-50  inset-0 bg-[rgba(0,0,0,0.75)]`}
+          onClick={() => setSideMenu(false)}
         >
-          <NavActions />
-        </div>
-      </div>
+          <div
+            className={`fixed inset-y-0 left-0 bg-back w-4/6 rounded-br-3xl rounded-tr-3xl p-4 transition-opacity duration-500 ease-in-out`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <NavActions />
+          </div>
+        </div>{" "}
+      </Transition>
       <div className="flex justify-between items-center mx-auto h-full max-w-screen-xl p-2">
         <div className="flex items-center justify-between gap-3">
           <Button
