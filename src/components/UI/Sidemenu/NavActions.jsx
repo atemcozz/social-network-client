@@ -49,7 +49,7 @@ const NavActions = () => {
           }}
         />
       </div>
-      <Button variant={"secondary"}>
+      <Button variant={"outlined"}>
         <FaSignOutAlt size={"32px"} />
         Выйти
       </Button>
