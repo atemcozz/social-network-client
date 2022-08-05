@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../UI/Button/Button";
 import { GiHamburgerMenu } from "react-icons/gi";
 import NavActions from "../UI/Sidemenu/NavActions";
 import { Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE, REGISTER_ROUTE } from "../../utils/routes";
+import { useLocation } from "react-router-dom";
 const Header = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [sideMenu, setSideMenu] = useState(false);
+  useEffect(() => {
+    setSideMenu(false);
+  }, [location]);
   return (
     <header className="bg-back shadow-lg w-full sticky h-16 top-0 left-0 z-20">
       <Transition show={sideMenu}>
