@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Button from "./Button";
 
-const CheckButton = ({ children, className, ...props }) => {
-  const [checked, setChecked] = useState(false);
+const CheckButton = ({ children, className, active = false, ...props }) => {
+  const [checked, setChecked] = useState(active);
   return (
     <Button
       variant={checked ? "primary" : "outlined"}

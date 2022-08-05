@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
-const LikeButton = ({ className, count, ...props }) => {
-  const [checked, setChecked] = useState(false);
+const LikeButton = ({ className, count, active = false, ...props }) => {
+  const [checked, setChecked] = useState(active);
   return (
     <Button
       variant={checked ? "danger" : "outlined"}

@@ -10,9 +10,9 @@ const Button = ({ children, variant = "primary", className, ...props }) => {
 
   return (
     <button
-      className={`rounded-lg p-2 flex items-center gap-2 ${variants[variant]} ${
-        className ? className : ""
-      }`}
+      className={`rounded-lg p-2 flex items-center gap-2  ${
+        variants[variant]
+      } ${className ? className : ""}`}
       {...props}
     >
       {children}

@@ -10,10 +10,10 @@ const Header = () => {
     <header className="bg-back shadow-lg w-full fixed h-16 top-0 left-0 z-20">
       <Transition show={sideMenu}>
         <Transition.Child
-          enter="transition-opacity duration-500"
+          enter="transition-opacity duration-250"
           enterFrom="opacity-0"
           enterTo="opacity-100"
-          leave="transition-opacity duration-500"
+          leave="transition-opacity duration-250"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
@@ -22,15 +22,15 @@ const Header = () => {
             onClick={() => setSideMenu(false)}
           >
             <Transition.Child
-              enter="transition ease-in-out duration-500 transform"
+              enter="transition ease-in-out duration-250 transform"
               enterFrom="-translate-x-full"
               enterTo="translate-x-0"
-              leave="transition ease-in-out duration-500 transform"
+              leave="transition ease-in-out duration-250 transform"
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
               <div
-                className={`fixed h-screen inset-y-0 left-0 bg-back w-4/6 rounded-br-3xl rounded-tr-3xl p-4`}
+                className={`fixed h-screen bg-back w-4/6 rounded-br-3xl rounded-tr-3xl p-4`}
                 onClick={(e) => e.stopPropagation()}
               >
                 <NavActions />
@@ -39,14 +39,14 @@ const Header = () => {
           </div>
         </Transition.Child>
       </Transition>
-      <div className="flex justify-between items-center mx-auto h-full max-w-screen-xl p-2">
+      <div className="flex justify-between items-center mx-auto h-full max-w-screen-lg p-2">
         <div className="flex items-center justify-between gap-3">
           <Button
             variant={"outlined"}
             className="md:hidden"
             onClick={() => setSideMenu(true)}
           >
-            <GiHamburgerMenu size={"2rem"} />
+            <GiHamburgerMenu size={"24px"} />
           </Button>
           <div className=" text-xl font-bold text-text-base">
             {" "}

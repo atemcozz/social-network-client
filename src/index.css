@@ -7,6 +7,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
 :root {
   --primary: #0ea5e9;
   --primary-darker: #0284c7;
