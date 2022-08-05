@@ -18,7 +18,7 @@ const Header = () => {
           leaveTo="opacity-0"
         >
           <div
-            className={`fixed z-50 inset-0 bg-[rgba(0,0,0,0.75)]`}
+            className={`fixed h-[200vh] z-50 inset-0 bg-[rgba(0,0,0,0.75)]`}
             onClick={() => setSideMenu(false)}
           >
             <Transition.Child
@@ -53,7 +53,7 @@ const Header = () => {
             <span className="text-primary">Social</span>Network
           </div>
         </div>
-        <div className="flex items-center justify-between gap-3">
+        <div className="hidden md:flex items-center justify-between gap-3">
           <Button variant={"outlined"}>Sign in</Button>
           <Button variant={"primary"}>Sign up</Button>
         </div>

@@ -4,32 +4,42 @@ import { BsBookmarkFill } from "react-icons/bs";
 import { IoTimer } from "react-icons/io5";
 import { HiFire } from "react-icons/hi";
 import { BiCategory } from "react-icons/bi";
-import SidemenuButton from "./SidemenuButton";
+import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import Toggle from "../Toggle/Toggle";
 import { AppContext } from "../../../App";
+import Button from "../Button/Button";
 const NavActions = () => {
   const { currentAppTheme, setTheme } = useContext(AppContext);
   return (
     <div className="flex flex-col gap-2 overflow-y-auto max-h-full">
-      <SidemenuButton className=" text-text-base">
+      <Button variant={"primary"} className={"md:hidden"}>
+        <FaSignInAlt size={"32px"} />
+        Логин
+      </Button>
+      <Button variant={"primary"} className={"md:hidden"}>
+        <FaSignInAlt size={"32px"} />
+        Регистрация
+      </Button>
+      <Button variant={"secondary"} className=" text-text-base">
         <BsFillPersonFill size={"32px"} /> Профиль
-      </SidemenuButton>
-      <SidemenuButton>
+      </Button>
+      <Button variant={"secondary"}>
         <IoTimer size={"32px"} />
         Новое
-      </SidemenuButton>
-      <SidemenuButton>
+      </Button>
+      <Button variant={"secondary"}>
         <HiFire size={"32px"} />
         Популярное
-      </SidemenuButton>
-      <SidemenuButton>
+      </Button>
+      <Button variant={"secondary"}>
         <BiCategory size={"32px"} />
         Категории
-      </SidemenuButton>
-      <SidemenuButton variant="secondary">
+      </Button>
+      <Button variant={"secondary"}>
         <BsBookmarkFill size={"32px"} />
         Закладки
-      </SidemenuButton>
+      </Button>
+
       <div className="rounded-lg p-2 bg-secondary flex items-center justify-between gap-2 text-text-base ">
         Тёмная тема
         <Toggle
@@ -39,6 +49,10 @@ const NavActions = () => {
           }}
         />
       </div>
+      <Button variant={"secondary"}>
+        <FaSignOutAlt size={"32px"} />
+        Выйти
+      </Button>
     </div>
   );
 };

@@ -27,8 +27,8 @@ const Post = ({ post }) => {
       <div className="p-2 bg-back-lighter rounded-lg shadow -mt-6 mb-4 w-11/12 self-center break-words">
         {post.description}
       </div>
-      <div className="flex justify-between items-center">
-        <div className="flex gap-2 items-center">
+      <div className="flex justify-between items-center ">
+        <div className="flex gap-2 items-center flex-wrap">
           <LikeButton active={post.liked} count={post.likesCount} />
 
           <Button variant="outlined">
