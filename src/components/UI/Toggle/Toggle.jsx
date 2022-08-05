@@ -3,14 +3,13 @@ import React, { useState, useEffect } from "react";
 
 const Toggle = ({ className, active = false, onChange, ...props }) => {
   const [enabled, setEnabled] = useState(active);
-  useEffect(() => {
-    onChange(enabled);
-  }, [enabled]);
+
   return (
     <Switch
       checked={enabled}
-      onChange={() => {
-        setEnabled((state) => !state);
+      onChange={(e) => {
+        setEnabled(e);
+        onChange(e);
       }}
       className={`${enabled ? "bg-primary" : "bg-back-darkest"}
     relative inline-flex w-11 h-6 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 ${

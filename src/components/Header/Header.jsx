@@ -3,8 +3,10 @@ import Button from "../UI/Button/Button";
 import { GiHamburgerMenu } from "react-icons/gi";
 import NavActions from "../UI/Sidemenu/NavActions";
 import { Transition } from "@headlessui/react";
-
+import { useNavigate } from "react-router-dom";
+import { LOGIN_ROUTE, REGISTER_ROUTE } from "../../utils/routes";
 const Header = () => {
+  const navigate = useNavigate();
   const [sideMenu, setSideMenu] = useState(false);
   return (
     <header className="bg-back shadow-lg w-full sticky h-16 top-0 left-0 z-20">
@@ -53,8 +55,12 @@ const Header = () => {
           </div>
         </div>
         <div className="hidden md:flex items-center justify-between gap-3">
-          <Button variant={"outlined"}>Sign in</Button>
-          <Button variant={"primary"}>Sign up</Button>
+          <Button onClick={() => navigate(LOGIN_ROUTE)} variant={"outlined"}>
+            Логин
+          </Button>
+          <Button onClick={() => navigate(REGISTER_ROUTE)} variant={"primary"}>
+            Регистрация
+          </Button>
         </div>
       </div>
     </header>
