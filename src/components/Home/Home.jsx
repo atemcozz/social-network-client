@@ -1,6 +1,7 @@
 import React from "react";
 import Post from "../Post/Post";
-import NavActions from "../UI/Sidemenu/NavActions";
+import ActionSideMenu from "../ActionSideMenu/ActionSideMenu";
+
 const Home = () => {
   const posts = [
     {
@@ -28,6 +29,42 @@ const Home = () => {
       bookmark: true,
       liked: true,
     },
+    {
+      userNickname: "Вася Пупкин",
+      userAvatarURL:
+        "https://miro.medium.com/max/1024/1*X2hhWhT8LxskswFNZUsMFg.png",
+      geo: "Санкт-Петербург",
+      photoURL:
+        "https://steamuserimages-a.akamaihd.net/ugc/396707750020595720/B41030072317D3387C66738F0E6FB108BBE898E1/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      description: "Description",
+      likesCount: 2,
+      commentsCount: 12,
+      bookmark: false,
+    },
+    {
+      userNickname: "Вася Пупкин",
+      userAvatarURL:
+        "https://miro.medium.com/max/1024/1*X2hhWhT8LxskswFNZUsMFg.png",
+      geo: "Санкт-Петербург",
+      photoURL:
+        "https://steamuserimages-a.akamaihd.net/ugc/396707750020595720/B41030072317D3387C66738F0E6FB108BBE898E1/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      description: "Description",
+      likesCount: 2,
+      commentsCount: 12,
+      bookmark: false,
+    },
+    {
+      userNickname: "Вася Пупкин",
+      userAvatarURL:
+        "https://miro.medium.com/max/1024/1*X2hhWhT8LxskswFNZUsMFg.png",
+      geo: "Санкт-Петербург",
+      photoURL:
+        "https://steamuserimages-a.akamaihd.net/ugc/396707750020595720/B41030072317D3387C66738F0E6FB108BBE898E1/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      description: "Description",
+      likesCount: 2,
+      commentsCount: 12,
+      bookmark: false,
+    },
   ];
   return (
     <div className="bg-back-darker mt-16 text-text-base">
@@ -37,9 +74,7 @@ const Home = () => {
         </div>
       </div> */}
       <div className="py-4 md:px-4 flex mx-auto max-w-screen-lg justify-center">
-        <aside className="hidden md:block h-min bg-back w-72 p-4 rounded-lg">
-          <NavActions />
-        </aside>
+        <ActionSideMenu />
         <div className="w-full px-4 min-h-screen flex flex-col gap-4">
           <div className="font-bold text-xl pl-6">Популярное</div>
           {posts.map((post, index) => (
