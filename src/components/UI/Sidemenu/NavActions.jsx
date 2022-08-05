@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BsBookmarkFill } from "react-icons/bs";
 import { IoTimer } from "react-icons/io5";
@@ -6,7 +6,9 @@ import { HiFire } from "react-icons/hi";
 import { BiCategory } from "react-icons/bi";
 import SidemenuButton from "./SidemenuButton";
 import Toggle from "../Toggle/Toggle";
+import { AppContext } from "../../../App";
 const NavActions = () => {
+  const { currentAppTheme, setTheme } = useContext(AppContext);
   return (
     <div className="flex flex-col gap-2 overflow-y-auto max-h-full">
       <SidemenuButton className=" text-text-base">
@@ -31,12 +33,9 @@ const NavActions = () => {
       <div className="rounded-lg p-2 bg-secondary flex items-center justify-between gap-2 text-text-base ">
         Тёмная тема
         <Toggle
-          active
-          toggleCallback={(enabled) => {
-            document.body.classList.remove(
-              enabled ? "theme-light" : "theme-dark"
-            );
-            document.body.classList.add(enabled ? "theme-dark" : "theme-light");
+          active={currentAppTheme === "theme-dark"}
+          onChange={(enabled) => {
+            setTheme(enabled ? "theme-dark" : "theme-light");
           }}
         />
       </div>

@@ -1,18 +1,18 @@
 import { Switch } from "@headlessui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Toggle = ({ active = false, toggleCallback, ...props }) => {
+const Toggle = ({ active = false, onChange, ...props }) => {
   const [enabled, setEnabled] = useState(active);
+  useEffect(() => {
+    onChange(enabled);
+  }, [enabled]);
   return (
     <Switch
       checked={enabled}
       onChange={() => {
-        setEnabled((state) => {
-          toggleCallback(!state);
-          return !state;
-        });
+        setEnabled((state) => !state);
       }}
-      className={`${enabled ? "bg-primary" : "bg-back-darker"}
+      className={`${enabled ? "bg-primary" : "bg-back-darkest"}
     relative inline-flex w-11 h-6 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
     >
       <span className="sr-only">Use setting</span>
