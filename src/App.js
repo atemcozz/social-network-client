@@ -30,8 +30,8 @@ function App() {
         <div className="py-4 md:px-4 flex mx-auto max-w-screen-lg justify-center">
           <ActionSideMenu />
           {/* <Home /> */}
-          {/* <Login /> */}
-          <Register />
+          <Login />
+          {/* <Register /> */}
           <aside className="hidden md:block sticky top-20 w-96 h-screen">
             <div className="h-96 bg-back p-4 rounded-lg"></div>
           </aside>

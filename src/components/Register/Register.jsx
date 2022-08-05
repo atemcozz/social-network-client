@@ -10,70 +10,24 @@ const Register = () => {
           Тестовая ошибка
         </div>
         <form className="flex flex-col gap-4 ">
-          <div>
-            <label
-              htmlFor="name"
-              className="block mb-2 ml-2 text-lg font-medium text-text-base"
-            >
-              Имя
-            </label>
-            <Input
-              id="name"
-              type="text"
-              placeholder="Введите имя..."
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="surname"
-              className="block mb-2 ml-2 text-lg font-medium text-text-base"
-            >
-              Фамилия
-            </label>
-            <Input
-              id="surname"
-              type="text"
-              placeholder="Введите фамилию..."
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="nickname"
-              className="block mb-2 ml-2 text-lg font-medium text-text-base"
-            >
-              Никнейм
-            </label>
-            <Input
-              id="nickname"
-              type="text"
-              placeholder="Введите никнейм..."
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="password"
-              className="block mb-2 ml-2 text-lg font-medium text-text-base"
-            >
-              Пароль
-            </label>
-            <Input
-              className="mb-2"
-              id="password"
-              type="password"
-              placeholder="Введите пароль..."
-              required
-            />
-            <Input
-              id="password_repeat"
-              type="password"
-              placeholder="Повторите пароль..."
-              required
-            />
-          </div>
+          <Input id="name" type="text" placeholder="Имя" required />
 
+          <Input id="surname" type="text" placeholder="Фамилия" required />
+
+          <Input id="nickname" type="text" placeholder="Никнейм" required />
+          <Input
+            id="email"
+            type="email"
+            placeholder="Электронная почта"
+            required
+          />
+          <Input id="password" type="password" placeholder="Пароль" required />
+          <Input
+            id="password_repeat"
+            type="password"
+            placeholder="Повторите пароль"
+            required
+          />
           <Button>Зарегистрироваться</Button>
         </form>
       </div>

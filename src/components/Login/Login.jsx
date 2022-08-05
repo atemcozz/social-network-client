@@ -11,35 +11,8 @@ const Login = () => {
           Тестовая ошибка
         </div>
         <form className="flex flex-col gap-4 ">
-          <div>
-            <label
-              htmlFor="nickname"
-              className="block mb-2 ml-2 text-lg font-medium text-text-base"
-            >
-              Никнейм
-            </label>
-            <Input
-              id="nickname"
-              type="text"
-              placeholder="Введите никнейм..."
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="password"
-              className="block mb-2 ml-2 text-lg font-medium text-text-base"
-            >
-              Пароль
-            </label>
-            <Input
-              id="password"
-              type="password"
-              placeholder="Введите пароль..."
-              required
-            />
-          </div>
-
+          <Input id="nickname" type="text" placeholder="Никнейм" required />
+          <Input id="password" type="password" placeholder="Пароль" required />
           <Button>Войти</Button>
         </form>
       </div>
