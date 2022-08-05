@@ -23,7 +23,7 @@
   --success-darker: #16a34a;
 }
 .theme-light {
-  --text-base: #000;
+  --text-base: rgb(50, 50, 50);
   --background: #fff;
   --background-darker: rgb(241, 241, 241);
   --background-darkest: rgb(215, 215, 215);

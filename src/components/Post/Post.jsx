@@ -32,13 +32,13 @@ const Post = ({ post }) => {
           <LikeButton active={post.liked} count={post.likesCount} />
 
           <Button variant="outlined">
-            <BsChatLeftTextFill size={"1.5rem"} />
+            <BsChatLeftTextFill size={"24px"} />
             <div>{post.commentsCount}</div>
           </Button>
         </div>
         <div>
           <CheckButton active={post.bookmark}>
-            <BsBookmark size={"1.5rem"} />
+            <BsBookmark size={"24px"} />
           </CheckButton>
         </div>
       </div>
