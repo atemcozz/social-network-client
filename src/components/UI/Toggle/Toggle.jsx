@@ -1,7 +1,7 @@
 import { Switch } from "@headlessui/react";
 import React, { useState, useEffect } from "react";
 
-const Toggle = ({ active = false, onChange, ...props }) => {
+const Toggle = ({ className, active = false, onChange, ...props }) => {
   const [enabled, setEnabled] = useState(active);
   useEffect(() => {
     onChange(enabled);
@@ -13,7 +13,9 @@ const Toggle = ({ active = false, onChange, ...props }) => {
         setEnabled((state) => !state);
       }}
       className={`${enabled ? "bg-primary" : "bg-back-darkest"}
-    relative inline-flex w-11 h-6 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+    relative inline-flex w-11 h-6 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 ${
+      className ? className : ""
+    }`}
     >
       <span className="sr-only">Use setting</span>
       <span

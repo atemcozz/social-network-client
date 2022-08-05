@@ -67,24 +67,11 @@ const Home = () => {
     },
   ];
   return (
-    <div className="bg-back-darker text-text-base">
-      {/* <div className="z-50 fixed inset-0 bg-[rgba(0,0,0,0.75)]">
-        <div className="fixed inset-y-0 left-0 bg-back w-4/6 rounded-b-3xl rounded-tr-3xl p-4">
-          <NavActions />
-        </div>
-      </div> */}
-      <div className="py-4 md:px-4 flex mx-auto max-w-screen-lg justify-center">
-        <ActionSideMenu />
-        <div className="w-full px-4 min-h-screen flex flex-col gap-4">
-          <div className="font-bold text-xl pl-6">Популярное</div>
-          {posts.map((post, index) => (
-            <Post key={index} post={post} />
-          ))}
-        </div>
-        <aside className="hidden md:block sticky top-20 w-96 h-screen">
-          <div className="h-96 bg-back p-4 rounded-lg"></div>
-        </aside>
-      </div>
+    <div className="w-full px-4 min-h-screen flex flex-col gap-4">
+      <div className="font-bold text-xl pl-6">Популярное</div>
+      {posts.map((post, index) => (
+        <Post key={index} post={post} />
+      ))}
     </div>
   );
 };

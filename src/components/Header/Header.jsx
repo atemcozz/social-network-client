@@ -49,7 +49,6 @@ const Header = () => {
             <GiHamburgerMenu size={"24px"} />
           </Button>
           <div className=" text-xl font-bold text-text-base">
-            {" "}
             <span className="text-primary">Social</span>Network
           </div>
         </div>
