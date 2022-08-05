@@ -67,7 +67,7 @@ const Home = () => {
     },
   ];
   return (
-    <div className="bg-back-darker mt-16 text-text-base">
+    <div className="bg-back-darker text-text-base">
       {/* <div className="z-50 fixed inset-0 bg-[rgba(0,0,0,0.75)]">
         <div className="fixed inset-y-0 left-0 bg-back w-4/6 rounded-b-3xl rounded-tr-3xl p-4">
           <NavActions />
@@ -81,7 +81,9 @@ const Home = () => {
             <Post key={index} post={post} />
           ))}
         </div>
-        <aside className="hidden md:block h-96 bg-back w-72 p-4 rounded-lg"></aside>
+        <aside className="hidden md:block sticky top-20 w-96 h-screen">
+          <div className="h-96 bg-back p-4 rounded-lg"></div>
+        </aside>
       </div>
     </div>
   );

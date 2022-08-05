@@ -22,7 +22,7 @@ function App() {
         setTheme,
       }}
     >
-      <div className="App bg-back-darker overflow-x-hidden">
+      <div className="App bg-back-darker">
         <Header />
         <Home />
       </div>

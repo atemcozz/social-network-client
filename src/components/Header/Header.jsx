@@ -7,7 +7,7 @@ import { Transition } from "@headlessui/react";
 const Header = () => {
   const [sideMenu, setSideMenu] = useState(false);
   return (
-    <header className="bg-back shadow-lg w-full fixed h-16 top-0 left-0 z-20">
+    <header className="bg-back shadow-lg w-full sticky h-16 top-0 left-0 z-20">
       <Transition show={sideMenu}>
         <Transition.Child
           enter="transition-opacity duration-250"
