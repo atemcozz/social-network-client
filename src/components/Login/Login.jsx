@@ -10,7 +10,10 @@ const Login = () => {
         <div className="text-white bg-danger rounded-lg p-4 break-words">
           Тестовая ошибка
         </div>
-        <form className="flex flex-col gap-4 ">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="flex flex-col gap-4 "
+        >
           <Input id="nickname" type="text" placeholder="Никнейм" required />
           <Input id="password" type="password" placeholder="Пароль" required />
           <Button>Войти</Button>

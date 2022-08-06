@@ -9,18 +9,15 @@ const Register = () => {
         <div className="text-white bg-danger rounded-lg p-4 break-words">
           Тестовая ошибка
         </div>
-        <form className="flex flex-col gap-4 ">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="flex flex-col gap-4 "
+        >
           <Input id="name" type="text" placeholder="Имя" required />
 
           <Input id="surname" type="text" placeholder="Фамилия" required />
 
           <Input id="nickname" type="text" placeholder="Никнейм" required />
-          <Input
-            id="email"
-            type="email"
-            placeholder="Электронная почта"
-            required
-          />
           <Input id="password" type="password" placeholder="Пароль" required />
           <Input
             id="password_repeat"

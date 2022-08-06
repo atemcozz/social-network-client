@@ -59,13 +59,16 @@ const Header = () => {
             <span className="text-primary">Social</span>Network
           </div>
         </div>
-        <div className="hidden md:flex items-center justify-between gap-3">
+        {/* <div className="hidden md:flex items-center justify-between gap-3">
           <Button onClick={() => navigate(LOGIN_ROUTE)} variant={"outlined"}>
             Логин
           </Button>
           <Button onClick={() => navigate(REGISTER_ROUTE)} variant={"primary"}>
             Регистрация
           </Button>
+        </div> */}
+        <div className="hidden md:flex items-center justify-between gap-3">
+          <Button variant={"outlined"}>#КакоеНибудьСобытие</Button>
         </div>
       </div>
     </header>

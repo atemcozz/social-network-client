@@ -15,19 +15,11 @@ const NavActions = () => {
   const { getTheme, setTheme } = useContext(AppContext);
   return (
     <div className="flex flex-col gap-2 overflow-y-auto max-h-full">
-      <Button
-        variant={"primary"}
-        className={"md:hidden"}
-        onClick={() => navigate(LOGIN_ROUTE)}
-      >
+      <Button variant={"outlined"} onClick={() => navigate(LOGIN_ROUTE)}>
         <FaSignInAlt size={"32px"} />
         Логин
       </Button>
-      <Button
-        variant={"primary"}
-        className={"md:hidden"}
-        onClick={() => navigate(REGISTER_ROUTE)}
-      >
+      <Button variant={"primary"} onClick={() => navigate(REGISTER_ROUTE)}>
         <FaSignInAlt size={"32px"} />
         Регистрация
       </Button>
