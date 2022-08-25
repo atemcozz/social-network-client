@@ -5,9 +5,13 @@ import { HOME_ROUTE } from "./utils/routes";
 import ActionSideMenu from "./components/ActionSideMenu/ActionSideMenu";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { publicRoutes } from "./utils/routes";
+import { useContext } from "react";
+import { Context } from "./index";
+import { observer } from "mobx-react";
 export const AppContext = createContext(null);
 function App() {
   const APP_THEMES = ["theme-dark", "theme-light"];
+  const { store } = useContext(Context);
   const getTheme = () => {
     return localStorage.getItem("theme");
   };
@@ -22,6 +26,7 @@ function App() {
   };
   useEffect(() => {
     setTheme(localStorage.getItem("theme"));
+    store.checkAuth();
   }, []);
   return (
     <AppContext.Provider
@@ -53,4 +58,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

@@ -11,6 +11,7 @@ import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE, REGISTER_ROUTE, HOME_ROUTE } from "../../../utils/routes";
 import { Context } from "../../../index";
+import { observer } from "mobx-react";
 const NavActions = () => {
   const { store } = useContext(Context);
   const navigate = useNavigate();
@@ -75,4 +76,4 @@ const NavActions = () => {
   );
 };
 
-export default NavActions;
+export default observer(NavActions);
