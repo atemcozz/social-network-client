@@ -26,7 +26,9 @@ function App() {
   };
   useEffect(() => {
     setTheme(localStorage.getItem("theme"));
-    store.checkAuth();
+    if (localStorage.getItem("token")) {
+      store.checkAuth();
+    }
   }, []);
   return (
     <AppContext.Provider
