@@ -30,10 +30,11 @@ const NavActions = () => {
           </Button>
         </>
       )}
-
-      <Button variant={"secondary"} className=" text-text-base">
-        <BsFillPersonFill size={"32px"} /> Профиль
-      </Button>
+      {store.isAuth && (
+        <Button variant={"secondary"} className=" text-text-base">
+          <BsFillPersonFill size={"32px"} /> Профиль
+        </Button>
+      )}
       <Button variant={"secondary"} onClick={() => navigate(HOME_ROUTE)}>
         <IoTimer size={"32px"} />
         Новое
@@ -46,10 +47,12 @@ const NavActions = () => {
         <BiCategory size={"32px"} />
         Категории
       </Button>
-      <Button variant={"secondary"}>
-        <BsBookmarkFill size={"32px"} />
-        Закладки
-      </Button>
+      {store.isAuth && (
+        <Button variant={"secondary"}>
+          <BsBookmarkFill size={"32px"} />
+          Закладки
+        </Button>
+      )}
 
       <div className="rounded-lg p-2 bg-secondary flex items-center justify-between gap-2 text-text-base ">
         Тёмная тема

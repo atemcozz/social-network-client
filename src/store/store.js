@@ -5,6 +5,7 @@ import { API_URL } from "../api/server";
 export default class Store {
   user = {};
   isAuth = false;
+  isLoading = false;
   constructor() {
     makeAutoObservable(this);
   }
@@ -14,8 +15,12 @@ export default class Store {
   setUser(user) {
     this.user = user;
   }
+  setLoading(loading) {
+    this.isLoading = loading;
+  }
   async login(nickname, password, callback) {
     try {
+      this.setLoading(true);
       const res = await AuthService.login(nickname, password);
       //console.log(res);
       localStorage.setItem("token", res.data.accessToken);
@@ -25,10 +30,13 @@ export default class Store {
     } catch (e) {
       callback(e.response?.data?.msg);
       console.error(e.response?.data?.msg);
+    } finally {
+      this.setLoading(false);
     }
   }
   async register(name, surname, nickname, password) {
     try {
+      this.setLoading(true);
       const res = await AuthService.register(name, surname, nickname, password);
       //console.log(res);
       localStorage.setItem("token", res.data.accessToken);
@@ -36,6 +44,8 @@ export default class Store {
       this.setUser(res.data.user);
     } catch (e) {
       console.error(e.response?.data?.msg);
+    } finally {
+      this.setLoading(false);
     }
   }
   async logout() {
@@ -51,6 +61,8 @@ export default class Store {
   }
   async checkAuth() {
     try {
+      this.setLoading(true);
+      // await new Promise((res) => setTimeout(res, 3000));
       const res = await axios.get(`${API_URL}/refresh`, {
         withCredentials: true,
       });
@@ -59,6 +71,8 @@ export default class Store {
       this.setUser(res.data.user);
     } catch (e) {
       console.error(e.response?.data?.msg);
+    } finally {
+      this.setLoading(false);
     }
   }
 }

@@ -8,6 +8,7 @@ import { publicRoutes } from "./utils/routes";
 import { useContext } from "react";
 import { Context } from "./index";
 import { observer } from "mobx-react";
+import Spinner from "./components/UI/Spinner/Spinner";
 export const AppContext = createContext(null);
 function App() {
   const APP_THEMES = ["theme-dark", "theme-light"];
@@ -30,6 +31,13 @@ function App() {
       store.checkAuth();
     }
   }, []);
+  if (store.isLoading) {
+    return (
+      <div className="bg-back-darker text-text-bas flex items-center justify-center h-screen">
+        <Spinner />
+      </div>
+    );
+  }
   return (
     <AppContext.Provider
       value={{
