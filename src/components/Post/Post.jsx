@@ -5,7 +5,23 @@ import LikeButton from "../UI/Button/LikeButton";
 import { BsChatLeftTextFill, BsBookmark } from "react-icons/bs";
 import defaultAvatar from "../../assets/default_avatar.png";
 import imageNotFound from "../../assets/image_notfound.png";
+import { useState, useEffect, useContext } from "react";
+import PostService from "../../services/PostService";
+import { Context } from "../../index";
 const Post = ({ post }) => {
+  const { store } = useContext(Context);
+  const [postLiked, setPostLiked] = useState(false);
+  function likePost() {
+    if (postLiked) post.likesCount--;
+    else post.likesCount++;
+    setPostLiked((state) => !state);
+    PostService.likePost(store.user.id, post.id);
+  }
+  useEffect(() => {
+    PostService.getLikeStatus(store.user.id, post.id).then((res) =>
+      setPostLiked(res.data.liked)
+    );
+  }, []);
   return (
     <div className="flex flex-col rounded-lg shadow-md p-4 bg-back">
       <div className="flex items-center gap-2 mb-2">
@@ -59,7 +75,11 @@ const Post = ({ post }) => {
       </div>
       <div className="flex justify-between items-center ">
         <div className="flex gap-2 items-center flex-wrap">
-          <LikeButton active={post.liked} count={post.likesCount} />
+          <LikeButton
+            onClick={likePost}
+            active={postLiked}
+            count={post.likesCount}
+          />
 
           <Button variant="outlined">
             <BsChatLeftTextFill size={"24px"} />
