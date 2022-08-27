@@ -8,15 +8,21 @@ import imageNotFound from "../../assets/image_notfound.png";
 import { useState, useEffect, useContext } from "react";
 import PostService from "../../services/PostService";
 import { Context } from "../../index";
-import cc from "../../assets/cc.mp3";
+import { useNavigate } from "react-router-dom";
+import { LOGIN_ROUTE } from "../../utils/routes";
 const Post = ({ post }) => {
+  const navigate = useNavigate();
   const { store } = useContext(Context);
   const [postLiked, setPostLiked] = useState(false);
   function likePost() {
-    if (postLiked) post.likes_count--;
-    else post.likes_count++;
-    setPostLiked((state) => !state);
-    PostService.likePost(post.id);
+    if (store.isAuth) {
+      if (postLiked) post.likes_count--;
+      else post.likes_count++;
+      setPostLiked((state) => !state);
+      PostService.likePost(post.id);
+    } else {
+      navigate(LOGIN_ROUTE);
+    }
   }
   useEffect(() => {
     setPostLiked(post.userLike);
@@ -70,7 +76,7 @@ const Post = ({ post }) => {
                     alt="img"
                   />
                 );
-                break;
+
               case "video":
                 return (
                   <video
@@ -80,7 +86,7 @@ const Post = ({ post }) => {
                     controls
                   ></video>
                 );
-                break;
+
               case "audio":
                 return (
                   <audio
@@ -90,7 +96,7 @@ const Post = ({ post }) => {
                     src={at.url}
                   ></audio>
                 );
-                break;
+
               default:
                 break;
             }

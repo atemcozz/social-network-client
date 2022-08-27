@@ -4,7 +4,7 @@ import { BsHeart, BsHeartFill } from "react-icons/bs";
 const LikeButton = ({ className, count, active = false, ...props }) => {
   return (
     <Button
-      variant={active ? "danger" : "outlined"}
+      variant={active ? "like" : "outlined"}
       className={`${className ? className : ""}`}
       {...props}
     >

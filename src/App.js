@@ -1,7 +1,7 @@
 import React, { useState, createContext, useEffect } from "react";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
-import { HOME_ROUTE } from "./utils/routes";
+import { HOME_ROUTE, privateRoutes } from "./utils/routes";
 import ActionSideMenu from "./components/ActionSideMenu/ActionSideMenu";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { publicRoutes } from "./utils/routes";
@@ -47,9 +47,9 @@ function App() {
     >
       <div className="App bg-back-darker text-text-base">
         <Header />
-        <div className="py-4 md:px-4 flex mx-auto max-w-screen-lg justify-center">
+        <div className="py-4 md:px-4 flex mx-auto max-w-screen-lg justify-center ">
           <ActionSideMenu />
-          <div className="w-full px-4 min-h-screen">
+          <div className="w-full px-4">
             <Routes>
               {publicRoutes.map((route, index) => (
                 <Route
@@ -58,11 +58,19 @@ function App() {
                   element={<route.Component />}
                 />
               ))}
+              {store.isAuth &&
+                privateRoutes.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    element={<route.Component />}
+                  />
+                ))}
               <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
             </Routes>
           </div>
 
-          <aside className="hidden md:block sticky top-20 w-96 h-screen">
+          <aside className="hidden md:block sticky top-20 w-96 max-h-[80vh]">
             <div className="h-96 bg-back p-4 rounded-lg"></div>
           </aside>
         </div>

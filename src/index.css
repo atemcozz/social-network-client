@@ -20,6 +20,7 @@
   --danger-darker: #dc2626;
   --success: #22c55e;
   --success-darker: #16a34a;
+  --like: #ff6262;
 }
 .theme-light {
   --text-base: rgb(50, 50, 50);

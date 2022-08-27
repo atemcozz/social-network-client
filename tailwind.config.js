@@ -33,8 +33,8 @@ module.exports = {
         "back-darker": "var(--background-darker)",
         "back-darkest": "var(--background-darkest)",
         "back-lighter": "var(--background-lighter)",
-
         "text-base": "var(--text-base)",
+        like: "var(--like)",
       },
     },
   },

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BsBookmarkFill } from "react-icons/bs";
-import { IoTimer } from "react-icons/io5";
+import { IoTimer, IoCreate } from "react-icons/io5";
 import { HiFire } from "react-icons/hi";
 import { BiCategory } from "react-icons/bi";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
@@ -9,7 +9,12 @@ import Toggle from "../Toggle/Toggle";
 import { AppContext } from "../../../App";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
-import { LOGIN_ROUTE, REGISTER_ROUTE, HOME_ROUTE } from "../../../utils/routes";
+import {
+  LOGIN_ROUTE,
+  REGISTER_ROUTE,
+  HOME_ROUTE,
+  CREATE_POST_ROUTE,
+} from "../../../utils/routes";
 import { Context } from "../../../index";
 import { observer } from "mobx-react";
 const NavActions = () => {
@@ -47,11 +52,21 @@ const NavActions = () => {
         <BiCategory size={"32px"} />
         Категории
       </Button>
+
       {store.isAuth && (
-        <Button variant={"secondary"}>
-          <BsBookmarkFill size={"32px"} />
-          Закладки
-        </Button>
+        <>
+          <Button
+            variant={"secondary"}
+            onClick={() => navigate(CREATE_POST_ROUTE)}
+          >
+            <IoCreate size={"32px"} />
+            Новый пост
+          </Button>
+          <Button variant={"secondary"}>
+            <BsBookmarkFill size={"32px"} />
+            Закладки
+          </Button>
+        </>
       )}
 
       <div className="rounded-lg p-2 bg-secondary flex items-center justify-between gap-2 text-text-base ">

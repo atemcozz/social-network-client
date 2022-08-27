@@ -25,7 +25,7 @@ const Login = () => {
     e.target.reset();
   };
   return (
-    <div className="w-full px-4 min-h-screen flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <div className="font-bold text-xl pl-6">Логин</div>
       <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
         {error && (

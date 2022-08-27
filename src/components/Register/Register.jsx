@@ -3,7 +3,7 @@ import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 const Register = () => {
   return (
-    <div className="w-full px-4 min-h-screen flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <div className="font-bold text-xl pl-6">Регистрация</div>
       <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
         <div className="text-white bg-danger rounded-lg p-4 break-words">

@@ -7,10 +7,10 @@ import PostService from "../../services/PostService";
 const Home = () => {
   const [posts, postsLoading, error] = useRequest(() => PostService.getPosts());
   return (
-    <div className="flex flex-col gap-4">
+    <div className="min-h-screen flex flex-col gap-4">
       <div className="font-bold text-xl pl-6">Популярное</div>
       {postsLoading && (
-        <div className="flex items-center justify-center w-full">
+        <div className="flex items-center justify-center w-full h-[30vh]">
           <Spinner />
         </div>
       )}
