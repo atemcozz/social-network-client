@@ -49,16 +49,19 @@ function App() {
         <Header />
         <div className="py-4 md:px-4 flex mx-auto max-w-screen-lg justify-center">
           <ActionSideMenu />
-          <Routes>
-            {publicRoutes.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                element={<route.Component />}
-              />
-            ))}
-            <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
-          </Routes>
+          <div className="w-full px-4 min-h-screen">
+            <Routes>
+              {publicRoutes.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={<route.Component />}
+                />
+              ))}
+              <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
+            </Routes>
+          </div>
+
           <aside className="hidden md:block sticky top-20 w-96 h-screen">
             <div className="h-96 bg-back p-4 rounded-lg"></div>
           </aside>
