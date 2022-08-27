@@ -8,6 +8,7 @@ import imageNotFound from "../../assets/image_notfound.png";
 import { useState, useEffect, useContext } from "react";
 import PostService from "../../services/PostService";
 import { Context } from "../../index";
+import cc from "../../assets/cc.mp3";
 const Post = ({ post }) => {
   const { store } = useContext(Context);
   const [postLiked, setPostLiked] = useState(false);
@@ -21,8 +22,8 @@ const Post = ({ post }) => {
     setPostLiked(post.userLike);
   }, []);
   return (
-    <div className="flex flex-col rounded-lg shadow-md p-4 bg-back">
-      <div className="flex items-center gap-2 mb-2">
+    <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
+      <div className="flex items-center gap-2">
         <div className="w-12 h-12">
           <img
             className="object-cover w-12 h-12 rounded-full shadow"
@@ -49,28 +50,53 @@ const Post = ({ post }) => {
           </div>
         </div>
       </div>
-
-      <div className="flex flex-col gap-3">
-        {post.attachments.map((at, index) => {
-          if (at.type === "photo") {
-            return (
-              <img
-                key={index}
-                className="w-full rounded-lg"
-                src={at.url}
-                onError={({ currentTarget }) => {
-                  currentTarget.onerror = null;
-                  currentTarget.src = imageNotFound;
-                }}
-                alt="img"
-              />
-            );
-          }
-        })}
-      </div>
-      <div className="p-2 bg-back-lighter rounded-lg shadow mt-2 mb-4 w-11/12 self-center break-words">
+      <div className="p-2 bg-back-lighter rounded-lg shadow w-11/12 self-center break-words">
         {post.description}
       </div>
+      <div className="flex flex-col gap-3">
+        {post.attachments[0] &&
+          post.attachments.map((at, index) => {
+            switch (at.type) {
+              case "photo":
+                return (
+                  <img
+                    key={index}
+                    className="w-full rounded-lg"
+                    src={at.url}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null;
+                      currentTarget.src = imageNotFound;
+                    }}
+                    alt="img"
+                  />
+                );
+                break;
+              case "video":
+                return (
+                  <video
+                    key={index}
+                    className="w-full rounded-lg"
+                    src={at.url}
+                    controls
+                  ></video>
+                );
+                break;
+              case "audio":
+                return (
+                  <audio
+                    className="w-full rounded-lg bg-primary"
+                    controls
+                    key={index}
+                    src={at.url}
+                  ></audio>
+                );
+                break;
+              default:
+                break;
+            }
+          })}
+      </div>
+
       <div className="flex justify-between items-center ">
         <div className="flex gap-2 items-center flex-wrap">
           <LikeButton
