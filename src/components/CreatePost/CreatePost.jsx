@@ -23,12 +23,11 @@ const CreatePost = () => {
       let files = [];
       for (const file of event.target.files) {
         files.push({
-          id: lastMediaID,
+          id: lastMediaID++,
           type,
           file: URL.createObjectURL(file),
           filename: file.name,
         });
-        lastMediaID++;
       }
       setAttachments((state) => [...state, ...files]);
       console.log(attachments);

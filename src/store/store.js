@@ -5,7 +5,7 @@ import { API_URL } from "../api/server";
 export default class Store {
   user = {};
   isAuth = false;
-  isLoading = false;
+  isLoading = true;
   constructor() {
     makeAutoObservable(this);
   }

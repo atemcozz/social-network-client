@@ -50,24 +50,26 @@ function App() {
         <div className="py-4 md:px-4 flex mx-auto max-w-screen-lg justify-center ">
           <ActionSideMenu />
           <div className="w-full px-4">
-            <Routes>
-              {publicRoutes.map((route, index) => (
-                <Route
-                  key={index}
-                  path={route.path}
-                  element={<route.Component />}
-                />
-              ))}
-              {store.isAuth &&
-                privateRoutes.map((route, index) => (
+            {!store.isLoading && (
+              <Routes>
+                {publicRoutes.map((route, index) => (
                   <Route
                     key={index}
                     path={route.path}
                     element={<route.Component />}
                   />
                 ))}
-              <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
-            </Routes>
+                {store.isAuth &&
+                  privateRoutes.map((route, index) => (
+                    <Route
+                      key={index}
+                      path={route.path}
+                      element={<route.Component />}
+                    />
+                  ))}
+                <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
+              </Routes>
+            )}
           </div>
 
           <aside className="hidden md:block sticky top-20 w-96 max-h-[80vh]">
