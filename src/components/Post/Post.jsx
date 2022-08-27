@@ -15,7 +15,7 @@ const Post = ({ post }) => {
     if (postLiked) post.likes_count--;
     else post.likes_count++;
     setPostLiked((state) => !state);
-    PostService.likePost(store.user.id, post.id);
+    PostService.likePost(post.id);
   }
   useEffect(() => {
     setPostLiked(post.userLike);
@@ -84,11 +84,11 @@ const Post = ({ post }) => {
             <div>{post.comments_count}</div>
           </Button>
         </div>
-        <div>
+        {/* <div>
           <CheckButton active={post.bookmark}>
             <BsBookmark size={"24px"} />
           </CheckButton>
-        </div>
+        </div> */}
       </div>
     </div>
   );
