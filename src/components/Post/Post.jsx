@@ -12,17 +12,13 @@ const Post = ({ post }) => {
   const { store } = useContext(Context);
   const [postLiked, setPostLiked] = useState(false);
   function likePost() {
-    if (postLiked) post.likesCount--;
-    else post.likesCount++;
+    if (postLiked) post.likes_count--;
+    else post.likes_count++;
     setPostLiked((state) => !state);
     PostService.likePost(store.user.id, post.id);
   }
   useEffect(() => {
-    if (store.isAuth) {
-      PostService.getLikeStatus(store.user.id, post.id).then((res) =>
-        setPostLiked(res.data.liked)
-      );
-    }
+    setPostLiked(post.userLike);
   }, []);
   return (
     <div className="flex flex-col rounded-lg shadow-md p-4 bg-back">
@@ -80,12 +76,12 @@ const Post = ({ post }) => {
           <LikeButton
             onClick={likePost}
             active={postLiked}
-            count={post.likesCount}
+            count={post.likes_count}
           />
 
           <Button variant="outlined">
             <BsChatLeftTextFill size={"24px"} />
-            <div>{post.commentsCount}</div>
+            <div>{post.comments_count}</div>
           </Button>
         </div>
         <div>

@@ -1,14 +1,11 @@
 import React from "react";
 import Post from "../Post/Post";
-import { API_URL } from "../../api/server";
 import useRequest from "../../hooks/useRequest";
-import axios from "axios";
 import Spinner from "../UI/Spinner/Spinner";
+import PostService from "../../services/PostService";
 
 const Home = () => {
-  const [posts, postsLoading, error] = useRequest(() =>
-    axios.get(`${API_URL}/posts`)
-  );
+  const [posts, postsLoading, error] = useRequest(() => PostService.getPosts());
   return (
     <div className="w-full px-4 min-h-screen flex flex-col gap-4">
       {postsLoading ? (
