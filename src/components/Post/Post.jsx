@@ -18,9 +18,11 @@ const Post = ({ post }) => {
     PostService.likePost(store.user.id, post.id);
   }
   useEffect(() => {
-    PostService.getLikeStatus(store.user.id, post.id).then((res) =>
-      setPostLiked(res.data.liked)
-    );
+    if (store.isAuth) {
+      PostService.getLikeStatus(store.user.id, post.id).then((res) =>
+        setPostLiked(res.data.liked)
+      );
+    }
   }, []);
   return (
     <div className="flex flex-col rounded-lg shadow-md p-4 bg-back">
