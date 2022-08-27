@@ -11,37 +11,65 @@ import {
 } from "react-icons/md";
 import { useRef } from "react";
 import { useState } from "react";
+import PostService from "../../services/PostService";
 let lastMediaID = 0;
 const CreatePost = () => {
   const photoInput = useRef();
   const videoInput = useRef();
   const audioInput = useRef();
+  const [description, setDescription] = useState("");
   const [attachments, setAttachments] = useState([]);
 
   function addMedia(type, event) {
     if (event.target.files && event.target.files[0]) {
       let files = [];
       for (const file of event.target.files) {
+        const reader = new FileReader();
+
         files.push({
           id: lastMediaID++,
           type,
-          file: URL.createObjectURL(file),
+          file,
+          url: URL.createObjectURL(file),
           filename: file.name,
         });
+        // console.log(files);
+        // reader.onloadend = () => {
+        //   console.log(reader.result);
+        // };
+        // reader.readAsDataURL(file);
+
+        //console.log(event.target.files[0]);
       }
       setAttachments((state) => [...state, ...files]);
-      console.log(attachments);
+
+      // console.log(attachments);
     }
   }
   function removeMedia(id) {
     setAttachments((state) => state.filter((at) => at.id !== id));
+  }
+  function sendPost() {
+    const attachmentsData = new FormData();
+    attachments.forEach((at, index) =>
+      attachmentsData.append(`file${index}`, at.file)
+    );
+
+    // console.log(attachmentsData);
+    // const post = { description, attachmentsData };
+    PostService.createPost(description, attachmentsData);
   }
   return (
     <div>
       <div className="font-bold text-xl pl-6 pb-4">Новый пост</div>
       <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
         <div className="font-bold text-lg">Описание поста</div>
-        <TextArea rows={3} placeholder={"Введите описание поста..."} />
+        <TextArea
+          value={description}
+          rows={3}
+          placeholder={"Введите описание поста..."}
+          onChange={(e) => setDescription(e.target.value)}
+        />
         <div className="font-bold text-lg">Медиа</div>
         <div className="flex gap-2 items-center flex-wrap md:justify-start justify-center">
           <Button variant="outlined" onClick={() => photoInput.current.click()}>
@@ -95,7 +123,7 @@ const CreatePost = () => {
                         <MdClose className="text-white" />
                       </Button>
                       <img
-                        src={at.file}
+                        src={at.url}
                         alt="img"
                         className="w-40 h-40 object-cover rounded-lg shadow"
                       />
@@ -115,7 +143,7 @@ const CreatePost = () => {
                       </div>
 
                       <video
-                        src={at.file}
+                        src={at.url}
                         alt="video"
                         className="w-40 h-40 object-cover rounded-lg shadow"
                       />
@@ -144,7 +172,9 @@ const CreatePost = () => {
               }
             })}
         </div>
-        <Button variant="primary">Отправить</Button>
+        <Button variant="primary" onClick={sendPost}>
+          Отправить
+        </Button>
       </div>
     </div>
   );

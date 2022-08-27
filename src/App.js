@@ -29,7 +29,7 @@ function App() {
     setTheme(localStorage.getItem("theme"));
     if (localStorage.getItem("token")) {
       store.checkAuth();
-    }
+    } else store.setLoading(false);
   }, []);
   if (store.isLoading) {
     return (
