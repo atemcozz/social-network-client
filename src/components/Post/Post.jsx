@@ -2,14 +2,20 @@ import React from "react";
 import Button from "../UI/Button/Button";
 import CheckButton from "../UI/Button/CheckButton";
 import LikeButton from "../UI/Button/LikeButton";
-import { BsChatLeftTextFill, BsBookmark } from "react-icons/bs";
+import {
+  BsChatLeftTextFill,
+  BsBookmark,
+  BsThreeDotsVertical,
+} from "react-icons/bs";
+import { MdDeleteForever, MdContentCopy } from "react-icons/md";
 import defaultAvatar from "../../assets/default_avatar.png";
 import imageNotFound from "../../assets/image_notfound.png";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import PostService from "../../services/PostService";
 import { Context } from "../../index";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../utils/routes";
+import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 const Post = ({ post }) => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
@@ -24,37 +30,68 @@ const Post = ({ post }) => {
       navigate(LOGIN_ROUTE);
     }
   }
+  function copyLink() {
+    if (typeof window !== "undefined") {
+      const url = `${window.location.protocol}//${window.location.host}/post/${post.id}`;
+      const textField = document.createElement("textarea");
+      textField.innerText = url;
+      document.body.appendChild(textField);
+      textField.select();
+      document.execCommand("copy");
+      textField.remove();
+    }
+  }
+  function deletePost() {
+    console.log("delete");
+  }
   useEffect(() => {
     setPostLiked(post.userLike);
   }, []);
+
   return (
     <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
-      <div className="flex items-center gap-2">
-        <div className="w-12 h-12">
-          <img
-            className="object-cover w-12 h-12 rounded-full shadow"
-            src={post.user.avatar_url}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null;
-              currentTarget.src = defaultAvatar;
-            }}
-            alt="avatar"
-          />
-        </div>
-        <div className="flex flex-col">
-          <div className="font-semibold text-lg">{post.user.nickname}</div>
-          <div className="font-light text-xs">
-            {new Date(post.created_at)
-              .toLocaleDateString("ru-RU", {
-                day: "numeric",
-                month: "numeric",
-                year: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-              })
-              .toString()}
+      <div className="flex items-center justify-between relative">
+        <div className="flex gap-2">
+          <div className="w-12 h-12">
+            <img
+              className="object-cover w-12 h-12 rounded-full shadow"
+              src={post.user.avatar_url}
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null;
+                currentTarget.src = defaultAvatar;
+              }}
+              alt="avatar"
+            />
+          </div>
+          <div className="flex flex-col">
+            <div className="font-semibold text-lg">{post.user.nickname}</div>
+            <div className="font-light text-xs">
+              {new Date(post.created_at)
+                .toLocaleDateString("ru-RU", {
+                  day: "numeric",
+                  month: "numeric",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                })
+                .toString()}
+            </div>
           </div>
         </div>
+        <DotsDropdown
+          items={[
+            {
+              name: "Скопировать ссылку",
+              icon: <MdContentCopy size={"24px"} />,
+              onClick: copyLink,
+            },
+            {
+              name: "Удалить пост",
+              icon: <MdDeleteForever size={"24px"} />,
+              onClick: deletePost,
+            },
+          ]}
+        />
       </div>
       {post.description && (
         <div className="p-2 bg-back-lighter rounded-lg shadow w-11/12 self-center break-words">
