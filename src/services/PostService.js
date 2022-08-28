@@ -10,8 +10,8 @@ export default class PostService {
   static async getPosts() {
     return api.get(`/posts`);
   }
-  static async createPost(description, attachments) {
-    return api.post(`/post`, attachments, {
+  static async createPost(post) {
+    return api.post(`/post`, post, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

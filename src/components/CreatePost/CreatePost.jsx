@@ -31,7 +31,6 @@ const CreatePost = () => {
           type,
           file,
           url: URL.createObjectURL(file),
-          filename: file.name,
         });
         // console.log(files);
         // reader.onloadend = () => {
@@ -50,14 +49,13 @@ const CreatePost = () => {
     setAttachments((state) => state.filter((at) => at.id !== id));
   }
   function sendPost() {
-    const attachmentsData = new FormData();
-    attachments.forEach((at, index) =>
-      attachmentsData.append(`file${index}`, at.file)
-    );
+    const formData = new FormData();
+    formData.append("description", description);
+    attachments.forEach((at, index) => formData.append(`files[]`, at.file));
 
     // console.log(attachmentsData);
     // const post = { description, attachmentsData };
-    PostService.createPost(description, attachmentsData);
+    PostService.createPost(formData);
   }
   return (
     <div>
@@ -71,7 +69,7 @@ const CreatePost = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
         <div className="font-bold text-lg">Медиа</div>
-        <div className="flex gap-2 items-center flex-wrap md:justify-start justify-center">
+        <div className="flex gap-2 items-center flex-wrap  justify-center">
           <Button variant="outlined" onClick={() => photoInput.current.click()}>
             <MdAddPhotoAlternate size="32px" />
             Фото
@@ -109,7 +107,7 @@ const CreatePost = () => {
             />
           </Button>
         </div>
-        <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+        <div className="flex flex-wrap gap-2 justify-center">
           {attachments &&
             attachments.map((at, index) => {
               switch (at.type) {
@@ -163,7 +161,7 @@ const CreatePost = () => {
                       </Button>
                       <div className="flex flex-col justify-center items-center h-full text-white text-center">
                         <MdOutlineAudiotrack size={"64px"} />
-                        <div className="w-36 truncate">{at.filename}</div>
+                        <div className="w-36 truncate">{at.file.name}</div>
                       </div>
                     </div>
                   );
