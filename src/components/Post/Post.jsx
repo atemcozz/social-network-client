@@ -56,9 +56,11 @@ const Post = ({ post }) => {
           </div>
         </div>
       </div>
-      <div className="p-2 bg-back-lighter rounded-lg shadow w-11/12 self-center break-words">
-        {post.description}
-      </div>
+      {post.description && (
+        <div className="p-2 bg-back-lighter rounded-lg shadow w-11/12 self-center break-words">
+          {post.description}
+        </div>
+      )}
       <div className="flex flex-col gap-3">
         {post.attachments[0] &&
           post.attachments.map((at, index) => {
@@ -111,7 +113,10 @@ const Post = ({ post }) => {
             count={post.likes_count}
           />
 
-          <Button variant="outlined">
+          <Button
+            variant="outlined"
+            onClick={() => navigate(`/post/${post.id}`)}
+          >
             <BsChatLeftTextFill size={"24px"} />
             <div>{post.comments_count}</div>
           </Button>

@@ -12,6 +12,7 @@ import {
 import { useRef } from "react";
 import { useState } from "react";
 import PostService from "../../services/PostService";
+import { useNavigate } from "react-router-dom";
 let lastMediaID = 0;
 const CreatePost = () => {
   const photoInput = useRef();
@@ -19,6 +20,8 @@ const CreatePost = () => {
   const audioInput = useRef();
   const [description, setDescription] = useState("");
   const [attachments, setAttachments] = useState([]);
+  const [error, setError] = useState();
+  const navigate = useNavigate();
 
   function addMedia(type, event) {
     if (event.target.files && event.target.files[0]) {
@@ -55,7 +58,11 @@ const CreatePost = () => {
 
     // console.log(attachmentsData);
     // const post = { description, attachmentsData };
-    PostService.createPost(formData);
+    PostService.createPost(formData)
+      .then((res) => navigate(`/post/${res.data?.post_id}`))
+      .catch((e) =>
+        setError(e.response.data?.msg ? e.response.data.msg : e.message)
+      );
   }
   return (
     <div>
@@ -170,6 +177,11 @@ const CreatePost = () => {
               }
             })}
         </div>
+        {error && (
+          <div className="text-white bg-danger rounded-lg p-4 break-words">
+            {error}
+          </div>
+        )}
         <Button variant="primary" onClick={sendPost}>
           Отправить
         </Button>

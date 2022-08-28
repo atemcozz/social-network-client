@@ -10,6 +10,9 @@ export default class PostService {
   static async getPosts() {
     return api.get(`/posts`);
   }
+  static async getPostByID(id) {
+    return api.get(`/post/${id}`);
+  }
   static async createPost(post) {
     return api.post(`/post`, post, {
       headers: {

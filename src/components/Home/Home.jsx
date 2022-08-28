@@ -17,7 +17,7 @@ const Home = () => {
       {error ? (
         <>
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-            В процессе загрузки постов произошла ошибка. Пеопробуйте
+            В процессе загрузки постов произошла ошибка. Попробуйте
             перезагрузить страницу.
           </div>
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">

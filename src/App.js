@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { Context } from "./index";
 import { observer } from "mobx-react";
 import Spinner from "./components/UI/Spinner/Spinner";
+import FullPost from "./components/FullPost/FullPost";
 export const AppContext = createContext(null);
 function App() {
   const APP_THEMES = ["theme-dark", "theme-light"];
@@ -52,6 +53,7 @@ function App() {
           <div className="w-full px-4">
             {!store.isLoading && (
               <Routes>
+                <Route path={"/post/:id"} element={<FullPost />} />
                 {publicRoutes.map((route, index) => (
                   <Route
                     key={index}
