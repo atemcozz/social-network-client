@@ -7,6 +7,7 @@ import {
   BsBookmark,
   BsThreeDotsVertical,
 } from "react-icons/bs";
+import { IoMdOpen } from "react-icons/io";
 import { MdDeleteForever, MdContentCopy } from "react-icons/md";
 import defaultAvatar from "../../assets/default_avatar.png";
 import imageNotFound from "../../assets/image_notfound.png";
@@ -20,6 +21,8 @@ const Post = ({ post }) => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
   const [postLiked, setPostLiked] = useState(false);
+  const [nsfwConfirmed, setNsfwConfirmed] = useState(false);
+  const [isNsfw, setIsNsfw] = useState(false);
   function likePost() {
     if (store.isAuth) {
       if (postLiked) post.likes_count--;
@@ -41,8 +44,14 @@ const Post = ({ post }) => {
       textField.remove();
     }
   }
+  function openFullPost() {
+    navigate(`/post/${post.id}`);
+  }
   function deletePost() {
     console.log("delete");
+  }
+  function openUser() {
+    navigate(`/user/${post.user.id}`);
   }
   useEffect(() => {
     setPostLiked(post.userLike);
@@ -50,9 +59,9 @@ const Post = ({ post }) => {
 
   return (
     <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
-      <div className="flex items-center justify-between relative">
+      <div className="flex items-center justify-between">
         <div className="flex gap-2">
-          <div className="w-12 h-12">
+          <div className="w-12 h-12 cursor-pointer" onClick={openUser}>
             <img
               className="object-cover w-12 h-12 rounded-full shadow"
               src={post.user.avatar_url}
@@ -64,7 +73,12 @@ const Post = ({ post }) => {
             />
           </div>
           <div className="flex flex-col">
-            <div className="font-semibold text-lg">{post.user.nickname}</div>
+            <div
+              className="font-semibold text-lg cursor-pointer hover:text-primary"
+              onClick={openUser}
+            >
+              {post.user.nickname}
+            </div>
             <div className="font-light text-xs">
               {new Date(post.created_at)
                 .toLocaleDateString("ru-RU", {
@@ -81,15 +95,21 @@ const Post = ({ post }) => {
         <DotsDropdown
           items={[
             {
+              name: "Открыть пост",
+              icon: <IoMdOpen size={"24px"} />,
+              onClick: openFullPost,
+            },
+            {
               name: "Скопировать ссылку",
               icon: <MdContentCopy size={"24px"} />,
               onClick: copyLink,
             },
-            {
-              name: "Удалить пост",
-              icon: <MdDeleteForever size={"24px"} />,
-              onClick: deletePost,
-            },
+            store.isAuth &&
+              store.user?.id === post.user?.id && {
+                name: "Удалить пост",
+                icon: <MdDeleteForever size={"24px"} />,
+                onClick: deletePost,
+              },
           ]}
         />
       </div>
@@ -99,7 +119,23 @@ const Post = ({ post }) => {
         </div>
       )}
       <div className="flex flex-col gap-3">
-        {post.attachments[0] &&
+        {isNsfw && !nsfwConfirmed && (
+          <div className="flex justify-center items-center flex-col bg-gray-500 rounded-lg text-white h-80 gap-5">
+            <div className="text-7xl text-center font-bold">18+</div>
+            <div className="flex items-center flex-col">
+              <div className="text-xl text-center">
+                Внимание!<br></br>Данный пост содержит
+              </div>
+              <div className="text-2xl font-bold">ФОТО ЧЛЕНУ</div>
+            </div>
+
+            <Button className={"shadow"} onClick={() => setNsfwConfirmed(true)}>
+              Показать
+            </Button>
+          </div>
+        )}
+        {(nsfwConfirmed || !isNsfw) &&
+          post.attachments[0] &&
           post.attachments.map((at, index) => {
             switch (at.type) {
               case "photo":
@@ -150,10 +186,7 @@ const Post = ({ post }) => {
             count={post.likes_count}
           />
 
-          <Button
-            variant="outlined"
-            onClick={() => navigate(`/post/${post.id}`)}
-          >
+          <Button variant="outlined" onClick={openFullPost}>
             <BsChatLeftTextFill size={"24px"} />
             <div>{post.comments_count}</div>
           </Button>

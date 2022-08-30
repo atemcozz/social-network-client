@@ -21,29 +21,36 @@ const DotsDropdown = ({ items }) => {
     };
   }, [dropdownRef]);
   return (
-    <div>
-      <button ref={menuRef} onClick={() => setDropdown((state) => !state)}>
+    <div className="relative">
+      <button
+        ref={menuRef}
+        onClick={() => setDropdown((state) => !state)}
+        className={"flex items-center"}
+      >
         <BsThreeDotsVertical size="24px" />
       </button>
       <div
         ref={dropdownRef}
         className={`${
           dropdown ? "block" : "hidden"
-        } absolute top-12 right-0 bg-back-darker shadow rounded overflow-hidden`}
+        } absolute top-12 right-0 w-max bg-back-darker shadow rounded overflow-hidden`}
         onClick={() => setDropdown(false)}
       >
         <ul>
           {items &&
-            items.map((item, index) => (
-              <li
-                key={index}
-                className="p-3 hover:bg-back-darkest ease-in duration-100 cursor-pointer flex gap-2 items-center"
-                onClick={item.onClick}
-              >
-                {item.icon}
-                <div className="select-none">{item.name}</div>
-              </li>
-            ))}
+            items.map(
+              (item, index) =>
+                item && (
+                  <li
+                    key={index}
+                    className="p-3 hover:bg-back-darkest ease-in duration-100 cursor-pointer flex gap-2 items-center"
+                    onClick={item.onClick}
+                  >
+                    {item.icon}
+                    <div className="select-none">{item.name}</div>
+                  </li>
+                )
+            )}
         </ul>
       </div>
     </div>

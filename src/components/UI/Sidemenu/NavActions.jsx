@@ -14,6 +14,7 @@ import {
   REGISTER_ROUTE,
   HOME_ROUTE,
   CREATE_POST_ROUTE,
+  USER_PROFILE_ROUTE,
 } from "../../../utils/routes";
 import { Context } from "../../../index";
 import { observer } from "mobx-react";
@@ -36,7 +37,11 @@ const NavActions = () => {
         </>
       )}
       {store.isAuth && (
-        <Button variant={"secondary"} className=" text-text-base">
+        <Button
+          variant={"secondary"}
+          className=" text-text-base"
+          onClick={() => navigate(`/user/${store.user.id}`)}
+        >
           <BsFillPersonFill size={"32px"} /> Профиль
         </Button>
       )}
@@ -81,8 +86,8 @@ const NavActions = () => {
       {store.isAuth && (
         <Button
           variant={"outlined"}
-          onClick={async () => {
-            await store.logout();
+          onClick={() => {
+            store.logout();
             navigate(HOME_ROUTE);
           }}
         >

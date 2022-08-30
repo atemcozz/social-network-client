@@ -4,8 +4,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import NavActions from "../UI/Sidemenu/NavActions";
 import { Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
-import { LOGIN_ROUTE, REGISTER_ROUTE } from "../../utils/routes";
 import { useLocation } from "react-router-dom";
+import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
