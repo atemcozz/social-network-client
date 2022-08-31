@@ -14,7 +14,7 @@ import Spinner from "../UI/Spinner/Spinner";
 import Avatar from "../UI/Avatar/Avatar";
 import { useEffect } from "react";
 import axios from "axios";
-import { LOGIN_ROUTE } from "../../utils/routes";
+import { EDIT_PROFILE_ROUTE, LOGIN_ROUTE } from "../../utils/routes";
 const ProfileEdit = () => {
   const { store } = useContext(Context);
   const [error, setError] = useState();
@@ -70,7 +70,7 @@ const ProfileEdit = () => {
       <div className="flex items-center gap-4">
         <button
           className="flex items-center bg-back hover:bg-back-darker p-2 rounded-full shadow text-primary"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate(`/user/${user?.id}`)}
         >
           <BsArrowLeft size={"24px"} />
         </button>
