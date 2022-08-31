@@ -1,16 +1,18 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import { MdSend } from "react-icons/md";
 import PostService from "../../services/PostService";
+import { Context } from "../../index";
 const CommentInput = ({ post, onSend }) => {
+  const { store } = useContext(Context);
   const [text, setText] = useState("");
   async function sendComment() {
     setText("");
     await PostService.createComment({
       post_id: post.id,
-      user_id: post.user.id,
+      user_id: store.user?.id,
       body: text,
     })
       .then(() => onSend())
