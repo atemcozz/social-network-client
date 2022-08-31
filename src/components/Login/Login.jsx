@@ -5,27 +5,26 @@ import { Context } from "../../index";
 import { useNavigate } from "react-router-dom";
 import { HOME_ROUTE } from "../../utils/routes";
 import { useEffect } from "react";
+import useForm from "../../hooks/useForm";
 const Login = () => {
   const { store } = useContext(Context);
   const [error, setError] = useState();
+  const [formData, handleInputChange, handleFormSumbit, resetForm] = useForm(
+    {
+      nickname: "",
+      password: "",
+    },
+    formSumbitAction
+  );
+  const { nickname, password } = formData;
   const navigate = useNavigate();
-  async function sumbitForm(e) {
-    e.preventDefault();
-    const data = {
-      nickname: e.target.nickname.value,
-      password: e.target.password.value,
-    };
-
+  async function formSumbitAction() {
     await store
-      .login(data.nickname, data.password)
+      .login(formData)
       .then(() => navigate(HOME_ROUTE))
       .catch((e) => setError(e));
-
-    // e.target.reset();
+    resetForm();
   }
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
   return (
     <div className="flex flex-col gap-4">
       <div className="font-bold text-xl pl-6">Логин</div>
@@ -36,9 +35,23 @@ const Login = () => {
           </div>
         )}
 
-        <form onSubmit={sumbitForm} className="flex flex-col gap-4 ">
-          <Input id="nickname" type="text" placeholder="Никнейм" required />
-          <Input id="password" type="password" placeholder="Пароль" required />
+        <form onSubmit={handleFormSumbit} className="flex flex-col gap-4 ">
+          <Input
+            name="nickname"
+            type="text"
+            placeholder="Никнейм"
+            value={nickname}
+            onChange={handleInputChange}
+            required
+          />
+          <Input
+            name="password"
+            type="password"
+            placeholder="Пароль"
+            value={password}
+            onChange={handleInputChange}
+            required
+          />
           <Button>Войти</Button>
         </form>
       </div>

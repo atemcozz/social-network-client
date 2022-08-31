@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-const useRequest = (request) => {
+const useRequest = (request, dependency = null) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -11,7 +11,7 @@ const useRequest = (request) => {
       .then((response) => setData(response.data))
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
-  }, []);
+  }, [dependency]);
 
   return [data, loading, error];
 };

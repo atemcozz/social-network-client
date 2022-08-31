@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../utils/routes";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 import Modal from "../UI/Modal/Modal";
+import Avatar from "../UI/Avatar/Avatar";
 const Post = ({ post }) => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
@@ -76,17 +77,12 @@ const Post = ({ post }) => {
       )}
       <div className="flex items-center justify-between">
         <div className="flex gap-2">
-          <div className="w-12 h-12 cursor-pointer" onClick={openUser}>
-            <img
-              className="object-cover w-12 h-12 rounded-full shadow"
-              src={post.user.avatar_url}
-              onError={({ currentTarget }) => {
-                currentTarget.onerror = null;
-                currentTarget.src = defaultAvatar;
-              }}
-              alt="avatar"
-            />
-          </div>
+          <Avatar
+            src={post.user.avatar_url}
+            size="normal"
+            pointer
+            onClick={openUser}
+          />
           <div className="flex flex-col">
             <div
               className="font-semibold text-lg cursor-pointer hover:text-primary"

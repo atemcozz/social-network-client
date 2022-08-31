@@ -4,44 +4,85 @@ import Button from "../UI/Button/Button";
 import { useContext, useState } from "react";
 import { Context } from "../../index";
 import { useNavigate } from "react-router-dom";
-import { HOME_ROUTE } from "../../utils/routes";
+import { EDIT_PROFILE_ROUTE, HOME_ROUTE } from "../../utils/routes";
+import useForm from "../../hooks/useForm";
 const Register = () => {
   const { store } = useContext(Context);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState();
+  const [formData, handleInputChange, handleFormSumbit, resetForm] = useForm(
+    {
+      name: "",
+      surname: "",
+      nickname: "",
+      password: "",
+      password_repeat: "",
+    },
+    formSumbitAction
+  );
+  const { name, surname, nickname, password, password_repeat } = formData;
   const navigate = useNavigate();
-  async function sumbitForm(e) {
-    e.preventDefault();
-    const data = {
-      name: e.target.name,
-      nickname: e.target.nickname.value,
-      password: e.target.password.value,
-    };
-    await store.login(data.nickname, data.password, (err) => {
-      if (err) {
-        setError(err);
-      } else {
-        navigate(HOME_ROUTE);
-      }
-    });
+  async function formSumbitAction() {
+    if (password !== password_repeat) {
+      setError("Пароли не совпадают");
+      resetForm();
+      return;
+    }
+    const data = { name, surname, nickname, password };
+    await store
+      .register(data)
+      .then(() => navigate(EDIT_PROFILE_ROUTE))
+      .catch((e) => setError(e));
 
-    e.target.reset();
+    resetForm();
   }
   return (
     <div className="flex flex-col gap-4">
       <div className="font-bold text-xl pl-6">Регистрация</div>
       <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
-        <div className="text-white bg-danger rounded-lg p-4 break-words">
-          Тестовая ошибка
-        </div>
-        <form onSubmit={sumbitForm} className="flex flex-col gap-4 ">
-          <Input id="name" type="text" placeholder="Имя" required />
-
-          <Input id="surname" type="text" placeholder="Фамилия" required />
-
-          <Input id="nickname" type="text" placeholder="Никнейм" required />
-          <Input id="password" type="password" placeholder="Пароль" required />
+        {error && (
+          <div className="text-white bg-danger rounded-lg p-4 break-words">
+            {error}
+          </div>
+        )}
+        <form onSubmit={handleFormSumbit} className="flex flex-col gap-4 ">
           <Input
-            id="password_repeat"
+            value={name}
+            onChange={handleInputChange}
+            name="name"
+            type="text"
+            placeholder="Имя"
+            required
+          />
+
+          <Input
+            value={surname}
+            onChange={handleInputChange}
+            name="surname"
+            type="text"
+            placeholder="Фамилия"
+            required
+          />
+
+          <Input
+            value={nickname}
+            onChange={handleInputChange}
+            name="nickname"
+            type="text"
+            placeholder="Никнейм"
+            required
+          />
+          <Input
+            value={password}
+            onChange={handleInputChange}
+            name="password"
+            type="password"
+            placeholder="Пароль"
+            required
+          />
+          <Input
+            value={password_repeat}
+            onChange={handleInputChange}
+            name="password_repeat"
             type="password"
             placeholder="Повторите пароль"
             required

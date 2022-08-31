@@ -3,8 +3,11 @@ import Post from "../Post/Post";
 import useRequest from "../../hooks/useRequest";
 import Spinner from "../UI/Spinner/Spinner";
 import PostService from "../../services/PostService";
+import { useContext } from "react";
+import { Context } from "../../index";
 
 const Home = () => {
+  const { store } = useContext(Context);
   const [posts, postsLoading, error] = useRequest(() => PostService.getPosts());
   return (
     <div className="min-h-screen flex flex-col gap-4">

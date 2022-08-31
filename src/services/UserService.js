@@ -7,4 +7,7 @@ export default class UserService {
   static async getUser(id) {
     return api.get(`/user/${id}`);
   }
+  static async updateUser(id, data) {
+    return api.put(`/user/${id}`, data);
+  }
 }

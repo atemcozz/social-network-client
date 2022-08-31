@@ -1,11 +1,11 @@
 import api from "../api/server";
 
 export default class AuthService {
-  static async login(nickname, password) {
-    return api.post("/login", { nickname, password });
+  static async login(data) {
+    return api.post("/login", data);
   }
-  static async register(name, surname, nickname, password) {
-    return api.post("/login", { name, surname, nickname, password });
+  static async register(data) {
+    return api.post("/register", data);
   }
   static async logout() {
     return api.get("/logout");
