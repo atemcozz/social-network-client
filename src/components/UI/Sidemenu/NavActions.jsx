@@ -51,11 +51,11 @@ const NavActions = () => {
       </Button>
       <Button variant={"secondary"} onClick={() => navigate(HOME_ROUTE)}>
         <HiFire size={"32px"} />
-        Популярное
+        Популярное(скоро)
       </Button>
       <Button variant={"secondary"}>
         <BiCategory size={"32px"} />
-        Категории
+        Категории(скоро)
       </Button>
 
       {store.isAuth && (
@@ -69,7 +69,7 @@ const NavActions = () => {
           </Button>
           <Button variant={"secondary"}>
             <BsBookmarkFill size={"32px"} />
-            Закладки
+            Закладки(скоро)
           </Button>
         </>
       )}

@@ -23,6 +23,15 @@ export default class PostService {
       },
     });
   }
+  static async createComment(data) {
+    return api.post("/post/comment", data);
+  }
+  static async getComments(post_id) {
+    return api.get(`/post/comments/${post_id}`);
+  }
+  static async deleteComment(id) {
+    return api.delete(`/post/comment/${id}`);
+  }
   static async deletePost(id) {
     return api.delete(`/post/${id}`);
   }

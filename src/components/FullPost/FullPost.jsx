@@ -5,11 +5,16 @@ import { useParams, useNavigate } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
 import Spinner from "../UI/Spinner/Spinner";
 import Post from "../Post/Post";
+import CommentInput from "../Post/CommentInput";
+import Comment from "../Post/Comment";
 const FullPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [post, postLoading, error] = useRequest(() =>
+  const [post, postLoading, postError] = useRequest(() =>
     PostService.getPostByID(id)
+  );
+  const [comments, commentsLoading, commentsError, updateComments] = useRequest(
+    () => PostService.getComments(id)
   );
   return (
     <div className="min-h-screen flex flex-col gap-4">
@@ -28,18 +33,38 @@ const FullPost = () => {
           <Spinner />
         </div>
       )}
-      {error && (
+      {postError && (
         <>
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
             В процессе загрузки поста произошла ошибка. Попробуйте перезагрузить
             страницу.
           </div>
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-            {error.message}
+            {postError.message}
           </div>
         </>
       )}
       {post && <Post post={post} />}
+      {comments && (
+        <div className="font-bold text-xl">Комментарии ({comments.length})</div>
+      )}
+
+      <CommentInput post={post} onSend={updateComments} />
+      {commentsError && (
+        <>
+          <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
+            В процессе загрузки комментариев произошла ошибка. Попробуйте
+            перезагрузить страницу.
+          </div>
+          <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
+            {commentsError.message}
+          </div>
+        </>
+      )}
+      {comments &&
+        comments.map((comment, index) => (
+          <Comment key={index} comment={comment} onChange={updateComments} />
+        ))}
     </div>
   );
 };

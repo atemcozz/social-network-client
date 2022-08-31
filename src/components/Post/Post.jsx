@@ -19,12 +19,13 @@ import { LOGIN_ROUTE } from "../../utils/routes";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 import Modal from "../UI/Modal/Modal";
 import Avatar from "../UI/Avatar/Avatar";
-const Post = ({ post }) => {
+import getDateFromSQL from "../../utils/getDateFromSQL.js";
+const Post = ({ post, onChange }) => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
   const [postLiked, setPostLiked] = useState(false);
   const [nsfwConfirmed, setNsfwConfirmed] = useState(false);
-  const [isNsfw, setIsNsfw] = useState(false);
+  const [isNsfw, setIsNsfw] = useState(post.nsfw);
   const [imageModal, setImageModal] = useState(false);
   function likePost() {
     if (store.isAuth) {
@@ -51,7 +52,9 @@ const Post = ({ post }) => {
     navigate(`/post/${post.id}`);
   }
   function deletePost() {
-    PostService.deletePost(post.id);
+    PostService.deletePost(post.id)
+      .then(() => onChange())
+      .catch();
   }
   function openUser() {
     navigate(`/user/${post.user.id}`);
@@ -91,15 +94,7 @@ const Post = ({ post }) => {
               {post.user.nickname}
             </div>
             <div className="font-light text-xs">
-              {new Date(post.created_at)
-                .toLocaleDateString("ru-RU", {
-                  day: "numeric",
-                  month: "numeric",
-                  year: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                })
-                .toString()}
+              {getDateFromSQL(post.created_at)}
             </div>
           </div>
         </div>
@@ -137,7 +132,7 @@ const Post = ({ post }) => {
               <div className="text-xl text-center">
                 Внимание!<br></br>Данный пост содержит
               </div>
-              <div className="text-2xl font-bold">ФОТО ЧЛЕНУ</div>
+              <div className="text-2xl font-bold">ЛЮТЕЙШИЙ КРИНЖ</div>
             </div>
 
             <Button className={"shadow"} onClick={() => setNsfwConfirmed(true)}>

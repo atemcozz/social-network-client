@@ -1,19 +1,21 @@
 import React from "react";
 import { useEffect, useState } from "react";
-const useRequest = (request, dependency = null) => {
+const useRequest = (request, dependencies = [null]) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
+  const update = () => {
     setLoading(true);
     request()
       .then((response) => setData(response.data))
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
-  }, [dependency]);
+  };
+  useEffect(() => {
+    update();
+  }, [...dependencies]);
 
-  return [data, loading, error];
+  return [data, loading, error, update];
 };
 
 export default useRequest;

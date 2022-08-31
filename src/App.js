@@ -50,7 +50,7 @@ function App() {
         <Header />
         <div className="py-4 md:px-4 flex mx-auto max-w-screen-lg justify-center ">
           <ActionSideMenu />
-          <div className="w-full px-4">
+          <div className="w-full px-4 max-w-xl">
             {!store.isLoading && (
               <Routes>
                 <Route path={"/post/:id"} element={<FullPost />} />

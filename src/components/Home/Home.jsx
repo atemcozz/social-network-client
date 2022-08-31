@@ -8,7 +8,9 @@ import { Context } from "../../index";
 
 const Home = () => {
   const { store } = useContext(Context);
-  const [posts, postsLoading, error] = useRequest(() => PostService.getPosts());
+  const [posts, postsLoading, error, updatePosts] = useRequest(() =>
+    PostService.getPosts()
+  );
   return (
     <div className="min-h-screen flex flex-col gap-4">
       <div className="font-bold text-xl pl-6">Популярное</div>
@@ -28,7 +30,9 @@ const Home = () => {
           </div>
         </>
       ) : (
-        posts?.map((post, index) => <Post key={index} post={post} />)
+        posts?.map((post, index) => (
+          <Post key={index} post={post} onChange={updatePosts} />
+        ))
       )}
     </div>
   );

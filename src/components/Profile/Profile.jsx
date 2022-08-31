@@ -18,16 +18,19 @@ const Profile = () => {
   const { store } = useContext(Context);
   const { id } = useParams();
   const navigate = useNavigate();
-  const [posts, postsLoading, postsError] = useRequest(
+  const [isStoreUser, setIsStoreUser] = useState();
+  const [posts, postsLoading, postsError, updatePosts] = useRequest(
     () => PostService.getPostsByUser(id),
-    id
+    [id]
   );
   const [user, userLoading, userError] = useRequest(
     () => UserService.getUser(id),
-    id
+    [id]
   );
-  const [isStoreUser, setIsStoreUser] = useState(true);
-  useEffect(() => {}, [id]);
+
+  useEffect(() => {
+    setIsStoreUser(store.user?.id.toString() === id);
+  }, [id]);
   return (
     <div className="min-h-screen flex flex-col gap-4">
       {postsLoading ||
@@ -109,7 +112,9 @@ const Profile = () => {
           </div>
         </>
       ) : (
-        posts?.map((post, index) => <Post key={index} post={post} />)
+        posts?.map((post, index) => (
+          <Post key={index} post={post} onChange={updatePosts} />
+        ))
       )}
     </div>
   );

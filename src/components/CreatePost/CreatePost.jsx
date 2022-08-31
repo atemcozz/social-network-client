@@ -13,6 +13,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import PostService from "../../services/PostService";
 import { useNavigate } from "react-router-dom";
+import Toggle from "../UI/Toggle/Toggle";
 let lastMediaID = 0;
 const CreatePost = () => {
   const photoInput = useRef();
@@ -21,6 +22,7 @@ const CreatePost = () => {
   const [description, setDescription] = useState("");
   const [attachments, setAttachments] = useState([]);
   const [error, setError] = useState();
+  const [nsfw, setNsfw] = useState(false);
   const navigate = useNavigate();
 
   function addMedia(type, event) {
@@ -54,6 +56,7 @@ const CreatePost = () => {
   function sendPost() {
     const formData = new FormData();
     formData.append("description", description);
+    formData.append("nsfw", nsfw);
     attachments.forEach((at, index) => formData.append(`files[]`, at.file));
 
     // console.log(attachmentsData);
@@ -75,6 +78,10 @@ const CreatePost = () => {
           placeholder={"Введите описание поста..."}
           onChange={(e) => setDescription(e.target.value)}
         />
+        <div className="flex gap-2">
+          <Toggle active={nsfw} onChange={() => setNsfw((state) => !state)} />
+          <div>NSFW</div>
+        </div>
         <div className="font-bold text-lg">Медиа</div>
         <div className="flex gap-2 items-center flex-wrap  justify-center">
           <Button variant="outlined" onClick={() => photoInput.current.click()}>
