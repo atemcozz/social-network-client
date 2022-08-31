@@ -23,4 +23,7 @@ export default class PostService {
       },
     });
   }
+  static async deletePost(id) {
+    return api.delete(`/post/${id}`);
+  }
 }

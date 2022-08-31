@@ -17,12 +17,14 @@ import { Context } from "../../index";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../utils/routes";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
+import Modal from "../UI/Modal/Modal";
 const Post = ({ post }) => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
   const [postLiked, setPostLiked] = useState(false);
   const [nsfwConfirmed, setNsfwConfirmed] = useState(false);
   const [isNsfw, setIsNsfw] = useState(false);
+  const [imageModal, setImageModal] = useState(false);
   function likePost() {
     if (store.isAuth) {
       if (postLiked) post.likes_count--;
@@ -48,7 +50,7 @@ const Post = ({ post }) => {
     navigate(`/post/${post.id}`);
   }
   function deletePost() {
-    console.log("delete");
+    PostService.deletePost(post.id);
   }
   function openUser() {
     navigate(`/user/${post.user.id}`);
@@ -59,6 +61,19 @@ const Post = ({ post }) => {
 
   return (
     <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
+      {imageModal && (
+        <Modal
+          content={
+            <img
+              className="h-[80vh] w-auto rounded-lg"
+              alt="img"
+              src={imageModal}
+            />
+          }
+          active={imageModal}
+          onBgClick={() => setImageModal(null)}
+        />
+      )}
       <div className="flex items-center justify-between">
         <div className="flex gap-2">
           <div className="w-12 h-12 cursor-pointer" onClick={openUser}>
@@ -149,6 +164,7 @@ const Post = ({ post }) => {
                       currentTarget.src = imageNotFound;
                     }}
                     alt="img"
+                    onClick={() => setImageModal(at.url)}
                   />
                 );
 

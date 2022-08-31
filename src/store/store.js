@@ -18,21 +18,29 @@ export default class Store {
   setLoading(loading) {
     this.isLoading = loading;
   }
-  async login(nickname, password, callback) {
-    try {
-      this.setLoading(true);
-      const res = await AuthService.login(nickname, password);
-      //console.log(res);
-      localStorage.setItem("token", res.data.accessToken);
-      this.setAuth(true);
-      this.setUser(res.data.user);
-      callback(null);
-    } catch (e) {
-      callback(e.response?.data?.msg);
-      console.error(e.response?.data?.msg);
-    } finally {
-      this.setLoading(false);
-    }
+  async login(nickname, password) {
+    this.setLoading(true);
+    await AuthService.login(nickname, password)
+      .then((res) => {
+        localStorage.setItem("token", res.data.accessToken);
+        this.setAuth(true);
+        this.setUser(res.data.user);
+      })
+      .catch((e) => Promise.reject(e.response?.data?.msg))
+      .finally(this.setLoading(false));
+    // try {
+    //   this.setLoading(true);
+    //   const res = await AuthService.login(nickname, password);
+    //   //console.log(res);
+    //   localStorage.setItem("token", res.data.accessToken);
+    //   this.setAuth(true);
+    //   this.setUser(res.data.user);
+    //   callback(null);
+    // } catch (e) {
+    //   callback(e.response?.data?.msg);
+    // } finally {
+    //   this.setLoading(false);
+    // }
   }
   async register(name, surname, nickname, password) {
     try {

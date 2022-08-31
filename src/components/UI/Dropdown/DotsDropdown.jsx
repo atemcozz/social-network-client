@@ -33,7 +33,7 @@ const DotsDropdown = ({ items }) => {
         ref={dropdownRef}
         className={`${
           dropdown ? "block" : "hidden"
-        } absolute top-12 right-0 w-max bg-back-darker shadow rounded overflow-hidden`}
+        } absolute top-12 right-0 w-max bg-back-darker shadow rounded overflow-hidden z-10`}
         onClick={() => setDropdown(false)}
       >
         <ul>
