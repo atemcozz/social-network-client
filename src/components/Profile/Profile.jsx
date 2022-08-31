@@ -89,7 +89,7 @@ const Profile = () => {
                     onClick={() =>
                       navigate(EDIT_PROFILE_ROUTE, { state: user })
                     }
-                    className={`${isStoreUser ? "block" : "hidden"}`}
+                    className={`${isStoreUser ? "block" : "hidden"} md:text-xs`}
                   >
                     <MdModeEditOutline size={"24px"} />
                     Редактировать
