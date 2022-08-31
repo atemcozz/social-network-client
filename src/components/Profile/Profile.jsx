@@ -72,7 +72,7 @@ const Profile = () => {
                 ]}
               />
             </div>
-            <div className="flex rounded-lg shadow-md p-4 bg-back gap-10">
+            <div className="flex rounded-lg shadow-md p-4 bg-back gap-4 md:gap-10">
               <Avatar src={user.avatar_url} size="large" />
               <div className="flex flex-col gap-4 justify-between">
                 <div className="flex flex-col gap-2">
@@ -89,7 +89,9 @@ const Profile = () => {
                     onClick={() =>
                       navigate(EDIT_PROFILE_ROUTE, { state: user })
                     }
-                    className={`${isStoreUser ? "block" : "hidden"} md:text-xs`}
+                    className={`${
+                      isStoreUser ? "block" : "hidden"
+                    } text-xs md:text-base`}
                   >
                     <MdModeEditOutline size={"24px"} />
                     Редактировать

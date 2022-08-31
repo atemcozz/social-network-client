@@ -69,7 +69,7 @@ const Post = ({ post, onChange }) => {
         <Modal
           content={
             <img
-              className="h-[80vh] w-auto rounded-lg"
+              className="w-[90vw] h-auto md:h-[80vh] md:w-auto rounded-lg"
               alt="img"
               src={imageModal}
             />
