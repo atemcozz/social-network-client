@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 const useRequest = (request, dependencies = [null]) => {
   const [data, setData] = useState(null);

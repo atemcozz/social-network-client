@@ -31,25 +31,14 @@ const CreatePost = () => {
     if (event.target.files && event.target.files[0]) {
       let files = [];
       for (const file of event.target.files) {
-        const reader = new FileReader();
-
         files.push({
           id: lastMediaID++,
           type,
           file,
           url: URL.createObjectURL(file),
         });
-        // console.log(files);
-        // reader.onloadend = () => {
-        //   console.log(reader.result);
-        // };
-        // reader.readAsDataURL(file);
-
-        //console.log(event.target.files[0]);
       }
       setAttachments((state) => [...state, ...files]);
-
-      // console.log(attachments);
     }
   }
   function removeMedia(id) {
@@ -60,9 +49,6 @@ const CreatePost = () => {
     formData.append("description", description);
     formData.append("nsfw", nsfw);
     attachments.forEach((at, index) => formData.append(`files[]`, at.file));
-
-    // console.log(attachmentsData);
-    // const post = { description, attachmentsData };
     setLoading(true);
     PostService.createPost(formData)
       .then((res) => navigate(`/post/${res.data?.post_id}`))

@@ -4,7 +4,6 @@ import Input from "../UI/Input/Input";
 import { Context } from "../../index";
 import { useNavigate } from "react-router-dom";
 import { HOME_ROUTE } from "../../utils/routes";
-import { useEffect } from "react";
 import useForm from "../../hooks/useForm";
 import Spinner from "../UI/Spinner/Spinner";
 const Login = () => {

@@ -19,6 +19,13 @@ const FullPost = () => {
   const [comments, commentsLoading, commentsError, updateComments] = useRequest(
     () => PostService.getComments(id)
   );
+  if (commentsLoading || postLoading) {
+    return (
+      <div className="flex items-center justify-center w-full h-[30vh]">
+        <Spinner />
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen flex flex-col gap-4">
       <div className="flex items-center gap-4">
@@ -30,12 +37,6 @@ const FullPost = () => {
         </button>
         <div className="font-bold text-xl">Пост</div>
       </div>
-
-      {postLoading && (
-        <div className="flex items-center justify-center w-full h-[30vh]">
-          <Spinner />
-        </div>
-      )}
       {postError && (
         <>
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">

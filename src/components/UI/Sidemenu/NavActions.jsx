@@ -14,7 +14,6 @@ import {
   REGISTER_ROUTE,
   HOME_ROUTE,
   CREATE_POST_ROUTE,
-  USER_PROFILE_ROUTE,
   NEW_POSTS_ROUTE,
   POPULAR_POSTS_ROUTE,
 } from "../../../utils/routes";

@@ -2,19 +2,18 @@ import React, { useContext, useState, useRef } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../index";
-import useForm from "../../hooks/useForm";
-import Input from "../UI/Input/Input";
+
 import Button from "../UI/Button/Button";
 import useRequest from "../../hooks/useRequest";
 import UserService from "../../services/UserService";
-import { MdAddPhotoAlternate } from "react-icons/md";
+
 import { MdModeEditOutline } from "react-icons/md";
 import ProfileEditForm from "./ProfileEditForm";
 import Spinner from "../UI/Spinner/Spinner";
 import Avatar from "../UI/Avatar/Avatar";
 import { useEffect } from "react";
-import axios from "axios";
-import { EDIT_PROFILE_ROUTE, LOGIN_ROUTE } from "../../utils/routes";
+
+import { LOGIN_ROUTE } from "../../utils/routes";
 const ProfileEdit = () => {
   const { store } = useContext(Context);
   const [error, setError] = useState();

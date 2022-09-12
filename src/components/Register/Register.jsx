@@ -4,7 +4,7 @@ import Button from "../UI/Button/Button";
 import { useContext, useState } from "react";
 import { Context } from "../../index";
 import { useNavigate } from "react-router-dom";
-import { EDIT_PROFILE_ROUTE, HOME_ROUTE } from "../../utils/routes";
+import { EDIT_PROFILE_ROUTE } from "../../utils/routes";
 import useForm from "../../hooks/useForm";
 import Spinner from "../UI/Spinner/Spinner";
 const Register = () => {

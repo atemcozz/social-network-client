@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import useForm from "../../hooks/useForm";
@@ -26,7 +25,6 @@ const ProfileEditForm = ({ user, onSumbit, onError }) => {
     }
   }
   const { nickname, name, surname, password, password_repeat } = formData;
-  const navigate = useNavigate();
   return (
     <form
       onSubmit={handleFormSumbit}

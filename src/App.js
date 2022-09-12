@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { createContext, useEffect } from "react";
 import Header from "./components/Header/Header";
 import { NEW_POSTS_ROUTE, privateRoutes } from "./utils/routes";
 import ActionSideMenu from "./components/ActionSideMenu/ActionSideMenu";
