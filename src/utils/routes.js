@@ -15,6 +15,7 @@ export const USER_PROFILE_ROUTE = "/user/:id";
 export const EDIT_PROFILE_ROUTE = "/user/edit";
 export const NEW_POSTS_ROUTE = "/new";
 export const POPULAR_POSTS_ROUTE = "/popular";
+
 export const publicRoutes = [
   {
     path: HOME_ROUTE,
