@@ -11,14 +11,16 @@ const Popular = () => {
   const [posts, postsLoading, error, updatePosts] = useRequest(() =>
     PostService.getPopularPosts()
   );
+  if (postsLoading) {
+    return (
+      <div className="flex items-center justify-center w-full h-[30vh]">
+        <Spinner />
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen flex flex-col gap-4">
       <div className="font-bold text-xl pl-6">Популярное</div>
-      {postsLoading && (
-        <div className="flex items-center justify-center w-full h-[30vh]">
-          <Spinner />
-        </div>
-      )}
       {error ? (
         <>
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
