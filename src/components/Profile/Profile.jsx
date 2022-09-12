@@ -31,13 +31,15 @@ const Profile = () => {
   useEffect(() => {
     setIsStoreUser(store.user?.id.toString() === id);
   }, [id]);
+  if (postsLoading || userLoading) {
+    return (
+      <div className="flex items-center justify-center w-full h-[30vh]">
+        <Spinner />
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen flex flex-col gap-4">
-      {(postsLoading || userLoading) && (
-        <div className="flex items-center justify-center w-full h-[30vh]">
-          <Spinner />
-        </div>
-      )}
       {userError ? (
         <>
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">

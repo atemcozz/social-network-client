@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { HOME_ROUTE } from "../../utils/routes";
 import { useEffect } from "react";
 import useForm from "../../hooks/useForm";
+import Spinner from "../UI/Spinner/Spinner";
 const Login = () => {
   const { store } = useContext(Context);
   const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
   const [formData, handleInputChange, handleFormSumbit, resetForm] = useForm(
     {
       nickname: "",
@@ -19,11 +21,20 @@ const Login = () => {
   const { nickname, password } = formData;
   const navigate = useNavigate();
   async function formSumbitAction() {
+    setLoading(true);
     await store
       .login(formData)
       .then(() => navigate(HOME_ROUTE))
-      .catch((e) => setError(e));
+      .catch((e) => setError(e))
+      .finally(() => setLoading(false));
     resetForm();
+  }
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center w-full h-[30vh]">
+        <Spinner />
+      </div>
+    );
   }
   return (
     <div className="flex flex-col gap-4">

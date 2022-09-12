@@ -63,7 +63,7 @@ const ProfileEdit = () => {
       console.log("loaded");
     }
   }, [user]);
-  if (saveLoading) {
+  if (saveLoading || userLoading) {
     return (
       <div className="flex items-center justify-center w-full h-[30vh]">
         <Spinner />
@@ -72,11 +72,6 @@ const ProfileEdit = () => {
   }
   return (
     <div className="min-h-screen flex flex-col gap-4">
-      {userLoading && (
-        <div className="flex items-center justify-center w-full h-[30vh]">
-          <Spinner />
-        </div>
-      )}
       <div className="flex items-center gap-4">
         <button
           className="flex items-center bg-back hover:bg-back-darker p-2 rounded-full shadow text-primary"
