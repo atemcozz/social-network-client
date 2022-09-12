@@ -70,7 +70,7 @@ const Header = () => {
           </Button>
         </div> */}
         <div className="hidden md:flex items-center justify-between gap-3">
-          <Button variant={"outlined"}>#КакоеНибудьСобытие</Button>
+          <Button variant={"outlined"}>#КакоеНибудьСобытие </Button>
         </div>
       </div>
     </header>
