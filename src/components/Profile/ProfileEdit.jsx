@@ -24,6 +24,7 @@ const ProfileEdit = () => {
   const [user, userLoading, userError] = useRequest(() =>
     UserService.getUser(store.user.id)
   );
+  const [saveLoading, setSaveLoading] = useState(false);
   const [avatar, setAvatar] = useState({});
   function addAvatar(event) {
     if (event.target.files[0]) {
@@ -43,6 +44,7 @@ const ProfileEdit = () => {
     if (avatar.file) {
       formData.append("avatar", avatar.file);
     }
+    setSaveLoading(true);
     UserService.updateUser(user.id, formData)
       .then(() => {
         if (data.password) {
@@ -52,7 +54,8 @@ const ProfileEdit = () => {
           navigate(`/user/${user.id}`);
         }
       })
-      .catch((e) => setError(e.response?.data?.msg));
+      .catch((e) => setError(e.response?.data?.msg))
+      .finally(() => setSaveLoading(false));
   }
   useEffect(() => {
     if (user) {
@@ -60,6 +63,13 @@ const ProfileEdit = () => {
       console.log("loaded");
     }
   }, [user]);
+  if (saveLoading) {
+    return (
+      <div className="flex items-center justify-center w-full h-[30vh]">
+        <Spinner />
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen flex flex-col gap-4">
       {userLoading && (

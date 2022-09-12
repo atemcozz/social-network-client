@@ -7,7 +7,10 @@ import Spinner from "../UI/Spinner/Spinner";
 import Post from "../Post/Post";
 import CommentInput from "../Post/CommentInput";
 import Comment from "../Post/Comment";
+import { useContext } from "react";
+import { Context } from "../..";
 const FullPost = () => {
+  const { store } = useContext(Context);
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, postLoading, postError] = useRequest(() =>
@@ -48,8 +51,8 @@ const FullPost = () => {
       {comments && (
         <div className="font-bold text-xl">Комментарии ({comments.length})</div>
       )}
+      {store.isAuth && <CommentInput post={post} onSend={updateComments} />}
 
-      <CommentInput post={post} onSend={updateComments} />
       {commentsError && (
         <>
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">

@@ -14,6 +14,7 @@ import { useState } from "react";
 import PostService from "../../services/PostService";
 import { useNavigate } from "react-router-dom";
 import Toggle from "../UI/Toggle/Toggle";
+import Spinner from "../UI/Spinner/Spinner";
 let lastMediaID = 0;
 const CreatePost = () => {
   const photoInput = useRef();
@@ -23,6 +24,7 @@ const CreatePost = () => {
   const [attachments, setAttachments] = useState([]);
   const [error, setError] = useState();
   const [nsfw, setNsfw] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   function addMedia(type, event) {
@@ -61,15 +63,25 @@ const CreatePost = () => {
 
     // console.log(attachmentsData);
     // const post = { description, attachmentsData };
+    setLoading(true);
     PostService.createPost(formData)
       .then((res) => navigate(`/post/${res.data?.post_id}`))
       .catch((e) =>
         setError(e.response.data?.msg ? e.response.data.msg : e.message)
-      );
+      )
+      .finally(() => setLoading(false));
+  }
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center w-full h-[30vh]">
+        <Spinner />
+      </div>
+    );
   }
   return (
     <div>
       <div className="font-bold text-xl pl-6 pb-4">Новый пост</div>
+
       <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
         <div className="font-bold text-lg">Описание поста</div>
         <TextArea
