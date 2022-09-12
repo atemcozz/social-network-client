@@ -33,7 +33,7 @@ function App() {
   }, []);
   if (store.isLoading) {
     return (
-      <div className="bg-back-darker text-text-bas flex items-center justify-center h-screen">
+      <div className="bg-back-darker text-text-base flex items-center justify-center h-screen">
         <Spinner />
       </div>
     );

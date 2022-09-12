@@ -65,7 +65,6 @@ export default class Store {
       console.error(e.response?.data?.msg);
     } finally {
       this.setLoading(false);
-      //
     }
   }
 }
