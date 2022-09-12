@@ -38,6 +38,13 @@ function App() {
       </div>
     );
   }
+  if (process.env.REACT_APP_TECHNICAL_WORKS === "1") {
+    return (
+      <div className="absolute inset-0 bg-primary text-text-base flex justify-center items-center text-xl">
+        На сайте ведутся технические работы
+      </div>
+    );
+  }
   return (
     <AppContext.Provider
       value={{
