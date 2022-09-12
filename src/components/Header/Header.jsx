@@ -6,6 +6,7 @@ import { Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
+import { SiFalcon } from "react-icons/si";
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -55,8 +56,9 @@ const Header = () => {
           >
             <GiHamburgerMenu size={"24px"} />
           </Button>
-          <div className=" text-xl font-bold text-text-base">
-            <span className="text-primary">Social</span>Network
+          <div className="flex items-center md:pl-10">
+            <div className=" text-2xl font-bold text-text-base">Falco</div>
+            <SiFalcon size={"32px"} className={"text-primary"} />
           </div>
         </div>
         {/* <div className="hidden md:flex items-center justify-between gap-3">
