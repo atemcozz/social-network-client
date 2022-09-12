@@ -10,6 +10,9 @@ export default class PostService {
   static async getPosts() {
     return api.get(`/posts`);
   }
+  static async getPopularPosts() {
+    return api.get(`/posts/popular`);
+  }
   static async getPostByID(id) {
     return api.get(`/post/${id}`);
   }

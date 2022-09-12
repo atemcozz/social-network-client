@@ -1,7 +1,6 @@
 import React, { useState, createContext, useEffect } from "react";
 import Header from "./components/Header/Header";
-import Home from "./components/Home/Home";
-import { HOME_ROUTE, privateRoutes } from "./utils/routes";
+import { NEW_POSTS_ROUTE, privateRoutes } from "./utils/routes";
 import ActionSideMenu from "./components/ActionSideMenu/ActionSideMenu";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { publicRoutes } from "./utils/routes";
@@ -69,7 +68,7 @@ function App() {
                       element={<route.Component />}
                     />
                   ))}
-                <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
+                <Route path="*" element={<Navigate to={NEW_POSTS_ROUTE} />} />
               </Routes>
             )}
           </div>

@@ -6,10 +6,10 @@ import PostService from "../../services/PostService";
 import { useContext } from "react";
 import { Context } from "../../index";
 
-const Home = () => {
+const Popular = () => {
   const { store } = useContext(Context);
   const [posts, postsLoading, error, updatePosts] = useRequest(() =>
-    PostService.getPosts()
+    PostService.getPopularPosts()
   );
   return (
     <div className="min-h-screen flex flex-col gap-4">
@@ -37,4 +37,4 @@ const Home = () => {
     </div>
   );
 };
-export default Home;
+export default Popular;

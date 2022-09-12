@@ -15,6 +15,8 @@ import {
   HOME_ROUTE,
   CREATE_POST_ROUTE,
   USER_PROFILE_ROUTE,
+  NEW_POSTS_ROUTE,
+  POPULAR_POSTS_ROUTE,
 } from "../../../utils/routes";
 import { Context } from "../../../index";
 import { observer } from "mobx-react";
@@ -45,13 +47,16 @@ const NavActions = () => {
           <BsFillPersonFill size={"32px"} /> Профиль
         </Button>
       )}
-      <Button variant={"secondary"} onClick={() => navigate(HOME_ROUTE)}>
+      <Button variant={"secondary"} onClick={() => navigate(NEW_POSTS_ROUTE)}>
         <IoTimer size={"32px"} />
         Новое
       </Button>
-      <Button variant={"secondary"} onClick={() => navigate(HOME_ROUTE)}>
+      <Button
+        variant={"secondary"}
+        onClick={() => navigate(POPULAR_POSTS_ROUTE)}
+      >
         <HiFire size={"32px"} />
-        Популярное(скоро)
+        Популярное
       </Button>
       <Button variant={"secondary"}>
         <BiCategory size={"32px"} />
