@@ -29,7 +29,7 @@ const Profile = () => {
   );
 
   useEffect(() => {
-    setIsStoreUser(store.user?.id.toString() === id);
+    setIsStoreUser(store.user?.id?.toString() === id);
   }, [id]);
   if (postsLoading || userLoading) {
     return (
