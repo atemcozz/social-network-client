@@ -36,6 +36,7 @@ function App() {
       <div className="bg-back-darker text-text-base flex items-center justify-center h-screen">
         <Spinner />
       </div>
+      //
     );
   }
   if (process.env.REACT_APP_TECHNICAL_WORKS === "1") {
