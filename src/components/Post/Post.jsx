@@ -20,6 +20,7 @@ import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 import Modal from "../UI/Modal/Modal";
 import Avatar from "../UI/Avatar/Avatar";
 import getDateFromSQL from "../../utils/getDateFromSQL.js";
+import Tag from "./Tag/Tag";
 const Post = ({ post, onChange }) => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
@@ -184,7 +185,16 @@ const Post = ({ post, onChange }) => {
             }
           })}
       </div>
-
+      {post.tags?.at(0) && (
+        <div className="flex flex-wrap gap-1.5">
+          {post.tags.map((tag, index) => (
+            <Tag key={index}>{tag}</Tag>
+          ))}
+        </div>
+      )}
+      {/* <div className="flex flex-wrap gap-1.5">
+        <Tag>Природа</Tag>
+      </div> */}
       <div className="flex justify-between items-center ">
         <div className="flex gap-2 items-center flex-wrap">
           <LikeButton

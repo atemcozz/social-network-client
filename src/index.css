@@ -24,6 +24,7 @@
 }
 .theme-light {
   --text-base: rgb(50, 50, 50);
+  --text-secondary: rgb(100, 100, 100);
   --background: #fff;
   --background-darker: rgb(241, 241, 241);
   --background-darkest: rgb(215, 215, 215);
@@ -33,6 +34,7 @@
 }
 .theme-dark {
   --text-base: #fff;
+  --text-secondary: rgb(200, 200, 200);
   --background: #303030;
   --background-darker: #282828;
   --background-darkest: #202020;

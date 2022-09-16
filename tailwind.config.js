@@ -34,6 +34,7 @@ module.exports = {
         "back-darkest": "var(--background-darkest)",
         "back-lighter": "var(--background-lighter)",
         "text-base": "var(--text-base)",
+        "text-secondary": "var(--text-secondary)",
         like: "var(--like)",
       },
     },

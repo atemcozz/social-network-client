@@ -1,13 +1,15 @@
 import React from "react";
 import TextArea from "../UI/Input/TextArea";
 import Button from "../UI/Button/Button";
-
+import Input from "../UI/Input/Input";
+import Tag from "../Post/Tag/Tag";
 import {
   MdAddPhotoAlternate,
   MdVideoCall,
   MdOutlineAudiotrack,
   MdClose,
   MdVideocam,
+  MdAdd,
 } from "react-icons/md";
 import { useRef } from "react";
 import { useState } from "react";
@@ -15,30 +17,37 @@ import PostService from "../../services/PostService";
 import { useNavigate } from "react-router-dom";
 import Toggle from "../UI/Toggle/Toggle";
 import Spinner from "../UI/Spinner/Spinner";
-let lastMediaID = 0;
 const CreatePost = () => {
   const photoInput = useRef();
   const videoInput = useRef();
   const audioInput = useRef();
   const [description, setDescription] = useState("");
   const [attachments, setAttachments] = useState([]);
+  const [lastMediaID, setLastMediaID] = useState(0);
+  const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState("");
+  const [lastTagID, setLastTagID] = useState(0);
   const [error, setError] = useState();
   const [nsfw, setNsfw] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   function addMedia(type, event) {
-    if (event.target.files && event.target.files[0]) {
-      let files = [];
-      for (const file of event.target.files) {
-        files.push({
-          id: lastMediaID++,
+    const files = event.target.files;
+    if (files && files[0]) {
+      let attachments = [];
+      [...files].forEach((file, index) => {
+        attachments.push({
+          id: lastMediaID + index,
           type,
           file,
           url: URL.createObjectURL(file),
         });
-      }
-      setAttachments((state) => [...state, ...files]);
+      });
+
+      setLastMediaID((state) => state + files.length);
+      setAttachments((state) => [...state, ...attachments]);
+      console.log(attachments);
     }
   }
   function removeMedia(id) {
@@ -49,6 +58,7 @@ const CreatePost = () => {
     formData.append("description", description);
     formData.append("nsfw", nsfw);
     attachments.forEach((at, index) => formData.append(`files[]`, at.file));
+    tags.forEach((tag) => formData.append("tags[]", tag.value));
     setLoading(true);
     PostService.createPost(formData)
       .then((res) => navigate(`/post/${res.data?.post_id}`))
@@ -56,6 +66,32 @@ const CreatePost = () => {
         setError(e.response.data?.msg ? e.response.data.msg : e.message)
       )
       .finally(() => setLoading(false));
+  }
+  function addTag() {
+    setTagInput("");
+    if (tagInput.trim().length > 30) {
+      setError("Максимальная длина тега - 30 символов");
+      return;
+    }
+    if (tags.length >= 10) {
+      setError("Максимальное число тегов - 10");
+      return;
+    }
+    if (
+      tagInput.trim().length > 0 &&
+      tags.filter((tag) => tag.value.toLowerCase() === tagInput.toLowerCase())
+        .length === 0
+    ) {
+      const tag = {
+        id: lastTagID,
+        value: tagInput[0].toUpperCase() + tagInput.slice(1),
+      };
+      setTags((state) => [...state, tag]);
+      setLastTagID((state) => state + 1);
+    }
+  }
+  function removeTag(id) {
+    setTags((tags) => tags.filter((tag) => tag.id !== id));
   }
   if (loading) {
     return (
@@ -181,6 +217,29 @@ const CreatePost = () => {
                   break;
               }
             })}
+        </div>
+
+        <div>
+          <div className="font-bold text-lg pb-3">Теги</div>
+          <div className="flex gap-2">
+            <Input
+              placeholder={"Введите тег..."}
+              value={tagInput}
+              onChange={(e) => setTagInput(e.target.value)}
+            />
+            <Button onClick={addTag}>
+              <MdAdd size="24px" />
+            </Button>
+          </div>
+          {tags?.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 pt-3">
+              {tags.map((tag, index) => (
+                <Tag key={index} id={tag.id} deletable onDelete={removeTag}>
+                  {tag.value}
+                </Tag>
+              ))}
+            </div>
+          )}
         </div>
         {error && (
           <div className="text-white bg-danger rounded-lg p-4 break-words">
