@@ -185,7 +185,7 @@ const Post = ({ post, onChange }) => {
             }
           })}
       </div>
-      {post.tags?.at(0) && (
+      {post.tags && post.tags[0] && (
         <div className="flex flex-wrap gap-1.5">
           {post.tags.map((tag, index) => (
             <Tag key={index}>{tag}</Tag>
