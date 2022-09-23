@@ -21,6 +21,7 @@ import Modal from "../UI/Modal/Modal";
 import Avatar from "../UI/Avatar/Avatar";
 import getDateFromSQL from "../../utils/getDateFromSQL.js";
 import Tag from "./Tag/Tag";
+import Image from "../UI/Image/Image";
 const Post = ({ post, onChange }) => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
@@ -133,7 +134,7 @@ const Post = ({ post, onChange }) => {
               <div className="text-xl text-center">
                 Внимание!<br></br>Данный пост содержит
               </div>
-              <div className="text-2xl font-bold">ЛЮТЕЙШИЙ КРИНЖ</div>
+              <div className="text-2xl font-bold">нежелательный контент</div>
             </div>
 
             <Button className={"shadow"} onClick={() => setNsfwConfirmed(true)}>
@@ -147,15 +148,9 @@ const Post = ({ post, onChange }) => {
             switch (at.type) {
               case "photo":
                 return (
-                  <img
+                  <Image
                     key={index}
-                    className="w-full rounded-lg"
                     src={at.url}
-                    onError={({ currentTarget }) => {
-                      currentTarget.onerror = null;
-                      currentTarget.src = imageNotFound;
-                    }}
-                    alt="img"
                     onClick={() => setImageModal(at.url)}
                   />
                 );
