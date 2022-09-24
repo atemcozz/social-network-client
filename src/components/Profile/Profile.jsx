@@ -20,6 +20,7 @@ const Profile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isStoreUser, setIsStoreUser] = useState();
+  const [md, setMd] = useState();
   const [posts, postsLoading, postsError, updatePosts] = useRequest(
     () => PostService.getPostsByUser(id),
     [id]
@@ -32,6 +33,10 @@ const Profile = () => {
   useEffect(() => {
     setIsStoreUser(store.user?.id?.toString() === id);
   }, [id]);
+  useEffect(() => {
+    const handler = (e) => setMd(e.matches);
+    window.matchMedia("(min-width: 768px)").addEventListener("change", handler);
+  }, []);
   if (postsLoading || userLoading) {
     return (
       <div className="flex items-center justify-center w-full h-[30vh]">
@@ -72,7 +77,12 @@ const Profile = () => {
               </DotsDropdown>
             </div>
             <div className="flex rounded-lg shadow-md p-4 bg-back gap-4 md:gap-10">
-              <Avatar src={user.avatar_url} size={"large"} />
+              {md ? (
+                <Avatar src={user.avatar_url} size={"large"} />
+              ) : (
+                <Avatar src={user.avatar_url} size={"big"} />
+              )}
+
               <div className="flex flex-col gap-4 justify-between">
                 <div className="flex flex-col gap-2">
                   <div className="text-xl font-bold">
