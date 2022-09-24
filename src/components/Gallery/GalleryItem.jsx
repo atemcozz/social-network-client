@@ -1,24 +1,47 @@
 import React from "react";
 import { useState } from "react";
-import imageNotFound from "../../assets/image_notfound.png";
+import { MdImageNotSupported } from "react-icons/md";
 const GalleryItem = ({ post, onClick }) => {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   return (
     <div
-      className="rounded-sm md:rounded-lg aspect-square cursor-pointer hover:brightness-50 ease-in duration-100 overflow-hidden"
+      className="rounded-lg aspect-square shadow cursor-pointer hover:brightness-50 ease-in duration-100 overflow-hidden"
       onClick={onClick}
     >
       {loading && <div className="h-full bg-secondary"></div>}
-      <img
-        className={`h-full object-cover ${loading ? "hidden" : "inline"}`}
-        src={post.attachments[0].url}
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null;
-          currentTarget.src = imageNotFound;
-        }}
-        alt="img"
-        onLoad={() => setLoading(false)}
-      />
+      {error && (
+        <div className="h-full bg-secondary flex justify-center items-center">
+          <MdImageNotSupported size={"48px"} />
+        </div>
+      )}
+      {post.attachments[0].type === "photo" && !error && (
+        <img
+          className={`h-full w-full object-cover ${
+            loading ? "hidden" : "inline"
+          }`}
+          src={post.attachments[0].url}
+          onError={() => {
+            setError(true);
+            setLoading(false);
+          }}
+          alt="img"
+          onLoad={() => setLoading(false)}
+        />
+      )}
+      {post.attachments[0].type === "video" && !error && (
+        <video
+          onLoadedData={() => setLoading(false)}
+          className={`h-full w-full object-cover pointer-events-none ${
+            loading ? "hidden" : "inline"
+          }`}
+          src={post.attachments[0].url}
+          onError={() => {
+            setError(true);
+            setLoading(false);
+          }}
+        ></video>
+      )}
     </div>
   );
 };

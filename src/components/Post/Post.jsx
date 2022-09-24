@@ -100,32 +100,28 @@ const Post = ({ post, onChange }) => {
             </div>
           </div>
         </div>
-        <DotsDropdown
-          items={[
-            {
-              name: "Открыть пост",
-              icon: <IoMdOpen size={"24px"} />,
-              onClick: openFullPost,
-            },
-            {
-              name: "Скопировать ссылку",
-              icon: <MdContentCopy size={"24px"} />,
-              onClick: copyLink,
-            },
-            store.isAuth &&
-              store.user?.id === post.user?.id && {
-                name: "Удалить пост",
-                icon: <MdDeleteForever size={"24px"} />,
-                onClick: deletePost,
-              },
-          ]}
-        />
+        <DotsDropdown>
+          <DotsDropdown.Item
+            icon={<IoMdOpen size={"24px"} />}
+            onClick={openFullPost}
+          >
+            Открыть пост
+          </DotsDropdown.Item>
+          <DotsDropdown.Item
+            icon={<MdContentCopy size={"24px"} />}
+            onClick={copyLink}
+          >
+            Скопировать ссылку
+          </DotsDropdown.Item>
+          <DotsDropdown.Item
+            icon={<MdDeleteForever size={"24px"} />}
+            onClick={deletePost}
+          >
+            Удалить пост
+          </DotsDropdown.Item>
+        </DotsDropdown>
       </div>
-      {post.description && (
-        <div className="p-2 bg-back-lighter rounded-lg shadow w-11/12 self-center break-words">
-          {post.description}
-        </div>
-      )}
+
       <div className="flex flex-col gap-3">
         {isNsfw && !nsfwConfirmed && (
           <div className="flex justify-center items-center flex-col bg-secondary rounded-lg text-white h-80 gap-5">
@@ -138,43 +134,38 @@ const Post = ({ post, onChange }) => {
             </Button>
           </div>
         )}
-        {(nsfwConfirmed || !isNsfw) &&
-          post.attachments[0] &&
-          post.attachments.map((at, index) => {
-            switch (at.type) {
-              case "photo":
-                return (
-                  <Image
-                    key={index}
-                    src={at.url}
-                    onClick={() => setImageModal(at.url)}
-                  />
-                );
+        {(nsfwConfirmed || !isNsfw) && (
+          <>
+            {post.description && (
+              <div className="p-2 bg-back-lighter rounded-lg shadow w-11/12 self-center break-words">
+                {post.description}
+              </div>
+            )}
 
-              case "video":
-                return (
-                  <video
-                    key={index}
-                    className="w-full rounded-lg"
-                    src={at.url}
-                    controls
-                  ></video>
-                );
+            {post.attachments[0] &&
+              post.attachments.map((at, index) => {
+                if (at.type === "photo")
+                  return (
+                    <Image
+                      key={index}
+                      src={at.url}
+                      onClick={() => setImageModal(at.url)}
+                    />
+                  );
 
-              case "audio":
-                return (
-                  <audio
-                    className="w-full rounded-lg bg-primary"
-                    controls
-                    key={index}
-                    src={at.url}
-                  ></audio>
-                );
-
-              default:
-                break;
-            }
-          })}
+                if (at.type === "video")
+                  return (
+                    <video
+                      key={index}
+                      className="w-full rounded-lg"
+                      src={at.url}
+                      controls
+                    ></video>
+                  );
+                return <></>;
+              })}
+          </>
+        )}
       </div>
       {post.tags && post.tags[0] && (
         <div className="flex flex-wrap gap-1.5">
@@ -183,9 +174,6 @@ const Post = ({ post, onChange }) => {
           ))}
         </div>
       )}
-      {/* <div className="flex flex-wrap gap-1.5">
-        <Tag>Природа</Tag>
-      </div> */}
       <div className="flex justify-between items-center ">
         <div className="flex gap-2 items-center flex-wrap">
           <LikeButton
@@ -199,11 +187,6 @@ const Post = ({ post, onChange }) => {
             <div>{post.comments_count}</div>
           </Button>
         </div>
-        {/* <div>
-          <CheckButton active={post.bookmark}>
-            <BsBookmark size={"24px"} />
-          </CheckButton>
-        </div> */}
       </div>
     </div>
   );

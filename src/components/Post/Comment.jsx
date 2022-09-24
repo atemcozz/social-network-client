@@ -35,15 +35,17 @@ const Comment = ({ comment, onChange }) => {
           <div className="break-words max-w-md">{comment.body}</div>
         </div>
       </div>
-      <DotsDropdown
-        items={[
-          store.user?.id === comment.user.id && {
-            name: "Удалить",
-            icon: <MdDeleteForever size="24px" />,
-            onClick: deleteComment,
-          },
-        ]}
-      />
+
+      <DotsDropdown>
+        {store.user?.id === comment.user.id && (
+          <DotsDropdown.Item
+            icon={<MdDeleteForever size={"24px"} />}
+            onClick={deleteComment}
+          >
+            Удалить
+          </DotsDropdown.Item>
+        )}
+      </DotsDropdown>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useRef, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-const DotsDropdown = ({ items }) => {
+const DotsDropdown = ({ children }) => {
   const [dropdown, setDropdown] = useState(false);
   const dropdownRef = useRef();
   const menuRef = useRef();
@@ -33,28 +33,24 @@ const DotsDropdown = ({ items }) => {
         ref={dropdownRef}
         className={`${
           dropdown ? "block" : "hidden"
-        } absolute top-12 right-0 w-max bg-back-darker shadow rounded overflow-hidden z-10`}
+        } absolute top-0 right-0 w-max bg-back-darker shadow rounded overflow-hidden z-10`}
         onClick={() => setDropdown(false)}
       >
-        <ul>
-          {items &&
-            items.map(
-              (item, index) =>
-                item && (
-                  <li
-                    key={index}
-                    className="p-3 hover:bg-back-darkest ease-in duration-100 cursor-pointer flex gap-2 items-center"
-                    onClick={item.onClick}
-                  >
-                    {item.icon}
-                    <div className="select-none">{item.name}</div>
-                  </li>
-                )
-            )}
-        </ul>
+        <ul>{children}</ul>
       </div>
     </div>
   );
 };
-
+const Item = ({ icon, onClick, children }) => {
+  return (
+    <li
+      className="p-3 hover:bg-back-darkest ease-in duration-100 cursor-pointer flex gap-2 items-center"
+      onClick={onClick}
+    >
+      {icon}
+      <div className="select-none">{children}</div>
+    </li>
+  );
+};
+DotsDropdown.Item = Item;
 export default DotsDropdown;

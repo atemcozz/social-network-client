@@ -16,6 +16,7 @@
 :root {
   --primary: #0ea5e9;
   --primary-darker: #0284c7;
+  --primary-disabled: #004365;
   --danger: #ef4444;
   --danger-darker: #dc2626;
   --success: #22c55e;

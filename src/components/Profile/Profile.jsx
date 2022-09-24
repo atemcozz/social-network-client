@@ -116,20 +116,26 @@ const Profile = () => {
           </div>
         </>
       ) : (
-        <div className="grid grid-cols-3 gap-2">
-          {posts?.map(
-            (post, index) =>
-              post.attachments[0] && (
-                <GalleryItem
-                  post={post}
-                  key={index}
-                  onClick={() => navigate(`/post/${post.id}`)}
-                />
-              )
+        <>
+          <div className="pl-6 text-lg font-bold">
+            {posts?.length} {getNoun(posts?.length, "пост", "поста", "постов")}
+          </div>
 
-            // <Post key={index} post={post} onChange={updatePosts} />
-          )}
-        </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-2">
+            {posts?.map(
+              (post, index) =>
+                post.attachments[0] && (
+                  <GalleryItem
+                    post={post}
+                    key={index}
+                    onClick={() => navigate(`/post/${post.id}`)}
+                  />
+                )
+
+              // <Post key={index} post={post} onChange={updatePosts} />
+            )}
+          </div>
+        </>
       )}
     </div>
   );

@@ -1,22 +1,30 @@
 import React from "react";
 import { useState } from "react";
-import imageNotFound from "../../../assets/image_notfound.png";
+import { MdImageNotSupported } from "react-icons/md";
 import Spinner from "../Spinner/Spinner";
 const Image = ({ ...props }) => {
   const [loading, setLoading] = useState(true);
-
+  const [error, setError] = useState(false);
   return (
     <>
       {loading && (
-        <div className="w-full rounded-lg bg-secondary h-72 flex justify-center items-center">
+        <div className="rounded-lg bg-secondary h-72 flex justify-center items-center">
           <Spinner />
         </div>
       )}
+      {error && (
+        <div className="rounded-lg bg-secondary h-72 flex justify-center items-center">
+          <MdImageNotSupported size={"48px"} />
+        </div>
+      )}
+
       <img
-        className={`w-full rounded-lg ${loading ? "hidden" : "inline"}`}
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null;
-          currentTarget.src = imageNotFound;
+        className={`w-full rounded-lg ${
+          loading || error ? "hidden" : "inline"
+        }`}
+        onError={() => {
+          setError(true);
+          setLoading(false);
         }}
         alt="img"
         onLoad={() => setLoading(false)}

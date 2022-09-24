@@ -57,10 +57,10 @@ const NavActions = () => {
         <HiFire size={"32px"} />
         Популярное
       </Button>
-      <Button variant={"secondary"}>
+      {/* <Button variant={"secondary"}>
         <BiCategory size={"32px"} />
-        Категории(скоро)
-      </Button>
+        Поиск
+      </Button> */}
 
       {store.isAuth && (
         <>
@@ -71,10 +71,10 @@ const NavActions = () => {
             <IoCreate size={"32px"} />
             Новый пост
           </Button>
-          <Button variant={"secondary"}>
+          {/* <Button variant={"secondary"}>
             <BsBookmarkFill size={"32px"} />
-            Закладки(скоро)
-          </Button>
+            Закладки
+          </Button> */}
         </>
       )}
 

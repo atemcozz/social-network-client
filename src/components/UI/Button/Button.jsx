@@ -2,6 +2,7 @@ import React from "react";
 const Button = ({ children, variant = "primary", className, ...props }) => {
   const variants = {
     primary: `bg-primary hover:bg-primary-darker ease-in duration-100 text-white`,
+    disabled: `bg-primary-disabled text-gray-400 cursor-not-allowed`,
     secondary: `bg-secondary hover:bg-secondary-darker ease-in duration-100 text-text-base`,
     danger: `bg-danger hover:bg-danger-darker ease-in duration-100 text-white`,
     like: `bg-like hover:bg-danger ease-in duration-100 text-white`,

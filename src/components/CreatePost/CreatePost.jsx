@@ -105,17 +105,6 @@ const CreatePost = () => {
       <div className="font-bold text-xl pl-6 pb-4">Новый пост</div>
 
       <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
-        <div className="font-bold text-lg">Описание поста</div>
-        <TextArea
-          value={description}
-          rows={3}
-          placeholder={"Введите описание поста..."}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <div className="flex gap-2">
-          <Toggle active={nsfw} onChange={() => setNsfw((state) => !state)} />
-          <div>Спойлер</div>
-        </div>
         <div className="font-bold text-lg">Медиа</div>
         <div className="flex gap-2 items-center flex-wrap">
           <Button
@@ -150,81 +139,58 @@ const CreatePost = () => {
               className="hidden"
             />
           </Button>
-          {/* <Button variant="outlined" onClick={() => audioInput.current.click()}>
-            <MdOutlineAudiotrack size="32px" />
-            Аудио
-            <input
-              type="file"
-              multiple
-              ref={audioInput}
-              accept="audio/*"
-              onChange={(e) => addMedia("audio", e)}
-              className="hidden"
-            />
-          </Button> */}
         </div>
         <div className="flex flex-wrap gap-2 justify-center">
           {attachments &&
             attachments.map((at, index) => {
-              switch (at.type) {
-                case "photo":
-                  return (
-                    <div key={index} className="relative">
-                      <Button
-                        className={"absolute p-1 z-10 right-0"}
-                        onClick={() => removeMedia(at.id)}
-                      >
-                        <MdClose className="text-white" />
-                      </Button>
-                      <img
-                        src={at.url}
-                        alt="img"
-                        className="w-40 h-40 object-cover rounded-lg shadow"
-                      />
-                    </div>
-                  );
-                case "video":
-                  return (
-                    <div key={index} className="relative">
-                      <Button
-                        className={"absolute p-1 z-20 right-0"}
-                        onClick={() => removeMedia(at.id)}
-                      >
-                        <MdClose className="text-white" />
-                      </Button>
-                      <div className="absolute inset-0 z-10 flex justify-center items-center">
-                        <MdVideocam size={"64px"} className="text-white" />
-                      </div>
-
-                      <video
-                        src={at.url}
-                        alt="video"
-                        className="w-40 h-40 object-cover rounded-lg shadow"
-                      />
-                    </div>
-                  );
-                case "audio":
-                  return (
-                    <div
-                      key={index}
-                      className="relative w-40 h-40 rounded-lg shadow bg-primary-darker"
+              if (at.type === "photo")
+                return (
+                  <div key={index} className="relative">
+                    <Button
+                      className={"absolute p-1 z-10 right-0"}
+                      onClick={() => removeMedia(at.id)}
                     >
-                      <Button
-                        className={"absolute p-1 z-10 right-0"}
-                        onClick={() => removeMedia(at.id)}
-                      >
-                        <MdClose className="text-white" />
-                      </Button>
-                      <div className="flex flex-col justify-center items-center h-full text-white text-center">
-                        <MdOutlineAudiotrack size={"64px"} />
-                        <div className="w-36 truncate">{at.file.name}</div>
-                      </div>
+                      <MdClose className="text-white" />
+                    </Button>
+                    <img
+                      src={at.url}
+                      alt="img"
+                      className="w-40 h-40 object-cover rounded-lg shadow"
+                    />
+                  </div>
+                );
+              if (at.type === "video")
+                return (
+                  <div key={index} className="relative">
+                    <Button
+                      className={"absolute p-1 z-20 right-0"}
+                      onClick={() => removeMedia(at.id)}
+                    >
+                      <MdClose className="text-white" />
+                    </Button>
+                    <div className="absolute inset-0 z-10 flex justify-center items-center">
+                      <MdVideocam size={"64px"} className="text-white" />
                     </div>
-                  );
-                default:
-                  break;
-              }
+
+                    <video
+                      src={at.url}
+                      alt="video"
+                      className="w-40 h-40 object-cover rounded-lg shadow"
+                    />
+                  </div>
+                );
             })}
+        </div>
+        <div className="font-bold text-lg">Описание поста</div>
+        <TextArea
+          value={description}
+          rows={3}
+          placeholder={"Введите описание поста..."}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <div className="flex gap-2">
+          <Toggle active={nsfw} onChange={() => setNsfw((state) => !state)} />
+          <div>Спойлер</div>
         </div>
 
         <div>
@@ -235,6 +201,7 @@ const CreatePost = () => {
               value={tagInput}
               onChange={(e) => setTagInput(e.target.value)}
             />
+
             <Button onClick={addTag}>
               <MdAdd size="24px" />
             </Button>
@@ -254,9 +221,13 @@ const CreatePost = () => {
             {error}
           </div>
         )}
-        <Button variant="primary" onClick={sendPost}>
-          Отправить
-        </Button>
+        {attachments.length > 0 ? (
+          <Button variant="primary" onClick={sendPost}>
+            Отправить
+          </Button>
+        ) : (
+          <Button variant="disabled">Отправить</Button>
+        )}
       </div>
     </div>
   );

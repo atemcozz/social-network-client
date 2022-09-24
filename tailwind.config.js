@@ -23,6 +23,7 @@ module.exports = {
       colors: {
         primary: "var(--primary)",
         "primary-darker": "var(--primary-darker)",
+        "primary-disabled": "var(--primary-disabled)",
         secondary: "var(--secondary)",
         "secondary-darker": "var(--secondary-darker)",
         danger: "var(--danger)",
