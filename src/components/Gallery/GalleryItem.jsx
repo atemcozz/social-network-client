@@ -6,7 +6,7 @@ const GalleryItem = ({ post, onClick }) => {
   const [error, setError] = useState(false);
   return (
     <div
-      className="rounded-lg aspect-square shadow cursor-pointer hover:brightness-50 ease-in duration-100 overflow-hidden"
+      className="md:rounded-lg rounded aspect-square shadow cursor-pointer hover:brightness-50 ease-in duration-100 overflow-hidden"
       onClick={onClick}
     >
       {loading && <div className="h-full bg-secondary"></div>}

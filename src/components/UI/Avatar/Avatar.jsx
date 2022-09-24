@@ -6,6 +6,7 @@ const Avatar = ({ src, size, onClick, pointer }) => {
   const sizes = {
     small: "w-8 h-8",
     normal: "w-12 h-12",
+    big: "w-24 h-24",
     large: "w-32 h-32",
   };
   return (

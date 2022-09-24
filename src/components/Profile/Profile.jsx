@@ -59,23 +59,20 @@ const Profile = () => {
                 <div>Профиль </div>
                 <div className="text-primary">{user.nickname}</div>
               </div>
-              <DotsDropdown
-                items={[
-                  {
-                    name: "Скопировать ссылку",
-                    icon: <MdContentCopy size={"24px"} />,
-                  },
-                  {
-                    name: "Редактировать",
-                    icon: <MdModeEditOutline size={"24px"} />,
-                    onClick: () =>
-                      navigate(EDIT_PROFILE_ROUTE, { state: user }),
-                  },
-                ]}
-              />
+              <DotsDropdown>
+                <DotsDropdown.Item icon={<MdContentCopy size={"24px"} />}>
+                  Скопировать ссылку
+                </DotsDropdown.Item>
+                <DotsDropdown.Item
+                  icon={<MdModeEditOutline size={"24px"} />}
+                  onClick={() => navigate(EDIT_PROFILE_ROUTE, { state: user })}
+                >
+                  Редактировать
+                </DotsDropdown.Item>
+              </DotsDropdown>
             </div>
             <div className="flex rounded-lg shadow-md p-4 bg-back gap-4 md:gap-10">
-              <Avatar src={user.avatar_url} size="large" />
+              <Avatar src={user.avatar_url} size={"large"} />
               <div className="flex flex-col gap-4 justify-between">
                 <div className="flex flex-col gap-2">
                   <div className="text-xl font-bold">
@@ -117,9 +114,9 @@ const Profile = () => {
         </>
       ) : (
         <>
-          <div className="pl-6 text-lg font-bold">
+          {/* <div className="pl-6 text-lg font-bold">
             {posts?.length} {getNoun(posts?.length, "пост", "поста", "постов")}
-          </div>
+          </div> */}
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-2">
             {posts?.map(
