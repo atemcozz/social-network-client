@@ -14,6 +14,7 @@ import getNoun from "../../utils/getNoun";
 import { EDIT_PROFILE_ROUTE } from "../../utils/routes";
 import Button from "../UI/Button/Button";
 import Avatar from "../UI/Avatar/Avatar";
+import GalleryItem from "../Gallery/GalleryItem";
 const Profile = () => {
   const { store } = useContext(Context);
   const { id } = useParams();
@@ -115,9 +116,20 @@ const Profile = () => {
           </div>
         </>
       ) : (
-        posts?.map((post, index) => (
-          <Post key={index} post={post} onChange={updatePosts} />
-        ))
+        <div className="grid grid-cols-3 gap-2">
+          {posts?.map(
+            (post, index) =>
+              post.attachments[0] && (
+                <GalleryItem
+                  post={post}
+                  key={index}
+                  onClick={() => navigate(`/post/${post.id}`)}
+                />
+              )
+
+            // <Post key={index} post={post} onChange={updatePosts} />
+          )}
+        </div>
       )}
     </div>
   );

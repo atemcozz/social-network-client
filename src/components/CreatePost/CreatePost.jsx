@@ -114,11 +114,15 @@ const CreatePost = () => {
         />
         <div className="flex gap-2">
           <Toggle active={nsfw} onChange={() => setNsfw((state) => !state)} />
-          <div>NSFW</div>
+          <div>Спойлер</div>
         </div>
         <div className="font-bold text-lg">Медиа</div>
-        <div className="flex gap-2 items-center flex-wrap  justify-center">
-          <Button variant="outlined" onClick={() => photoInput.current.click()}>
+        <div className="flex gap-2 items-center flex-wrap">
+          <Button
+            variant="outlined"
+            className={"flex-1"}
+            onClick={() => photoInput.current.click()}
+          >
             <MdAddPhotoAlternate size="32px" />
             Фото
             <input
@@ -130,7 +134,11 @@ const CreatePost = () => {
               className="hidden"
             />
           </Button>
-          <Button variant="outlined" onClick={() => videoInput.current.click()}>
+          <Button
+            variant="outlined"
+            className={"flex-1"}
+            onClick={() => videoInput.current.click()}
+          >
             <MdVideoCall size="32px" />
             Видео
             <input
@@ -142,7 +150,7 @@ const CreatePost = () => {
               className="hidden"
             />
           </Button>
-          <Button variant="outlined" onClick={() => audioInput.current.click()}>
+          {/* <Button variant="outlined" onClick={() => audioInput.current.click()}>
             <MdOutlineAudiotrack size="32px" />
             Аудио
             <input
@@ -153,7 +161,7 @@ const CreatePost = () => {
               onChange={(e) => addMedia("audio", e)}
               className="hidden"
             />
-          </Button>
+          </Button> */}
         </div>
         <div className="flex flex-wrap gap-2 justify-center">
           {attachments &&

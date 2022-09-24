@@ -128,13 +128,9 @@ const Post = ({ post, onChange }) => {
       )}
       <div className="flex flex-col gap-3">
         {isNsfw && !nsfwConfirmed && (
-          <div className="flex justify-center items-center flex-col bg-gray-500 rounded-lg text-white h-80 gap-5">
-            <div className="text-7xl text-center font-bold">18+</div>
-            <div className="flex items-center flex-col">
-              <div className="text-xl text-center">
-                Внимание!<br></br>Данный пост содержит
-              </div>
-              <div className="text-2xl font-bold">нежелательный контент</div>
+          <div className="flex justify-center items-center flex-col bg-secondary rounded-lg text-white h-80 gap-5">
+            <div className="text-2xl text-center font-bold">
+              Автор скрыл контент
             </div>
 
             <Button className={"shadow"} onClick={() => setNsfwConfirmed(true)}>
