@@ -113,12 +113,14 @@ const Post = ({ post, onChange }) => {
           >
             Скопировать ссылку
           </DotsDropdown.Item>
-          <DotsDropdown.Item
-            icon={<MdDeleteForever size={"24px"} />}
-            onClick={deletePost}
-          >
-            Удалить пост
-          </DotsDropdown.Item>
+          {store.isAuth && (
+            <DotsDropdown.Item
+              icon={<MdDeleteForever size={"24px"} />}
+              onClick={deletePost}
+            >
+              Удалить пост
+            </DotsDropdown.Item>
+          )}
         </DotsDropdown>
       </div>
 
