@@ -2,7 +2,7 @@ import React from "react";
 
 const Tabs = ({ children }) => {
   return (
-    <div className="font-medium text-text-base  bg-back-lighter rounded-t-lg overflow-hidden">
+    <div className="font-medium text-text-base  bg-back-lighter">
       <ul className="flex flex-wrap">{children}</ul>
     </div>
   );

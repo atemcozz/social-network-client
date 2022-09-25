@@ -135,7 +135,7 @@ const Profile = () => {
           </div>
         </>
       ) : (
-        <div>
+        <div className="rounded-lg shadow-md overflow-hidden">
           <Tabs>
             <Tabs.Item
               active={viewMode === viewModes.gallery}
