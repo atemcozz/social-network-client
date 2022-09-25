@@ -17,11 +17,11 @@ import getNoun from "../../utils/getNoun";
 import { EDIT_PROFILE_ROUTE } from "../../utils/routes";
 import Button from "../UI/Button/Button";
 import Avatar from "../UI/Avatar/Avatar";
-import GalleryItem from "../Gallery/GalleryItem";
+
 import Tabs from "../UI/Tabs/Tabs";
 import Gallery from "../Gallery/Gallery";
 import PostList from "../PostList/PostList";
-import Post from "../Post/Post";
+
 const viewModes = {
   gallery: "gallery",
   posts: "posts",
@@ -57,7 +57,7 @@ const Profile = () => {
     );
   }
   return (
-    <div className="min-h-screen flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       {userError ? (
         <>
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">

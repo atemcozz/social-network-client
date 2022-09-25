@@ -10,4 +10,4 @@ const PostList = ({ posts, onChange }) => {
   );
 };
 
-export default PostList;
+export default React.memo(PostList);

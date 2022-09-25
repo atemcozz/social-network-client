@@ -3,7 +3,7 @@ import { useState } from "react";
 import { MdImageNotSupported } from "react-icons/md";
 const Gallery = ({ posts, children }) => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-2 bg-back p-2">
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-2 bg-back p-1 md:p-2 rounded-b-lg">
       {children}
     </div>
   );
