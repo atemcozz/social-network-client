@@ -4,23 +4,35 @@ import useRequest from "../../hooks/useRequest";
 import PostService from "../../services/PostService";
 import { useContext, useState, useEffect } from "react";
 import { Context } from "../../index";
-import defaultAvatar from "../../assets/default_avatar.png";
-import { MdContentCopy, MdModeEditOutline } from "react-icons/md";
+import {
+  MdContentCopy,
+  MdModeEditOutline,
+  MdGridOn,
+  MdMenu,
+} from "react-icons/md";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 import Spinner from "../UI/Spinner/Spinner";
-import Post from "../Post/Post";
 import UserService from "../../services/UserService";
 import getNoun from "../../utils/getNoun";
 import { EDIT_PROFILE_ROUTE } from "../../utils/routes";
 import Button from "../UI/Button/Button";
 import Avatar from "../UI/Avatar/Avatar";
 import GalleryItem from "../Gallery/GalleryItem";
+import Tabs from "../UI/Tabs/Tabs";
+import Gallery from "../Gallery/Gallery";
+import PostList from "../PostList/PostList";
+import Post from "../Post/Post";
+const viewModes = {
+  gallery: "gallery",
+  posts: "posts",
+};
 const Profile = () => {
   const { store } = useContext(Context);
   const { id } = useParams();
   const navigate = useNavigate();
   const [isStoreUser, setIsStoreUser] = useState();
   const [md, setMd] = useState();
+  const [viewMode, setViewMode] = useState(viewModes.gallery);
   const [posts, postsLoading, postsError, updatePosts] = useRequest(
     () => PostService.getPostsByUser(id),
     [id]
@@ -123,26 +135,38 @@ const Profile = () => {
           </div>
         </>
       ) : (
-        <>
-          {/* <div className="pl-6 text-lg font-bold">
-            {posts?.length} {getNoun(posts?.length, "пост", "поста", "постов")}
-          </div> */}
+        <div>
+          <Tabs>
+            <Tabs.Item
+              active={viewMode === viewModes.gallery}
+              onClick={() => setViewMode(viewModes.gallery)}
+            >
+              <MdGridOn size={"24px"} />
+            </Tabs.Item>
+            <Tabs.Item
+              active={viewMode === viewModes.posts}
+              onClick={() => setViewMode(viewModes.posts)}
+            >
+              <MdMenu size={"24px"} />
+            </Tabs.Item>
+          </Tabs>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-2">
-            {posts?.map(
-              (post, index) =>
-                post.attachments[0] && (
-                  <GalleryItem
-                    post={post}
-                    key={index}
-                    onClick={() => navigate(`/post/${post.id}`)}
-                  />
-                )
-
-              // <Post key={index} post={post} onChange={updatePosts} />
-            )}
-          </div>
-        </>
+          {viewMode === viewModes.gallery && (
+            <Gallery>
+              {posts?.map(
+                (post, index) =>
+                  post.attachments[0] && (
+                    <Gallery.Item
+                      post={post}
+                      key={index}
+                      onClick={() => navigate(`/post/${post.id}`)}
+                    />
+                  )
+              )}
+            </Gallery>
+          )}
+          {viewMode === viewModes.posts && <PostList posts={posts} />}
+        </div>
       )}
     </div>
   );
