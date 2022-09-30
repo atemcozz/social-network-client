@@ -9,6 +9,7 @@ import { Context } from "./index";
 import { observer } from "mobx-react";
 import Spinner from "./components/UI/Spinner/Spinner";
 import FullPost from "./components/FullPost/FullPost";
+import Map from "./components/Map/Map";
 export const AppContext = createContext(null);
 function App() {
   const APP_THEMES = ["theme-dark", "theme-light"];
@@ -61,6 +62,17 @@ function App() {
             {!store.isLoading && (
               <Routes>
                 <Route path={"/post/:id"} element={<FullPost />} />
+                <Route
+                  path={"/map"}
+                  element={
+                    <Map
+                      center={{
+                        lat: -3.745,
+                        lng: -38.523,
+                      }}
+                    />
+                  }
+                />
                 {publicRoutes.map((route, index) => (
                   <Route
                     key={index}
