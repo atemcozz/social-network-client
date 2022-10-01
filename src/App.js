@@ -22,6 +22,7 @@ function App() {
       APP_THEMES.forEach((theme) => document.body.classList.remove(theme));
       document.body.classList.add(themeName);
       localStorage.setItem("theme", themeName);
+      store.setAppTheme(themeName);
     } else {
       console.error("Theme not found");
     }
@@ -64,14 +65,7 @@ function App() {
                 <Route path={"/post/:id"} element={<FullPost />} />
                 <Route
                   path={"/map"}
-                  element={
-                    <Map
-                      center={{
-                        lat: -3.745,
-                        lng: -38.523,
-                      }}
-                    />
-                  }
+                  element={<Map center={{ lat: 60.04701, lng: 30.32928 }} />}
                 />
                 {publicRoutes.map((route, index) => (
                   <Route

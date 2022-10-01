@@ -6,6 +6,7 @@ export default class Store {
   user = {};
   isAuth = false;
   isLoading = true;
+  appTheme = "theme-light";
   constructor() {
     makeAutoObservable(this);
   }
@@ -17,6 +18,9 @@ export default class Store {
   }
   setLoading(loading) {
     this.isLoading = loading;
+  }
+  setAppTheme(theme) {
+    this.appTheme = theme;
   }
   async login(data) {
     this.setLoading(true);
