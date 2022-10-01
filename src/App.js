@@ -65,7 +65,7 @@ function App() {
                 <Route path={"/post/:id"} element={<FullPost />} />
                 <Route
                   path={"/map"}
-                  element={<Map center={{ lat: 60.04701, lng: 30.32928 }} />}
+                  element={<Map center={{ lat: 59.9, lng: 30.33 }} zoom={10} />}
                 />
                 {publicRoutes.map((route, index) => (
                   <Route
