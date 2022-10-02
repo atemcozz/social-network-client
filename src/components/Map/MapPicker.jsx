@@ -15,8 +15,7 @@ import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import { useContext } from "react";
 import { Context } from "../..";
-import { useState } from "react";
-import { useEffect, useRef } from "react";
+import LocateButton from "./LocateButton";
 const MapPicker = ({ center, zoom = 20, onPositionSet, position }) => {
   const { store } = useContext(Context);
   const accessToken =
@@ -39,7 +38,7 @@ const MapPicker = ({ center, zoom = 20, onPositionSet, position }) => {
           }
         />
         <AttributionControl position="bottomright" prefix={false} />
-
+        <LocateButton />
         <PickMarker position={position} onPositionSet={onPositionSet} />
         <LocationDetect zoom={15} panOnLoad />
       </MapContainer>

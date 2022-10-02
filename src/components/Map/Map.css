@@ -1,5 +1,5 @@
 .leaflet-container {
-  @apply w-full relative h-0 pb-[100%];
+  @apply w-full relative h-0 pb-[100%] z-0;
 }
 .leaflet-div-icon {
   @apply bg-transparent border-none;
@@ -15,5 +15,5 @@
   @apply p-0;
 }
 .cluster-marker {
-  @apply w-8 h-8 bg-primary flex justify-center items-center rounded-full border text-text-base;
+  @apply w-8 h-8 bg-primary flex justify-center items-center rounded-full border text-white;
 }

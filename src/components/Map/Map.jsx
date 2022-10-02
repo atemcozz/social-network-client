@@ -17,8 +17,10 @@ import { Context } from "../..";
 import { useState, useRef } from "react";
 import { useEffect } from "react";
 import L from "leaflet";
+import LocateButton from "./LocateButton";
 import LocationDetect from "./LocationDetect";
 import useSupercluster from "use-supercluster";
+
 const Map = ({ center, zoom = 20, locations }) => {
   const { store } = useContext(Context);
 
@@ -41,13 +43,15 @@ const Map = ({ center, zoom = 20, locations }) => {
               : `https://{s}.tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?access-token=${accessToken}`
           }
         />
+        <LocationDetect zoom={20} panOnLoad={false} />
+        <LocateButton />
         <LocationsCluster locations={locations} startZoom={zoom} />
         <AttributionControl position="bottomright" prefix={false} />
-        <LocationDetect zoom={20} panOnLoad={false} />
       </MapContainer>
     </div>
   );
 };
+
 const LocationsCluster = ({ locations, radius = 150, startZoom }) => {
   const map = useMap();
   const [zoom, setZoom] = useState(startZoom);
