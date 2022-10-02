@@ -15,5 +15,5 @@
   @apply p-0;
 }
 .cluster-marker {
-  @apply w-8 h-8 bg-primary flex justify-center items-center rounded-full border;
+  @apply w-8 h-8 bg-primary flex justify-center items-center rounded-full border text-text-base;
 }
