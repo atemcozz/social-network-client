@@ -7,3 +7,14 @@
   background: transparent;
   border: none;
 }
+
+.leaflet-popup-content {
+  margin: 0;
+  overflow: auto;
+}
+.leaflet-popup-close-button {
+  display: none;
+}
+.leaflet-popup-content-wrapper {
+  padding: 0;
+}

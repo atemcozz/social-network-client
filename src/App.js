@@ -10,6 +10,7 @@ import { observer } from "mobx-react";
 import Spinner from "./components/UI/Spinner/Spinner";
 import FullPost from "./components/FullPost/FullPost";
 import Map from "./components/Map/Map";
+import MapPicker from "./components/Map/MapPicker";
 export const AppContext = createContext(null);
 function App() {
   const APP_THEMES = ["theme-dark", "theme-light"];
@@ -65,7 +66,14 @@ function App() {
                 <Route path={"/post/:id"} element={<FullPost />} />
                 <Route
                   path={"/map"}
-                  element={<Map center={{ lat: 59.9, lng: 30.33 }} zoom={10} />}
+                  element={
+                    <div className="flex flex-col gap-2">
+                      <div>Many locations</div>
+                      <Map center={{ lat: 59.9, lng: 30.33 }} zoom={10} />
+                      <div>Picker</div>
+                      <MapPicker center={{ lat: 0, lng: 0 }} zoom={0} />
+                    </div>
+                  }
                 />
                 {publicRoutes.map((route, index) => (
                   <Route

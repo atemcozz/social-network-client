@@ -9,28 +9,16 @@ import {
 } from "react-leaflet";
 import markerIconPng from "../../assets/marker.png";
 import { Icon } from "leaflet";
-import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import { useContext } from "react";
 import { Context } from "../..";
 import { useState } from "react";
 import { useEffect } from "react";
-const Map = ({ center, zoom = 20 }) => {
+const MapPicker = ({ center, zoom = 20 }) => {
   const { store } = useContext(Context);
   const accessToken =
     "2vT72l92FFVGlmkE95lAV5v3Ipiu70TOCcl9eysYedIe7aIyiX6AHxUrHNJQ648o";
-  function generateLocations(count) {
-    let locations = [];
-    for (let i = 0; i < count; i++) {
-      locations.push({
-        lat: Math.random() * 180 - 90,
-        lng: Math.random() * 360 - 180,
-      });
-    }
-    return locations;
-  }
-  const locations = generateLocations(1000);
   return (
     <div>
       <MapContainer center={center} zoom={zoom} attributionControl={false}>
@@ -43,29 +31,35 @@ const Map = ({ center, zoom = 20 }) => {
           }
         />
         <AttributionControl position="bottomright" prefix={false} />
-        <MarkerClusterGroup>
-          {locations.map((location) => (
-            <Marker
-              position={location}
-              key={location.lat + location.lng}
-              icon={
-                new Icon({
-                  iconUrl: markerIconPng,
-                  iconSize: [24, 37],
-                  iconAnchor: [12, 37],
-                  popupAnchor: [0, -37],
-                })
-              }
-            >
-              <Popup>
-                <div className="p-2">Popup</div>
-              </Popup>
-            </Marker>
-          ))}
-        </MarkerClusterGroup>
+        <PlaceMarker />
       </MapContainer>
     </div>
   );
 };
+function PlaceMarker() {
+  const [position, setPosition] = useState(null);
 
-export default React.memo(Map);
+  const map = useMapEvents({
+    click(e) {
+      setPosition(e.latlng);
+    },
+  });
+  return position === null ? null : (
+    <Marker
+      position={position}
+      icon={
+        new Icon({
+          iconUrl: markerIconPng,
+          iconSize: [24, 37],
+          iconAnchor: [12, 37],
+          popupAnchor: [0, -37],
+        })
+      }
+    >
+      <Popup>
+        <div className="p-2">Popup</div>
+      </Popup>
+    </Marker>
+  );
+}
+export default React.memo(MapPicker);
