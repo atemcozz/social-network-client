@@ -68,7 +68,7 @@ const PickMarker = ({ position, onPositionSet }) => {
         }
         eventHandlers={{
           dragend(e) {
-            if (e.target._latlng >= -180 && e.target._latlng <= 180)
+            if (e.target._latlng.lng >= -180 && e.target._latlng.lng <= 180)
               onPositionSet(e.target._latlng);
           },
         }}
