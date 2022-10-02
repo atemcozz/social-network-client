@@ -20,16 +20,12 @@ const Test = () => {
   }, []);
   return (
     <div className="flex flex-col gap-2">
-      <div>Many locations</div>
+      <div className="text-xl font-bold">Clusters</div>
       {locations && (
-        <Map
-          center={{ lat: 59.9, lng: 30.33 }}
-          zoom={10}
-          locations={locations}
-        />
+        <Map center={{ lat: 0, lng: 0 }} zoom={2} locations={locations} />
       )}
 
-      <div>Picker</div>
+      <div className="text-xl font-bold">Выбор места</div>
       {position && (
         <div>
           {position.lat} {position.lng}
@@ -37,7 +33,7 @@ const Test = () => {
       )}
       <MapPicker
         center={{ lat: 0, lng: 0 }}
-        zoom={0}
+        zoom={2}
         onPositionSet={(pos) => setPosition(pos)}
         position={position}
       />

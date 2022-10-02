@@ -17,6 +17,7 @@ import { Context } from "../..";
 import { useState, useRef } from "react";
 import { useEffect } from "react";
 import L from "leaflet";
+import LocationDetect from "./LocationDetect";
 import useSupercluster from "use-supercluster";
 const Map = ({ center, zoom = 20, locations }) => {
   const { store } = useContext(Context);
@@ -26,7 +27,12 @@ const Map = ({ center, zoom = 20, locations }) => {
 
   return (
     <div>
-      <MapContainer center={center} zoom={zoom} attributionControl={false}>
+      <MapContainer
+        center={center}
+        zoom={zoom}
+        attributionControl={false}
+        worldCopyJump
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={
@@ -37,6 +43,7 @@ const Map = ({ center, zoom = 20, locations }) => {
         />
         <LocationsCluster locations={locations} startZoom={zoom} />
         <AttributionControl position="bottomright" prefix={false} />
+        <LocationDetect zoom={20} panOnLoad={false} />
       </MapContainer>
     </div>
   );
@@ -73,7 +80,6 @@ const LocationsCluster = ({ locations, radius = 150, startZoom }) => {
   });
   return (
     <>
-      {" "}
       {clusters?.map((cluster) => {
         const [lng, lat] = cluster.geometry.coordinates;
         const { cluster: isCluster, point_count: pointCount } =
@@ -112,7 +118,9 @@ const LocationsCluster = ({ locations, radius = 150, startZoom }) => {
             }
           >
             <Popup>
-              <div className="p-2">Popup</div>
+              <div className="p-2">
+                {lat} {lng}
+              </div>
             </Popup>
           </Marker>
         );

@@ -6,7 +6,9 @@ import {
   Popup,
   AttributionControl,
   useMapEvents,
+  useMap,
 } from "react-leaflet";
+import LocationDetect from "./LocationDetect";
 import markerIconPng from "../../assets/marker.png";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -19,16 +21,6 @@ const MapPicker = ({ center, zoom = 20, onPositionSet, position }) => {
   const { store } = useContext(Context);
   const accessToken =
     "2vT72l92FFVGlmkE95lAV5v3Ipiu70TOCcl9eysYedIe7aIyiX6AHxUrHNJQ648o";
-  const mapRef = useRef();
-
-  const [mapLoaded, setMapLoaded] = useState(false);
-  useEffect(() => {
-    if (mapRef.current) {
-      mapRef.current.on("click", (e) => {
-        onPositionSet(e.latlng);
-      });
-    }
-  }, [mapLoaded, onPositionSet]);
 
   return (
     <div>
@@ -36,8 +28,7 @@ const MapPicker = ({ center, zoom = 20, onPositionSet, position }) => {
         center={center}
         zoom={zoom}
         attributionControl={false}
-        ref={mapRef}
-        whenReady={() => setMapLoaded(true)}
+        worldCopyJump
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -48,25 +39,48 @@ const MapPicker = ({ center, zoom = 20, onPositionSet, position }) => {
           }
         />
         <AttributionControl position="bottomright" prefix={false} />
-        {position && (
-          <Marker
-            position={position}
-            icon={
-              new Icon({
-                iconUrl: markerIconPng,
-                iconSize: [24, 37],
-                iconAnchor: [12, 37],
-                popupAnchor: [0, -37],
-              })
-            }
-          >
-            <Popup>
-              <div className="p-2">Popup</div>
-            </Popup>
-          </Marker>
-        )}
+
+        <PickMarker position={position} onPositionSet={onPositionSet} />
+        <LocationDetect zoom={15} panOnLoad />
       </MapContainer>
     </div>
+  );
+};
+
+const PickMarker = ({ position, onPositionSet }) => {
+  const map = useMap();
+  useMapEvents({
+    click(e) {
+      if (e.latlng.lng >= -180 && e.latlng.lng <= 180) onPositionSet(e.latlng);
+    },
+  });
+  return (
+    position && (
+      <Marker
+        draggable
+        position={position}
+        icon={
+          new Icon({
+            iconUrl: markerIconPng,
+            iconSize: [24, 37],
+            iconAnchor: [12, 37],
+            popupAnchor: [0, -37],
+          })
+        }
+        eventHandlers={{
+          dragend(e) {
+            if (e.target._latlng >= -180 && e.target._latlng <= 180)
+              onPositionSet(e.target._latlng);
+          },
+        }}
+      >
+        <Popup>
+          <div className="p-2">
+            {position.lat} {position.lng}
+          </div>
+        </Popup>
+      </Marker>
+    )
   );
 };
 export default React.memo(MapPicker);
