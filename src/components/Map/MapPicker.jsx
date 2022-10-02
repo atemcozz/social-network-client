@@ -40,7 +40,7 @@ const MapPicker = ({ center, zoom = 20, onPositionSet, position }) => {
         <AttributionControl position="bottomright" prefix={false} />
         <LocateButton />
         <PickMarker position={position} onPositionSet={onPositionSet} />
-        <LocationDetect zoom={15} panOnLoad />
+        <LocationDetect />
       </MapContainer>
     </div>
   );

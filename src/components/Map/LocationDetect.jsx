@@ -4,7 +4,7 @@ import L from "leaflet";
 import { Icon } from "leaflet";
 import hereIcon from "../../assets/heremarker.png";
 import { useEffect } from "react";
-function LocationDetect({ zoom = 20, panOnLoad = true }) {
+function LocationDetect({ zoom = 20, panOnLoad = false }) {
   const [position, setPosition] = useState(null);
   const userIcon = () => {
     const icon = L.divIcon({
