@@ -14,14 +14,31 @@ import "./Map.css";
 import { useContext } from "react";
 import { Context } from "../..";
 import { useState } from "react";
-import { useEffect } from "react";
-const MapPicker = ({ center, zoom = 20 }) => {
+import { useEffect, useRef } from "react";
+const MapPicker = ({ center, zoom = 20, onPositionSet, position }) => {
   const { store } = useContext(Context);
   const accessToken =
     "2vT72l92FFVGlmkE95lAV5v3Ipiu70TOCcl9eysYedIe7aIyiX6AHxUrHNJQ648o";
+  const mapRef = useRef();
+
+  const [mapLoaded, setMapLoaded] = useState(false);
+  useEffect(() => {
+    if (mapRef.current) {
+      mapRef.current.on("click", (e) => {
+        onPositionSet(e.latlng);
+      });
+    }
+  }, [mapLoaded, onPositionSet]);
+
   return (
     <div>
-      <MapContainer center={center} zoom={zoom} attributionControl={false}>
+      <MapContainer
+        center={center}
+        zoom={zoom}
+        attributionControl={false}
+        ref={mapRef}
+        whenReady={() => setMapLoaded(true)}
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={
@@ -31,35 +48,25 @@ const MapPicker = ({ center, zoom = 20 }) => {
           }
         />
         <AttributionControl position="bottomright" prefix={false} />
-        <PlaceMarker />
+        {position && (
+          <Marker
+            position={position}
+            icon={
+              new Icon({
+                iconUrl: markerIconPng,
+                iconSize: [24, 37],
+                iconAnchor: [12, 37],
+                popupAnchor: [0, -37],
+              })
+            }
+          >
+            <Popup>
+              <div className="p-2">Popup</div>
+            </Popup>
+          </Marker>
+        )}
       </MapContainer>
     </div>
   );
 };
-function PlaceMarker() {
-  const [position, setPosition] = useState(null);
-
-  const map = useMapEvents({
-    click(e) {
-      setPosition(e.latlng);
-    },
-  });
-  return position === null ? null : (
-    <Marker
-      position={position}
-      icon={
-        new Icon({
-          iconUrl: markerIconPng,
-          iconSize: [24, 37],
-          iconAnchor: [12, 37],
-          popupAnchor: [0, -37],
-        })
-      }
-    >
-      <Popup>
-        <div className="p-2">Popup</div>
-      </Popup>
-    </Marker>
-  );
-}
 export default React.memo(MapPicker);

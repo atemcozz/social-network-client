@@ -4,17 +4,19 @@ import { NEW_POSTS_ROUTE, privateRoutes } from "./utils/routes";
 import ActionSideMenu from "./components/ActionSideMenu/ActionSideMenu";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { publicRoutes } from "./utils/routes";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "./index";
 import { observer } from "mobx-react";
 import Spinner from "./components/UI/Spinner/Spinner";
 import FullPost from "./components/FullPost/FullPost";
 import Map from "./components/Map/Map";
 import MapPicker from "./components/Map/MapPicker";
+import Test from "./components/Map/Test";
 export const AppContext = createContext(null);
 function App() {
   const APP_THEMES = ["theme-dark", "theme-light"];
   const { store } = useContext(Context);
+
   const getTheme = () => {
     return localStorage.getItem("theme");
   };
@@ -64,17 +66,7 @@ function App() {
             {!store.isLoading && (
               <Routes>
                 <Route path={"/post/:id"} element={<FullPost />} />
-                <Route
-                  path={"/map"}
-                  element={
-                    <div className="flex flex-col gap-2">
-                      <div>Many locations</div>
-                      <Map center={{ lat: 59.9, lng: 30.33 }} zoom={10} />
-                      <div>Picker</div>
-                      <MapPicker center={{ lat: 0, lng: 0 }} zoom={0} />
-                    </div>
-                  }
-                />
+                <Route path={"/map"} element={<Test />} />
                 {publicRoutes.map((route, index) => (
                   <Route
                     key={index}
