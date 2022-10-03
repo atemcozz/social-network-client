@@ -1,6 +1,6 @@
-.leaflet-container {
+/* .leaflet-container {
   @apply w-full relative h-0 pb-[100%] z-0;
-}
+} */
 .leaflet-div-icon {
   @apply bg-transparent border-none;
 }

@@ -4,7 +4,7 @@ const PostList = ({ posts, onChange }) => {
   return (
     <div className="flex flex-col gap-4">
       {posts?.map((post, index) => (
-        <Post key={index} post={post} onChange={onChange} />
+        <Post key={post.id} post={post} onChange={onChange} />
       ))}
     </div>
   );

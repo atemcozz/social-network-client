@@ -17,10 +17,13 @@ import PostService from "../../services/PostService";
 import { useNavigate } from "react-router-dom";
 import Toggle from "../UI/Toggle/Toggle";
 import Spinner from "../UI/Spinner/Spinner";
+import MapPicker from "../Map/MapPicker";
+import InfoLabel from "../UI/InfoLabel/InfoLabel";
 const CreatePost = () => {
   const photoInput = useRef();
   const videoInput = useRef();
   const audioInput = useRef();
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [attachments, setAttachments] = useState([]);
   const [lastMediaID, setLastMediaID] = useState(0);
@@ -29,6 +32,8 @@ const CreatePost = () => {
   const [lastTagID, setLastTagID] = useState(0);
   const [error, setError] = useState();
   const [nsfw, setNsfw] = useState(false);
+  const [location, setLocation] = useState({ lat: 0, lng: 0 });
+  const [locationEnabled, setLocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -93,6 +98,12 @@ const CreatePost = () => {
   function removeTag(id) {
     setTags((tags) => tags.filter((tag) => tag.id !== id));
   }
+  function processLocationInput(e) {
+    const coords = e.target.value.split(",").map((el) => el.trim());
+    const lat = Math.min(Math.max(coords[0], -90), 90);
+    const lng = Math.min(Math.max(coords[1], -180), 180);
+    setLocation({ lat: lat ? lat : 0, lng: lng ? lng : 0 });
+  }
   if (loading) {
     return (
       <div className="flex items-center justify-center w-full h-[30vh]">
@@ -102,10 +113,16 @@ const CreatePost = () => {
   }
   return (
     <div>
-      <div className="font-bold text-xl pl-6 pb-4">Новый пост</div>
+      <div className="font-bold text-xl pl-6 pb-4">Новое место</div>
 
       <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
-        <div className="font-bold text-lg">Медиа</div>
+        <Input
+          value={title}
+          className="font-bold placeholder:font-normal "
+          placeholder={"Название"}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        {/* <div className="font-bold text-lg">Медиа</div> */}
         <div className="flex gap-2 items-center flex-wrap">
           <Button
             variant="outlined"
@@ -181,18 +198,35 @@ const CreatePost = () => {
                 );
             })}
         </div>
-        <div className="font-bold text-lg">Описание поста</div>
         <TextArea
           value={description}
           rows={3}
-          placeholder={"Введите описание поста..."}
+          placeholder={"Описание"}
           onChange={(e) => setDescription(e.target.value)}
         />
         <div className="flex gap-2">
-          <Toggle active={nsfw} onChange={() => setNsfw((state) => !state)} />
-          <div>Спойлер</div>
+          <Toggle
+            active={locationEnabled}
+            onChange={() => setLocationEnabled((state) => !state)}
+          />
+          <div>Местоположение</div>
         </div>
+        {locationEnabled && (
+          <>
+            <InfoLabel>Нажмите на карту, чтобы выбрать место</InfoLabel>
+            <MapPicker
+              position={location}
+              onPositionSet={setLocation}
+              zoom={1}
+            />
 
+            <Input
+              value={`${location?.lat}, ${location?.lng}`}
+              placeholder={"Позиция"}
+              onChange={processLocationInput}
+            />
+          </>
+        )}
         <div>
           <div className="font-bold text-lg pb-3">Теги</div>
           <div className="flex gap-2">

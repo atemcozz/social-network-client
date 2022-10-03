@@ -164,7 +164,7 @@ const Post = ({ post, onChange }) => {
                       controls
                     ></video>
                   );
-                return <></>;
+                return null;
               })}
           </>
         )}

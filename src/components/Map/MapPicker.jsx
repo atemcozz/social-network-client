@@ -16,7 +16,13 @@ import "./Map.css";
 import { useContext } from "react";
 import { Context } from "../..";
 import LocateButton from "./LocateButton";
-const MapPicker = ({ center, zoom = 20, onPositionSet, position }) => {
+const MapPicker = ({
+  center = { lat: 0, lng: 0 },
+  zoom = 0,
+  onPositionSet,
+  position,
+  className,
+}) => {
   const { store } = useContext(Context);
   const accessToken =
     "2vT72l92FFVGlmkE95lAV5v3Ipiu70TOCcl9eysYedIe7aIyiX6AHxUrHNJQ648o";
@@ -24,6 +30,7 @@ const MapPicker = ({ center, zoom = 20, onPositionSet, position }) => {
   return (
     <div>
       <MapContainer
+        className={`w-full h-96 z-0 ${className}`}
         center={center}
         zoom={zoom}
         attributionControl={false}
