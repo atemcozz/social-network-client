@@ -7,6 +7,7 @@ import {
   BsBookmark,
   BsThreeDotsVertical,
 } from "react-icons/bs";
+import { HiLocationMarker } from "react-icons/hi";
 import { IoMdOpen } from "react-icons/io";
 import { MdDeleteForever, MdContentCopy } from "react-icons/md";
 import defaultAvatar from "../../assets/default_avatar.png";
@@ -22,13 +23,13 @@ import Avatar from "../UI/Avatar/Avatar";
 import getDateFromSQL from "../../utils/getDateFromSQL.js";
 import Tag from "./Tag/Tag";
 import Image from "../UI/Image/Image";
+import Map from "../Map/Map";
 const Post = ({ post, onChange }) => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
   const [postLiked, setPostLiked] = useState(false);
-  const [nsfwConfirmed, setNsfwConfirmed] = useState(false);
-  const [isNsfw, setIsNsfw] = useState(post.nsfw);
   const [imageModal, setImageModal] = useState(false);
+  const [showMap, setShowMap] = useState(false);
   function likePost() {
     if (store.isAuth) {
       if (postLiked) post.likes_count--;
@@ -124,51 +125,58 @@ const Post = ({ post, onChange }) => {
         </DotsDropdown>
       </div>
 
-      <div className="flex flex-col gap-3">
-        {isNsfw && !nsfwConfirmed && (
-          <div className="flex justify-center items-center flex-col bg-secondary rounded-lg text-white h-80 gap-5">
-            <div className="text-2xl text-center font-bold">
-              Автор скрыл контент
-            </div>
-
-            <Button className={"shadow"} onClick={() => setNsfwConfirmed(true)}>
-              Показать
-            </Button>
+      <div className="flex flex-col gap-3 overflow-hidden">
+        {post.title && (
+          <div className="text-2xl font-bold pl-2 break-words">
+            {post.title}
           </div>
         )}
-        {(nsfwConfirmed || !isNsfw) && (
-          <>
-            {post.description && (
-              <div className="p-2 bg-back-lighter rounded-lg shadow w-11/12 self-center break-words">
-                {post.description}
-              </div>
-            )}
-
-            {post.attachments[0] &&
-              post.attachments.map((at, index) => {
-                if (at.type === "photo")
-                  return (
-                    <Image
-                      key={index}
-                      src={at.url}
-                      onClick={() => setImageModal(at.url)}
-                    />
-                  );
-
-                if (at.type === "video")
-                  return (
-                    <video
-                      key={index}
-                      className="w-full rounded-lg"
-                      src={at.url}
-                      controls
-                    ></video>
-                  );
-                return null;
-              })}
-          </>
+        {post.description && (
+          <div className="p-2 bg-back-lighter rounded-lg shadow w-full self-center break-words">
+            {post.description}
+          </div>
         )}
+
+        {post.attachments[0] &&
+          post.attachments.map((at, index) => {
+            if (at.type === "photo")
+              return (
+                <Image
+                  key={index}
+                  src={at.url}
+                  onClick={() => setImageModal(at.url)}
+                />
+              );
+
+            if (at.type === "video")
+              return (
+                <video
+                  key={index}
+                  className="w-full rounded-lg"
+                  src={at.url}
+                  controls
+                ></video>
+              );
+            return null;
+          })}
       </div>
+      {post.geo && (
+        <>
+          {showMap ? (
+            <Button variant="outlined" onClick={() => setShowMap(false)}>
+              <HiLocationMarker size="24px" />
+              Скрыть карту
+            </Button>
+          ) : (
+            <Button onClick={() => setShowMap(true)}>
+              <HiLocationMarker size="24px" />
+              Показать на карте
+            </Button>
+          )}
+          {showMap && <Map locations={[post.geo]} center={post.geo} />}
+        </>
+      )}
+
       {post.tags && post.tags[0] && (
         <div className="flex flex-wrap gap-1.5">
           {post.tags.map((tag, index) => (

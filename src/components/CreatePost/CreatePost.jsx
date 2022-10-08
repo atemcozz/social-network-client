@@ -32,7 +32,7 @@ const CreatePost = () => {
   const [lastTagID, setLastTagID] = useState(0);
   const [error, setError] = useState();
   const [nsfw, setNsfw] = useState(false);
-  const [location, setLocation] = useState({ lat: 0, lng: 0 });
+  const [location, setLocation] = useState();
   const [locationEnabled, setLocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -60,8 +60,13 @@ const CreatePost = () => {
   }
   function sendPost() {
     const formData = new FormData();
+    formData.append("title", title);
     formData.append("description", description);
-    formData.append("nsfw", nsfw);
+    if (location && locationEnabled) {
+      formData.append("lat", location.lat);
+      formData.append("lng", location.lng);
+    }
+
     attachments.forEach((at, index) => formData.append(`files[]`, at.file));
     tags.forEach((tag) => formData.append("tags[]", tag.value));
     setLoading(true);
@@ -121,6 +126,7 @@ const CreatePost = () => {
           className="font-bold placeholder:font-normal "
           placeholder={"Название"}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
         {/* <div className="font-bold text-lg">Медиа</div> */}
         <div className="flex gap-2 items-center flex-wrap">
@@ -220,11 +226,13 @@ const CreatePost = () => {
               zoom={1}
             />
 
-            <Input
-              value={`${location?.lat}, ${location?.lng}`}
-              placeholder={"Позиция"}
-              onChange={processLocationInput}
-            />
+            {location && (
+              <Input
+                value={`${location?.lat}, ${location?.lng}`}
+                placeholder={"Позиция"}
+                onChange={processLocationInput}
+              />
+            )}
           </>
         )}
         <div>
@@ -255,7 +263,9 @@ const CreatePost = () => {
             {error}
           </div>
         )}
-        {attachments.length > 0 ? (
+        {attachments.length > 0 &&
+        title?.length > 0 &&
+        !(locationEnabled && !location) ? (
           <Button variant="primary" onClick={sendPost}>
             Отправить
           </Button>

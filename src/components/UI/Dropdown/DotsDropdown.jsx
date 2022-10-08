@@ -21,24 +21,26 @@ const DotsDropdown = ({ children }) => {
     };
   }, [dropdownRef]);
   return (
-    <div className="relative">
-      <button
-        ref={menuRef}
-        onClick={() => setDropdown((state) => !state)}
-        className={"flex items-center"}
-      >
-        <BsThreeDotsVertical size="24px" />
-      </button>
-      <div
-        ref={dropdownRef}
-        className={`${
-          dropdown ? "block" : "hidden"
-        } absolute top-0 right-0 w-max bg-back-darker shadow rounded overflow-hidden z-10`}
-        onClick={() => setDropdown(false)}
-      >
-        <ul>{children}</ul>
+    children && (
+      <div className="relative">
+        <button
+          ref={menuRef}
+          onClick={() => setDropdown((state) => !state)}
+          className={"flex items-center"}
+        >
+          <BsThreeDotsVertical size="24px" />
+        </button>
+        <div
+          ref={dropdownRef}
+          className={`${
+            dropdown ? "block" : "hidden"
+          } absolute top-0 right-0 w-max bg-back-darker shadow rounded overflow-hidden z-10`}
+          onClick={() => setDropdown(false)}
+        >
+          <ul>{children}</ul>
+        </div>
       </div>
-    </div>
+    )
   );
 };
 const Item = ({ icon, onClick, children }) => {

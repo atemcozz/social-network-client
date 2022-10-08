@@ -135,38 +135,46 @@ const Profile = () => {
           </div>
         </>
       ) : (
-        <div className="rounded-lg shadow-md overflow-hidden">
-          <Tabs>
-            <Tabs.Item
-              active={viewMode === viewModes.gallery}
-              onClick={() => setViewMode(viewModes.gallery)}
-            >
-              <MdGridOn size={"24px"} />
-            </Tabs.Item>
-            <Tabs.Item
-              active={viewMode === viewModes.posts}
-              onClick={() => setViewMode(viewModes.posts)}
-            >
-              <MdMenu size={"24px"} />
-            </Tabs.Item>
-          </Tabs>
+        <>
+          {posts?.length > 0 ? (
+            <div className="rounded-lg shadow-md overflow-hidden">
+              <Tabs>
+                <Tabs.Item
+                  active={viewMode === viewModes.gallery}
+                  onClick={() => setViewMode(viewModes.gallery)}
+                >
+                  <MdGridOn size={"24px"} />
+                </Tabs.Item>
+                <Tabs.Item
+                  active={viewMode === viewModes.posts}
+                  onClick={() => setViewMode(viewModes.posts)}
+                >
+                  <MdMenu size={"24px"} />
+                </Tabs.Item>
+              </Tabs>
 
-          {viewMode === viewModes.gallery && (
-            <Gallery>
-              {posts?.map(
-                (post, index) =>
-                  post.attachments[0] && (
-                    <Gallery.Item
-                      post={post}
-                      key={index}
-                      onClick={() => navigate(`/post/${post.id}`)}
-                    />
-                  )
+              {viewMode === viewModes.gallery && (
+                <Gallery>
+                  {posts?.map(
+                    (post, index) =>
+                      post.attachments[0] && (
+                        <Gallery.Item
+                          post={post}
+                          key={index}
+                          onClick={() => navigate(`/post/${post.id}`)}
+                        />
+                      )
+                  )}
+                </Gallery>
               )}
-            </Gallery>
+              {viewMode === viewModes.posts && <PostList posts={posts} />}
+            </div>
+          ) : (
+            <div className="text-xl font-bold flex justify-center">
+              Постов нет
+            </div>
           )}
-          {viewMode === viewModes.posts && <PostList posts={posts} />}
-        </div>
+        </>
       )}
     </div>
   );

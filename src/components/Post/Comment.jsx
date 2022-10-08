@@ -15,7 +15,7 @@ const Comment = ({ comment, onChange }) => {
   }
   const navigate = useNavigate();
   return (
-    <div className="flex p-2 bg-back shadow rounded items-start justify-between">
+    <div className="flex p-2 bg-back shadow rounded-lg items-start justify-between">
       <div className="flex gap-2">
         <Avatar
           size="small"
@@ -28,7 +28,7 @@ const Comment = ({ comment, onChange }) => {
             <div className="font-semibold text-base cursor-pointer hover:text-primary">
               {comment.user.nickname}
             </div>
-            <div className="font-light text-xs line-h">
+            <div className="font-light text-xs leading-3">
               {getDateFromSQL(comment.created_at)}
             </div>
           </div>

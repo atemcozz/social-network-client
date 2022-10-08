@@ -21,7 +21,12 @@ import LocateButton from "./LocateButton";
 import LocationDetect from "./LocationDetect";
 import useSupercluster from "use-supercluster";
 
-const Map = ({ center, zoom = 20, locations }) => {
+const Map = ({
+  center = { lat: 0, lng: 0 },
+  zoom = 20,
+  locations,
+  className,
+}) => {
   const { store } = useContext(Context);
 
   const accessToken =
@@ -30,6 +35,7 @@ const Map = ({ center, zoom = 20, locations }) => {
   return (
     <div>
       <MapContainer
+        className={`w-full h-96 z-0 ${className}`}
         center={center}
         zoom={zoom}
         attributionControl={false}
