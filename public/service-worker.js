@@ -3,15 +3,7 @@ var doCache = true;
 
 // Name our cache
 var CACHE_NAME = "my-pwa-cache-v1";
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function () {
-    navigator.serviceWorker
-      .register("./service-worker.js")
-      .catch(function (err) {
-        console.log(err);
-      });
-  });
-}
+
 // Delete old caches that are not our current one!
 window.self.addEventListener("activate", (event) => {
   const cacheWhitelist = [CACHE_NAME];
