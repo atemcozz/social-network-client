@@ -4,7 +4,7 @@ import App from "./App";
 import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import Store from "./store/store";
-
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 const store = new Store();
 export const Context = createContext(null);
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -15,3 +15,4 @@ root.render(
     </Router>
   </Context.Provider>
 );
+serviceWorkerRegistration.register();
