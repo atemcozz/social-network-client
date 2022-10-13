@@ -60,36 +60,38 @@ function App() {
     >
       <div className="App bg-back-darker text-text-base">
         <Header />
-        <div className="py-4 md:px-4 flex mx-auto max-w-screen-lg justify-center ">
-          <ActionSideMenu />
-          <div className="w-full px-4 max-w-xl">
-            {!store.isLoading && (
-              <Routes>
-                <Route path={"/post/:id"} element={<FullPost />} />
-                <Route path={"/map"} element={<Test />} />
-                {publicRoutes.map((route, index) => (
-                  <Route
-                    key={index}
-                    path={route.path}
-                    element={<route.Component />}
-                  />
-                ))}
-                {store.isAuth &&
-                  privateRoutes.map((route, index) => (
+        <div className="max-w-screen-lg mx-auto">
+          <div className="py-4 md:px-4 md:grid md:grid-cols-[2fr_5fr_2fr]">
+            <ActionSideMenu />
+            <div className="w-full px-4">
+              {!store.isLoading && (
+                <Routes>
+                  <Route path={"/post/:id"} element={<FullPost />} />
+                  <Route path={"/map"} element={<Test />} />
+                  {publicRoutes.map((route, index) => (
                     <Route
                       key={index}
                       path={route.path}
                       element={<route.Component />}
                     />
                   ))}
-                <Route path="*" element={<Navigate to={NEW_POSTS_ROUTE} />} />
-              </Routes>
-            )}
-          </div>
+                  {store.isAuth &&
+                    privateRoutes.map((route, index) => (
+                      <Route
+                        key={index}
+                        path={route.path}
+                        element={<route.Component />}
+                      />
+                    ))}
+                  <Route path="*" element={<Navigate to={NEW_POSTS_ROUTE} />} />
+                </Routes>
+              )}
+            </div>
 
-          <aside className="hidden md:block sticky top-20 w-96 max-h-[80vh]">
-            <div className="h-96 bg-back p-4 rounded-lg"></div>
-          </aside>
+            <aside className="hidden md:block sticky top-20 max-h-[80vh]">
+              <div className="h-96 bg-back p-4 rounded-lg"></div>
+            </aside>
+          </div>
         </div>
       </div>
     </AppContext.Provider>
