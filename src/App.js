@@ -32,7 +32,7 @@ function App() {
   };
   useEffect(() => {
     setTheme(localStorage.getItem("theme"));
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("refresh_token")) {
       store.checkAuth();
     } else store.setLoading(false);
   }, []);

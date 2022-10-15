@@ -8,6 +8,8 @@ export default class AuthService {
     return api.post("/register", data);
   }
   static async logout() {
-    return api.get("/logout");
+    return api.post("/logout", {
+      refreshToken: localStorage.getItem("refresh_token"),
+    });
   }
 }
