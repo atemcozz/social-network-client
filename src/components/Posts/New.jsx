@@ -6,11 +6,15 @@ import PostService from "../../services/PostService";
 import { useContext } from "react";
 import { Context } from "../../index";
 import PostList from "../PostList/PostList";
+import { useEffect } from "react";
 const New = () => {
   const { store } = useContext(Context);
   const [posts, postsLoading, error, updatePosts] = useRequest(() =>
     PostService.getPosts()
   );
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
   if (postsLoading) {
     return (
       <div className="flex items-center justify-center w-full h-[30vh]">
