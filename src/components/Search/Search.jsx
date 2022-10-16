@@ -32,6 +32,7 @@ const Search = () => {
     }
     if (tags.length >= 10) {
       // setError("Максимальное число тегов - 10");
+      //
       return;
     }
     if (
