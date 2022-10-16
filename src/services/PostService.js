@@ -9,9 +9,12 @@ export default class PostService {
   }
   static async getPosts(options) {
     const params = [];
-    Object.keys(options).forEach((key) => {
-      params.push(`${key}=${options[key]}`);
-    });
+    if (options) {
+      Object.keys(options).forEach((key) => {
+        params.push(`${key}=${options[key]}`);
+      });
+    }
+
     return api.get(`/posts/?${params.join("&")}`);
   }
 
