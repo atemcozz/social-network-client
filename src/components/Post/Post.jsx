@@ -6,6 +6,7 @@ import {
   BsChatLeftTextFill,
   BsBookmark,
   BsThreeDotsVertical,
+  BsBookmarkFill,
 } from "react-icons/bs";
 import { HiLocationMarker } from "react-icons/hi";
 import { IoMdOpen } from "react-icons/io";
@@ -24,10 +25,12 @@ import getDateFromSQL from "../../utils/getDateFromSQL.js";
 import Tag from "./Tag/Tag";
 import Image from "../UI/Image/Image";
 import Map from "../Map/Map";
+import LinkText from "../UI/LinkText/LinkText";
 const Post = ({ post, onChange }) => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
   const [postLiked, setPostLiked] = useState(false);
+  const [postSaved, setPostSaved] = useState(false);
   const [imageModal, setImageModal] = useState(false);
   const [showMap, setShowMap] = useState(false);
   function likePost() {
@@ -52,7 +55,7 @@ const Post = ({ post, onChange }) => {
     }
   }
   function openFullPost() {
-    navigate(`/post/${post.id}`);
+    window.open(`/post/${post.id}`);
   }
   function deletePost() {
     PostService.deletePost(post.id)
@@ -60,7 +63,7 @@ const Post = ({ post, onChange }) => {
       .catch();
   }
   function openUser() {
-    navigate(`/user/${post.user.id}`);
+    window.open(`/user/${post.user.id}`);
   }
   useEffect(() => {
     setPostLiked(post.userLike);
@@ -133,7 +136,7 @@ const Post = ({ post, onChange }) => {
         )}
         {post.description && (
           <div className="p-2 bg-back-lighter rounded-lg shadow w-full self-center break-words">
-            {post.description}
+            <LinkText>{post.description}</LinkText>
           </div>
         )}
 
@@ -197,6 +200,16 @@ const Post = ({ post, onChange }) => {
             <div>{post.comments_count}</div>
           </Button>
         </div>
+        <Button
+          variant={postSaved ? "primary" : "outlined"}
+          onClick={() => setPostSaved((state) => !state)}
+        >
+          {postSaved ? (
+            <BsBookmarkFill size={"24px"} />
+          ) : (
+            <BsBookmark size={"24px"} />
+          )}
+        </Button>
       </div>
     </div>
   );

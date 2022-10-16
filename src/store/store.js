@@ -65,7 +65,7 @@ export default class Store {
       const res = await axios.post(`${API_URL}/refresh`, {
         refreshToken: localStorage.getItem("refresh_token"),
       });
-      console.log(res.data);
+      // console.log(res.data);
       localStorage.setItem("access_token", res.data.accessToken);
       localStorage.setItem("refresh_token", res.data.refreshToken);
       this.setAuth(true);

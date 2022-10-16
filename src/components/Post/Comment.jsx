@@ -6,6 +6,7 @@ import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 import PostService from "../../services/PostService";
 import { MdDeleteForever } from "react-icons/md";
 import { Context } from "../../index";
+import LinkText from "../UI/LinkText/LinkText";
 const Comment = ({ comment, onChange }) => {
   const { store } = useContext(Context);
   async function deleteComment() {
@@ -21,7 +22,7 @@ const Comment = ({ comment, onChange }) => {
           size="small"
           src={comment.user.avatar_url}
           pointer
-          onClick={() => navigate(`/user/${comment.user.id}`)}
+          onClick={() => window.open(`/user/${comment.user.id}`)}
         />
         <div className="flex flex-col">
           <div className="flex flex-wrap items-center gap-2">
@@ -32,7 +33,9 @@ const Comment = ({ comment, onChange }) => {
               {getDateFromSQL(comment.created_at)}
             </div>
           </div>
-          <div className="break-words max-w-md">{comment.body}</div>
+          <div className="break-words max-w-md">
+            <LinkText>{comment.body}</LinkText>
+          </div>
         </div>
       </div>
 

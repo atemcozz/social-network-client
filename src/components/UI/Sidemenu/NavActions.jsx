@@ -4,7 +4,7 @@ import { BsBookmarkFill } from "react-icons/bs";
 import { IoTimer, IoCreate } from "react-icons/io5";
 import { HiFire } from "react-icons/hi";
 import { BiCategory } from "react-icons/bi";
-import { MdMap } from "react-icons/md";
+import { MdMap, MdSearch } from "react-icons/md";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import Toggle from "../Toggle/Toggle";
 import { AppContext } from "../../../App";
@@ -58,9 +58,9 @@ const NavActions = () => {
         <HiFire size={"32px"} />
         Популярное
       </Button>
-      <Button variant={"secondary"} onClick={() => navigate("/map")}>
-        <MdMap size={"32px"} />
-        Карта
+      <Button variant={"secondary"} onClick={() => navigate("/search")}>
+        <MdSearch size={"32px"} />
+        Поиск
       </Button>
       {/* <Button variant={"secondary"}>
         <BiCategory size={"32px"} />

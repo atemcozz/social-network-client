@@ -12,6 +12,7 @@ import FullPost from "./components/FullPost/FullPost";
 import Map from "./components/Map/Map";
 import MapPicker from "./components/Map/MapPicker";
 import Test from "./components/Map/Test";
+import Search from "./components/Search/Search";
 export const AppContext = createContext(null);
 function App() {
   const APP_THEMES = ["theme-dark", "theme-light"];
@@ -67,6 +68,7 @@ function App() {
               {!store.isLoading && (
                 <Routes>
                   <Route path={"/post/:id"} element={<FullPost />} />
+                  <Route path={"/search"} element={<Search />} />
                   <Route path={"/map"} element={<Test />} />
                   {publicRoutes.map((route, index) => (
                     <Route

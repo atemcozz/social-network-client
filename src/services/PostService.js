@@ -7,12 +7,14 @@ export default class PostService {
   static async getLikeStatus(user_id, post_id) {
     return api.get(`/post_liked?user_id=${user_id}&post_id=${post_id}`);
   }
-  static async getPosts() {
-    return api.get(`/posts`);
+  static async getPosts(options) {
+    const params = [];
+    Object.keys(options).forEach((key) => {
+      params.push(`${key}=${options[key]}`);
+    });
+    return api.get(`/posts/?${params.join("&")}`);
   }
-  static async getPopularPosts() {
-    return api.get(`/posts/popular`);
-  }
+
   static async getPostByID(id) {
     return api.get(`/post/${id}`);
   }

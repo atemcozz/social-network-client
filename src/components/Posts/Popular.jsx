@@ -9,7 +9,7 @@ import PostList from "../PostList/PostList";
 const Popular = () => {
   const { store } = useContext(Context);
   const [posts, postsLoading, error, updatePosts] = useRequest(() =>
-    PostService.getPopularPosts()
+    PostService.getPosts({ sort: "popular" })
   );
   if (postsLoading) {
     return (
