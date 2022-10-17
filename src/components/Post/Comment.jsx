@@ -7,6 +7,7 @@ import PostService from "../../services/PostService";
 import { MdDeleteForever } from "react-icons/md";
 import { Context } from "../../index";
 import LinkText from "../UI/LinkText/LinkText";
+import { Link } from "react-router-dom";
 const Comment = ({ comment, onChange }) => {
   const { store } = useContext(Context);
   async function deleteComment() {
@@ -18,17 +19,20 @@ const Comment = ({ comment, onChange }) => {
   return (
     <div className="flex p-2 bg-back shadow rounded-lg items-start justify-between">
       <div className="flex gap-2">
-        <Avatar
-          size="small"
-          src={comment.user.avatar_url}
-          pointer
-          onClick={() => window.open(`/user/${comment.user.id}`)}
-        />
+        <Link to={`/user/${comment.user.id}`}>
+          <Avatar src={comment.user.avatar_url} size="normal" />
+        </Link>
         <div className="flex flex-col">
           <div className="flex flex-wrap items-center gap-2">
-            <div className="font-semibold text-base cursor-pointer hover:text-primary">
+            <Link
+              to={`/user/${comment.user.id}`}
+              className="font-semibold text-base cursor-pointer hover:text-primary"
+            >
               {comment.user.nickname}
-            </div>
+            </Link>
+            {/* <div className="font-semibold text-base cursor-pointer hover:text-primary">
+              {comment.user.nickname}
+            </div> */}
             <div className="font-light text-xs leading-3">
               {getDateFromSQL(comment.created_at)}
             </div>
