@@ -12,9 +12,7 @@ const New = () => {
   const [posts, postsLoading, error, updatePosts] = useRequest(() =>
     PostService.getPosts()
   );
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
+
   if (postsLoading) {
     return (
       <div className="flex items-center justify-center w-full h-[30vh]">

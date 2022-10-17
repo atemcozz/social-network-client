@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-const useRequest = (request, dependencies = [null]) => {
+const useRequest = (request, dependencies = []) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -12,7 +12,7 @@ const useRequest = (request, dependencies = [null]) => {
   };
   useEffect(() => {
     update();
-  }, [...dependencies]);
+  }, dependencies);
 
   return [data, loading, error, update];
 };

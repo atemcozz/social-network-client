@@ -26,6 +26,7 @@ import Tag from "./Tag/Tag";
 import Image from "../UI/Image/Image";
 import Map from "../Map/Map";
 import LinkText from "../UI/LinkText/LinkText";
+import { Link } from "react-router-dom";
 const Post = ({ post, onChange }) => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
@@ -86,19 +87,22 @@ const Post = ({ post, onChange }) => {
       )}
       <div className="flex items-center justify-between">
         <div className="flex gap-2">
-          <Avatar
-            src={post.user.avatar_url}
-            size="normal"
-            pointer
-            onClick={openUser}
-          />
+          <Link to={`/user/${post.user.id}`}>
+            <Avatar src={post.user.avatar_url} size="normal" />
+          </Link>
           <div className="flex flex-col">
-            <div
+            <Link
+              to={`/user/${post.user.id}`}
+              className="font-semibold text-lg cursor-pointer hover:text-primary"
+            >
+              {post.user.nickname}
+            </Link>
+            {/* <div
               className="font-semibold text-lg cursor-pointer hover:text-primary"
               onClick={openUser}
             >
               {post.user.nickname}
-            </div>
+            </div> */}
             <div className="font-light text-xs">
               {getDateFromSQL(post.created_at)}
             </div>
@@ -195,10 +199,17 @@ const Post = ({ post, onChange }) => {
             count={post.likes_count}
           />
 
-          <Button variant="outlined" onClick={openFullPost}>
+          {/* <Button variant="outlined" onClick={openFullPost}>
             <BsChatLeftTextFill size={"24px"} />
             <div>{post.comments_count}</div>
-          </Button>
+          </Button> */}
+          <Link
+            to={`/post/${post.id}`}
+            className="rounded-lg flex border border-primary gap-2 text-primary p-2 hover:text-primary-darker"
+          >
+            <BsChatLeftTextFill size={"24px"} />
+            <div>{post.comments_count}</div>
+          </Link>
         </div>
         <Button
           variant={postSaved ? "primary" : "outlined"}
