@@ -30,6 +30,7 @@ const Comment = ({ comment, onChange }) => {
             >
               {comment.user.nickname}
             </Link>
+            //
             {/* <div className="font-semibold text-base cursor-pointer hover:text-primary">
               {comment.user.nickname}
             </div> */}
