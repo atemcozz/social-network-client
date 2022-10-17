@@ -21,7 +21,7 @@ import Avatar from "../UI/Avatar/Avatar";
 import Tabs from "../UI/Tabs/Tabs";
 import Gallery from "../Gallery/Gallery";
 import PostList from "../PostList/PostList";
-
+import { Link } from "react-router-dom";
 const viewModes = {
   gallery: "gallery",
   posts: "posts",
@@ -158,11 +158,13 @@ const Profile = () => {
                   {posts?.map(
                     (post, index) =>
                       post.attachments[0] && (
-                        <Gallery.Item
-                          post={post}
+                        <Link
+                          to={`/post/${post.id}`}
+                          target={"_blank"}
                           key={index}
-                          onClick={() => navigate(`/post/${post.id}`)}
-                        />
+                        >
+                          <Gallery.Item post={post} />
+                        </Link>
                       )
                   )}
                 </Gallery>

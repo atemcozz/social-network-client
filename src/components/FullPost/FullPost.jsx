@@ -66,10 +66,15 @@ const FullPost = () => {
           </div>
         </>
       )}
-      {comments &&
+      {comments?.length > 0 ? (
         comments.map((comment, index) => (
           <Comment key={index} comment={comment} onChange={updateComments} />
-        ))}
+        ))
+      ) : (
+        <div className="rounded-lg p-2 bg-back-lighter">
+          Никто ещё не оставил комментариев, станьте первым!
+        </div>
+      )}
     </div>
   );
 };

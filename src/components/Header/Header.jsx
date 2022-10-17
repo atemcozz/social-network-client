@@ -47,7 +47,7 @@ const Header = () => {
           </div>
         </Transition.Child>
       </Transition>
-      <div className="flex justify-between items-center mx-auto h-full max-w-screen-lg p-2">
+      <div className="flex justify-between items-center mx-auto h-full max-w-screen-lg py-2 px-2 md:px-0">
         <div className="flex items-center justify-between gap-3">
           <Button
             variant={"outlined"}
@@ -56,7 +56,7 @@ const Header = () => {
           >
             <GiHamburgerMenu size={"24px"} />
           </Button>
-          <div className="flex items-center md:pl-10">
+          <div className="flex items-center ">
             <div className=" text-2xl font-bold text-text-base">Falco</div>
             <SiFalcon size={"32px"} className={"text-primary"} />
           </div>
