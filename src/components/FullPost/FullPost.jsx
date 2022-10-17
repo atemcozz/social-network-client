@@ -28,7 +28,7 @@ const FullPost = () => {
   }
   return (
     <div className="min-h-screen flex flex-col gap-4">
-      <div className="flex items-center gap-4">
+      {/* <div className="flex items-center gap-4">
         <button
           className="flex items-center bg-back hover:bg-back-darker p-2 rounded-full shadow text-primary"
           onClick={() => navigate(-1)}
@@ -36,7 +36,8 @@ const FullPost = () => {
           <BsArrowLeft size={"24px"} />
         </button>
         <div className="font-bold text-xl">Пост</div>
-      </div>
+      </div> */}
+      <div className="font-bold text-xl ml-4">Пост</div>
       {postError && (
         <>
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">

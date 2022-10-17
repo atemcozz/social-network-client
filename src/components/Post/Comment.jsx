@@ -19,18 +19,19 @@ const Comment = ({ comment, onChange }) => {
   return (
     <div className="flex p-2 bg-back shadow rounded-lg items-start justify-between">
       <div className="flex gap-2">
-        <Link to={`/user/${comment.user.id}`}>
+        <Link to={`/user/${comment.user.id}`} target={"_blank"}>
           <Avatar src={comment.user.avatar_url} size="normal" />
         </Link>
         <div className="flex flex-col">
           <div className="flex flex-wrap items-center gap-2">
             <Link
+              target={"_blank"}
               to={`/user/${comment.user.id}`}
               className="font-semibold text-base cursor-pointer hover:text-primary"
             >
               {comment.user.nickname}
             </Link>
-            //
+
             {/* <div className="font-semibold text-base cursor-pointer hover:text-primary">
               {comment.user.nickname}
             </div> */}

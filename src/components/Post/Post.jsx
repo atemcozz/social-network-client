@@ -87,11 +87,12 @@ const Post = ({ post, onChange }) => {
       )}
       <div className="flex items-center justify-between">
         <div className="flex gap-2">
-          <Link to={`/user/${post.user.id}`}>
+          <Link to={`/user/${post.user.id}`} target={"_blank"}>
             <Avatar src={post.user.avatar_url} size="normal" />
           </Link>
           <div className="flex flex-col">
             <Link
+              target={"_blank"}
               to={`/user/${post.user.id}`}
               className="font-semibold text-lg cursor-pointer hover:text-primary"
             >
@@ -206,6 +207,7 @@ const Post = ({ post, onChange }) => {
           <Link
             to={`/post/${post.id}`}
             className="rounded-lg flex border border-primary gap-2 text-primary p-2 hover:text-primary-darker"
+            target={"_blank"}
           >
             <BsChatLeftTextFill size={"24px"} />
             <div>{post.comments_count}</div>
