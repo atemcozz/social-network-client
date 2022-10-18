@@ -14,10 +14,10 @@ import Tag from "../Post/Tag/Tag";
 import { MdAdd } from "react-icons/md";
 import Radio from "../UI/Radio/Radio";
 import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 const Search = () => {
   const { store } = useContext(Context);
-  const query = useQuery();
-  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [tagInput, setTagInput] = useState();
   const [lastTagID, setLastTagID] = useState(0);
   const [tags, setTags] = useState([]);
@@ -57,13 +57,13 @@ const Search = () => {
   useEffect(() => {
     updatePosts();
   }, [tags, sort]);
+
   useEffect(() => {
-    if (location.state) {
-      if (location.state.tags) {
-        setTags();
-      }
+    if (searchParams && searchParams.get("tag")) {
+      setTags([{ value: searchParams.get("tag"), id: 0 }]);
+      window.history.pushState({}, document.title, window.location.pathname);
     }
-  }, [location]);
+  }, [searchParams]);
   if (postsLoading) {
     return (
       <div className="flex items-center justify-center w-full h-[30vh]">
