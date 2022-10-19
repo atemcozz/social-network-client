@@ -18,7 +18,7 @@ import { useSearchParams } from "react-router-dom";
 const Search = () => {
   const { store } = useContext(Context);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [tagInput, setTagInput] = useState();
+  const [tagInput, setTagInput] = useState("");
   const [lastTagID, setLastTagID] = useState(0);
   const [tags, setTags] = useState([]);
   const [sort, setSort] = useState("new");
@@ -28,49 +28,58 @@ const Search = () => {
 
   function addTag() {
     setTagInput("");
-    if (tagInput.trim().length > 30) {
-      // setError("Максимальная длина тега - 30 символов");
-      return;
-    }
-    if (tags.length >= 10) {
-      // setError("Максимальное число тегов - 10");
-      //
-      return;
-    }
-    if (
-      tagInput.trim().length > 0 &&
-      tags.filter((tag) => tag.value.toLowerCase() === tagInput.toLowerCase())
-        .length === 0
-    ) {
-      const tag = {
-        id: lastTagID,
-        value: tagInput[0].toUpperCase() + tagInput.slice(1),
-      };
+    const tag = tagInput[0].toUpperCase() + tagInput.slice(1);
+    searchParams.set(
+      "tags",
+      tags.length > 0 ? [tags.map((tag) => tag.value), tag].join(",") : tag
+    );
+    setSearchParams(searchParams.toString());
+    // if (
+    //   tagInput.trim().length > 0 &&
+    //   tags.filter((tag) => tag.value.toLowerCase() === tagInput.toLowerCase())
+    //     .length === 0
+    // ) {
+    //   const tag = {
+    //     id: lastTagID,
+    //     value: tagInput[0].toUpperCase() + tagInput.slice(1),
+    //   };
 
-      setTags((state) => [...state, tag]);
-      setLastTagID((state) => state + 1);
-    }
+    //   setTags((state) => [...state, tag]);
+    //   setLastTagID((state) => state + 1);
+    // }
   }
   function removeTag(id) {
-    setTags((tags) => tags.filter((tag) => tag.id !== id));
+    const newTags = tags.filter((tag) => tag.id !== id);
+    setTags(newTags);
+    if (newTags.length > 0) {
+      searchParams.set("tags", newTags.map((tag) => tag.value).join(","));
+    } else {
+      searchParams.delete("tags");
+    }
+    setSearchParams(searchParams.toString());
   }
   useEffect(() => {
     updatePosts();
   }, [tags, sort]);
 
   useEffect(() => {
-    if (searchParams && searchParams.get("tag")) {
-      setTags([{ value: searchParams.get("tag"), id: 0 }]);
-      window.history.pushState({}, document.title, window.location.pathname);
+    if (searchParams && searchParams.has("tags")) {
+      const queryTags = searchParams.get("tags").split(",");
+      setTags(
+        queryTags.map((tag, index) => {
+          return {
+            id: lastTagID + index,
+            value: tag,
+          };
+        })
+      );
+      setLastTagID((state) => state + queryTags.length);
     }
+    // if (searchParams && searchParams.get("tag")) {
+    //   setTags([{ value: searchParams.get("tag"), id: 0 }]);
+    //   window.history.pushState({}, document.title, window.location.pathname);
+    // }
   }, [searchParams]);
-  if (postsLoading) {
-    return (
-      <div className="flex items-center justify-center w-full h-[30vh]">
-        <Spinner />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen">
@@ -78,7 +87,6 @@ const Search = () => {
       <div className="rounded-lg shadow-md p-4 bg-back mb-4">
         <div className="mb-3">
           <div className="font-bold text-lg mb-3">Теги</div>
-
           <div className="flex gap-2">
             <Input
               placeholder={"Введите тег..."}
@@ -99,6 +107,7 @@ const Search = () => {
             </div>
           )}
         </div>
+        <div className="font-bold text-lg mb-3">Сортировка</div>
         <div className="flex" role={"group"}>
           <Button
             variant={sort === "new" ? "primary" : "outlined"}
@@ -132,6 +141,11 @@ const Search = () => {
           </Radio> */}
         </div>
       </div>
+      {postsLoading && (
+        <div className="flex items-center justify-center w-full h-[30vh]">
+          <Spinner />
+        </div>
+      )}
       <PostList posts={posts} onChange={updatePosts} />
       {error && (
         <div className="flex flex-col gap-2">

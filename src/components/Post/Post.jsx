@@ -188,7 +188,7 @@ const Post = ({ post, onChange }) => {
       {post.tags && post.tags[0] && (
         <div className="flex flex-wrap gap-1.5">
           {post.tags.map((tag, index) => (
-            <Link to={`/search/?tag=${tag}`} target={"_blank"} key={index}>
+            <Link to={`/search/?tags=${tag}`} target={"_blank"} key={index}>
               <Tag>{tag}</Tag>
             </Link>
           ))}
