@@ -47,7 +47,7 @@ const Header = () => {
           </div>
         </Transition.Child>
       </Transition>
-      <div className="flex justify-between items-center mx-auto h-full max-w-screen-lg py-2 px-2 md:px-0">
+      <div className="flex justify-between items-center mx-auto h-full max-w-screen-lg py-2 px-4 lg:px-0">
         <div className="flex items-center justify-between gap-3">
           <Button
             variant={"outlined"}

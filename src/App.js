@@ -62,7 +62,7 @@ function App() {
       <div className="App bg-back-darker text-text-base">
         <Header />
         <div className="max-w-screen-lg mx-auto">
-          <div className="py-4  md:grid md:grid-cols-[2fr_5fr_2fr]">
+          <div className="py-4 md:grid md:grid-cols-[2fr_5fr_2fr] px-4 lg:px-0">
             <ActionSideMenu />
             <div className="w-full px-4">
               {!store.isLoading && (
