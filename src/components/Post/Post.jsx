@@ -122,7 +122,7 @@ const Post = ({ post, onChange }) => {
           >
             Скопировать ссылку
           </DotsDropdown.Item>
-          {store.isAuth && (
+          {store.isAuth && store.user.id === post.user.id && (
             <DotsDropdown.Item
               icon={<MdDeleteForever size={"24px"} />}
               onClick={deletePost}
