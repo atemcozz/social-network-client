@@ -15,4 +15,4 @@ root.render(
     </Router>
   </Context.Provider>
 );
-serviceWorkerRegistration.register();
+//serviceWorkerRegistration.register();
