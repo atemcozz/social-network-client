@@ -10,6 +10,8 @@ import Comment from "../Post/Comment";
 import { useContext } from "react";
 import { Context } from "../..";
 import CommentSection from "./CommentSection";
+import { useState } from "react";
+import { useEffect } from "react";
 const FullPost = () => {
   const { store } = useContext(Context);
   const { id } = useParams();
@@ -17,9 +19,14 @@ const FullPost = () => {
   const [post, postLoading, postError] = useRequest(() =>
     PostService.getPostByID(id)
   );
-  const [comments, commentsLoading, commentsError, updateComments] = useRequest(
-    () => PostService.getComments(id)
-  );
+
+  // const [comments, commentsLoading, commentsError, updateComments] = useRequest(
+  //   () => PostService.getComments(id)
+  // );
+  const [comments, setComments] = useState();
+  const [commentsLoading, setCommentsLoading] = useState(false);
+  const [commentsError, setCommentsError] = useState(false);
+  const [newCommentID, setNewCommentID] = useState();
   const fakeComments = [
     {
       id: 0,
@@ -344,9 +351,24 @@ const FullPost = () => {
       body: comment.body,
       belongsTo: comment.belongsTo,
     })
-      .then(() => updateComments())
+      .then((res) => {
+        setComments((state) => [...state, res.data]);
+        // updateComments();
+      })
       .catch();
   }
+  async function deleteComment(id) {
+    await PostService.deleteComment(id)
+      .then(() => setComments((state) => state.filter((c) => c.id !== id)))
+      .catch((err) => setCommentsError(err));
+  }
+  useEffect(() => {
+    setCommentsLoading(true);
+    PostService.getComments(id)
+      .then((res) => setComments(res.data))
+      .catch((err) => setCommentsError(err))
+      .finally(() => setCommentsLoading(false));
+  }, []);
   if (commentsLoading || postLoading) {
     return (
       <div className="flex items-center justify-center w-full h-[30vh]">
@@ -387,7 +409,8 @@ const FullPost = () => {
             comments={comments}
             error={commentsError}
             onSend={sendComment}
-            onChange={updateComments}
+            onDelete={deleteComment}
+            // onChange={updateComments}
           />
         </>
       )}

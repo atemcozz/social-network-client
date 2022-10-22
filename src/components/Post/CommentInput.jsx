@@ -13,7 +13,7 @@ const CommentInput = ({ onSend, reply }) => {
   const [text, setText] = useState("");
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 sticky w-full bg-back z-10 p-2 bottom-0 rounded-lg">
       {reply && (
         <div className="flex">
           <Tag deletable onDelete={() => setReply(null)}>

@@ -9,7 +9,7 @@ import { createContext } from "react";
 import Tag from "../Post/Tag/Tag";
 
 export const CommentsContext = createContext();
-const CommentSection = ({ comments, error, onSend, onChange }) => {
+const CommentSection = ({ comments, error, onSend, onDelete }) => {
   const { store } = useContext(Context);
   const [reply, setReply] = useState();
   function arrayToTree(arr, belong = null) {
@@ -27,8 +27,7 @@ const CommentSection = ({ comments, error, onSend, onChange }) => {
   }
   return (
     <CommentsContext.Provider value={{ reply, setReply }}>
-      <div className="flex flex-col gap-2">
-        {store.isAuth && <CommentInput onSend={onSend} reply={reply} />}
+      <div className="flex flex-col gap-2 relative">
         {error && (
           <>
             <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
@@ -43,7 +42,7 @@ const CommentSection = ({ comments, error, onSend, onChange }) => {
         <div className="flex flex-col gap-2 overflow-auto">
           {comments?.length > 0 ? (
             arrayToTree(comments).map((comment, index) => (
-              <Comment key={index} comment={comment} onChange={onChange} />
+              <Comment key={index} comment={comment} onDelete={onDelete} />
             ))
           ) : (
             <div className="rounded-lg p-2 bg-back-lighter">
@@ -51,6 +50,7 @@ const CommentSection = ({ comments, error, onSend, onChange }) => {
             </div>
           )}
         </div>
+        {store.isAuth && <CommentInput onSend={onSend} reply={reply} />}
       </div>
     </CommentsContext.Provider>
   );

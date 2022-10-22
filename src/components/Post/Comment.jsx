@@ -13,20 +13,15 @@ import { useState } from "react";
 import Button from "../UI/Button/Button";
 import { CommentsContext } from "../FullPost/CommentSection";
 
-const Comment = ({ comment, onChange, depth = 0 }) => {
+const Comment = ({ comment, onDelete, depth = 0 }) => {
   const { store } = useContext(Context);
   const { setReply } = useContext(CommentsContext);
   const [branchVisible, setBranchVisible] = useState(true);
   const [branchHover, setBranchHover] = useState(false);
-  async function deleteComment() {
-    await PostService.deleteComment(comment.id)
-      .then(() => onChange())
-      .catch((e) => console.error(e));
-  }
 
   const navigate = useNavigate();
   return (
-    <div className={`flex flex-col gap-2 min-w-max`}>
+    <div name={comment.id} className={`flex flex-col gap-2 min-w-max`}>
       <div className="flex p-2 bg-back shadow rounded-lg items-start justify-between">
         <div className="flex gap-2">
           <Link to={`/user/${comment.user.id}`} target={"_blank"}>
@@ -59,7 +54,7 @@ const Comment = ({ comment, onChange, depth = 0 }) => {
           {store.user?.id === comment.user.id && (
             <DotsDropdown.Item
               icon={<MdDeleteForever size={"24px"} />}
-              onClick={deleteComment}
+              onClick={() => onDelete(comment.id)}
             >
               Удалить
             </DotsDropdown.Item>
@@ -120,7 +115,7 @@ const Comment = ({ comment, onChange, depth = 0 }) => {
             <Comment
               key={index}
               comment={child}
-              onChange={onChange}
+              onDelete={onDelete}
               depth={depth + 1}
             />
           ))}
