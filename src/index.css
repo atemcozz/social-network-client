@@ -29,7 +29,7 @@
   --background: #fff;
   --background-darker: rgb(241, 241, 241);
   --background-darkest: rgb(215, 215, 215);
-  --background-lighter: #fff;
+  --background-lighter: rgb(255, 255, 255);
   --secondary: #ececec;
   --secondary-darker: #dfdfdf;
 }

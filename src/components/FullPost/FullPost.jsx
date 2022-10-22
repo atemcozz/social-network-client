@@ -378,15 +378,6 @@ const FullPost = () => {
   }
   return (
     <div className="min-h-screen flex flex-col gap-4 ">
-      {/* <div className="flex items-center gap-4">
-        <button
-          className="flex items-center bg-back hover:bg-back-darker p-2 rounded-full shadow text-primary"
-          onClick={() => navigate(-1)}
-        >
-          <BsArrowLeft size={"24px"} />
-        </button>
-        <div className="font-bold text-xl">Пост</div>
-      </div> */}
       <div className="font-bold text-xl ml-4">Пост</div>
       {postError && (
         <>
@@ -410,7 +401,6 @@ const FullPost = () => {
             error={commentsError}
             onSend={sendComment}
             onDelete={deleteComment}
-            // onChange={updateComments}
           />
         </>
       )}

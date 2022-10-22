@@ -140,7 +140,7 @@ const Post = ({ post, onChange }) => {
           </div>
         )}
         {post.description && (
-          <div className="p-2 bg-back-lighter rounded-lg shadow w-full self-center break-words">
+          <div className="p-2 bg-back-darker rounded-lg shadow w-full self-center break-words">
             <LinkText>{post.description}</LinkText>
           </div>
         )}
