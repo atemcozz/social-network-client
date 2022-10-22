@@ -35,7 +35,7 @@ const NavActions = () => {
     }
   }, [location]);
   return (
-    <div className="rounded-lg overflow-y-auto max-h-full">
+    <div className="overflow-y-auto max-h-full">
       {!store.isAuth && (
         <>
           <NavLink to={LOGIN_ROUTE} className="text-primary">

@@ -38,7 +38,7 @@ const Header = () => {
               leaveTo="-translate-x-full"
             >
               <div
-                className={`fixed h-screen bg-back w-4/6 rounded-br-3xl rounded-tr-3xl p-4`}
+                className={`fixed h-screen bg-back w-4/6 rounded-br-xl rounded-tr-xl overflow-hidden`}
                 onClick={(e) => e.stopPropagation()}
               >
                 <NavActions />
