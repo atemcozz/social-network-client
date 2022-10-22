@@ -9,6 +9,7 @@ import CommentInput from "../Post/CommentInput";
 import Comment from "../Post/Comment";
 import { useContext } from "react";
 import { Context } from "../..";
+import CommentSection from "./CommentSection";
 const FullPost = () => {
   const { store } = useContext(Context);
   const { id } = useParams();
@@ -310,6 +311,21 @@ const FullPost = () => {
       body: "Тест веток",
       created_at: "2022-10-21T17:13:54.541Z",
       post_id: 76,
+      belongsTo: 17,
+      user: {
+        id: 2,
+        name: "Artem",
+        surname: "Kosov",
+        nickname: "atemcozz",
+        avatar_url:
+          "https://res.cloudinary.com/aqemcozz/image/upload/v1666361872/social-network/1666361872390-685705502.jpg",
+      },
+    },
+    {
+      id: 20,
+      body: "Тест веток",
+      created_at: "2022-10-21T17:13:54.541Z",
+      post_id: 76,
       belongsTo: 18,
       user: {
         id: 2,
@@ -321,18 +337,15 @@ const FullPost = () => {
       },
     },
   ];
-  function arrayToTree(arr, belong = null) {
-    const top = [];
-    arr.forEach((el) => {
-      if (
-        el.belongsTo === belong ||
-        (!el.hasOwnProperty("belongsTo") && belong === null)
-      ) {
-        el.children = arrayToTree(arr, el.id);
-        top.push(el);
-      }
-    });
-    return top;
+  async function sendComment(comment) {
+    await PostService.createComment({
+      post_id: post.id,
+      user_id: store.user?.id,
+      body: comment.body,
+      belongsTo: comment.belongsTo,
+    })
+      .then(() => updateComments())
+      .catch();
   }
   if (commentsLoading || postLoading) {
     return (
@@ -366,32 +379,18 @@ const FullPost = () => {
       )}
       {post && <Post post={post} />}
       {comments && (
-        <div className="font-bold text-xl">Комментарии ({comments.length})</div>
-      )}
-      {store.isAuth && <CommentInput post={post} onSend={updateComments} />}
-
-      {commentsError && (
         <>
-          <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-            В процессе загрузки комментариев произошла ошибка. Попробуйте
-            перезагрузить страницу.
+          <div className="font-bold text-xl">
+            Комментарии ({comments.length})
           </div>
-          <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-            {commentsError.message}
-          </div>
+          <CommentSection
+            comments={comments}
+            error={commentsError}
+            onSend={sendComment}
+            onChange={updateComments}
+          />
         </>
       )}
-      <div className="flex flex-col gap-2 overflow-auto">
-        {fakeComments?.length > 0 ? (
-          arrayToTree(fakeComments).map((comment, index) => (
-            <Comment key={index} comment={comment} onChange={updateComments} />
-          ))
-        ) : (
-          <div className="rounded-lg p-2 bg-back-lighter">
-            Никто ещё не оставил комментариев, станьте первым!
-          </div>
-        )}
-      </div>
     </div>
   );
 };

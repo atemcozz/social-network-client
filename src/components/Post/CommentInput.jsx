@@ -5,29 +5,37 @@ import Button from "../UI/Button/Button";
 import { MdSend } from "react-icons/md";
 import PostService from "../../services/PostService";
 import { Context } from "../../index";
-const CommentInput = ({ post, onSend }) => {
+import Tag from "./Tag/Tag";
+import { CommentsContext } from "../FullPost/CommentSection";
+const CommentInput = ({ onSend, reply }) => {
   const { store } = useContext(Context);
+  const { setReply } = useContext(CommentsContext);
   const [text, setText] = useState("");
-  async function sendComment() {
-    setText("");
-    await PostService.createComment({
-      post_id: post.id,
-      user_id: store.user?.id,
-      body: text,
-    })
-      .then(() => onSend())
-      .catch();
-  }
+
   return (
-    <div className="flex gap-2 ">
-      <Input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Введите комментарий"
-      />
-      <Button onClick={sendComment}>
-        <MdSend size="24px" />
-      </Button>
+    <div className="flex flex-col gap-1">
+      {reply && (
+        <div className="flex">
+          <Tag deletable onDelete={() => setReply(null)}>
+            Ответ {reply.user.nickname}
+          </Tag>
+        </div>
+      )}
+      <div className="flex gap-2 ">
+        <Input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Введите комментарий"
+        />
+        <Button
+          onClick={() => {
+            setText("");
+            onSend({ body: text, belongsTo: reply?.id });
+          }}
+        >
+          <MdSend size="24px" />
+        </Button>
+      </div>
     </div>
   );
 };

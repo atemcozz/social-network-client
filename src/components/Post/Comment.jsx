@@ -8,11 +8,14 @@ import { MdDeleteForever } from "react-icons/md";
 import { Context } from "../../index";
 import LinkText from "../UI/LinkText/LinkText";
 import { Link } from "react-router-dom";
-import { BsArrowUpSquare } from "react-icons/bs";
+import { BsArrowUpSquare, BsReplyFill } from "react-icons/bs";
 import { useState } from "react";
 import Button from "../UI/Button/Button";
+import { CommentsContext } from "../FullPost/CommentSection";
+
 const Comment = ({ comment, onChange, depth = 0 }) => {
   const { store } = useContext(Context);
+  const { setReply } = useContext(CommentsContext);
   const [branchVisible, setBranchVisible] = useState(true);
   const [branchHover, setBranchHover] = useState(false);
   async function deleteComment() {
@@ -61,11 +64,27 @@ const Comment = ({ comment, onChange, depth = 0 }) => {
               Удалить
             </DotsDropdown.Item>
           )}
+          {store.isAuth && (
+            <DotsDropdown.Item
+              icon={<BsReplyFill size={"24px"} />}
+              onClick={() => setReply(comment)}
+            >
+              Ответить
+            </DotsDropdown.Item>
+          )}
+          {branchVisible && comment.children?.length > 0 && (
+            <DotsDropdown.Item
+              icon={<BsArrowUpSquare size={"24px"} />}
+              onClick={() => setBranchVisible(false)}
+            >
+              Скрыть ответы
+            </DotsDropdown.Item>
+          )}
         </DotsDropdown>
       </div>
       {!branchVisible && (
         <Button variant="outlined" onClick={() => setBranchVisible(true)}>
-          Раскрыть ветку
+          Показать ответы
         </Button>
       )}
       {comment.children?.length > 0 && (
@@ -73,7 +92,7 @@ const Comment = ({ comment, onChange, depth = 0 }) => {
           className={`${!branchVisible && "hidden"}
            ${
              branchHover ? "border-primary" : "border-secondary-darker"
-           } ml-2 pl-4 border-l-2  flex flex-col gap-2 relative`}
+           } ml-1 pl-2 border-l-2  flex flex-col gap-2 relative`}
         >
           <div
             onMouseOver={(e) => {
@@ -88,13 +107,13 @@ const Comment = ({ comment, onChange, depth = 0 }) => {
             className="cursor-pointer absolute inset-y-0 -left-2 w-4"
             onClick={() => setBranchVisible(false)}
           >
-            <div
+            {/* <div
               className={`${
                 branchHover ? "text-primary" : "text-secondary-darker"
               } absolute top-6  bg-back-darker`}
             >
               <BsArrowUpSquare />
-            </div>
+            </div> */}
           </div>
 
           {comment.children.map((child, index) => (
