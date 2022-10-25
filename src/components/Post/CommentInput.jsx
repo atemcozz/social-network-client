@@ -7,6 +7,7 @@ import PostService from "../../services/PostService";
 import { Context } from "../../index";
 import Tag from "./Tag/Tag";
 import { CommentsContext } from "../FullPost/CommentSection";
+import TextArea from "../UI/Input/TextArea";
 const CommentInput = ({ onSend, reply }) => {
   const { store } = useContext(Context);
   const { setReply } = useContext(CommentsContext);
@@ -21,11 +22,12 @@ const CommentInput = ({ onSend, reply }) => {
           </Tag>
         </div>
       )}
-      <div className="flex gap-2 ">
-        <Input
+      <div className="flex gap-2 items-start">
+        <TextArea
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Введите комментарий"
+          rows={1}
         />
         <Button
           onClick={() => {

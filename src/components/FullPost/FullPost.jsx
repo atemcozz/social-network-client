@@ -390,10 +390,15 @@ const FullPost = () => {
           </div>
         </>
       )}
-      {post && <Post post={post} />}
+      {post && (
+        <div className="px-4">
+          <Post post={post} />
+        </div>
+      )}
+
       {comments && (
         <>
-          <div className="font-bold text-xl">
+          <div className="font-bold text-xl ml-4">
             Комментарии ({comments.length})
           </div>
           <CommentSection

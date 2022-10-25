@@ -7,7 +7,7 @@ import Register from "../components/Register/Register";
 import New from "../components/Posts/New";
 import Popular from "../components/Posts/Popular";
 
-export const HOME_ROUTE = "/home";
+export const HOME_ROUTE = "/new";
 export const LOGIN_ROUTE = "/login";
 export const REGISTER_ROUTE = "/register";
 export const CREATE_POST_ROUTE = "/create";

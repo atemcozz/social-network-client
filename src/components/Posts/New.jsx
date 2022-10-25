@@ -21,9 +21,11 @@ const New = () => {
     );
   }
   return (
-    <div className="min-h-screen">
-      <div className="font-bold text-xl pl-6 pb-4">Новое</div>
+    <div className="min-h-screen px-4">
+      <div className="font-bold text-xl mb-4">Новое</div>
+
       <PostList posts={posts} onChange={updatePosts} />
+
       {error && (
         <div className="flex flex-col gap-2">
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">

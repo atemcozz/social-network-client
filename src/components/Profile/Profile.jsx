@@ -57,7 +57,7 @@ const Profile = () => {
     );
   }
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 px-4">
       {userError ? (
         <>
           <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
@@ -72,7 +72,7 @@ const Profile = () => {
         user && (
           <>
             <div className="flex justify-between items-center">
-              <div className="flex gap-2 pl-6 text-xl font-bold">
+              <div className="flex gap-2  text-xl font-bold">
                 <div>Профиль </div>
                 <div className="text-primary">{user.nickname}</div>
               </div>

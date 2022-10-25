@@ -82,8 +82,8 @@ const Search = () => {
   }, [searchParams]);
 
   return (
-    <div className="min-h-screen">
-      <div className="font-bold text-xl pl-6 pb-4">Поиск</div>
+    <div className="min-h-screen px-4">
+      <div className="font-bold text-xl pb-4">Поиск</div>
       <div className="rounded-lg shadow-md p-4 bg-back mb-4">
         <div className="mb-3">
           <div className="font-bold text-lg mb-3">Теги</div>

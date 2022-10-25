@@ -39,7 +39,7 @@ const CommentSection = ({ comments, error, onSend, onDelete }) => {
             </div>
           </>
         )}
-        <div className="flex flex-col gap-2 overflow-auto">
+        <div className="flex flex-col gap-2 overflow-auto px-4">
           {comments?.length > 0 ? (
             arrayToTree(comments).map((comment, index) => (
               <Comment key={index} comment={comment} onDelete={onDelete} />

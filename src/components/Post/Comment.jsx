@@ -40,7 +40,7 @@ const Comment = ({ comment, onDelete, depth = 0 }) => {
               {/* <div className="font-semibold text-base cursor-pointer hover:text-primary">
               {comment.user.nickname}
             </div> */}
-              <div className="font-light text-xs leading-3">
+              <div className="font-light text-xs ">
                 {getDateFromSQL(comment.created_at)}
               </div>
             </div>

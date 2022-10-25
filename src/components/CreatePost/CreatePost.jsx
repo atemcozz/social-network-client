@@ -117,9 +117,8 @@ const CreatePost = () => {
     );
   }
   return (
-    <div>
-      <div className="font-bold text-xl pl-6 pb-4">Новое место</div>
-
+    <div className="px-4">
+      <div className="font-bold text-xl mb-4">Новое место</div>
       <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
         <Input
           value={title}
