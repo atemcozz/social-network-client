@@ -16,6 +16,7 @@ import "./Map.css";
 import { useContext } from "react";
 import { Context } from "../..";
 import LocateButton from "./LocateButton";
+import LocateTest from "./LocateTest";
 const MapPicker = ({
   center = { lat: 0, lng: 0 },
   zoom = 0,
@@ -45,9 +46,10 @@ const MapPicker = ({
           }
         />
         <AttributionControl position="bottomright" prefix={false} />
-        <LocateButton />
+        {/* <LocateButton />
+        <LocationDetect /> */}
+        <LocateTest />
         <PickMarker position={position} onPositionSet={onPositionSet} />
-        <LocationDetect />
       </MapContainer>
     </div>
   );
