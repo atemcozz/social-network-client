@@ -36,7 +36,7 @@ const Login = () => {
     );
   }
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 px-4">
       <div className="font-bold text-xl pl-6">Логин</div>
       <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
         {error && (

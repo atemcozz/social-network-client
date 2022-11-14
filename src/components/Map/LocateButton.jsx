@@ -13,16 +13,14 @@ const LocateButton = ({ zoom = 20 }) => {
   });
   return (
     <Control prepend position="bottomright">
-      <div className="">
-        <Button
-          onClick={() => {
-            map.locate();
-            if (position) map.setView(position, zoom);
-          }}
-        >
-          <BiCurrentLocation size={"24px"} />
-        </Button>
-      </div>
+      <Button
+        onClick={() => {
+          map.locate();
+          if (position) map.setView(position, zoom);
+        }}
+      >
+        <BiCurrentLocation size={"24px"} />
+      </Button>
     </Control>
   );
 };

@@ -10,10 +10,11 @@ import {
   MdGridOn,
   MdMenu,
 } from "react-icons/md";
+import { FaUserPlus, FaUserCheck } from "react-icons/fa";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 import Spinner from "../UI/Spinner/Spinner";
 import UserService from "../../services/UserService";
-import getNoun from "../../utils/getNoun";
+import * as utils from "../../utils/utils";
 import { EDIT_PROFILE_ROUTE } from "../../utils/routes";
 import Button from "../UI/Button/Button";
 import Avatar from "../UI/Avatar/Avatar";
@@ -33,6 +34,7 @@ const Profile = () => {
   const [isStoreUser, setIsStoreUser] = useState();
   const [md, setMd] = useState();
   const [viewMode, setViewMode] = useState(viewModes.gallery);
+  const [subscribed, setSubscribed] = useState(false);
   const [posts, postsLoading, postsError, updatePosts] = useRequest(
     () => PostService.getPostsByUser(id),
     [id]
@@ -100,9 +102,9 @@ const Profile = () => {
                   <div className="text-xl font-bold">
                     {user.name} {user.surname}
                   </div>
-                  <div className="">
+                  <div className="bg-back-lighter shadow rounded-md px-2 py-1 w-max">
                     {posts?.length}{" "}
-                    {getNoun(posts?.length, "пост", "поста", "постов")}
+                    {utils.getNoun(posts?.length, "пост", "поста", "постов")}
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -116,6 +118,23 @@ const Profile = () => {
                   >
                     <MdModeEditOutline size={"24px"} />
                     Редактировать
+                  </Button>
+                  <Button
+                    variant={subscribed ? "secondary" : "primary"}
+                    onClick={() => setSubscribed((state) => !state)}
+                    className={`${
+                      isStoreUser ? "hidden" : "block"
+                    } text-xs md:text-base`}
+                  >
+                    {subscribed ? (
+                      <>
+                        <FaUserCheck size={"24px"} /> Вы подписаны
+                      </>
+                    ) : (
+                      <>
+                        <FaUserPlus size={"24px"} /> Подписаться
+                      </>
+                    )}
                   </Button>
                 </div>
               </div>

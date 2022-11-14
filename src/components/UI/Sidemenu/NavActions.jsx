@@ -57,7 +57,7 @@ const NavActions = () => {
         </NavLink>
       )}
       <NavLink to={NEW_POSTS_ROUTE} active={route?.startsWith("/new")}>
-        <IoTimer size={"32px"} />
+        <IoTimer className="t" size={"32px"} />
         Новое
       </NavLink>
       <NavLink to={POPULAR_POSTS_ROUTE} active={route?.startsWith("/popular")}>

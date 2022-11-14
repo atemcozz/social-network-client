@@ -21,7 +21,7 @@ import { LOGIN_ROUTE } from "../../utils/routes";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 import Modal from "../UI/Modal/Modal";
 import Avatar from "../UI/Avatar/Avatar";
-import getDateFromSQL from "../../utils/getDateFromSQL.js";
+import * as utils from "../../utils/utils";
 import Tag from "./Tag/Tag";
 import Image from "../UI/Image/Image";
 import Map from "../Map/Map";
@@ -105,7 +105,7 @@ const Post = ({ post, onChange }) => {
               {post.user.nickname}
             </div> */}
             <div className="font-light text-xs">
-              {getDateFromSQL(post.created_at)}
+              {utils.getDateFromSQL(post.created_at)}
             </div>
           </div>
         </div>

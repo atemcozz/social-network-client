@@ -1,21 +1,22 @@
-import React, { useContext, useState, useRef } from "react";
-import { BsArrowLeft } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
-import { Context } from "../../index";
+import React, {useContext, useState, useRef} from "react";
+import {BsArrowLeft} from "react-icons/bs";
+import {useNavigate} from "react-router-dom";
+import {Context} from "../../index";
 
 import Button from "../UI/Button/Button";
 import useRequest from "../../hooks/useRequest";
 import UserService from "../../services/UserService";
 
-import { MdModeEditOutline } from "react-icons/md";
+import {MdModeEditOutline} from "react-icons/md";
 import ProfileEditForm from "./ProfileEditForm";
 import Spinner from "../UI/Spinner/Spinner";
 import Avatar from "../UI/Avatar/Avatar";
-import { useEffect } from "react";
+import {useEffect} from "react";
 
-import { LOGIN_ROUTE } from "../../utils/routes";
+import {LOGIN_ROUTE} from "../../utils/routes";
+
 const ProfileEdit = () => {
-  const { store } = useContext(Context);
+  const {store} = useContext(Context);
   const [error, setError] = useState();
   const photoInput = useRef();
 
@@ -25,6 +26,7 @@ const ProfileEdit = () => {
   );
   const [saveLoading, setSaveLoading] = useState(false);
   const [avatar, setAvatar] = useState({});
+
   function addAvatar(event) {
     if (event.target.files[0]) {
       const file = event.target.files[0];
@@ -34,6 +36,7 @@ const ProfileEdit = () => {
       });
     }
   }
+
   async function onFormSumbit(data) {
     const formData = new FormData();
 
@@ -56,27 +59,28 @@ const ProfileEdit = () => {
       .catch((e) => setError(e.response?.data?.msg))
       .finally(() => setSaveLoading(false));
   }
+
   useEffect(() => {
     if (user) {
-      setAvatar({ url: user.avatar_url });
+      setAvatar({url: user.avatar_url});
       console.log("loaded");
     }
   }, [user]);
   if (saveLoading || userLoading) {
     return (
       <div className="flex items-center justify-center w-full h-[30vh]">
-        <Spinner />
+        <Spinner/>
       </div>
     );
   }
   return (
-    <div className="min-h-screen flex flex-col gap-4">
+    <div className="min-h-screen flex flex-col gap-4 px-4">
       <div className="flex items-center gap-4">
         <button
           className="flex items-center bg-back hover:bg-back-darker p-2 rounded-full shadow text-primary"
           onClick={() => navigate(`/user/${user?.id}`)}
         >
-          <BsArrowLeft size={"24px"} />
+          <BsArrowLeft size={"24px"}/>
         </button>
         <div className="font-bold text-xl">Информация о пользователе</div>
       </div>
@@ -87,11 +91,11 @@ const ProfileEdit = () => {
           </div>
         )}
         <div className="flex items-center justify-center">
-          <Avatar src={avatar.url} size="large" />
+          <Avatar src={avatar.url} size="large"/>
         </div>
 
         <Button variant="outlined" onClick={() => photoInput.current.click()}>
-          <MdModeEditOutline size="24px" />
+          <MdModeEditOutline size="24px"/>
           Изменить аватар
           <input
             type="file"

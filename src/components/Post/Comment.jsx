@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Avatar from "../UI/Avatar/Avatar";
 import { useNavigate } from "react-router-dom";
-import getDateFromSQL from "../../utils/getDateFromSQL";
+import * as utils from "../../utils/utils";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 import PostService from "../../services/PostService";
 import { MdDeleteForever } from "react-icons/md";
@@ -41,7 +41,7 @@ const Comment = ({ comment, onDelete, depth = 0 }) => {
               {comment.user.nickname}
             </div> */}
               <div className="font-light text-xs ">
-                {getDateFromSQL(comment.created_at)}
+                {utils.getDateFromSQL(comment.created_at)}
               </div>
             </div>
             <div className="break-words max-w-md">
