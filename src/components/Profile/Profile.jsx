@@ -27,6 +27,7 @@ const viewModes = {
   gallery: "gallery",
   posts: "posts",
 };
+//
 const Profile = () => {
   const { store } = useContext(Context);
   const { id } = useParams();
