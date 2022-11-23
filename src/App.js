@@ -1,9 +1,9 @@
 import React, { createContext, useEffect } from "react";
 import Header from "./components/Header/Header";
-
+import { NEW_POSTS_ROUTE, privateRoutes } from "./utils/routes";
 import ActionSideMenu from "./components/ActionSideMenu/ActionSideMenu";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { publicRoutes, privateRoutes } from "./routes/routes";
+import { publicRoutes } from "./utils/routes";
 import { useContext, useState } from "react";
 import { Context } from "./index";
 import { observer } from "mobx-react";
@@ -67,24 +67,29 @@ function App() {
           <div className="mt-4 md:grid md:grid-cols-[2fr_minmax(0,5fr)_2fr]">
             <ActionSideMenu />
             <div className="w-full">
-              <Routes>
-                {publicRoutes.map((route, index) => (
-                  <Route
-                    key={index}
-                    path={route.path}
-                    element={<route.Component />}
-                  />
-                ))}
-                {store.isAuth &&
-                  privateRoutes.map((route, index) => (
+              {!store.isLoading && (
+                <Routes>
+                  <Route path={"/post/:id"} element={<FullPost />} />
+                  <Route path={"/search"} element={<Search />} />
+                  <Route path={"/map"} element={<Test />} />
+                  {publicRoutes.map((route, index) => (
                     <Route
                       key={index}
                       path={route.path}
                       element={<route.Component />}
                     />
                   ))}
-                <Route path="*" element={<Navigate to={"/new"} />} />
-              </Routes>
+                  {store.isAuth &&
+                    privateRoutes.map((route, index) => (
+                      <Route
+                        key={index}
+                        path={route.path}
+                        element={<route.Component />}
+                      />
+                    ))}
+                  <Route path="*" element={<Navigate to={NEW_POSTS_ROUTE} />} />
+                </Routes>
+              )}
             </div>
             <aside className="hidden md:block sticky top-20 max-h-[80vh]">
               <div className="h-96 bg-back p-4 rounded-lg"></div>
