@@ -79,6 +79,10 @@ const NavActions = () => {
             <IoCreate size={"32px"} />
             Новый пост
           </NavLink>
+          <NavLink to={"/saved"} active={route?.startsWith("/saved")}>
+            <BsBookmarkFill size={"32px"} />
+            Закладки
+          </NavLink>
           {/* <Button variant={"secondary"}>
             <BsBookmarkFill size={"32px"} />
             Закладки

@@ -2,23 +2,21 @@
   @apply w-full relative h-0 pb-[100%] z-0;
 } */
 .leaflet-div-icon {
-    @apply bg-transparent border-none;
+  @apply bg-transparent border-none;
 }
 
 .leaflet-popup-content {
-    @apply m-0 overflow-auto;
+  @apply m-0 overflow-auto p-2;
 }
 
 .leaflet-popup-close-button {
-    @apply hidden;
+  @apply hidden;
 }
 
 .leaflet-popup-content-wrapper {
-    @apply p-0;
+  @apply p-0;
 }
 
 .cluster-marker {
-    @apply w-8 h-8 bg-primary flex justify-center items-center rounded-full border text-white;
+  @apply w-8 h-8 bg-primary flex justify-center items-center rounded-full border text-white;
 }
-
-

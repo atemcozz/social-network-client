@@ -24,6 +24,9 @@ export default class PostService {
   static async getPostsByUser(id) {
     return api.get(`/posts/${id}`);
   }
+  static async getSavedPosts() {
+    return api.get(`/posts/saved`);
+  }
   static async createPost(post) {
     return api.post(`/post`, post, {
       headers: {

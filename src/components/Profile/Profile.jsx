@@ -85,7 +85,7 @@ const Profile = () => {
                 </DotsDropdown.Item>
                 <DotsDropdown.Item
                   icon={<MdModeEditOutline size={"24px"} />}
-                  onClick={() => navigate(EDIT_PROFILE_ROUTE, { state: user })}
+                  onClick={() => navigate("/edit_profile", { state: user })}
                 >
                   Редактировать
                 </DotsDropdown.Item>
@@ -110,9 +110,7 @@ const Profile = () => {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <Button
-                    onClick={() =>
-                      navigate(EDIT_PROFILE_ROUTE, { state: user })
-                    }
+                    onClick={() => navigate("/edit_profile", { state: user })}
                     className={`${
                       isStoreUser ? "block" : "hidden"
                     } text-xs md:text-base`}

@@ -10,4 +10,7 @@ export default class UserService {
   static async updateUser(id, data) {
     return api.put(`/user/${id}`, data);
   }
+  static async addBookmark(post_id) {
+    return api.post(`/bookmark`, { post_id });
+  }
 }

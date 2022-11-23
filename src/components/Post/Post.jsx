@@ -15,6 +15,7 @@ import defaultAvatar from "../../assets/default_avatar.png";
 import imageNotFound from "../../assets/image_notfound.png";
 import { useState, useEffect, useContext, useRef } from "react";
 import PostService from "../../services/PostService";
+import UserService from "../../services/UserService";
 import { Context } from "../../index";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../utils/routes";
@@ -66,8 +67,17 @@ const Post = ({ post, onChange }) => {
   function openUser() {
     window.open(`/user/${post.user.id}`);
   }
+  function addBookmark() {
+    if (store.isAuth) {
+      UserService.addBookmark(post.id);
+      setPostSaved((state) => !state);
+    } else {
+      navigate(LOGIN_ROUTE);
+    }
+  }
   useEffect(() => {
     setPostLiked(post.userLike);
+    setPostSaved(post.userBookmark);
   }, []);
 
   return (
@@ -217,7 +227,7 @@ const Post = ({ post, onChange }) => {
         </div>
         <Button
           variant={postSaved ? "primary" : "outlined"}
-          onClick={() => setPostSaved((state) => !state)}
+          onClick={addBookmark}
         >
           {postSaved ? (
             <BsBookmarkFill size={"24px"} />

@@ -83,7 +83,7 @@ const PickMarker = ({ position, onPositionSet }) => {
         }}
       >
         <Popup>
-          <div className="p-2">
+          <div>
             {position.lat} {position.lng}
           </div>
         </Popup>

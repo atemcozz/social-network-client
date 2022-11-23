@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
-import {useMap} from "react-leaflet";
+import React, { useEffect } from "react";
+import { useMap } from "react-leaflet";
 import L from "leaflet";
 import locate from "leaflet.locatecontrol";
-import "leaflet.locatecontrol/src/L.Control.Locate.scss"
+import "leaflet.locatecontrol/src/L.Control.Locate.scss";
 
 const LocateTest = () => {
   const map = useMap();
@@ -23,11 +23,7 @@ const LocateTest = () => {
 
     L.control.locate().addTo(map);
   }, [map]);
-  return (
-    <div>
-
-    </div>
-  );
+  return <div></div>;
 };
 
 export default LocateTest;
