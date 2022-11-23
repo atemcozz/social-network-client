@@ -219,6 +219,7 @@ const Post = ({ post, onChange }) => {
           <Link
             to={`/post/${post.id}`}
             className="rounded-lg flex border border-primary gap-2 text-primary p-2 hover:text-primary-darker"
+            target={"_blank"}
           >
             <BsChatLeftTextFill size={"24px"} />
             <div>{post.comments_count}</div>
