@@ -35,7 +35,7 @@ export const publicRoutes = [
   },
   {
     path: "/post/:id",
-    Component: Popular,
+    Component: FullPost,
   },
 ];
 export const privateRoutes = [
