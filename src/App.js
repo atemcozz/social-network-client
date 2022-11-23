@@ -66,31 +66,7 @@ function App() {
         <div className="max-w-screen-lg mx-auto">
           <div className="mt-4 md:grid md:grid-cols-[2fr_minmax(0,5fr)_2fr]">
             <ActionSideMenu />
-            <div className="w-full">
-              {!store.isLoading && (
-                <Routes>
-                  <Route path={"/post/:id"} element={<FullPost />} />
-                  <Route path={"/search"} element={<Search />} />
-                  <Route path={"/map"} element={<Test />} />
-                  {publicRoutes.map((route, index) => (
-                    <Route
-                      key={index}
-                      path={route.path}
-                      element={<route.Component />}
-                    />
-                  ))}
-                  {store.isAuth &&
-                    privateRoutes.map((route, index) => (
-                      <Route
-                        key={index}
-                        path={route.path}
-                        element={<route.Component />}
-                      />
-                    ))}
-                  <Route path="*" element={<Navigate to={NEW_POSTS_ROUTE} />} />
-                </Routes>
-              )}
-            </div>
+            <div className="w-full">{!store.isLoading && <AppRoutes />}</div>
             <aside className="hidden md:block sticky top-20 max-h-[80vh]">
               <div className="h-96 bg-back p-4 rounded-lg"></div>
             </aside>
