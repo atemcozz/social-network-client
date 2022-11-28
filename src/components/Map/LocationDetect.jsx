@@ -1,18 +1,12 @@
-import { Marker, Popup, useMapEvents } from "react-leaflet";
-import { useState } from "react";
+import {Marker, Popup, useMapEvents} from "react-leaflet";
+import {useState} from "react";
 import L from "leaflet";
-import { Icon } from "leaflet";
+import {Icon} from "leaflet";
 import hereIcon from "../../assets/heremarker.png";
-import { useEffect } from "react";
-function LocationDetect({ zoom = 20, panOnLoad = false }) {
+import {useEffect} from "react";
+
+function LocationDetect({zoom = 20, panOnLoad = false}) {
   const [position, setPosition] = useState(null);
-  const userIcon = () => {
-    const icon = L.divIcon({
-      html: `<div class="here-marker">
-          </div>`,
-    });
-    return icon;
-  };
 
   const map = useMapEvents({
     locationfound(e) {
@@ -44,4 +38,5 @@ function LocationDetect({ zoom = 20, panOnLoad = false }) {
     ></Marker>
   );
 }
+
 export default LocationDetect;

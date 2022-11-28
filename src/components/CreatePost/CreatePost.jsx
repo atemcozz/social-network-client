@@ -6,24 +6,23 @@ import Tag from "../Post/Tag/Tag";
 import {
   MdAddPhotoAlternate,
   MdVideoCall,
-  MdOutlineAudiotrack,
   MdClose,
   MdVideocam,
   MdAdd,
 } from "react-icons/md";
-import { useRef } from "react";
-import { useState } from "react";
+import {useRef} from "react";
+import {useState} from "react";
 import PostService from "../../services/PostService";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Toggle from "../UI/Toggle/Toggle";
 import Spinner from "../UI/Spinner/Spinner";
 import MapPicker from "../Map/MapPicker";
 import InfoLabel from "../UI/InfoLabel/InfoLabel";
 import MainLayout from "../Layout/MainLayout/MainLayout";
+
 const CreatePost = () => {
   const photoInput = useRef();
   const videoInput = useRef();
-  const audioInput = useRef();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [attachments, setAttachments] = useState([]);
@@ -32,7 +31,6 @@ const CreatePost = () => {
   const [tagInput, setTagInput] = useState("");
   const [lastTagID, setLastTagID] = useState(0);
   const [error, setError] = useState();
-  const [nsfw, setNsfw] = useState(false);
   const [location, setLocation] = useState();
   const [locationEnabled, setLocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -56,9 +54,11 @@ const CreatePost = () => {
       console.log(attachments);
     }
   }
+
   function removeMedia(id) {
     setAttachments((state) => state.filter((at) => at.id !== id));
   }
+
   function sendPost() {
     const formData = new FormData();
     formData.append("title", title);
@@ -78,6 +78,7 @@ const CreatePost = () => {
       )
       .finally(() => setLoading(false));
   }
+
   function addTag() {
     setTagInput("");
     if (tagInput.trim().length > 30) {
@@ -101,20 +102,23 @@ const CreatePost = () => {
       setLastTagID((state) => state + 1);
     }
   }
+
   function removeTag(id) {
     setTags((tags) => tags.filter((tag) => tag.id !== id));
   }
+
   function processLocationInput(e) {
     const coords = e.target.value.split(",").map((el) => el.trim());
     const lat = Math.min(Math.max(coords[0], -90), 90);
     const lng = Math.min(Math.max(coords[1], -180), 180);
-    setLocation({ lat: lat ? lat : 0, lng: lng ? lng : 0 });
+    setLocation({lat: lat ? lat : 0, lng: lng ? lng : 0});
   }
+
   if (loading) {
     return (
       <MainLayout>
         <div className="flex items-center justify-center w-full h-[30vh]">
-          <Spinner />
+          <Spinner/>
         </div>
       </MainLayout>
     );
@@ -138,7 +142,7 @@ const CreatePost = () => {
               className={"flex-1"}
               onClick={() => photoInput.current.click()}
             >
-              <MdAddPhotoAlternate size="32px" />
+              <MdAddPhotoAlternate size="32px"/>
               Фото
               <input
                 type="file"
@@ -154,7 +158,7 @@ const CreatePost = () => {
               className={"flex-1"}
               onClick={() => videoInput.current.click()}
             >
-              <MdVideoCall size="32px" />
+              <MdVideoCall size="32px"/>
               Видео
               <input
                 type="file"
@@ -176,7 +180,7 @@ const CreatePost = () => {
                         className={"absolute p-1 z-10 right-0"}
                         onClick={() => removeMedia(at.id)}
                       >
-                        <MdClose className="text-white" />
+                        <MdClose className="text-white"/>
                       </Button>
                       <img
                         src={at.url}
@@ -192,10 +196,10 @@ const CreatePost = () => {
                         className={"absolute p-1 z-20 right-0"}
                         onClick={() => removeMedia(at.id)}
                       >
-                        <MdClose className="text-white" />
+                        <MdClose className="text-white"/>
                       </Button>
                       <div className="absolute inset-0 z-10 flex justify-center items-center">
-                        <MdVideocam size={"64px"} className="text-white" />
+                        <MdVideocam size={"64px"} className="text-white"/>
                       </div>
 
                       <video
@@ -205,6 +209,7 @@ const CreatePost = () => {
                       />
                     </div>
                   );
+                return null;
               })}
           </div>
           <TextArea
@@ -248,7 +253,7 @@ const CreatePost = () => {
               />
 
               <Button onClick={addTag}>
-                <MdAdd size="24px" />
+                <MdAdd size="24px"/>
               </Button>
             </div>
             {tags?.length > 0 && (

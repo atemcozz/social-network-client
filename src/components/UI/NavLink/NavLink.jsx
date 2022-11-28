@@ -1,14 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import {Link} from "react-router-dom";
+
 const NavLink = ({
-  to,
-  children,
-  target = "_self",
-  className,
-  onClick,
-  active = false,
-}) => {
+                   to,
+                   children,
+                   target = "_self",
+                   className,
+                   onClick,
+                   active = false,
+                 }) => {
   return (
     <Link
       to={to}

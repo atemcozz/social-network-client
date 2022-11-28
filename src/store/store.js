@@ -39,7 +39,7 @@ export default class Store {
         this.setUser(res.data.user);
       })
       .catch((e) => Promise.reject(e.response?.data?.msg))
-      .finally(this.setLoading(false));
+      .finally(() => this.setLoading(false));
   }
 
   async register(data) {
@@ -52,12 +52,12 @@ export default class Store {
         this.setUser(res.data.user);
       })
       .catch((e) => Promise.reject(e.response?.data?.msg))
-      .finally(this.setLoading(false));
+      .finally(() => this.setLoading(false));
   }
 
   async logout() {
     try {
-      const res = await AuthService.logout();
+      await AuthService.logout();
       //console.log(res);
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");

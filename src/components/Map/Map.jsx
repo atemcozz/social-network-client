@@ -9,10 +9,10 @@ import {
   useMap,
 } from "react-leaflet";
 import markerIconPng from "../../assets/marker.png";
-import { Icon } from "leaflet";
+import {Icon} from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
-import { useState } from "react";
+import {useState} from "react";
 import L from "leaflet";
 
 import useSupercluster from "use-supercluster";
@@ -20,11 +20,11 @@ import LocateTest from "./LocateTest";
 import useStore from "../../hooks/useStore";
 
 const Map = ({
-  center = { lat: 0, lng: 0 },
-  zoom = 20,
-  locations,
-  className,
-}) => {
+               center = {lat: 0, lng: 0},
+               zoom = 20,
+               locations,
+               className,
+             }) => {
   const store = useStore();
 
   const accessToken =
@@ -49,16 +49,16 @@ const Map = ({
         />
         {/*<LocationDetect zoom={20} panOnLoad={false}/>*/}
         {/*<LocateButton/>*/}
-        <LocationsCluster locations={locations} startZoom={zoom} />
+        <LocationsCluster locations={locations} startZoom={zoom}/>
 
-        <LocateTest />
-        <AttributionControl position="bottomright" prefix={false} />
+        <LocateTest/>
+        <AttributionControl position="bottomright" prefix={false}/>
       </MapContainer>
     </div>
   );
 };
 
-const LocationsCluster = ({ locations, radius = 150, startZoom }) => {
+const LocationsCluster = ({locations, radius = 150, startZoom}) => {
   const map = useMap();
   const [zoom, setZoom] = useState(startZoom);
   useMapEvents({
@@ -67,43 +67,43 @@ const LocationsCluster = ({ locations, radius = 150, startZoom }) => {
     },
   });
   const clusterIcon = (count) => {
-    const icon = L.divIcon({
+    return L.divIcon({
       html: `<div class="cluster-marker">
             ${count}
           </div>`,
     });
-    return icon;
+
   };
   const points = locations.map((location) => ({
     type: "Feature",
-    properties: { cluster: false },
+    properties: {cluster: false},
     geometry: {
       type: "Point",
       coordinates: [location.lng, location.lat],
     },
   }));
-  const { clusters, supercluster } = useSupercluster({
+  const {clusters, supercluster} = useSupercluster({
     points: points,
     bounds: [-180, -90, 180, 90],
     zoom: zoom,
-    options: { radius, maxZoom: 20 },
+    options: {radius, maxZoom: 20},
   });
   return (
     <>
       {clusters?.map((cluster) => {
         const [lng, lat] = cluster.geometry.coordinates;
-        const { cluster: isCluster, point_count: pointCount } =
+        const {cluster: isCluster, point_count: pointCount} =
           cluster.properties;
         if (isCluster) {
           return (
             <Marker
-              position={{ lat, lng }}
+              position={{lat, lng}}
               key={lat + lng}
               icon={clusterIcon(pointCount, 32)}
               eventHandlers={{
                 click(e) {
                   map.flyTo(
-                    { lng, lat },
+                    {lng, lat},
                     supercluster.getClusterExpansionZoom(cluster.id),
                     {
                       duration: 0.5,
@@ -116,7 +116,7 @@ const LocationsCluster = ({ locations, radius = 150, startZoom }) => {
         }
         return (
           <Marker
-            position={{ lat, lng }}
+            position={{lat, lng}}
             key={lat + lng}
             icon={
               new Icon({

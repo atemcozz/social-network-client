@@ -15,6 +15,7 @@ import "./Map.css";
 
 import LocateTest from "./LocateTest";
 import useStore from "../../hooks/useStore";
+import useTheme from "../../hooks/useTheme";
 const MapPicker = ({
   center = { lat: 0, lng: 0 },
   zoom = 0,
@@ -23,6 +24,7 @@ const MapPicker = ({
   className,
 }) => {
   const store = useStore();
+  const { getTheme } = useTheme();
   const accessToken =
     "2vT72l92FFVGlmkE95lAV5v3Ipiu70TOCcl9eysYedIe7aIyiX6AHxUrHNJQ648o";
 
@@ -38,7 +40,7 @@ const MapPicker = ({
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={
-            store.appTheme === "theme-dark"
+            getTheme() === "theme-dark"
               ? `https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token=${accessToken}`
               : `https://{s}.tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?access-token=${accessToken}`
           }

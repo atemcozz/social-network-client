@@ -1,10 +1,10 @@
-import React from "react";
-import { useState } from "react";
+import {useState} from "react";
+
 const useForm = (initialState = {}, sumbitAction) => {
   const [formData, setFormData] = useState(initialState);
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({...formData, [e.target.name]: e.target.value});
   };
   const reset = () => {
     setFormData(initialState);
