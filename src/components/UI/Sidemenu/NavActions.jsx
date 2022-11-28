@@ -7,26 +7,18 @@ import { BiCategory } from "react-icons/bi";
 import { MdMap, MdSearch } from "react-icons/md";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import Toggle from "../Toggle/Toggle";
-import { AppContext } from "../../../App";
+import { ThemeContext } from "../../../providers/ThemeProvider";
 import Button from "../Button/Button";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  LOGIN_ROUTE,
-  REGISTER_ROUTE,
-  HOME_ROUTE,
-  CREATE_POST_ROUTE,
-  NEW_POSTS_ROUTE,
-  POPULAR_POSTS_ROUTE,
-} from "../../../utils/routes";
-import { Context } from "../../../index";
 import { observer } from "mobx-react";
 import NavLink from "../NavLink/NavLink";
 import { useState } from "react";
 import { useEffect } from "react";
+import useStore from "../../../hooks/useStore";
 const NavActions = () => {
-  const { store } = useContext(Context);
+  const store = useStore();
   const navigate = useNavigate();
-  const { getTheme, setTheme } = useContext(AppContext);
+  const { getTheme, setTheme } = useContext(ThemeContext);
   const [route, setRoute] = useState();
   const location = useLocation();
   useEffect(() => {
@@ -38,11 +30,11 @@ const NavActions = () => {
     <div className="overflow-y-auto max-h-full">
       {!store.isAuth && (
         <>
-          <NavLink to={LOGIN_ROUTE} className="text-primary">
+          <NavLink to={"/login"} className="text-primary">
             <FaSignInAlt size={"32px"} />
             Логин
           </NavLink>
-          <NavLink to={REGISTER_ROUTE} className="text-primary">
+          <NavLink to={"/register"} className="text-primary">
             <FaSignInAlt size={"32px"} />
             Регистрация
           </NavLink>
@@ -56,11 +48,11 @@ const NavActions = () => {
           <BsFillPersonFill size={"32px"} /> Профиль
         </NavLink>
       )}
-      <NavLink to={NEW_POSTS_ROUTE} active={route?.startsWith("/new")}>
+      <NavLink to={"/new"} active={route?.startsWith("/new")}>
         <IoTimer className="t" size={"32px"} />
         Новое
       </NavLink>
-      <NavLink to={POPULAR_POSTS_ROUTE} active={route?.startsWith("/popular")}>
+      <NavLink to={"/popular"} active={route?.startsWith("/popular")}>
         <HiFire size={"32px"} />
         Популярное
       </NavLink>
@@ -75,7 +67,7 @@ const NavActions = () => {
 
       {store.isAuth && (
         <>
-          <NavLink to={CREATE_POST_ROUTE} active={route?.startsWith("/create")}>
+          <NavLink to={"/create"} active={route?.startsWith("/create")}>
             <IoCreate size={"32px"} />
             Новый пост
           </NavLink>
@@ -104,7 +96,7 @@ const NavActions = () => {
           onClick={() => {
             store.logout();
           }}
-          to={HOME_ROUTE}
+          to={"/new"}
         >
           <FaSignOutAlt size={"32px"} />
           Выйти

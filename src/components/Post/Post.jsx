@@ -16,9 +16,7 @@ import imageNotFound from "../../assets/image_notfound.png";
 import { useState, useEffect, useContext, useRef } from "react";
 import PostService from "../../services/PostService";
 import UserService from "../../services/UserService";
-import { Context } from "../../index";
 import { useNavigate } from "react-router-dom";
-import { LOGIN_ROUTE } from "../../utils/routes";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 import Modal from "../UI/Modal/Modal";
 import Avatar from "../UI/Avatar/Avatar";
@@ -28,9 +26,10 @@ import Image from "../UI/Image/Image";
 import Map from "../Map/Map";
 import LinkText from "../UI/LinkText/LinkText";
 import { Link } from "react-router-dom";
+import useStore from "../../hooks/useStore";
 const Post = ({ post, onChange }) => {
   const navigate = useNavigate();
-  const { store } = useContext(Context);
+  const store = useStore();
   const [postLiked, setPostLiked] = useState(false);
   const [postSaved, setPostSaved] = useState(false);
   const [imageModal, setImageModal] = useState(false);
@@ -42,7 +41,7 @@ const Post = ({ post, onChange }) => {
       setPostLiked((state) => !state);
       PostService.likePost(post.id);
     } else {
-      navigate(LOGIN_ROUTE);
+      navigate("/login");
     }
   }
   function copyLink() {
@@ -72,7 +71,7 @@ const Post = ({ post, onChange }) => {
       UserService.addBookmark(post.id);
       setPostSaved((state) => !state);
     } else {
-      navigate(LOGIN_ROUTE);
+      navigate("/login");
     }
   }
   useEffect(() => {

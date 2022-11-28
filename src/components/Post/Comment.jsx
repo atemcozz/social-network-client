@@ -5,16 +5,16 @@ import * as utils from "../../utils/utils";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 import PostService from "../../services/PostService";
 import { MdDeleteForever } from "react-icons/md";
-import { Context } from "../../index";
 import LinkText from "../UI/LinkText/LinkText";
 import { Link } from "react-router-dom";
 import { BsArrowUpSquare, BsReplyFill } from "react-icons/bs";
 import { useState } from "react";
 import Button from "../UI/Button/Button";
 import { CommentsContext } from "../FullPost/CommentSection";
+import useStore from "../../hooks/useStore";
 
 const Comment = ({ comment, onDelete, depth = 0 }) => {
-  const { store } = useContext(Context);
+  const store = useStore();
   const { setReply } = useContext(CommentsContext);
   const [branchVisible, setBranchVisible] = useState(true);
   const [branchHover, setBranchHover] = useState(false);

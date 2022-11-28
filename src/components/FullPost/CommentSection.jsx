@@ -1,16 +1,17 @@
 import React from "react";
 import CommentInput from "../Post/CommentInput";
 import { useContext } from "react";
-import { Context } from "../..";
+import { StoreContext } from "../..";
 import { useState } from "react";
 import { useEffect } from "react";
 import Comment from "../Post/Comment";
 import { createContext } from "react";
 import Tag from "../Post/Tag/Tag";
+import useStore from "../../hooks/useStore";
 
 export const CommentsContext = createContext();
 const CommentSection = ({ comments, error, onSend, onDelete }) => {
-  const { store } = useContext(Context);
+  const store = useStore();
   const [reply, setReply] = useState();
   function arrayToTree(arr, belong = null) {
     const top = [];

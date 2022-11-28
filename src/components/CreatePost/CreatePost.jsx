@@ -19,6 +19,7 @@ import Toggle from "../UI/Toggle/Toggle";
 import Spinner from "../UI/Spinner/Spinner";
 import MapPicker from "../Map/MapPicker";
 import InfoLabel from "../UI/InfoLabel/InfoLabel";
+import MainLayout from "../Layout/MainLayout/MainLayout";
 const CreatePost = () => {
   const photoInput = useRef();
   const videoInput = useRef();
@@ -111,168 +112,172 @@ const CreatePost = () => {
   }
   if (loading) {
     return (
-      <div className="flex items-center justify-center w-full h-[30vh]">
-        <Spinner />
-      </div>
+      <MainLayout>
+        <div className="flex items-center justify-center w-full h-[30vh]">
+          <Spinner />
+        </div>
+      </MainLayout>
     );
   }
   return (
-    <div className="px-4">
-      <div className="font-bold text-xl mb-4">Новое место</div>
-      <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
-        <Input
-          value={title}
-          className="font-bold placeholder:font-normal "
-          placeholder={"Название"}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        {/* <div className="font-bold text-lg">Медиа</div> */}
-        <div className="flex gap-2 items-center flex-wrap">
-          <Button
-            variant="outlined"
-            className={"flex-1"}
-            onClick={() => photoInput.current.click()}
-          >
-            <MdAddPhotoAlternate size="32px" />
-            Фото
-            <input
-              type="file"
-              multiple
-              ref={photoInput}
-              accept="image/*"
-              onChange={(e) => addMedia("photo", e)}
-              className="hidden"
-            />
-          </Button>
-          <Button
-            variant="outlined"
-            className={"flex-1"}
-            onClick={() => videoInput.current.click()}
-          >
-            <MdVideoCall size="32px" />
-            Видео
-            <input
-              type="file"
-              multiple
-              ref={videoInput}
-              accept="video/*"
-              onChange={(e) => addMedia("video", e)}
-              className="hidden"
-            />
-          </Button>
-        </div>
-        <div className="flex flex-wrap gap-2 justify-center">
-          {attachments &&
-            attachments.map((at, index) => {
-              if (at.type === "photo")
-                return (
-                  <div key={index} className="relative">
-                    <Button
-                      className={"absolute p-1 z-10 right-0"}
-                      onClick={() => removeMedia(at.id)}
-                    >
-                      <MdClose className="text-white" />
-                    </Button>
-                    <img
-                      src={at.url}
-                      alt="img"
-                      className="w-40 h-40 object-cover rounded-lg shadow"
-                    />
-                  </div>
-                );
-              if (at.type === "video")
-                return (
-                  <div key={index} className="relative">
-                    <Button
-                      className={"absolute p-1 z-20 right-0"}
-                      onClick={() => removeMedia(at.id)}
-                    >
-                      <MdClose className="text-white" />
-                    </Button>
-                    <div className="absolute inset-0 z-10 flex justify-center items-center">
-                      <MdVideocam size={"64px"} className="text-white" />
-                    </div>
-
-                    <video
-                      src={at.url}
-                      alt="video"
-                      className="w-40 h-40 object-cover rounded-lg shadow"
-                    />
-                  </div>
-                );
-            })}
-        </div>
-        <TextArea
-          value={description}
-          rows={3}
-          placeholder={"Описание"}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <div className="flex gap-2">
-          <Toggle
-            active={locationEnabled}
-            onChange={() => setLocationEnabled((state) => !state)}
+    <MainLayout>
+      <div className="px-4">
+        <div className="font-bold text-xl mb-4">Новое место</div>
+        <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
+          <Input
+            value={title}
+            className="font-bold placeholder:font-normal "
+            placeholder={"Название"}
+            onChange={(e) => setTitle(e.target.value)}
+            required
           />
-          <div>Местоположение</div>
-        </div>
-        {locationEnabled && (
-          <>
-            <InfoLabel>Нажмите на карту, чтобы выбрать место</InfoLabel>
-            <MapPicker
-              position={location}
-              onPositionSet={setLocation}
-              zoom={1}
-            />
-
-            {location && (
-              <Input
-                value={`${location?.lat}, ${location?.lng}`}
-                placeholder={"Позиция"}
-                onChange={processLocationInput}
+          {/* <div className="font-bold text-lg">Медиа</div> */}
+          <div className="flex gap-2 items-center flex-wrap">
+            <Button
+              variant="outlined"
+              className={"flex-1"}
+              onClick={() => photoInput.current.click()}
+            >
+              <MdAddPhotoAlternate size="32px" />
+              Фото
+              <input
+                type="file"
+                multiple
+                ref={photoInput}
+                accept="image/*"
+                onChange={(e) => addMedia("photo", e)}
+                className="hidden"
               />
-            )}
-          </>
-        )}
-        <div>
-          <div className="font-bold text-lg pb-3">Теги</div>
-          <div className="flex gap-2">
-            <Input
-              placeholder={"Введите тег..."}
-              value={tagInput}
-              onChange={(e) => setTagInput(e.target.value)}
-            />
-
-            <Button onClick={addTag}>
-              <MdAdd size="24px" />
+            </Button>
+            <Button
+              variant="outlined"
+              className={"flex-1"}
+              onClick={() => videoInput.current.click()}
+            >
+              <MdVideoCall size="32px" />
+              Видео
+              <input
+                type="file"
+                multiple
+                ref={videoInput}
+                accept="video/*"
+                onChange={(e) => addMedia("video", e)}
+                className="hidden"
+              />
             </Button>
           </div>
-          {tags?.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 pt-3">
-              {tags.map((tag, index) => (
-                <Tag key={index} id={tag.id} deletable onDelete={removeTag}>
-                  {tag.value}
-                </Tag>
-              ))}
+          <div className="flex flex-wrap gap-2 justify-center">
+            {attachments &&
+              attachments.map((at, index) => {
+                if (at.type === "photo")
+                  return (
+                    <div key={index} className="relative">
+                      <Button
+                        className={"absolute p-1 z-10 right-0"}
+                        onClick={() => removeMedia(at.id)}
+                      >
+                        <MdClose className="text-white" />
+                      </Button>
+                      <img
+                        src={at.url}
+                        alt="img"
+                        className="w-40 h-40 object-cover rounded-lg shadow"
+                      />
+                    </div>
+                  );
+                if (at.type === "video")
+                  return (
+                    <div key={index} className="relative">
+                      <Button
+                        className={"absolute p-1 z-20 right-0"}
+                        onClick={() => removeMedia(at.id)}
+                      >
+                        <MdClose className="text-white" />
+                      </Button>
+                      <div className="absolute inset-0 z-10 flex justify-center items-center">
+                        <MdVideocam size={"64px"} className="text-white" />
+                      </div>
+
+                      <video
+                        src={at.url}
+                        alt="video"
+                        className="w-40 h-40 object-cover rounded-lg shadow"
+                      />
+                    </div>
+                  );
+              })}
+          </div>
+          <TextArea
+            value={description}
+            rows={3}
+            placeholder={"Описание"}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <div className="flex gap-2">
+            <Toggle
+              active={locationEnabled}
+              onChange={() => setLocationEnabled((state) => !state)}
+            />
+            <div>Местоположение</div>
+          </div>
+          {locationEnabled && (
+            <>
+              <InfoLabel>Нажмите на карту, чтобы выбрать место</InfoLabel>
+              <MapPicker
+                position={location}
+                onPositionSet={setLocation}
+                zoom={1}
+              />
+
+              {location && (
+                <Input
+                  value={`${location?.lat}, ${location?.lng}`}
+                  placeholder={"Позиция"}
+                  onChange={processLocationInput}
+                />
+              )}
+            </>
+          )}
+          <div>
+            <div className="font-bold text-lg pb-3">Теги</div>
+            <div className="flex gap-2">
+              <Input
+                placeholder={"Введите тег..."}
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+              />
+
+              <Button onClick={addTag}>
+                <MdAdd size="24px" />
+              </Button>
+            </div>
+            {tags?.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 pt-3">
+                {tags.map((tag, index) => (
+                  <Tag key={index} id={tag.id} deletable onDelete={removeTag}>
+                    {tag.value}
+                  </Tag>
+                ))}
+              </div>
+            )}
+          </div>
+          {error && (
+            <div className="text-white bg-danger rounded-lg p-4 break-words">
+              {error}
             </div>
           )}
+          {attachments.length > 0 &&
+          title?.length > 0 &&
+          !(locationEnabled && !location) ? (
+            <Button variant="primary" onClick={sendPost}>
+              Отправить
+            </Button>
+          ) : (
+            <Button variant="disabled">Отправить</Button>
+          )}
         </div>
-        {error && (
-          <div className="text-white bg-danger rounded-lg p-4 break-words">
-            {error}
-          </div>
-        )}
-        {attachments.length > 0 &&
-        title?.length > 0 &&
-        !(locationEnabled && !location) ? (
-          <Button variant="primary" onClick={sendPost}>
-            Отправить
-          </Button>
-        ) : (
-          <Button variant="disabled">Отправить</Button>
-        )}
       </div>
-    </div>
+    </MainLayout>
   );
 };
 

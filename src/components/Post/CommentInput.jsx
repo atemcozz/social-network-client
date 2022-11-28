@@ -4,12 +4,12 @@ import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import { MdSend } from "react-icons/md";
 import PostService from "../../services/PostService";
-import { Context } from "../../index";
 import Tag from "./Tag/Tag";
 import { CommentsContext } from "../FullPost/CommentSection";
 import TextArea from "../UI/Input/TextArea";
+import useStore from "../../hooks/useStore";
 const CommentInput = ({ onSend, reply }) => {
-  const { store } = useContext(Context);
+  const store = useStore();
   const { setReply } = useContext(CommentsContext);
   const [text, setText] = useState("");
 

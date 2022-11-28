@@ -14,9 +14,9 @@ import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import { useContext } from "react";
-import { Context } from "../..";
 import LocateButton from "./LocateButton";
 import LocateTest from "./LocateTest";
+import useStore from "../../hooks/useStore";
 const MapPicker = ({
   center = { lat: 0, lng: 0 },
   zoom = 0,
@@ -24,7 +24,7 @@ const MapPicker = ({
   position,
   className,
 }) => {
-  const { store } = useContext(Context);
+  const store = useStore();
   const accessToken =
     "2vT72l92FFVGlmkE95lAV5v3Ipiu70TOCcl9eysYedIe7aIyiX6AHxUrHNJQ648o";
 

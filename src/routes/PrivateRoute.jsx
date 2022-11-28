@@ -1,10 +1,10 @@
 import React from "react";
 import { useContext } from "react";
 import { Route } from "react-router-dom";
-import { Context } from "..";
+import useStore from "../hooks/useStore";
 
 const PrivateRoute = ({ path, element, exact = false }) => {
-  const { store } = useContext(Context);
+  const store = useStore();
   if (store.isAuth) {
     return <Route path={path} element={element} exact={exact} />;
   } else return <></>;

@@ -7,6 +7,7 @@ import New from "../components/Posts/New";
 import Popular from "../components/Posts/Popular";
 import Bookmarks from "../components/Posts/Bookmarks";
 import FullPost from "../components/FullPost/FullPost";
+import Search from "../components/Search/Search";
 
 export const publicRoutes = [
   {
@@ -36,6 +37,10 @@ export const publicRoutes = [
   {
     path: "/post/:id",
     Component: FullPost,
+  },
+  {
+    path: "/search",
+    Component: Search,
   },
 ];
 export const privateRoutes = [

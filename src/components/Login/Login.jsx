@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import Button from "../UI/Button/Button";
 import Input from "../UI/Input/Input";
-import { Context } from "../../index";
 import { useNavigate } from "react-router-dom";
-import { HOME_ROUTE } from "../../utils/routes";
 import useForm from "../../hooks/useForm";
 import Spinner from "../UI/Spinner/Spinner";
+import MainLayout from "../Layout/MainLayout/MainLayout";
+import useStore from "../../hooks/useStore";
 const Login = () => {
-  const { store } = useContext(Context);
+  const store = useStore();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [formData, handleInputChange, handleFormSumbit, resetForm] = useForm(
@@ -23,7 +23,7 @@ const Login = () => {
     setLoading(true);
     await store
       .login(formData)
-      .then(() => navigate(HOME_ROUTE))
+      .then(() => navigate("/"))
       .catch((e) => setError(e))
       .finally(() => setLoading(false));
     resetForm();
@@ -36,36 +36,38 @@ const Login = () => {
     );
   }
   return (
-    <div className="flex flex-col gap-4 px-4">
-      <div className="font-bold text-xl pl-6">Логин</div>
-      <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
-        {error && (
-          <div className="text-white bg-danger rounded-lg p-4 break-words">
-            {error}
-          </div>
-        )}
+    <MainLayout>
+      <div className="flex flex-col gap-4 px-4">
+        <div className="font-bold text-xl pl-6">Логин</div>
+        <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
+          {error && (
+            <div className="text-white bg-danger rounded-lg p-4 break-words">
+              {error}
+            </div>
+          )}
 
-        <form onSubmit={handleFormSumbit} className="flex flex-col gap-4 ">
-          <Input
-            name="nickname"
-            type="text"
-            placeholder="Никнейм"
-            value={nickname}
-            onChange={handleInputChange}
-            required
-          />
-          <Input
-            name="password"
-            type="password"
-            placeholder="Пароль"
-            value={password}
-            onChange={handleInputChange}
-            required
-          />
-          <Button>Войти</Button>
-        </form>
+          <form onSubmit={handleFormSumbit} className="flex flex-col gap-4 ">
+            <Input
+              name="nickname"
+              type="text"
+              placeholder="Никнейм"
+              value={nickname}
+              onChange={handleInputChange}
+              required
+            />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Пароль"
+              value={password}
+              onChange={handleInputChange}
+              required
+            />
+            <Button>Войти</Button>
+          </form>
+        </div>
       </div>
-    </div>
+    </MainLayout>
   );
 };
 

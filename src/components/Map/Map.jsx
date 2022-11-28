@@ -13,7 +13,6 @@ import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import { useContext } from "react";
-import { Context } from "../..";
 import { useState, useRef } from "react";
 import { useEffect } from "react";
 import L from "leaflet";
@@ -21,6 +20,7 @@ import LocateButton from "./LocateButton";
 import LocationDetect from "./LocationDetect";
 import useSupercluster from "use-supercluster";
 import LocateTest from "./LocateTest";
+import useStore from "../../hooks/useStore";
 
 const Map = ({
   center = { lat: 0, lng: 0 },
@@ -28,7 +28,7 @@ const Map = ({
   locations,
   className,
 }) => {
-  const { store } = useContext(Context);
+  const store = useStore();
 
   const accessToken =
     "2vT72l92FFVGlmkE95lAV5v3Ipiu70TOCcl9eysYedIe7aIyiX6AHxUrHNJQ648o";

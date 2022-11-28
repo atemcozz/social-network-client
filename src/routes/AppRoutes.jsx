@@ -4,9 +4,10 @@ import { Route } from "react-router-dom";
 import { publicRoutes, privateRoutes } from "./routes";
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
-import { Context } from "..";
+import useStore from "../hooks/useStore";
+
 const AppRoutes = () => {
-  const { store } = useContext(Context);
+  const store = useStore();
   return (
     <Routes>
       {publicRoutes.map((route, index) => (

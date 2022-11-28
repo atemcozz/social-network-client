@@ -8,12 +8,13 @@ import Post from "../Post/Post";
 import CommentInput from "../Post/CommentInput";
 import Comment from "../Post/Comment";
 import { useContext } from "react";
-import { Context } from "../..";
 import CommentSection from "./CommentSection";
 import { useState } from "react";
 import { useEffect } from "react";
+import MainLayout from "../Layout/MainLayout/MainLayout";
+import useStore from "../../hooks/useStore";
 const FullPost = () => {
-  const { store } = useContext(Context);
+  const store = useStore();
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, postLoading, postError] = useRequest(() =>
@@ -371,45 +372,49 @@ const FullPost = () => {
   }, []);
   if (commentsLoading || postLoading) {
     return (
-      <div className="flex items-center justify-center w-full h-[30vh]">
-        <Spinner />
-      </div>
+      <MainLayout>
+        <div className="flex items-center justify-center w-full h-[30vh]">
+          <Spinner />
+        </div>
+      </MainLayout>
     );
   }
   return (
-    <div className="min-h-screen flex flex-col gap-4 ">
-      <div className="font-bold text-xl ml-4">Пост</div>
-      {postError && (
-        <>
-          <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-            В процессе загрузки поста произошла ошибка. Попробуйте перезагрузить
-            страницу.
+    <MainLayout>
+      <div className="min-h-screen flex flex-col gap-4 ">
+        <div className="font-bold text-xl ml-4">Пост</div>
+        {postError && (
+          <>
+            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
+              В процессе загрузки поста произошла ошибка. Попробуйте
+              перезагрузить страницу.
+            </div>
+            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
+              {postError.message}
+            </div>
+          </>
+        )}
+        {post && (
+          <div className="px-4">
+            <Post post={post} />
           </div>
-          <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-            {postError.message}
-          </div>
-        </>
-      )}
-      {post && (
-        <div className="px-4">
-          <Post post={post} />
-        </div>
-      )}
+        )}
 
-      {comments && (
-        <>
-          <div className="font-bold text-xl ml-4">
-            Комментарии ({comments.length})
-          </div>
-          <CommentSection
-            comments={comments}
-            error={commentsError}
-            onSend={sendComment}
-            onDelete={deleteComment}
-          />
-        </>
-      )}
-    </div>
+        {comments && (
+          <>
+            <div className="font-bold text-xl ml-4">
+              Комментарии ({comments.length})
+            </div>
+            <CommentSection
+              comments={comments}
+              error={commentsError}
+              onSend={sendComment}
+              onDelete={deleteComment}
+            />
+          </>
+        )}
+      </div>
+    </MainLayout>
   );
 };
 
