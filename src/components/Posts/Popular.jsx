@@ -1,14 +1,13 @@
 import React from "react";
-import Post from "../Post/Post";
+
 import useRequest from "../../hooks/useRequest";
 import Spinner from "../UI/Spinner/Spinner";
 import PostService from "../../services/PostService";
-import { useContext } from "react";
+
 import PostList from "../PostList/PostList";
 import MainLayout from "../Layout/MainLayout/MainLayout";
-import useStore from "../../hooks/useStore";
+
 const Popular = () => {
-  const store = useStore();
   const [posts, postsLoading, error, updatePosts] = useRequest(() =>
     PostService.getPosts({ sort: "popular" })
   );

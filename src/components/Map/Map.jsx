@@ -12,12 +12,9 @@ import markerIconPng from "../../assets/marker.png";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
-import { useContext } from "react";
-import { useState, useRef } from "react";
-import { useEffect } from "react";
+import { useState } from "react";
 import L from "leaflet";
-import LocateButton from "./LocateButton";
-import LocationDetect from "./LocationDetect";
+
 import useSupercluster from "use-supercluster";
 import LocateTest from "./LocateTest";
 import useStore from "../../hooks/useStore";

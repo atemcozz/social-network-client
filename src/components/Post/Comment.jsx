@@ -1,9 +1,7 @@
 import React, { useContext } from "react";
 import Avatar from "../UI/Avatar/Avatar";
-import { useNavigate } from "react-router-dom";
 import * as utils from "../../utils/utils";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
-import PostService from "../../services/PostService";
 import { MdDeleteForever } from "react-icons/md";
 import LinkText from "../UI/LinkText/LinkText";
 import { Link } from "react-router-dom";
@@ -19,7 +17,6 @@ const Comment = ({ comment, onDelete, depth = 0 }) => {
   const [branchVisible, setBranchVisible] = useState(true);
   const [branchHover, setBranchHover] = useState(false);
 
-  const navigate = useNavigate();
   return (
     <div name={comment.id} className={`flex flex-col gap-2 min-w-max`}>
       <div className="flex p-2 bg-back shadow rounded-lg items-start justify-between">

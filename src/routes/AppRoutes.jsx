@@ -3,7 +3,7 @@ import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { publicRoutes, privateRoutes } from "./routes";
 import { Navigate } from "react-router-dom";
-import { useContext } from "react";
+
 import useStore from "../hooks/useStore";
 
 const AppRoutes = () => {

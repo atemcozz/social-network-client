@@ -21,7 +21,7 @@ const ThemeProvider = ({ children }) => {
   };
   useEffect(() => {
     setTheme(localStorage.getItem("theme"));
-  }, []);
+  });
   return (
     <ThemeContext.Provider value={{ getTheme, setTheme }}>
       {children}

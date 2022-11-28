@@ -1,19 +1,13 @@
 import React from "react";
 import Button from "../UI/Button/Button";
-import CheckButton from "../UI/Button/CheckButton";
+
 import LikeButton from "../UI/Button/LikeButton";
-import {
-  BsChatLeftTextFill,
-  BsBookmark,
-  BsThreeDotsVertical,
-  BsBookmarkFill,
-} from "react-icons/bs";
+import { BsChatLeftTextFill, BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { HiLocationMarker } from "react-icons/hi";
 import { IoMdOpen } from "react-icons/io";
 import { MdDeleteForever, MdContentCopy } from "react-icons/md";
-import defaultAvatar from "../../assets/default_avatar.png";
-import imageNotFound from "../../assets/image_notfound.png";
-import { useState, useEffect, useContext, useRef } from "react";
+
+import { useState, useEffect } from "react";
 import PostService from "../../services/PostService";
 import UserService from "../../services/UserService";
 import { useNavigate } from "react-router-dom";
@@ -63,9 +57,6 @@ const Post = ({ post, onChange }) => {
       .then(() => onChange())
       .catch();
   }
-  function openUser() {
-    window.open(`/user/${post.user.id}`);
-  }
   function addBookmark() {
     if (store.isAuth) {
       UserService.addBookmark(post.id);
@@ -77,7 +68,7 @@ const Post = ({ post, onChange }) => {
   useEffect(() => {
     setPostLiked(post.userLike);
     setPostSaved(post.userBookmark);
-  }, []);
+  }, [post]);
 
   return (
     <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">

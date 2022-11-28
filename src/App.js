@@ -1,24 +1,22 @@
-import React, { createContext, useEffect } from "react";
-import { observer } from "mobx-react";
+import React, {useEffect} from "react";
+import {observer} from "mobx-react";
 import Spinner from "./components/UI/Spinner/Spinner";
 import AppRoutes from "./routes/AppRoutes";
-import { BrowserRouter as Router } from "react-router-dom";
-import Store from "./store/store";
-import { useContext } from "react";
-import { StoreContext } from "./providers/StoreProvider";
+import {BrowserRouter as Router} from "react-router-dom";
 import ThemeProvider from "./providers/ThemeProvider";
 import useStore from "./hooks/useStore";
+
 function App() {
   const store = useStore();
   useEffect(() => {
     if (localStorage.getItem("refresh_token")) {
       store.checkAuth();
     } else store.setLoading(false);
-  }, []);
+  }, [store]);
   if (store.isLoading) {
     return (
       <div className="bg-back-darker text-text-base flex items-center justify-center h-screen">
-        <Spinner />
+        <Spinner/>
       </div>
       //
     );
@@ -33,7 +31,7 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
-        <AppRoutes />
+        <AppRoutes/>
       </Router>
     </ThemeProvider>
   );

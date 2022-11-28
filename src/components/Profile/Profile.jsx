@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
 import PostService from "../../services/PostService";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   MdContentCopy,
   MdModeEditOutline,
@@ -36,7 +36,7 @@ const Profile = () => {
   const [md, setMd] = useState();
   const [viewMode, setViewMode] = useState(viewModes.gallery);
   const [subscribed, setSubscribed] = useState(false);
-  const [posts, postsLoading, postsError, updatePosts] = useRequest(
+  const [posts, postsLoading, postsError] = useRequest(
     () => PostService.getPostsByUser(id),
     [id]
   );
@@ -47,7 +47,7 @@ const Profile = () => {
 
   useEffect(() => {
     setIsStoreUser(store.user?.id?.toString() === id);
-  }, [id]);
+  }, [store, id]);
   useEffect(() => {
     const handler = (e) => setMd(e.matches);
     window.matchMedia("(min-width: 768px)").addEventListener("change", handler);

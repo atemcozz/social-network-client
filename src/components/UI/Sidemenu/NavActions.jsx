@@ -3,13 +3,13 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { BsBookmarkFill } from "react-icons/bs";
 import { IoTimer, IoCreate } from "react-icons/io5";
 import { HiFire } from "react-icons/hi";
-import { BiCategory } from "react-icons/bi";
-import { MdMap, MdSearch } from "react-icons/md";
+
+import { MdSearch } from "react-icons/md";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import Toggle from "../Toggle/Toggle";
 import { ThemeContext } from "../../../providers/ThemeProvider";
-import Button from "../Button/Button";
-import { useLocation, useNavigate } from "react-router-dom";
+
+import { useLocation } from "react-router-dom";
 import { observer } from "mobx-react";
 import NavLink from "../NavLink/NavLink";
 import { useState } from "react";
@@ -17,7 +17,7 @@ import { useEffect } from "react";
 import useStore from "../../../hooks/useStore";
 const NavActions = () => {
   const store = useStore();
-  const navigate = useNavigate();
+
   const { getTheme, setTheme } = useContext(ThemeContext);
   const [route, setRoute] = useState();
   const location = useLocation();

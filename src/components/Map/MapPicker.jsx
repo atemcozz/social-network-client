@@ -6,15 +6,13 @@ import {
   Popup,
   AttributionControl,
   useMapEvents,
-  useMap,
 } from "react-leaflet";
-import LocationDetect from "./LocationDetect";
+
 import markerIconPng from "../../assets/marker.png";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
-import { useContext } from "react";
-import LocateButton from "./LocateButton";
+
 import LocateTest from "./LocateTest";
 import useStore from "../../hooks/useStore";
 const MapPicker = ({
@@ -56,7 +54,6 @@ const MapPicker = ({
 };
 
 const PickMarker = ({ position, onPositionSet }) => {
-  const map = useMap();
   useMapEvents({
     click(e) {
       if (e.latlng.lng >= -180 && e.latlng.lng <= 180) onPositionSet(e.latlng);

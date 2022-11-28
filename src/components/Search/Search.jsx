@@ -1,31 +1,32 @@
 import React from "react";
-import Post from "../Post/Post";
+
 import useRequest from "../../hooks/useRequest";
 import Spinner from "../UI/Spinner/Spinner";
 import PostService from "../../services/PostService";
-import { useContext } from "react";
+
 import PostList from "../PostList/PostList";
-import useQuery from "../../hooks/useQuery";
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import Tag from "../Post/Tag/Tag";
 import { MdAdd } from "react-icons/md";
-import Radio from "../UI/Radio/Radio";
-import { useLocation } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
+
 import MainLayout from "../Layout/MainLayout/MainLayout";
-import useStore from "../../hooks/useStore";
+
 const Search = () => {
-  const store = useStore();
-  const [searchParams, setSearchParams] = useSearchParams();
   const [tagInput, setTagInput] = useState("");
   const [searchType, setSearchType] = useState("posts");
   const [lastTagID, setLastTagID] = useState(0);
   const [tags, setTags] = useState([]);
   const [sort, setSort] = useState("new");
-  const [posts, postsLoading, error, updatePosts] = useRequest(() =>
-    PostService.getPosts({ tags: tags.map((tag) => tag.value).join(","), sort })
+  const [posts, postsLoading, error, updatePosts] = useRequest(
+    () =>
+      PostService.getPosts({
+        tags: tags.map((tag) => tag.value).join(","),
+        sort,
+      }),
+    [tags, sort]
   );
 
   function addTag() {
@@ -62,10 +63,6 @@ const Search = () => {
     // setSearchParams(searchParams.toString());
   }
 
-  useEffect(() => {
-    updatePosts();
-  }, [tags, sort]);
-
   // useEffect(() => {
   //   if (searchParams && searchParams.has("tags")) {
   //     const queryTags = searchParams.get("tags").split(",");
@@ -92,13 +89,13 @@ const Search = () => {
         <div className="flex gap-2">
           <Button
             onClick={() => setSearchType("posts")}
-            variant={searchType == "posts" ? "primary" : "secondary"}
+            variant={searchType === "posts" ? "primary" : "secondary"}
           >
             Посты
           </Button>
           <Button
             onClick={() => setSearchType("users")}
-            variant={searchType == "users" ? "primary" : "secondary"}
+            variant={searchType === "users" ? "primary" : "secondary"}
           >
             Пользователи
           </Button>

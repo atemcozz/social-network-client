@@ -1,27 +1,34 @@
-import { makeAutoObservable } from "mobx";
+import {makeAutoObservable} from "mobx";
 import AuthService from "../services/AuthService";
 import axios from "axios";
-import { API_URL } from "../api/server";
+import {API_URL} from "../api/server";
+
 export default class Store {
   user = {};
   isAuth = false;
   isLoading = true;
   appTheme = "theme-light";
+
   constructor() {
     makeAutoObservable(this);
   }
+
   setAuth(auth) {
     this.isAuth = auth;
   }
+
   setUser(user) {
     this.user = user;
   }
+
   setLoading(loading) {
     this.isLoading = loading;
   }
+
   setAppTheme(theme) {
     this.appTheme = theme;
   }
+
   async login(data) {
     this.setLoading(true);
     await AuthService.login(data)
@@ -34,6 +41,7 @@ export default class Store {
       .catch((e) => Promise.reject(e.response?.data?.msg))
       .finally(this.setLoading(false));
   }
+
   async register(data) {
     this.setLoading(true);
     await AuthService.register(data)
@@ -46,6 +54,7 @@ export default class Store {
       .catch((e) => Promise.reject(e.response?.data?.msg))
       .finally(this.setLoading(false));
   }
+
   async logout() {
     try {
       const res = await AuthService.logout();
@@ -58,6 +67,7 @@ export default class Store {
       console.error(e.response?.data?.msg);
     }
   }
+
   async checkAuth() {
     try {
       this.setLoading(true);

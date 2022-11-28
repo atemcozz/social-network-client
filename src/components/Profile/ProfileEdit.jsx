@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const ProfileEdit = () => {
   const photoInput = useRef();
 
   const navigate = useNavigate();
-  const [user, userLoading, userError] = useRequest(() =>
+  const [user, userLoading] = useRequest(() =>
     UserService.getUser(store.user.id)
   );
   const [saveLoading, setSaveLoading] = useState(false);
