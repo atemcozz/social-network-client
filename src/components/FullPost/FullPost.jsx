@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import Spinner from "../UI/Spinner/Spinner";
 import Post from "../Post/Post";
-
+import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
 import CommentSection from "./CommentSection";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -53,8 +53,9 @@ const FullPost = () => {
   if (commentsLoading || postLoading) {
     return (
       <MainLayout>
-        <div className="flex items-center justify-center w-full h-[30vh]">
-          <Spinner />
+        <div className="px-4">
+          <div className="font-bold text-xl mb-4">Пост</div>
+          <PostPlaceholder />
         </div>
       </MainLayout>
     );
