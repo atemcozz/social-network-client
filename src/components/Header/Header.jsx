@@ -1,15 +1,17 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../UI/Button/Button";
-import {GiHamburgerMenu} from "react-icons/gi";
+import { GiHamburgerMenu } from "react-icons/gi";
 import NavActions from "../UI/Sidemenu/NavActions";
-import {Transition} from "@headlessui/react";
-import {useNavigate} from "react-router-dom";
-import {useLocation} from "react-router-dom";
+import { Transition } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-import {SiFalcon} from "react-icons/si";
+import { SiFalcon } from "react-icons/si";
+import useStore from "../../hooks/useStore";
 
 const Header = () => {
   const location = useLocation();
+  const store = useStore();
   const [sideMenu, setSideMenu] = useState(false);
   useEffect(() => {
     setSideMenu(false);
@@ -41,7 +43,7 @@ const Header = () => {
                 className={`fixed h-screen bg-back w-4/6 rounded-br-xl rounded-tr-xl overflow-hidden`}
                 onClick={(e) => e.stopPropagation()}
               >
-                <NavActions/>
+                <NavActions />
               </div>
             </Transition.Child>
           </div>
@@ -49,16 +51,19 @@ const Header = () => {
       </Transition>
       <div className="flex justify-between items-center mx-auto h-full max-w-screen-lg py-2 px-4 lg:px-0">
         <div className="flex items-center justify-between gap-3">
-          <Button
-            variant={"outlined"}
-            className="md:hidden"
-            onClick={() => setSideMenu(true)}
-          >
-            <GiHamburgerMenu size={"24px"}/>
-          </Button>
+          {!store.isLoading && (
+            <Button
+              variant={"outlined"}
+              className="md:hidden"
+              onClick={() => setSideMenu(true)}
+            >
+              <GiHamburgerMenu size={"24px"} />
+            </Button>
+          )}
+
           <div className="flex items-center ">
             <div className=" text-2xl font-bold text-text-base">Falco</div>
-            <SiFalcon size={"32px"} className={"text-primary"}/>
+            <SiFalcon size={"32px"} className={"text-primary"} />
           </div>
         </div>
         {/* <div className="hidden md:flex items-center justify-between gap-3">

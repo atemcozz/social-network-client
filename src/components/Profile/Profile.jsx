@@ -23,6 +23,8 @@ import PostList from "../PostList/PostList";
 import { Link } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
+import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
+import UserPlaceholder from "../UI/Placeholders/UserPlaceholder/UserPlaceholder";
 const viewModes = {
   gallery: "gallery",
   posts: "posts",
@@ -55,8 +57,9 @@ const Profile = () => {
   if (postsLoading || userLoading) {
     return (
       <MainLayout>
-        <div className="flex items-center justify-center w-full h-[30vh]">
-          <Spinner />
+        <div className="px-4 flex flex-col gap-4">
+          <UserPlaceholder />
+          <PostPlaceholder />
         </div>
       </MainLayout>
     );

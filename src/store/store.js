@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import AuthService from "../services/AuthService";
 import axios from "axios";
 import { API_URL } from "../api/server";
+import { getError } from "../utils/locales";
 
 export default class Store {
   user = {};
@@ -37,7 +38,7 @@ export default class Store {
         this.setAuth(true);
         this.setUser(res.data.user);
       })
-      .catch((e) => Promise.reject(e.response?.data?.msg));
+      .catch((e) => Promise.reject(getError(e.response?.data?.reason)));
   }
 
   register(data) {
@@ -48,7 +49,7 @@ export default class Store {
         this.setAuth(true);
         this.setUser(res.data.user);
       })
-      .catch((e) => Promise.reject(e.response?.data?.msg));
+      .catch((e) => Promise.reject(getError(e.response?.data?.reason)));
   }
 
   async logout() {
@@ -60,7 +61,7 @@ export default class Store {
       this.setAuth(false);
       this.setUser({});
     } catch (e) {
-      console.error(e.response?.data?.msg);
+      console.error(e.response?.data?.reason);
     }
   }
 
@@ -77,7 +78,7 @@ export default class Store {
       this.setAuth(true);
       this.setUser(res.data.user);
     } catch (e) {
-      console.error(e.response?.data?.msg);
+      console.error(e.response?.data?.reason);
     } finally {
       this.setLoading(false);
       //

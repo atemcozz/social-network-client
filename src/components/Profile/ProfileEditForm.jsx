@@ -28,7 +28,7 @@ const ProfileEditForm = ({ user, onSumbit, onError }) => {
   return (
     <form
       onSubmit={handleFormSumbit}
-      className="flex flex-col gap-4 placeholder:italic"
+      className="flex flex-col gap-2 placeholder:italic"
     >
       <Input
         value={name}
@@ -57,6 +57,7 @@ const ProfileEditForm = ({ user, onSumbit, onError }) => {
         required
       />
       <Input
+        className={"mt-2"}
         value={password}
         onChange={handleInputChange}
         name="password"
@@ -72,7 +73,7 @@ const ProfileEditForm = ({ user, onSumbit, onError }) => {
         autoComplete="new-password"
         placeholder="Повторите новый пароль"
       />
-      <Button>Сохранить</Button>
+      <Button className={"mt-2"}>Сохранить</Button>
     </form>
   );
 };

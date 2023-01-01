@@ -27,7 +27,6 @@ const Register = () => {
   function formSumbitAction() {
     if (password !== password_repeat) {
       setError("Пароли не совпадают");
-      resetForm();
       return;
     }
     const data = { name, surname, nickname, password };
@@ -37,8 +36,6 @@ const Register = () => {
       .then(() => navigate("/edit_profile"))
       .catch(setError)
       .finally(() => setLoading(false));
-
-    resetForm();
   }
   if (loading) {
     return (

@@ -1,10 +1,10 @@
-import {useState} from "react";
+import { useState } from "react";
 
 const useForm = (initialState = {}, sumbitAction) => {
   const [formData, setFormData] = useState(initialState);
 
   const handleInputChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const reset = () => {
     setFormData(initialState);
@@ -13,12 +13,6 @@ const useForm = (initialState = {}, sumbitAction) => {
     e.preventDefault();
     sumbitAction();
   };
-  // const setField = (name, value) => {
-  //   setFormData((state) => {
-  //     state[name] = value;
-  //     return state;
-  //   });
-  // };
   return [formData, handleInputChange, handleSumbit, reset];
 };
 

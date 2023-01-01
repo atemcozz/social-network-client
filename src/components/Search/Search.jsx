@@ -13,6 +13,7 @@ import Tag from "../Post/Tag/Tag";
 import { MdAdd } from "react-icons/md";
 
 import MainLayout from "../Layout/MainLayout/MainLayout";
+import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
 
 const Search = () => {
   const [tagInput, setTagInput] = useState("");
@@ -31,12 +32,6 @@ const Search = () => {
 
   function addTag() {
     setTagInput("");
-    // const tag = tagInput[0].toUpperCase() + tagInput.slice(1);
-    // searchParams.set(
-    //   "tags",
-    //   tags.length > 0 ? [tags.map((tag) => tag.value), tag].join(",") : tag
-    // );
-    // setSearchParams(searchParams.toString());
     if (
       tagInput.trim().length > 0 &&
       tags.filter((tag) => tag.value.toLowerCase() === tagInput.toLowerCase())
@@ -55,52 +50,23 @@ const Search = () => {
   function removeTag(id) {
     const newTags = tags.filter((tag) => tag.id !== id);
     setTags(newTags);
-    // if (newTags.length > 0) {
-    //   searchParams.set("tags", newTags.map((tag) => tag.value).join(","));
-    // } else {
-    //   searchParams.delete("tags");
-    // }
-    // setSearchParams(searchParams.toString());
   }
-
-  // useEffect(() => {
-  //   if (searchParams && searchParams.has("tags")) {
-  //     const queryTags = searchParams.get("tags").split(",");
-  //     setTags(
-  //       queryTags.map((tag, index) => {
-  //         return {
-  //           id: lastTagID + index,
-  //           value: tag,
-  //         };
-  //       })
-  //     );
-  //     setLastTagID((state) => state + queryTags.length);
-  //   }
-  //   // if (searchParams && searchParams.get("tag")) {
-  //   //   setTags([{ value: searchParams.get("tag"), id: 0 }]);
-  //   //   window.history.pushState({}, document.title, window.location.pathname);
-  //   // }
-  // }, [searchParams]);
 
   return (
     <MainLayout>
       <div className="min-h-screen px-4">
-        <div className="font-bold text-xl pb-4">Поиск</div>
-        <div className="flex gap-2">
-          <Button
-            onClick={() => setSearchType("posts")}
-            variant={searchType === "posts" ? "primary" : "secondary"}
-          >
-            Посты
-          </Button>
-          <Button
-            onClick={() => setSearchType("users")}
-            variant={searchType === "users" ? "primary" : "secondary"}
-          >
-            Пользователи
-          </Button>
-        </div>
+        <div className="font-bold text-xl">Поиск</div>
+
         <div className="rounded-lg shadow-md p-4 bg-back mb-4 mt-4">
+          <div className="flex gap-2 mb-3">
+            <Button
+              onClick={() => setSearchType("posts")}
+              variant={searchType === "posts" ? "primary" : "secondary"}
+            >
+              Посты
+            </Button>
+            <Button variant={"disabled"}>Пользователи</Button>
+          </div>
           <div className="mb-3">
             <div className="font-bold text-lg mb-3">Теги</div>
             <div className="flex gap-2">
@@ -157,11 +123,7 @@ const Search = () => {
           </Radio> */}
           </div>
         </div>
-        {postsLoading && (
-          <div className="flex items-center justify-center w-full h-[30vh]">
-            <Spinner />
-          </div>
-        )}
+        {postsLoading && <PostPlaceholder />}
         <PostList posts={posts} onChange={updatePosts} />
         {error && (
           <div className="flex flex-col gap-2">

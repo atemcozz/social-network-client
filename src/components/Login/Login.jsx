@@ -26,7 +26,6 @@ const Login = () => {
       .then(() => navigate("/"))
       .catch(setError)
       .finally(() => setLoading(false));
-    resetForm();
   }
   if (loading) {
     return (
