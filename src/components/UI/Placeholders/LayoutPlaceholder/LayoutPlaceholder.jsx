@@ -8,16 +8,22 @@ const LayoutPlaceholder = () => {
     <div className="App bg-back-darker text-text-base">
       <Header />
       <div className="max-w-screen-lg mx-auto">
-        <div className="mt-4 md:grid md:grid-cols-[2fr_minmax(0,5fr)_2fr]">
-          <aside className="hidden md:block sticky top-20 h-96 rounded-lg shadow-md h-full bg-back p-4">
-            <BoxPlaceholder />
+        <div className="mt-4 md:grid md:grid-cols-[2fr_minmax(0,5fr)_2fr] items-start">
+          <aside className="hidden md:block sticky top-20 rounded-lg shadow-md bg-back p-4 h-96">
+            <BoxPlaceholder className={"flex flex-col gap-2"} />
           </aside>
-          <div className="px-4">
-            <LinePlaceholder className={"h-7 w-32 mb-4"} />
+          <div className="px-4 flex flex-col gap-4">
+            <LinePlaceholder big className={"w-32"} />
+            <PostPlaceholder />
             <PostPlaceholder />
           </div>
-          <aside className="hidden md:block sticky top-20 h-96 rounded-lg shadow-md h-full bg-back p-4">
-            <BoxPlaceholder />
+          <aside className="flex-col gap-6 hidden md:flex sticky top-20 rounded-lg shadow-md bg-back p-4">
+            {/* <BoxPlaceholder className={"flex flex-col gap-2"} /> */}
+            <LinePlaceholder big />
+            <LinePlaceholder big />
+            <LinePlaceholder big />
+            <LinePlaceholder big />
+            <LinePlaceholder big />
           </aside>
         </div>
       </div>

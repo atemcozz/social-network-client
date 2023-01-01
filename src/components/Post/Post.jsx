@@ -202,10 +202,6 @@ const Post = ({ post, onChange }) => {
             count={post.likes_count}
           />
 
-          {/* <Button variant="outlined" onClick={openFullPost}>
-            <BsChatLeftTextFill size={"24px"} />
-            <div>{post.comments_count}</div>
-          </Button> */}
           <Link
             to={`/post/${post.id}`}
             className="rounded-lg flex border border-primary gap-2 text-primary p-2 hover:text-primary-darker"

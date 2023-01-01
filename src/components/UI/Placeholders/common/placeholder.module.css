@@ -1,8 +1,8 @@
 .placeholder {
-  background-color: var(--background-lighter);
+  background-color: var(--secondary);
   background-position: 0px 0px;
   background-repeat: repeat;
-  animation: animatedBackground 1.5s ease-in-out infinite;
+  animation: animatedBackground 0.5s ease-in-out infinite;
 }
 @keyframes animatedBackground {
   0% {

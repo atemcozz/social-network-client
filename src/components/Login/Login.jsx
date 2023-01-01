@@ -24,7 +24,7 @@ const Login = () => {
     await store
       .login(formData)
       .then(() => navigate("/"))
-      .catch((e) => setError(e))
+      .catch(setError)
       .finally(() => setLoading(false));
     resetForm();
   }
@@ -46,7 +46,7 @@ const Login = () => {
             </div>
           )}
 
-          <form onSubmit={handleFormSumbit} className="flex flex-col gap-4 ">
+          <form onSubmit={handleFormSumbit} className="flex flex-col gap-2">
             <Input
               name="nickname"
               type="text"
@@ -63,7 +63,7 @@ const Login = () => {
               onChange={handleInputChange}
               required
             />
-            <Button>Войти</Button>
+            <Button className={"mt-2"}>Войти</Button>
           </form>
         </div>
       </div>

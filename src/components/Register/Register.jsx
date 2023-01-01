@@ -24,7 +24,7 @@ const Register = () => {
   );
   const { name, surname, nickname, password, password_repeat } = formData;
   const navigate = useNavigate();
-  async function formSumbitAction() {
+  function formSumbitAction() {
     if (password !== password_repeat) {
       setError("Пароли не совпадают");
       resetForm();
@@ -32,10 +32,10 @@ const Register = () => {
     }
     const data = { name, surname, nickname, password };
     setLoading(true);
-    await store
+    store
       .register(data)
       .then(() => navigate("/edit_profile"))
-      .catch((e) => setError(e))
+      .catch(setError)
       .finally(() => setLoading(false));
 
     resetForm();
@@ -57,7 +57,7 @@ const Register = () => {
               {error}
             </div>
           )}
-          <form onSubmit={handleFormSumbit} className="flex flex-col gap-4 ">
+          <form onSubmit={handleFormSumbit} className="flex flex-col gap-2 ">
             <Input
               value={name}
               onChange={handleInputChange}
@@ -90,17 +90,20 @@ const Register = () => {
               name="password"
               type="password"
               placeholder="Пароль"
+              autoComplete="new-password"
               required
+              className={"mt-2"}
             />
             <Input
               value={password_repeat}
               onChange={handleInputChange}
               name="password_repeat"
               type="password"
+              autoComplete="off"
               placeholder="Повторите пароль"
               required
             />
-            <Button>Зарегистрироваться</Button>
+            <Button className={"mt-2"}>Зарегистрироваться</Button>
           </form>
         </div>
       </div>

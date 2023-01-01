@@ -1,17 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { MdImageNotSupported } from "react-icons/md";
+import BoxPlaceholder from "../Placeholders/BoxPlaceholder/BoxPlaceholder";
 import Spinner from "../Spinner/Spinner";
 const Image = ({ ...props }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   return (
     <>
-      {loading && (
-        <div className="rounded-lg bg-secondary h-72 flex justify-center items-center">
-          <Spinner />
-        </div>
-      )}
+      {loading && <BoxPlaceholder className={"h-72"} />}
       {error && (
         <div className="rounded-lg bg-secondary h-72 flex justify-center items-center">
           <MdImageNotSupported size={"48px"} />

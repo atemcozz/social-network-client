@@ -18,9 +18,9 @@ const PostPlaceholder = () => {
       </div>
 
       <div className="flex flex-col gap-3 overflow-hidden">
-        <LinePlaceholder className={"h-7"} />
+        <LinePlaceholder big />
         <BoxPlaceholder className={"h-16"} />
-        <BoxPlaceholder className={"h-96"} />
+        <BoxPlaceholder className={"h-72"} />
       </div>
       <div className="flex flex-wrap gap-1.5">
         <TagPlaceholder />

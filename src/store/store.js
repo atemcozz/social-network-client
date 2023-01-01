@@ -1,7 +1,7 @@
-import {makeAutoObservable} from "mobx";
+import { makeAutoObservable } from "mobx";
 import AuthService from "../services/AuthService";
 import axios from "axios";
-import {API_URL} from "../api/server";
+import { API_URL } from "../api/server";
 
 export default class Store {
   user = {};
@@ -29,30 +29,26 @@ export default class Store {
     this.appTheme = theme;
   }
 
-  async login(data) {
-    this.setLoading(true);
-    await AuthService.login(data)
+  login(data) {
+    return AuthService.login(data)
       .then((res) => {
         localStorage.setItem("access_token", res.data.accessToken);
         localStorage.setItem("refresh_token", res.data.refreshToken);
         this.setAuth(true);
         this.setUser(res.data.user);
       })
-      .catch((e) => Promise.reject(e.response?.data?.msg))
-      .finally(() => this.setLoading(false));
+      .catch((e) => Promise.reject(e.response?.data?.msg));
   }
 
-  async register(data) {
-    this.setLoading(true);
-    await AuthService.register(data)
+  register(data) {
+    return AuthService.register(data)
       .then((res) => {
         localStorage.setItem("access_token", res.data.accessToken);
         localStorage.setItem("refresh_token", res.data.refreshToken);
         this.setAuth(true);
         this.setUser(res.data.user);
       })
-      .catch((e) => Promise.reject(e.response?.data?.msg))
-      .finally(() => this.setLoading(false));
+      .catch((e) => Promise.reject(e.response?.data?.msg));
   }
 
   async logout() {

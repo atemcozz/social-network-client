@@ -62,7 +62,7 @@ const FullPost = () => {
   }
   return (
     <MainLayout>
-      <div className="min-h-screen flex flex-col gap-4 ">
+      <div className="min-h-screen flex flex-col gap-4">
         <div className="font-bold text-xl ml-4">Пост</div>
         {postError && (
           <>
