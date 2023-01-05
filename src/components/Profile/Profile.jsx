@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useRequest from "../../hooks/useRequest";
+
+import { useQuery } from "react-query";
 import PostService from "../../services/PostService";
 import { useState, useEffect } from "react";
 import {
@@ -39,13 +40,19 @@ const Profile = () => {
   const [md, setMd] = useState();
   const [viewMode, setViewMode] = useState(viewModes.gallery);
   const [subscribed, setSubscribed] = useState(false);
-  const [posts, postsLoading, postsError] = useRequest(
-    () => PostService.getPostsByUser(id),
-    [id]
+  const {
+    data: user,
+    isLoading: userLoading,
+    error: userError,
+  } = useQuery("fetchUserInfo", () =>
+    UserService.getUser(id).then((res) => res.data)
   );
-  const [user, userLoading, userError] = useRequest(
-    () => UserService.getUser(id),
-    [id]
+  const {
+    data: posts,
+    isLoading: postsLoading,
+    error: postsError,
+  } = useQuery("fetchUserPosts", () =>
+    PostService.getPostsByUser(id).then((res) => res.data)
   );
 
   useEffect(() => {

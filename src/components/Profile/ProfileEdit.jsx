@@ -3,7 +3,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../UI/Button/Button";
-import useRequest from "../../hooks/useRequest";
+
 import UserService from "../../services/UserService";
 
 import { MdModeEditOutline } from "react-icons/md";
@@ -13,6 +13,7 @@ import Avatar from "../UI/Avatar/Avatar";
 import { useEffect } from "react";
 import MainLayout from "../Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
+import { useQuery } from "react-query";
 
 const ProfileEdit = () => {
   const store = useStore();
@@ -20,8 +21,11 @@ const ProfileEdit = () => {
   const photoInput = useRef();
 
   const navigate = useNavigate();
-  const [user, userLoading] = useRequest(() =>
-    UserService.getUser(store.user.id)
+
+  const { data: user, isLoading: userLoading } = useQuery(
+    "fetchUserInfo",
+    () => UserService.getUser(store.user.id).then((res) => res.data),
+    { onError: (err) => setError(err) }
   );
   const [saveLoading, setSaveLoading] = useState(false);
   const [avatar, setAvatar] = useState({});

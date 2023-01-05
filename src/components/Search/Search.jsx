@@ -1,7 +1,5 @@
 import React from "react";
 
-import useRequest from "../../hooks/useRequest";
-import Spinner from "../UI/Spinner/Spinner";
 import PostService from "../../services/PostService";
 
 import PostList from "../PostList/PostList";
@@ -14,6 +12,7 @@ import { MdAdd } from "react-icons/md";
 
 import MainLayout from "../Layout/MainLayout/MainLayout";
 import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
+import { useQuery } from "react-query";
 
 const Search = () => {
   const [tagInput, setTagInput] = useState("");
@@ -21,15 +20,18 @@ const Search = () => {
   const [lastTagID, setLastTagID] = useState(0);
   const [tags, setTags] = useState([]);
   const [sort, setSort] = useState("new");
-  const [posts, postsLoading, error, updatePosts] = useRequest(
-    () =>
-      PostService.getPosts({
-        tags: tags.map((tag) => tag.value).join(","),
-        sort,
-      }),
-    [tags, sort]
-  );
 
+  const {
+    data: posts,
+    isLoading: postsLoading,
+    refetch: updatePosts,
+    error,
+  } = useQuery(["searchPosts", tags, sort], () =>
+    PostService.getPosts({
+      tags: tags.map((tag) => tag.value).join(","),
+      sort,
+    }).then((res) => res.data)
+  );
   function addTag() {
     setTagInput("");
     if (

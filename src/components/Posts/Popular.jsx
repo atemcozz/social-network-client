@@ -1,14 +1,18 @@
 import React from "react";
 
-import useRequest from "../../hooks/useRequest";
 import Spinner from "../UI/Spinner/Spinner";
 import PostService from "../../services/PostService";
 import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
 import PostList from "../PostList/PostList";
 import MainLayout from "../Layout/MainLayout/MainLayout";
-
+import { useQuery } from "react-query";
 const Popular = () => {
-  const [posts, postsLoading, error, updatePosts] = useRequest(() =>
+  const {
+    data: postsQuery,
+    isLoading: postsLoading,
+    refetch: updatePosts,
+    error,
+  } = useQuery("fetchPopularPosts", () =>
     PostService.getPosts({ sort: "popular" })
   );
   if (postsLoading) {
@@ -26,7 +30,7 @@ const Popular = () => {
       <div className="min-h-screen px-4">
         <div className="font-bold text-xl mb-4">Популярное</div>
 
-        <PostList posts={posts} onChange={updatePosts} />
+        <PostList posts={postsQuery.data} onChange={updatePosts} />
 
         {error && (
           <div className="flex flex-col gap-2">

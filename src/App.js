@@ -6,6 +6,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import ThemeProvider from "./providers/ThemeProvider";
 import useStore from "./hooks/useStore";
 import LayoutPlaceholder from "./components/UI/Placeholders/LayoutPlaceholder/LayoutPlaceholder";
+import { QueryClientProvider } from "react-query";
+import { QueryClient } from "react-query";
+
+const queryClient = new QueryClient();
 function App() {
   const store = useStore();
   useEffect(() => {
@@ -22,9 +26,13 @@ function App() {
     );
   }
   return (
-    <ThemeProvider>
-      <Router>{store.isLoading ? <LayoutPlaceholder /> : <AppRoutes />}</Router>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <Router>
+          {store.isLoading ? <LayoutPlaceholder /> : <AppRoutes />}
+        </Router>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 

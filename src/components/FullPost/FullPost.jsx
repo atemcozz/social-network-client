@@ -1,5 +1,5 @@
 import React from "react";
-import useRequest from "../../hooks/useRequest";
+
 import PostService from "../../services/PostService";
 import { useParams } from "react-router-dom";
 
@@ -11,16 +11,20 @@ import { useState } from "react";
 import { useEffect } from "react";
 import MainLayout from "../Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
+import { useQuery } from "react-query";
+
 const FullPost = () => {
   const store = useStore();
   const { id } = useParams();
-  const [post, postLoading, postError] = useRequest(() =>
-    PostService.getPostByID(id)
+
+  const {
+    data: post,
+    isLoading: postLoading,
+    error: postError,
+  } = useQuery("fetchPost", () =>
+    PostService.getPostByID(id).then((res) => res.data)
   );
 
-  // const [comments, commentsLoading, commentsError, updateComments] = useRequest(
-  //   () => PostService.getComments(id)
-  // );
   const [comments, setComments] = useState();
   const [commentsLoading, setCommentsLoading] = useState(false);
   const [commentsError, setCommentsError] = useState(false);

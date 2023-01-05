@@ -1,17 +1,19 @@
 import React from "react";
 
-import useRequest from "../../hooks/useRequest";
-import Spinner from "../UI/Spinner/Spinner";
+import { useQuery } from "react-query";
+
 import PostService from "../../services/PostService";
 import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
 import PostList from "../PostList/PostList";
 
 import MainLayout from "../Layout/MainLayout/MainLayout";
 const Bookmarks = () => {
-  const [posts, postsLoading, error, updatePosts] = useRequest(() =>
-    PostService.getSavedPosts()
-  );
-
+  const {
+    data: postsQuery,
+    isLoading: postsLoading,
+    error,
+    refetch: updatePosts,
+  } = useQuery("fetchBookmarks", PostService.getSavedPosts);
   if (postsLoading) {
     return (
       <MainLayout>
@@ -27,7 +29,7 @@ const Bookmarks = () => {
       <div className="min-h-screen px-4">
         <div className="font-bold text-xl mb-4">Закладки</div>
 
-        <PostList posts={posts} onChange={updatePosts} />
+        <PostList posts={postsQuery.data} onChange={updatePosts} />
 
         {error && (
           <div className="flex flex-col gap-2">
