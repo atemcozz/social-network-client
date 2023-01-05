@@ -11,16 +11,16 @@ const UserPlaceholder = () => {
       <div className="flex rounded-lg shadow-md p-4 bg-back gap-4 md:gap-10">
         <AvatarPlaceholder size="big" />
 
-        <div className="flex flex-col gap-4 justify-between">
+        <div className="flex flex-col gap-4 justify-between flex-1">
           <div className="flex flex-col gap-2">
             <LinePlaceholder big className={"w-36"} />
             <LinePlaceholder className={"w-24"} />
             <LinePlaceholder className={"w-16"} />
           </div>
           <div className="flex gap-2 h-8">
-            <BoxPlaceholder className={"w-16"} />
-            <BoxPlaceholder className={"w-16"} />
-            <BoxPlaceholder className={"w-16"} />
+            <BoxPlaceholder className={"flex-1"} />
+            <BoxPlaceholder className={"flex-1"} />
+            <BoxPlaceholder className={"flex-1"} />
           </div>
         </div>
       </div>

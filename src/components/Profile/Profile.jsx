@@ -12,7 +12,7 @@ import {
 } from "react-icons/md";
 import { FaUserPlus, FaUserCheck } from "react-icons/fa";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
-import Spinner from "../UI/Spinner/Spinner";
+
 import UserService from "../../services/UserService";
 import * as utils from "../../utils/utils";
 import Button from "../UI/Button/Button";
