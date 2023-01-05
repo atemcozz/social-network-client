@@ -6,7 +6,7 @@
 }
 
 .leaflet-popup-content {
-  @apply m-0 overflow-auto p-2;
+  @apply m-0 overflow-auto p-1;
 }
 
 .leaflet-popup-close-button {

@@ -14,12 +14,12 @@ import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import { useState } from "react";
 import L from "leaflet";
-
+import { MdContentCopy } from "react-icons/md";
 import useSupercluster from "use-supercluster";
 import LocateTest from "./LocateTest";
 import useStore from "../../hooks/useStore";
 import classNames from "classnames";
-
+import Button from "../UI/Button/Button";
 const Map = ({
   center = { lat: 0, lng: 0 },
   zoom = 20,
@@ -127,9 +127,19 @@ const LocationsCluster = ({ locations, radius = 150, startZoom }) => {
               })
             }
           >
-            <Popup>
-              <div>
-                {lat} {lng}
+            <Popup minWidth={"auto"}>
+              <div className="flex gap-2 items-center">
+                <div className="whitespace-nowrap">
+                  {lat}, {lng}
+                </div>
+                <Button
+                  variant="secondary"
+                  onClick={() =>
+                    navigator.clipboard.writeText(`${lat}, ${lng}`)
+                  }
+                >
+                  <MdContentCopy size={"20px"} />
+                </Button>
               </div>
             </Popup>
           </Marker>

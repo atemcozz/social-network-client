@@ -39,15 +39,18 @@ const Post = ({ post, onChange }) => {
     }
   }
   function copyLink() {
-    if (typeof window !== "undefined") {
-      const url = `${window.location.protocol}//${window.location.host}/post/${post.id}`;
-      const textField = document.createElement("textarea");
-      textField.innerText = url;
-      document.body.appendChild(textField);
-      textField.select();
-      document.execCommand("copy");
-      textField.remove();
-    }
+    navigator.clipboard.writeText(
+      `${window.location.protocol}//${window.location.host}/post/${post.id}`
+    );
+    // if (typeof window !== "undefined") {
+    //   const url = `${window.location.protocol}//${window.location.host}/post/${post.id}`;
+    //   const textField = document.createElement("textarea");
+    //   textField.innerText = url;
+    //   document.body.appendChild(textField);
+    //   textField.select();
+    //   document.execCommand("copy");
+    //   textField.remove();
+    // }
   }
   function openFullPost() {
     window.open(`/post/${post.id}`);
