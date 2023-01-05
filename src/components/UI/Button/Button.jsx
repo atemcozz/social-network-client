@@ -1,4 +1,6 @@
+import classNames from "classnames";
 import React from "react";
+
 const Button = ({ children, variant = "primary", className, ...props }) => {
   const variants = {
     primary: `bg-primary hover:bg-primary-darker ease-in duration-100 text-white`,
@@ -13,9 +15,11 @@ const Button = ({ children, variant = "primary", className, ...props }) => {
 
   return (
     <button
-      className={`rounded-lg p-2 flex items-center gap-2 ${variants[variant]} ${
-        className ? className : ""
-      }`}
+      className={classNames(
+        "rounded-lg p-2 flex items-center gap-2",
+        variants[variant],
+        className
+      )}
       {...props}
     >
       {children}

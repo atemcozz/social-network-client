@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 import { useState, useRef, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -32,9 +33,10 @@ const DotsDropdown = ({ children }) => {
         </button>
         <div
           ref={dropdownRef}
-          className={`${
-            dropdown ? "block" : "hidden"
-          } absolute top-0 right-0 w-max bg-back-darker shadow rounded overflow-hidden z-10`}
+          className={classNames(
+            dropdown ? "block" : "hidden",
+            "absolute top-0 right-0 w-max bg-back-darker shadow rounded overflow-hidden z-10"
+          )}
           onClick={() => setDropdown(false)}
         >
           <ul>{children}</ul>

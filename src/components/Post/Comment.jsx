@@ -98,15 +98,7 @@ const Comment = ({ comment, onDelete, depth = 0 }) => {
             }}
             className="cursor-pointer absolute inset-y-0 -left-2 w-4"
             onClick={() => setBranchVisible(false)}
-          >
-            {/* <div
-              className={`${
-                branchHover ? "text-primary" : "text-secondary-darker"
-              } absolute top-6  bg-back-darker`}
-            >
-              <BsArrowUpSquare />
-            </div> */}
-          </div>
+          ></div>
 
           {comment.children.map((child, index) => (
             <Comment

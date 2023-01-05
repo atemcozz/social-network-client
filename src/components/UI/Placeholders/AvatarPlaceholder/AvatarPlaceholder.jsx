@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 import styles from "../common/placeholder.module.css";
 const AvatarPlaceholder = ({ className, size = "normal" }) => {
@@ -9,9 +10,12 @@ const AvatarPlaceholder = ({ className, size = "normal" }) => {
   };
   return (
     <div
-      className={`rounded-full ${sizes[size]} shadow-md shrink-0 ${
-        styles.placeholder
-      } ${className || ""}`}
+      className={classNames(
+        "rounded-full first-line:shadow-md shrink-0",
+        sizes[size],
+        styles.placeholder,
+        className
+      )}
     ></div>
   );
 };

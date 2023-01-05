@@ -16,6 +16,7 @@ import "./Map.css";
 import LocateTest from "./LocateTest";
 import useStore from "../../hooks/useStore";
 import useTheme from "../../hooks/useTheme";
+import classNames from "classnames";
 const MapPicker = ({
   center = { lat: 0, lng: 0 },
   zoom = 0,
@@ -31,7 +32,7 @@ const MapPicker = ({
   return (
     <div>
       <MapContainer
-        className={`w-full h-96 z-0 ${className}`}
+        className={classNames(`w-full h-96 z-01`, className)}
         center={center}
         zoom={zoom}
         attributionControl={false}

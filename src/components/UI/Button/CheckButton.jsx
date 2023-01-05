@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { useState } from "react";
 import Button from "./Button";
 
@@ -6,7 +7,7 @@ const CheckButton = ({ children, className, active = false, ...props }) => {
   return (
     <Button
       variant={checked ? "primary" : "outlined"}
-      className={`${className ? className : ""}`}
+      className={classNames(className)}
       onClick={() => setChecked((state) => !state)}
     >
       {children}

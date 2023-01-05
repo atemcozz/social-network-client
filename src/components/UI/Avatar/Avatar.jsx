@@ -1,6 +1,7 @@
 import React from "react";
 import defaultAvatar from "../../../assets/default_avatar.png";
 import { useState } from "react";
+import classNames from "classnames";
 const Avatar = ({ src, size, onClick, pointer }) => {
   const [loading, setLoading] = useState(true);
   const sizes = {
@@ -11,21 +12,30 @@ const Avatar = ({ src, size, onClick, pointer }) => {
   };
   return (
     <div
-      className={`${sizes[size]} ${pointer ? "cursor-pointer" : ""} shrink-0`}
+      className={classNames(
+        sizes[size],
+        pointer && "cursor-pointer",
+        "shrink-0"
+      )}
       onClick={onClick}
     >
       {loading && (
         <img
-          className={`${sizes[size]} object-cover rounded-full shadow`}
+          className={classNames(
+            sizes[size],
+            "object-cover rounded-full shadow"
+          )}
           src={defaultAvatar}
           alt="avatar"
         />
       )}
       <img
-        className={`${sizes[size]} object-cover rounded-full shadow ${
-          loading ? "hidden" : "inline"
-        }`}
-        src={src ? src : ""}
+        className={classNames(
+          sizes[size],
+          loading ? "hidden" : "inline",
+          "object-cover rounded-full shadow"
+        )}
+        src={src || ""}
         onError={({ currentTarget }) => {
           currentTarget.onerror = null;
           currentTarget.src = defaultAvatar;

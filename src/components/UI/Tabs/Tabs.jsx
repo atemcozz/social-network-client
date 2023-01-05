@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 
 const Tabs = ({ children }) => {
@@ -10,10 +11,12 @@ const Tabs = ({ children }) => {
 const Item = ({ children, active, onClick }) => {
   return (
     <li
-      className={`flex items-center justify-center p-2 border-b-2 
+      className={classNames(
+        `flex items-center justify-center p-2 border-b-2 
        hover:border-primary hover:bg-secondary cursor-pointer flex-1
-       ease-in duration-100
-       ${active ? "border-primary" : "border-transparent"}`}
+       ease-in duration-100`,
+        active ? "border-primary" : "border-transparent"
+      )}
       onClick={onClick}
     >
       {children}

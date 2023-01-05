@@ -25,6 +25,7 @@ import MainLayout from "../Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
 import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
 import UserPlaceholder from "../UI/Placeholders/UserPlaceholder/UserPlaceholder";
+import classNames from "classnames";
 const viewModes = {
   gallery: "gallery",
   posts: "posts",
@@ -117,9 +118,10 @@ const Profile = () => {
                   <div className="flex flex-wrap gap-2">
                     <Button
                       onClick={() => navigate("/edit_profile", { state: user })}
-                      className={`${
-                        isStoreUser ? "block" : "hidden"
-                      } text-xs md:text-base`}
+                      className={classNames(
+                        isStoreUser ? "block" : "hidden",
+                        "text-xs md:text-base"
+                      )}
                     >
                       <MdModeEditOutline size={"24px"} />
                       Редактировать
@@ -127,9 +129,10 @@ const Profile = () => {
                     <Button
                       variant={subscribed ? "secondary" : "primary"}
                       onClick={() => setSubscribed((state) => !state)}
-                      className={`${
-                        isStoreUser ? "hidden" : "block"
-                      } text-xs md:text-base`}
+                      className={classNames(
+                        isStoreUser ? "hidden" : "block",
+                        "text-xs md:text-base"
+                      )}
                     >
                       {subscribed ? (
                         <>

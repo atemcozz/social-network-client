@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 import { useState } from "react";
 import { MdImageNotSupported } from "react-icons/md";
@@ -21,9 +22,10 @@ const Item = ({ post }) => {
       )}
       {post.attachments[0].type === "photo" && !error && (
         <img
-          className={`absolute inset-0 h-full w-full object-cover ${
+          className={classNames(
+            "absolute inset-0 h-full w-full object-cover",
             loading ? "hidden" : "inline"
-          }`}
+          )}
           src={post.attachments[0].url}
           onError={() => {
             setError(true);

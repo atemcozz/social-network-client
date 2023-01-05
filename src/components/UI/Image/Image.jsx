@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 import { useState } from "react";
 import { MdImageNotSupported } from "react-icons/md";
@@ -16,9 +17,10 @@ const Image = ({ ...props }) => {
       )}
 
       <img
-        className={`w-full rounded-lg ${
-          loading || error ? "hidden" : "inline"
-        }`}
+        className={classNames(
+          loading || error ? "hidden" : "inline",
+          "w-full rounded-lg"
+        )}
         onError={() => {
           setError(true);
           setLoading(false);
