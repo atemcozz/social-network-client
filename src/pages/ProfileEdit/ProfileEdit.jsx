@@ -2,19 +2,19 @@ import React, { useState, useRef } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
-import Button from "../UI/Button/Button";
+import Button from "../../components/UI/Button/Button";
 
 import UserService from "../../services/UserService";
 
 import { MdModeEditOutline } from "react-icons/md";
-import ProfileEditForm from "./ProfileEditForm";
-import Spinner from "../UI/Spinner/Spinner";
-import Avatar from "../UI/Avatar/Avatar";
+import ProfileEditForm from "../../components/Profile/ProfileEditForm";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import Avatar from "../../components/UI/Avatar/Avatar";
 import { useEffect } from "react";
-import MainLayout from "../Layout/MainLayout/MainLayout";
+import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
 import { useQuery } from "react-query";
-import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 const ProfileEdit = () => {
   const store = useStore();
   const [error, setError] = useState();

@@ -2,18 +2,18 @@ import React from "react";
 
 import PostService from "../../services/PostService";
 
-import PostList from "../PostList/PostList";
+import PostList from "../../components/PostList/PostList";
 
 import { useState } from "react";
-import Input from "../UI/Input/Input";
-import Button from "../UI/Button/Button";
-import Tag from "../Post/Tag/Tag";
+import Input from "../../components/UI/Input/Input";
+import Button from "../../components/UI/Button/Button";
+import Tag from "../../components/Post/Tag/Tag";
 import { MdAdd } from "react-icons/md";
 
-import MainLayout from "../Layout/MainLayout/MainLayout";
-import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
+import MainLayout from "../../components/Layout/MainLayout/MainLayout";
+import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
 import { useQuery } from "react-query";
-import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 const Search = () => {
   const [tagInput, setTagInput] = useState("");
   const [searchType, setSearchType] = useState("posts");

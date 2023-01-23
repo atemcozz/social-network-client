@@ -1,13 +1,13 @@
-import CreatePost from "../components/CreatePost/CreatePost";
-import Login from "../components/Login/Login";
-import ProfileEdit from "../components/Profile/ProfileEdit";
-import Profile from "../components/Profile/Profile";
-import Register from "../components/Register/Register";
-import New from "../components/Posts/New";
-import Popular from "../components/Posts/Popular";
-import Bookmarks from "../components/Posts/Bookmarks";
-import FullPost from "../components/FullPost/FullPost";
-import Search from "../components/Search/Search";
+import CreatePost from "../pages/CreatePost/CreatePost";
+import Login from "../pages/Login/Login";
+import ProfileEdit from "../pages/ProfileEdit/ProfileEdit";
+import Profile from "../pages/Profile/Profile";
+import Register from "../pages/Register/Register";
+import New from "../pages/New/New";
+import Popular from "../pages/Popular/Popular";
+import Bookmarks from "../pages/Bookmarks/Bookmarks";
+import FullPost from "../pages/FullPost/FullPost";
+import Search from "../pages/Search/Search";
 
 export const publicRoutes = [
   {

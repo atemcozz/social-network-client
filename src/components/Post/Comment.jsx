@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { BsArrowUpSquare, BsReplyFill } from "react-icons/bs";
 import { useState } from "react";
 import Button from "../UI/Button/Button";
-import { CommentsContext } from "../FullPost/CommentSection";
+import { CommentsContext } from "../CommentSection/CommentSection";
 import useStore from "../../hooks/useStore";
 import classNames from "classnames";
 

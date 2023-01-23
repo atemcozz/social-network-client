@@ -1,8 +1,8 @@
 import React from "react";
-import TextArea from "../UI/Input/TextArea";
-import Button from "../UI/Button/Button";
-import Input from "../UI/Input/Input";
-import Tag from "../Post/Tag/Tag";
+import TextArea from "../../components/UI/Input/TextArea";
+import Button from "../../components/UI/Button/Button";
+import Input from "../../components/UI/Input/Input";
+import Tag from "../../components/Post/Tag/Tag";
 import {
   MdAddPhotoAlternate,
   MdVideoCall,
@@ -14,12 +14,12 @@ import { useRef } from "react";
 import { useState } from "react";
 import PostService from "../../services/PostService";
 import { useNavigate } from "react-router-dom";
-import Toggle from "../UI/Toggle/Toggle";
-import Spinner from "../UI/Spinner/Spinner";
-import MapPicker from "../Map/MapPicker";
-import InfoLabel from "../UI/InfoLabel/InfoLabel";
-import MainLayout from "../Layout/MainLayout/MainLayout";
-import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+import Toggle from "../../components/UI/Toggle/Toggle";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import MapPicker from "../../components/Map/MapPicker";
+import InfoLabel from "../../components/UI/InfoLabel/InfoLabel";
+import MainLayout from "../../components/Layout/MainLayout/MainLayout";
+import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 const CreatePost = () => {
   const photoInput = useRef();
   const videoInput = useRef();

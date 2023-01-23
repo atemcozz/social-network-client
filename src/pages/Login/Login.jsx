@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Button from "../UI/Button/Button";
-import Input from "../UI/Input/Input";
+import Button from "../../components/UI/Button/Button";
+import Input from "../../components/UI/Input/Input";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../hooks/useForm";
-import Spinner from "../UI/Spinner/Spinner";
-import MainLayout from "../Layout/MainLayout/MainLayout";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
-import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 const Login = () => {
   const store = useStore();
   const [error, setError] = useState();

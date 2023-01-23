@@ -1,14 +1,14 @@
 import React from "react";
-import Input from "../UI/Input/Input";
-import Button from "../UI/Button/Button";
+import Input from "../../components/UI/Input/Input";
+import Button from "../../components/UI/Button/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useForm from "../../hooks/useForm";
-import Spinner from "../UI/Spinner/Spinner";
-import MainLayout from "../Layout/MainLayout/MainLayout";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
-import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 
 const Register = () => {
   const store = useStore();

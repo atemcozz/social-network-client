@@ -11,23 +11,23 @@ import {
   MdMenu,
 } from "react-icons/md";
 import { FaUserPlus, FaUserCheck } from "react-icons/fa";
-import DotsDropdown from "../UI/Dropdown/DotsDropdown";
+import DotsDropdown from "../../components/UI/Dropdown/DotsDropdown";
 
 import UserService from "../../services/UserService";
 import * as utils from "../../utils/utils";
-import Button from "../UI/Button/Button";
-import Avatar from "../UI/Avatar/Avatar";
+import Button from "../../components/UI/Button/Button";
+import Avatar from "../../components/UI/Avatar/Avatar";
 
-import Tabs from "../UI/Tabs/Tabs";
-import Gallery from "../Gallery/Gallery";
-import PostList from "../PostList/PostList";
+import Tabs from "../../components/UI/Tabs/Tabs";
+import Gallery from "../../components/Gallery/Gallery";
+import PostList from "../../components/PostList/PostList";
 import { Link } from "react-router-dom";
-import MainLayout from "../Layout/MainLayout/MainLayout";
+import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
-import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
-import UserPlaceholder from "../UI/Placeholders/UserPlaceholder/UserPlaceholder";
+import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
+import UserPlaceholder from "../../components/UI/Placeholders/UserPlaceholder/UserPlaceholder";
 import classNames from "classnames";
-import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 const viewModes = {
   gallery: "gallery",
   posts: "posts",

@@ -30,7 +30,7 @@ const CommentSection = ({ comments, error, onSend, onDelete }) => {
   return (
     <CommentsContext.Provider value={{ reply, setReply }}>
       <div className="flex flex-col gap-2 relative">
-        error && {<ErrorMessage>{error}</ErrorMessage>}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
         <div className="flex flex-col gap-2 overflow-auto px-4">
           {comments?.length > 0 ? (
             arrayToTree(comments).map((comment, index) => (

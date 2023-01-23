@@ -3,16 +3,16 @@ import React from "react";
 import PostService from "../../services/PostService";
 import { useParams } from "react-router-dom";
 
-import Spinner from "../UI/Spinner/Spinner";
-import Post from "../Post/Post";
-import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
-import CommentSection from "./CommentSection";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import Post from "../../components/Post/Post";
+import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
+import CommentSection from "../../components/CommentSection/CommentSection";
 import { useState } from "react";
 import { useEffect } from "react";
-import MainLayout from "../Layout/MainLayout/MainLayout";
+import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
 import { useQuery } from "react-query";
-import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 const FullPost = () => {
   const store = useStore();
   const { id } = useParams();

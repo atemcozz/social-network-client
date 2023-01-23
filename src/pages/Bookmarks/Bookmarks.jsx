@@ -3,10 +3,10 @@ import React from "react";
 import { useQuery } from "react-query";
 
 import PostService from "../../services/PostService";
-import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
-import PostList from "../PostList/PostList";
-import MainLayout from "../Layout/MainLayout/MainLayout";
-import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
+import PostList from "../../components/PostList/PostList";
+import MainLayout from "../../components/Layout/MainLayout/MainLayout";
+import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 const Bookmarks = () => {
   const {
     data: postsQuery,

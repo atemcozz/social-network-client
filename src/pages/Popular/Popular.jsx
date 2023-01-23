@@ -1,12 +1,12 @@
 import React from "react";
 
-import Spinner from "../UI/Spinner/Spinner";
+import Spinner from "../../components/UI/Spinner/Spinner";
 import PostService from "../../services/PostService";
-import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
-import PostList from "../PostList/PostList";
-import MainLayout from "../Layout/MainLayout/MainLayout";
+import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
+import PostList from "../../components/PostList/PostList";
+import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import { useQuery } from "react-query";
-import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 const Popular = () => {
   const {
     data: postsQuery,
