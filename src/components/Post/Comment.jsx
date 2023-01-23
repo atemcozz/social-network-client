@@ -10,13 +10,18 @@ import { useState } from "react";
 import Button from "../UI/Button/Button";
 import { CommentsContext } from "../FullPost/CommentSection";
 import useStore from "../../hooks/useStore";
+import classNames from "classnames";
 
 const Comment = ({ comment, onDelete, depth = 0 }) => {
   const store = useStore();
   const { setReply } = useContext(CommentsContext);
   const [branchVisible, setBranchVisible] = useState(true);
-  const [branchHover, setBranchHover] = useState(false);
-
+  // const [branchHover, setBranchHover] = useState(false);
+  function getNestedCommentsCount(childComment) {
+    let count = 0;
+    childComment.children?.map((c) => (count += getNestedCommentsCount(c) + 1));
+    return count;
+  }
   return (
     <div name={comment.id} className={`flex flex-col gap-2 min-w-max`}>
       <div className="flex p-2 bg-back shadow rounded-lg items-start justify-between">
@@ -76,28 +81,30 @@ const Comment = ({ comment, onDelete, depth = 0 }) => {
       </div>
       {!branchVisible && (
         <Button variant="outlined" onClick={() => setBranchVisible(true)}>
-          Показать ответы
+          Показать ответы {`(${getNestedCommentsCount(comment)})`}
         </Button>
       )}
       {comment.children?.length > 0 && (
         <div
-          className={`${!branchVisible && "hidden"}
-           ${
-             branchHover ? "border-primary" : "border-secondary-darker"
-           } ml-1 pl-2 border-l-2  flex flex-col gap-2 relative`}
+          className={classNames(
+            "ml-1 pl-2 border-l-2  flex flex-col gap-2 relative border-secondary-darker",
+            {
+              hidden: !branchVisible,
+            } /*,branchHover ? "border-primary" : "border-secondary-darker"*/
+          )}
         >
           <div
-            onMouseOver={(e) => {
-              e.stopPropagation();
+            // onMouseOver={(e) => {
+            //   e.stopPropagation();
 
-              setBranchHover(true);
-            }}
-            onMouseOut={(e) => {
-              e.stopPropagation();
-              setBranchHover(false);
-            }}
-            className="cursor-pointer absolute inset-y-0 -left-2 w-4"
-            onClick={() => setBranchVisible(false)}
+            //   setBranchHover(true);
+            // }}
+            // onMouseOut={(e) => {
+            //   e.stopPropagation();
+            //   setBranchHover(false);
+            // }}
+            // onClick={() => setBranchVisible(false)}
+            className=" absolute inset-y-0 -left-2 w-4"
           ></div>
 
           {comment.children.map((child, index) => (

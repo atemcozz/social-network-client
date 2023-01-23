@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import MainLayout from "../Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
 import { useQuery } from "react-query";
-
+import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
 const ProfileEdit = () => {
   const store = useStore();
   const [error, setError] = useState();
@@ -89,11 +89,7 @@ const ProfileEdit = () => {
           <div className="font-bold text-xl">Информация о пользователе</div>
         </div>
         <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
-          {error && (
-            <div className="text-white bg-danger rounded-lg p-4 break-words">
-              {error}
-            </div>
-          )}
+          {error && <ErrorMessage>{error}</ErrorMessage>}
           <div className="flex items-center justify-center">
             <Avatar src={avatar.url} size="large" />
           </div>

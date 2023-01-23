@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 
 import { SiFalcon } from "react-icons/si";
 import useStore from "../../hooks/useStore";
+import { memo } from "react";
 
 const Header = () => {
   const location = useLocation();
@@ -82,4 +83,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

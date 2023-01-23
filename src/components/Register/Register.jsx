@@ -8,6 +8,8 @@ import useForm from "../../hooks/useForm";
 import Spinner from "../UI/Spinner/Spinner";
 import MainLayout from "../Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
+import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+
 const Register = () => {
   const store = useStore();
   const [error, setError] = useState();
@@ -49,11 +51,7 @@ const Register = () => {
       <div className="flex flex-col gap-4 px-4">
         <div className="font-bold text-xl pl-6">Регистрация</div>
         <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
-          {error && (
-            <div className="text-white bg-danger rounded-lg p-4 break-words">
-              {error}
-            </div>
-          )}
+          {error && <ErrorMessage>{error} </ErrorMessage>}
           <form onSubmit={handleFormSumbit} className="flex flex-col gap-2 ">
             <Input
               value={name}

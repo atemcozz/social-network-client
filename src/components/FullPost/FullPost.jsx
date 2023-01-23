@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import MainLayout from "../Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
 import { useQuery } from "react-query";
-
+import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
 const FullPost = () => {
   const store = useStore();
   const { id } = useParams();
@@ -68,16 +68,8 @@ const FullPost = () => {
     <MainLayout>
       <div className="min-h-screen flex flex-col gap-4">
         <div className="font-bold text-xl ml-4">Пост</div>
-        {postError && (
-          <>
-            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-              В процессе загрузки поста произошла ошибка. Попробуйте
-              перезагрузить страницу.
-            </div>
-            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-              {postError.message}
-            </div>
-          </>
+        {postError?.message && (
+          <ErrorMessage>{postError?.message}</ErrorMessage>
         )}
         {post && (
           <div className="px-4">

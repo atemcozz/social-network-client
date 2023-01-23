@@ -1,4 +1,5 @@
 import React from "react";
+import { memo } from "react";
 import NavActions from "../UI/Sidemenu/NavActions";
 const ActionSideMenu = () => {
   return (
@@ -12,4 +13,4 @@ const ActionSideMenu = () => {
   );
 };
 
-export default ActionSideMenu;
+export default memo(ActionSideMenu);

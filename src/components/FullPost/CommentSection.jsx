@@ -5,13 +5,14 @@ import { useState } from "react";
 
 import Comment from "../Post/Comment";
 import { createContext } from "react";
-
+import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
 import useStore from "../../hooks/useStore";
 
 export const CommentsContext = createContext();
 const CommentSection = ({ comments, error, onSend, onDelete }) => {
   const store = useStore();
   const [reply, setReply] = useState();
+
   function arrayToTree(arr, belong = null) {
     const top = [];
     arr.forEach((el) => {
@@ -23,22 +24,13 @@ const CommentSection = ({ comments, error, onSend, onDelete }) => {
         top.push(el);
       }
     });
+    console.log(top);
     return top;
   }
   return (
     <CommentsContext.Provider value={{ reply, setReply }}>
       <div className="flex flex-col gap-2 relative">
-        {error && (
-          <>
-            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-              В процессе загрузки комментариев произошла ошибка. Попробуйте
-              перезагрузить страницу.
-            </div>
-            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-              {error.message}
-            </div>
-          </>
-        )}
+        error && {<ErrorMessage>{error}</ErrorMessage>}
         <div className="flex flex-col gap-2 overflow-auto px-4">
           {comments?.length > 0 ? (
             arrayToTree(comments).map((comment, index) => (

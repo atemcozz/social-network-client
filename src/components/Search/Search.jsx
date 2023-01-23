@@ -13,7 +13,7 @@ import { MdAdd } from "react-icons/md";
 import MainLayout from "../Layout/MainLayout/MainLayout";
 import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
 import { useQuery } from "react-query";
-
+import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
 const Search = () => {
   const [tagInput, setTagInput] = useState("");
   const [searchType, setSearchType] = useState("posts");
@@ -127,17 +127,7 @@ const Search = () => {
         </div>
         {postsLoading && <PostPlaceholder />}
         <PostList posts={posts} onChange={updatePosts} />
-        {error && (
-          <div className="flex flex-col gap-2">
-            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-              В процессе загрузки постов произошла ошибка. Попробуйте
-              перезагрузить страницу.
-            </div>
-            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-              {error.toString()}
-            </div>
-          </div>
-        )}
+        {error?.message && <ErrorMessage>{error?.message} </ErrorMessage>}
       </div>
     </MainLayout>
   );

@@ -19,7 +19,7 @@ import Spinner from "../UI/Spinner/Spinner";
 import MapPicker from "../Map/MapPicker";
 import InfoLabel from "../UI/InfoLabel/InfoLabel";
 import MainLayout from "../Layout/MainLayout/MainLayout";
-
+import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
 const CreatePost = () => {
   const photoInput = useRef();
   const videoInput = useRef();
@@ -73,9 +73,7 @@ const CreatePost = () => {
     setLoading(true);
     PostService.createPost(formData)
       .then((res) => navigate(`/post/${res.data?.post_id}`))
-      .catch((e) =>
-        setError(e.response.data?.msg ? e.response.data.msg : e.message)
-      )
+      .catch((e) => setError(e.response?.data?.message || e.message))
       .finally(() => setLoading(false));
   }
 
@@ -126,8 +124,10 @@ const CreatePost = () => {
   return (
     <MainLayout>
       <div className="px-4">
-        <div className="font-bold text-xl mb-4">Новое место</div>
+        <div className="font-bold text-xl mb-4">Новое место</div>{" "}
         <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+
           <Input
             value={title}
             className="font-bold placeholder:font-normal "
@@ -266,11 +266,6 @@ const CreatePost = () => {
               </div>
             )}
           </div>
-          {error && (
-            <div className="text-white bg-danger rounded-lg p-4 break-words">
-              {error}
-            </div>
-          )}
           {attachments.length > 0 &&
           title?.length > 0 &&
           !(locationEnabled && !location) ? (

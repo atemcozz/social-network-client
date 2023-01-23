@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React from "react";
+import { memo } from "react";
 const SidemenuButton = ({ children, className, ...props }) => {
   return (
     <button
@@ -14,4 +15,4 @@ const SidemenuButton = ({ children, className, ...props }) => {
   );
 };
 
-export default SidemenuButton;
+export default memo(SidemenuButton);

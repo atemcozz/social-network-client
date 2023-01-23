@@ -15,6 +15,7 @@ import NavLink from "../NavLink/NavLink";
 import { useState } from "react";
 import { useEffect } from "react";
 import useStore from "../../../hooks/useStore";
+import { memo } from "react";
 const NavActions = () => {
   const store = useStore();
 
@@ -106,4 +107,4 @@ const NavActions = () => {
   );
 };
 
-export default observer(NavActions);
+export default memo(observer(NavActions));

@@ -27,6 +27,7 @@ import useStore from "../../hooks/useStore";
 import PostPlaceholder from "../UI/Placeholders/PostPlaceholder/PostPlaceholder";
 import UserPlaceholder from "../UI/Placeholders/UserPlaceholder/UserPlaceholder";
 import classNames from "classnames";
+import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
 const viewModes = {
   gallery: "gallery",
   posts: "posts",
@@ -76,15 +77,7 @@ const Profile = () => {
     <MainLayout>
       <div className="flex flex-col gap-4 px-4">
         {userError ? (
-          <>
-            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-              В процессе загрузки пользователя произошла ошибка. Попробуйте
-              перезагрузить страницу.
-            </div>
-            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-              {userError.toString()}
-            </div>
-          </>
+          <ErrorMessage error={userError?.message} />
         ) : (
           user && (
             <>
@@ -159,15 +152,7 @@ const Profile = () => {
         )}
 
         {postsError ? (
-          <>
-            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-              В процессе загрузки постов произошла ошибка. Попробуйте
-              перезагрузить страницу.
-            </div>
-            <div className="p-2 bg-danger text-white rounded-lg shadow w-11/12 self-center break-words">
-              {postsError.toString()}
-            </div>
-          </>
+          <ErrorMessage error={postsError?.message} />
         ) : (
           <>
             {posts?.length > 0 ? (
