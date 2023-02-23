@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react";
-import Spinner from "./components/UI/Spinner/Spinner";
-import AppRoutes from "./routes/AppRoutes";
+import Spinner from "../components/UI/Spinner/Spinner";
+import AppRoutes from "../routes/AppRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
-import ThemeProvider from "./providers/ThemeProvider";
-import useStore from "./hooks/useStore";
-import LayoutPlaceholder from "./components/UI/Placeholders/LayoutPlaceholder/LayoutPlaceholder";
+import ThemeProvider from "../providers/ThemeProvider";
+import useStore from "../hooks/useStore";
+import LayoutPlaceholder from "../components/UI/Placeholders/LayoutPlaceholder/LayoutPlaceholder";
 import { QueryClientProvider } from "react-query";
 import { QueryClient } from "react-query";
 
