@@ -2,7 +2,7 @@ import TextBlock from "./Blocks/TextBlock";
 import ImageBlock from "./Blocks/ImageBlock";
 import MapBlock from "./Blocks/MapBlock";
 import sanitize from "sanitize-html";
-import sanitazeSettings from "./consts/sanitazeSettings";
+import sanitazeSettings from "./consts/sanitizeSettings";
 function blockHandler(block, editor) {
   switch (block.type) {
     case "text":

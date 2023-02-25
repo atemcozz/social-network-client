@@ -3,7 +3,7 @@ import Button from "../../../UI/Button/Button";
 import { MdDelete } from "react-icons/md";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import sanitize from "sanitize-html";
-import sanitazeSettings from "../consts/sanitazeSettings";
+import sanitizeSettings from "../consts/sanitizeSettings";
 const TextBlock = ({
   children,
   content,
@@ -30,12 +30,19 @@ const TextBlock = ({
       )}
 
       <ContentEditable
-        html={sanitize(content, sanitazeSettings)}
+        html={content}
         className={
           "flex-1 p-2 overflow-x-hidden break-words outline-none bg-back-darker"
         }
         placeholder={"Введите текст..."}
         onChange={(e) => onChange(e.target.value)}
+        onPaste={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          let clipboardData = e.clipboardData || window.clipboardData;
+          let pastedData = clipboardData.getData("Text");
+          onChange(sanitize(pastedData, sanitizeSettings));
+        }}
       />
     </div>
   );
