@@ -32,14 +32,16 @@ const MapPicker = ({
   return (
     <div>
       <MapContainer
-        className={classNames(`w-full h-96 z-01`, className)}
+        className={classNames(`w-full h-96 z-0`, className)}
         center={center}
         zoom={zoom}
         attributionControl={false}
         worldCopyJump
       >
         <TileLayer
+          zIndex={0}
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          className="z-0"
           url={
             getTheme() === "theme-dark"
               ? `https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token=${accessToken}`

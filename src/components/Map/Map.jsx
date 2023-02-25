@@ -41,6 +41,7 @@ const Map = ({
         worldCopyJump
       >
         <TileLayer
+          zIndex={0}
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={
             store.appTheme === "theme-dark"

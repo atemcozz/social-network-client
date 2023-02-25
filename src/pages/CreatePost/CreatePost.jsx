@@ -168,7 +168,7 @@ const CreatePost = () => {
 
           <div className="relative">
             <div className="rounded-t-lg h-2 bg-secondary"></div>
-            <div className="sticky top-16">
+            <div className="sticky top-16 z-10">
               <TextActions editor={editor} />
             </div>
 
