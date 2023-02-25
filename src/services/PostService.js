@@ -28,11 +28,7 @@ export default class PostService {
     return api.get(`/posts/saved`);
   }
   static async createPost(post) {
-    return api.post(`/post`, post, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    return api.post(`/post`, post);
   }
   static async createComment(data) {
     return api.post("/post/comment", data);

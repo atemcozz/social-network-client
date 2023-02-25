@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 
-const Modal = ({ content, active, container, onBgClick }) => {
+const Modal = ({ children, active, container, onBgClick }) => {
   return (
     <div
       className={classNames(
@@ -17,7 +17,7 @@ const Modal = ({ content, active, container, onBgClick }) => {
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        {content}
+        {children}
       </div>
     </div>
   );

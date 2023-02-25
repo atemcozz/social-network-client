@@ -21,13 +21,14 @@ import Map from "../Map/Map";
 import LinkText from "../UI/LinkText/LinkText";
 import { Link } from "react-router-dom";
 import useStore from "../../hooks/useStore";
-const Post = ({ post, onChange }) => {
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+const Post = ({ post, onChange, contentExposed = false }) => {
   const navigate = useNavigate();
   const store = useStore();
   const [postLiked, setPostLiked] = useState(false);
   const [postSaved, setPostSaved] = useState(false);
   const [imageModal, setImageModal] = useState(false);
-  const [showMap, setShowMap] = useState(false);
+  const [exposed, setExposed] = useState(contentExposed);
   function likePost() {
     if (store.isAuth) {
       if (postLiked) post.likes_count--;
@@ -76,17 +77,13 @@ const Post = ({ post, onChange }) => {
   return (
     <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
       {imageModal && (
-        <Modal
-          content={
-            <img
-              className="w-[90vw] h-auto md:h-[80vh] md:w-auto rounded-lg"
-              alt="img"
-              src={imageModal}
-            />
-          }
-          active={imageModal}
-          onBgClick={() => setImageModal(null)}
-        />
+        <Modal active={imageModal} onBgClick={() => setImageModal(null)}>
+          <img
+            className="w-[90vw] h-auto md:h-[80vh] md:w-auto rounded-lg"
+            alt="img"
+            src={imageModal}
+          />
+        </Modal>
       )}
       <div className="flex items-center justify-between">
         <div className="flex gap-2">
@@ -138,55 +135,54 @@ const Post = ({ post, onChange }) => {
 
       <div className="flex flex-col gap-3 overflow-hidden">
         {post.title && (
-          <div className="text-2xl font-bold pl-2 break-words">
-            {post.title}
-          </div>
+          <div className="text-2xl font-bold break-words">{post.title}</div>
         )}
-        {post.description && (
-          <div className="p-2 bg-back-darker rounded-lg shadow w-full self-center break-words">
-            <LinkText>{post.description}</LinkText>
-          </div>
+        <Image src={post.preview} onClick={() => setImageModal(post.preview)} />
+        {!exposed && (
+          <Button onClick={() => setExposed(true)} variant={"outlined"}>
+            <FaArrowDown size={"24px"} /> Показать полностью
+          </Button>
         )}
 
-        {post.attachments[0] &&
-          post.attachments.map((at, index) => {
-            if (at.type === "photo")
-              return (
-                <Image
-                  key={index}
-                  src={at.url}
-                  onClick={() => setImageModal(at.url)}
-                />
-              );
+        {exposed && (
+          <>
+            {JSON.parse(post.content).map((block, index) => {
+              switch (block.type) {
+                case "text":
+                  return (
+                    <div
+                      key={index}
+                      className={"overflow-x-hidden break-words"}
+                      dangerouslySetInnerHTML={{ __html: block.content }}
+                    ></div>
+                  );
+                case "image":
+                  return (
+                    <Image
+                      key={index}
+                      src={block.content}
+                      onClick={() => setImageModal(block.content)}
+                    />
+                  );
+                case "geo":
+                  return (
+                    <Map
+                      key={index}
+                      locations={[block.content]}
+                      center={block.content}
+                    />
+                  );
 
-            if (at.type === "video")
-              return (
-                <video
-                  key={index}
-                  className="w-full rounded-lg"
-                  src={at.url}
-                  controls
-                ></video>
-              );
-            return null;
-          })}
+                default:
+                  return null;
+              }
+            })}
+            <Button onClick={() => setExposed(false)} variant={"secondary"}>
+              <FaArrowUp size={"24px"} /> Скрыть
+            </Button>
+          </>
+        )}
       </div>
-      {post.geo && (
-        <>
-          {showMap ? (
-            <Button variant="outlined" onClick={() => setShowMap(false)}>
-              <HiLocationMarker size="24px" />
-              Скрыть карту
-            </Button>
-          ) : (
-            <Button onClick={() => setShowMap(true)}>
-              <HiLocationMarker size="24px" />
-              Показать на карте
-            </Button>
-          )}
-          {showMap && <Map locations={[post.geo]} center={post.geo} />}
-        </>
-      )}
 
       {post.tags && post.tags[0] && (
         <div className="flex flex-wrap gap-1.5">

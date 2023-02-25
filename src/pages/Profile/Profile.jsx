@@ -176,7 +176,7 @@ const Profile = () => {
                   <Gallery>
                     {posts?.map(
                       (post, index) =>
-                        post.attachments[0] && (
+                        post.preview && (
                           <Link
                             to={`/post/${post.id}`}
                             target={"_blank"}

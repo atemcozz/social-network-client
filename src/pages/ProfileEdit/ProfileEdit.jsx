@@ -15,6 +15,7 @@ import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
 import { useQuery } from "react-query";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
+import CloudinaryService from "../../services/CloudinaryService";
 const ProfileEdit = () => {
   const store = useStore();
   const [error, setError] = useState();
@@ -30,27 +31,33 @@ const ProfileEdit = () => {
   const [saveLoading, setSaveLoading] = useState(false);
   const [avatar, setAvatar] = useState({});
 
-  function addAvatar(event) {
-    if (event.target.files[0]) {
-      const file = event.target.files[0];
-      setAvatar({
-        file,
-        url: URL.createObjectURL(file),
-      });
-    }
+  function handleAvatar(event) {
+    event.preventDefault();
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+    input.onchange = () => {
+      const file = input.files[0];
+      setSaveLoading(true);
+      CloudinaryService.uploadImage(file)
+        .then((res) => setAvatar(res?.data?.secure_url))
+        .catch(setError)
+        .finally(() => setSaveLoading(false));
+    };
   }
 
   async function onFormSumbit(data) {
-    const formData = new FormData();
+    let _data = {};
 
     for (const key in data) {
-      formData.append(key, data[key]);
+      _data[key] = data[key];
     }
-    if (avatar.file) {
-      formData.append("avatar", avatar.file);
+    if (avatar) {
+      _data.avatar = avatar;
     }
     setSaveLoading(true);
-    UserService.updateUser(user.id, formData)
+    UserService.updateUser(user.id, _data)
       .then(() => {
         if (data.password) {
           store.logout();
@@ -65,8 +72,7 @@ const ProfileEdit = () => {
 
   useEffect(() => {
     if (user) {
-      setAvatar({ url: user.avatar_url });
-      console.log("loaded");
+      setAvatar(user.avatar_url);
     }
   }, [user]);
   if (saveLoading || userLoading) {
@@ -91,19 +97,12 @@ const ProfileEdit = () => {
         <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <div className="flex items-center justify-center">
-            <Avatar src={avatar.url} size="large" />
+            <Avatar src={avatar} size="large" />
           </div>
 
-          <Button variant="outlined" onClick={() => photoInput.current.click()}>
+          <Button variant="outlined" onClick={handleAvatar}>
             <MdModeEditOutline size="24px" />
             Изменить аватар
-            <input
-              type="file"
-              ref={photoInput}
-              accept="image/*"
-              onChange={(e) => addAvatar(e)}
-              className="hidden"
-            />
           </Button>
           {user && (
             <ProfileEditForm

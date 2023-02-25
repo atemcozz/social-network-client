@@ -20,13 +20,13 @@ const Item = ({ post }) => {
           <MdImageNotSupported size={"48px"} />
         </div>
       )}
-      {post.attachments[0].type === "photo" && !error && (
+      {!error && (
         <img
           className={classNames(
             "absolute inset-0 h-full w-full object-cover",
             loading ? "hidden" : "inline"
           )}
-          src={post.attachments[0].url}
+          src={post.preview}
           onError={() => {
             setError(true);
             setLoading(false);
@@ -34,19 +34,6 @@ const Item = ({ post }) => {
           alt="img"
           onLoad={() => setLoading(false)}
         />
-      )}
-      {post.attachments[0].type === "video" && !error && (
-        <video
-          onLoadedData={() => setLoading(false)}
-          className={`absolute inset-0 h-full w-full object-cover pointer-events-none ${
-            loading ? "hidden" : "inline"
-          }`}
-          src={post.attachments[0].url}
-          onError={() => {
-            setError(true);
-            setLoading(false);
-          }}
-        ></video>
       )}
     </div>
   );

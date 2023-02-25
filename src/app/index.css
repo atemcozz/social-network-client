@@ -44,3 +44,6 @@
   --secondary: #454545;
   --secondary-darker: #404040;
 }
+div[contentEditable="true"]:empty:not(:focus):before {
+  content: attr(placeholder);
+}

@@ -73,7 +73,7 @@ const FullPost = () => {
         )}
         {post && (
           <div className="px-4">
-            <Post post={post} />
+            <Post post={post} contentExposed />
           </div>
         )}
 

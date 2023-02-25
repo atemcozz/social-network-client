@@ -20,6 +20,16 @@ import MapPicker from "../../components/Map/MapPicker";
 import InfoLabel from "../../components/UI/InfoLabel/InfoLabel";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
+import {
+  Editor,
+  useEditor,
+  blockHandler,
+  BlockActions,
+  TextActions,
+} from "../../components/ArticleEditor";
+import CloudinaryService from "../../services/CloudinaryService";
+import Modal from "../../components/UI/Modal/Modal";
+
 const CreatePost = () => {
   const photoInput = useRef();
   const videoInput = useRef();
@@ -34,44 +44,21 @@ const CreatePost = () => {
   const [location, setLocation] = useState();
   const [locationEnabled, setLocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
   const navigate = useNavigate();
-
-  function addMedia(type, event) {
-    const files = event.target.files;
-    if (files && files[0]) {
-      let attachments = [];
-      [...files].forEach((file, index) => {
-        attachments.push({
-          id: lastMediaID + index,
-          type,
-          file,
-          url: URL.createObjectURL(file),
-        });
-      });
-
-      setLastMediaID((state) => state + files.length);
-      setAttachments((state) => [...state, ...attachments]);
-      console.log(attachments);
-    }
-  }
-
-  function removeMedia(id) {
-    setAttachments((state) => state.filter((at) => at.id !== id));
-  }
+  const editor = useEditor();
+  const [preview, setPreview] = useState();
 
   function sendPost() {
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    if (location && locationEnabled) {
-      formData.append("lat", location.lat);
-      formData.append("lng", location.lng);
-    }
-
-    attachments.forEach((at, index) => formData.append(`files[]`, at.file));
-    tags.forEach((tag) => formData.append("tags[]", tag.value));
+    const data = {
+      title: title,
+      preview: preview,
+      content: JSON.stringify(editor?.getBlocks()),
+      tags: tags.map((t) => t.value),
+    };
+    console.log(data);
     setLoading(true);
-    PostService.createPost(formData)
+    PostService.createPost(data)
       .then((res) => navigate(`/post/${res.data?.post_id}`))
       .catch((e) => setError(e.response?.data?.message || e.message))
       .finally(() => setLoading(false));
@@ -105,13 +92,21 @@ const CreatePost = () => {
     setTags((tags) => tags.filter((tag) => tag.id !== id));
   }
 
-  function processLocationInput(e) {
-    const coords = e.target.value.split(",").map((el) => el.trim());
-    const lat = Math.min(Math.max(coords[0], -90), 90);
-    const lng = Math.min(Math.max(coords[1], -180), 180);
-    setLocation({ lat: lat ? lat : 0, lng: lng ? lng : 0 });
+  function handlePreview(event) {
+    event.preventDefault();
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+    input.onchange = () => {
+      const file = input.files[0];
+      setImageLoading(true);
+      CloudinaryService.uploadImage(file)
+        .then((res) => setPreview(res?.data?.secure_url))
+        .catch(setError)
+        .finally(() => setImageLoading(false));
+    };
   }
-
   if (loading) {
     return (
       <MainLayout>
@@ -124,8 +119,43 @@ const CreatePost = () => {
   return (
     <MainLayout>
       <div className="px-4">
-        <div className="font-bold text-xl mb-4">Новое место</div>{" "}
-        <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
+        <div className="font-bold text-xl mb-4">Новое место</div>
+
+        <div
+          className="relative h-32 rounded-t-lg overflow-hidden bg-back cursor-pointer"
+          onClick={handlePreview}
+        >
+          {imageLoading && (
+            <div className="h-full flex justify-center items-center">
+              <Spinner />
+            </div>
+          )}
+          {preview && !imageLoading && (
+            <div className="flex justify-center items-center">
+              <img
+                src={preview}
+                alt="preview"
+                className="w-full object-cover object-top h-32 blur-sm"
+              />
+
+              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-back to-transparent"></div>
+              <img
+                src={preview}
+                alt="preview"
+                className="w-24 h-24 absolute rounded-lg shadow-xl object-cover"
+              />
+            </div>
+          )}
+          {!preview && !imageLoading && (
+            <div className="h-full flex items-center justify-center">
+              <Button variant="outlined">
+                <MdAddPhotoAlternate size="64px" />
+              </Button>
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-col rounded-b-lg shadow-md p-4 bg-back gap-3">
           {error && <ErrorMessage>{error}</ErrorMessage>}
 
           <Input
@@ -135,8 +165,26 @@ const CreatePost = () => {
             onChange={(e) => setTitle(e.target.value)}
             required
           />
-          {/* <div className="font-bold text-lg">Медиа</div> */}
-          <div className="flex gap-2 items-center flex-wrap">
+
+          <div className="relative">
+            <div className="rounded-t-lg h-2 bg-secondary"></div>
+            <div className="sticky top-16">
+              <TextActions editor={editor} />
+            </div>
+
+            <Editor editor={editor} blockHandler={blockHandler} />
+            <BlockActions editor={editor} onBlockLoad={setImageLoading} />
+            <a
+              className="cursor-pointer"
+              onClick={() => alert(JSON.stringify(editor.getBlocks(), 0, 2))}
+            >
+              [show raw]
+            </a>
+          </div>
+          <InfoLabel>
+            Используйте блоки для добавления контента в статью
+          </InfoLabel>
+          {/* <div className="flex gap-2 items-center flex-wrap">
             <Button
               variant="outlined"
               className={"flex-1"}
@@ -242,7 +290,7 @@ const CreatePost = () => {
                 />
               )}
             </>
-          )}
+          )} */}
           <div>
             <div className="font-bold text-lg pb-3">Теги</div>
             <div className="flex gap-2">
@@ -266,9 +314,7 @@ const CreatePost = () => {
               </div>
             )}
           </div>
-          {attachments.length > 0 &&
-          title?.length > 0 &&
-          !(locationEnabled && !location) ? (
+          {title?.length > 0 && preview ? (
             <Button variant="primary" onClick={sendPost}>
               Отправить
             </Button>
