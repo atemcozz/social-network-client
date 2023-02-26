@@ -14,24 +14,23 @@ const Register = () => {
   const store = useStore();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
-  const [formData, handleInputChange, handleFormSumbit, resetForm] = useForm(
-    {
+  const form = useForm({
+    initial: {
       name: "",
       surname: "",
       nickname: "",
       password: "",
       password_repeat: "",
     },
-    formSumbitAction
-  );
-  const { name, surname, nickname, password, password_repeat } = formData;
+    onSubmit: formSubmitAction,
+    validate(data) {
+      if (form.data.password !== form.data.password_repeat) {
+        return "Пароли не совпадают";
+      }
+    },
+  });
   const navigate = useNavigate();
-  function formSumbitAction() {
-    if (password !== password_repeat) {
-      setError("Пароли не совпадают");
-      return;
-    }
-    const data = { name, surname, nickname, password };
+  function formSubmitAction(data) {
     setLoading(true);
     store
       .register(data)
@@ -51,11 +50,14 @@ const Register = () => {
       <div className="flex flex-col gap-4 px-4">
         <div className="font-bold text-xl pl-6">Регистрация</div>
         <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
+          {form.errors?.length > 0 && (
+            <ErrorMessage>{form.errors[0]} </ErrorMessage>
+          )}
           {error && <ErrorMessage>{error} </ErrorMessage>}
-          <form onSubmit={handleFormSumbit} className="flex flex-col gap-2 ">
+          <form onSubmit={form.handleSubmit} className="flex flex-col gap-2 ">
             <Input
-              value={name}
-              onChange={handleInputChange}
+              value={form.data.name}
+              onChange={form.handleChange}
               name="name"
               type="text"
               placeholder="Имя"
@@ -63,8 +65,8 @@ const Register = () => {
             />
 
             <Input
-              value={surname}
-              onChange={handleInputChange}
+              value={form.data.surname}
+              onChange={form.handleChange}
               name="surname"
               type="text"
               placeholder="Фамилия"
@@ -72,16 +74,16 @@ const Register = () => {
             />
 
             <Input
-              value={nickname}
-              onChange={handleInputChange}
+              value={form.data.nickname}
+              onChange={form.handleChange}
               name="nickname"
               type="text"
               placeholder="Никнейм"
               required
             />
             <Input
-              value={password}
-              onChange={handleInputChange}
+              value={form.data.password}
+              onChange={form.handleChange}
               name="password"
               type="password"
               placeholder="Пароль"
@@ -90,8 +92,8 @@ const Register = () => {
               className={"mt-2"}
             />
             <Input
-              value={password_repeat}
-              onChange={handleInputChange}
+              value={form.data.password_repeat}
+              onChange={form.handleChange}
               name="password_repeat"
               type="password"
               autoComplete="off"

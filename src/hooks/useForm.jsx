@@ -1,19 +1,32 @@
 import { useState } from "react";
 
-const useForm = (initialState = {}, sumbitAction) => {
-  const [formData, setFormData] = useState(initialState);
-
-  const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+const useForm = ({ initial, onSubmit, validate }) => {
+  const [data, setData] = useState(initial);
+  const [errors, setErrors] = useState([]);
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
   };
   const reset = () => {
-    setFormData(initialState);
+    setData(initial);
   };
-  const handleSumbit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    sumbitAction();
+    if (validate) {
+      const validation = validate(data);
+      const result =
+        validation instanceof Array
+          ? validation
+          : validation instanceof String || typeof validation === "string"
+          ? [validation]
+          : [];
+      setErrors(result);
+      if (result?.length) {
+        return;
+      }
+    }
+    onSubmit(data);
   };
-  return [formData, handleInputChange, handleSumbit, reset];
+  return { data, handleChange, handleSubmit, reset, errors };
 };
 
 export default useForm;

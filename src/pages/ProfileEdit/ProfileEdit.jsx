@@ -16,6 +16,8 @@ import useStore from "../../hooks/useStore";
 import { useQuery } from "react-query";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 import CloudinaryService from "../../services/CloudinaryService";
+import useForm from "../../hooks/useForm";
+import { getError } from "../../utils/locales";
 const ProfileEdit = () => {
   const store = useStore();
   const [error, setError] = useState();
@@ -28,6 +30,24 @@ const ProfileEdit = () => {
     () => UserService.getUser(store.user.id).then((res) => res.data),
     { onError: (err) => setError(err) }
   );
+
+  const form = useForm({
+    initial: {
+      nickname: user.nickname,
+      name: user.name,
+      surname: user.surname,
+      password: "",
+      password_repeat: "",
+    },
+
+    onSubmit: onFormSubmit,
+    validate(data) {
+      if (data.password !== data.password_repeat) {
+        return "Пароли не совпадают";
+      }
+    },
+  });
+
   const [saveLoading, setSaveLoading] = useState(false);
   const [avatar, setAvatar] = useState({});
 
@@ -47,17 +67,16 @@ const ProfileEdit = () => {
     };
   }
 
-  async function onFormSumbit(data) {
-    let _data = {};
-
-    for (const key in data) {
-      _data[key] = data[key];
-    }
+  async function onFormSubmit(data) {
     if (avatar) {
-      _data.avatar = avatar;
+      data.avatar = avatar;
+    }
+    if (!data.password) {
+      delete data.password;
+      delete data.password_repeat;
     }
     setSaveLoading(true);
-    UserService.updateUser(user.id, _data)
+    UserService.updateUser(user.id, data)
       .then(() => {
         if (data.password) {
           store.logout();
@@ -66,7 +85,7 @@ const ProfileEdit = () => {
           navigate(`/user/${user.id}`);
         }
       })
-      .catch((e) => setError(e.response?.data?.msg))
+      .catch((e) => setError(getError(e.response?.data?.reason)))
       .finally(() => setSaveLoading(false));
   }
 
@@ -95,6 +114,9 @@ const ProfileEdit = () => {
           <div className="font-bold text-xl">Информация о пользователе</div>
         </div>
         <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
+          {form.errors?.length > 0 && (
+            <ErrorMessage>{form.errors[0]}</ErrorMessage>
+          )}
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <div className="flex items-center justify-center">
             <Avatar src={avatar} size="large" />
@@ -104,13 +126,7 @@ const ProfileEdit = () => {
             <MdModeEditOutline size="24px" />
             Изменить аватар
           </Button>
-          {user && (
-            <ProfileEditForm
-              user={user}
-              onSumbit={onFormSumbit}
-              onError={(e) => setError(e)}
-            />
-          )}
+          {user && <ProfileEditForm form={form} />}
         </div>
       </div>
     </MainLayout>

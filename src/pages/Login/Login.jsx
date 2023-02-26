@@ -11,19 +11,18 @@ const Login = () => {
   const store = useStore();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
-  const [formData, handleInputChange, handleFormSumbit, resetForm] = useForm(
-    {
+  const form = useForm({
+    initial: {
       nickname: "",
       password: "",
     },
-    formSumbitAction
-  );
-  const { nickname, password } = formData;
+    onSubmit: formSubmitAction,
+  });
   const navigate = useNavigate();
-  async function formSumbitAction() {
+  async function formSubmitAction(data) {
     setLoading(true);
     await store
-      .login(formData)
+      .login(data)
       .then(() => navigate("/"))
       .catch(setError)
       .finally(() => setLoading(false));
@@ -42,21 +41,21 @@ const Login = () => {
         <div className="flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
           {error && <ErrorMessage>{error}</ErrorMessage>}
 
-          <form onSubmit={handleFormSumbit} className="flex flex-col gap-2">
+          <form onSubmit={form.handleSubmit} className="flex flex-col gap-2">
             <Input
               name="nickname"
               type="text"
               placeholder="Никнейм"
-              value={nickname}
-              onChange={handleInputChange}
+              value={form.data.nickname}
+              onChange={form.handleChange}
               required
             />
             <Input
               name="password"
               type="password"
               placeholder="Пароль"
-              value={password}
-              onChange={handleInputChange}
+              value={form.data.password}
+              onChange={form.handleChange}
               required
             />
             <Button className={"mt-2"}>Войти</Button>

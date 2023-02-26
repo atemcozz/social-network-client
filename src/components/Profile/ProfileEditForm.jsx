@@ -2,37 +2,15 @@ import React from "react";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import useForm from "../../hooks/useForm";
-const ProfileEditForm = ({ user, onSumbit, onError }) => {
-  const [formData, handleInputChange, handleFormSumbit, resetForm] = useForm(
-    {
-      nickname: user.nickname,
-      name: user.name,
-      surname: user.surname,
-      password: "",
-      password_repeat: "",
-    },
-    sumbitForm
-  );
-  function sumbitForm() {
-    if (password || password_repeat) {
-      if (password !== password_repeat) {
-        onError("Пароли не совпадают");
-        return;
-      }
-      onSumbit({ name, surname, nickname, password });
-    } else {
-      onSumbit({ name, surname, nickname });
-    }
-  }
-  const { nickname, name, surname, password, password_repeat } = formData;
+const ProfileEditForm = ({ form }) => {
   return (
     <form
-      onSubmit={handleFormSumbit}
+      onSubmit={form.handleSubmit}
       className="flex flex-col gap-2 placeholder:italic"
     >
       <Input
-        value={name}
-        onChange={handleInputChange}
+        value={form.data.name}
+        onChange={form.handleChange}
         name="name"
         type="text"
         placeholder="Имя"
@@ -40,8 +18,8 @@ const ProfileEditForm = ({ user, onSumbit, onError }) => {
       />
 
       <Input
-        value={surname}
-        onChange={handleInputChange}
+        value={form.data.surname}
+        onChange={form.handleChange}
         name="surname"
         type="text"
         placeholder="Фамилия"
@@ -49,8 +27,8 @@ const ProfileEditForm = ({ user, onSumbit, onError }) => {
       />
 
       <Input
-        value={nickname}
-        onChange={handleInputChange}
+        value={form.data.nickname}
+        onChange={form.handleChange}
         name="nickname"
         type="text"
         placeholder="Никнейм"
@@ -58,16 +36,16 @@ const ProfileEditForm = ({ user, onSumbit, onError }) => {
       />
       <Input
         className={"mt-2"}
-        value={password}
-        onChange={handleInputChange}
+        value={form.data.password}
+        onChange={form.handleChange}
         name="password"
         type="password"
         autoComplete="new-password"
         placeholder="Новый пароль"
       />
       <Input
-        value={password_repeat}
-        onChange={handleInputChange}
+        value={form.data.password_repeat}
+        onChange={form.handleChange}
         name="password_repeat"
         type="password"
         autoComplete="new-password"
