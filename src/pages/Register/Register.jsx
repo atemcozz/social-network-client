@@ -72,7 +72,14 @@ const Register = () => {
               placeholder="Фамилия"
               required
             />
-
+            <Input
+              value={form.data.email}
+              onChange={form.handleChange}
+              name="email"
+              type="email"
+              placeholder="Электронная почта"
+              required
+            />
             <Input
               value={form.data.nickname}
               onChange={form.handleChange}

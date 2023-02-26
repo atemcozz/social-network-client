@@ -7,6 +7,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
+import { Link } from "react-router-dom";
 const Login = () => {
   const store = useStore();
   const [error, setError] = useState();
@@ -60,6 +61,11 @@ const Login = () => {
             />
             <Button className={"mt-2"}>Войти</Button>
           </form>
+          <Link to={"/recover"} className={""}>
+            <Button variant="outlined" className={"w-full"}>
+              Забыли пароль?
+            </Button>
+          </Link>
         </div>
       </div>
     </MainLayout>

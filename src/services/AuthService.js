@@ -12,4 +12,7 @@ export default class AuthService {
       refreshToken: localStorage.getItem("refresh_token"),
     });
   }
+  static async recover(data) {
+    return api.post("/recover", data);
+  }
 }

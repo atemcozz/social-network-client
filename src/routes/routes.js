@@ -8,6 +8,7 @@ import Popular from "../pages/Popular";
 import Bookmarks from "../pages/Bookmarks";
 import FullPost from "../pages/FullPost";
 import Search from "../pages/Search";
+import RecoverPassword from "../pages/RecoverPassword";
 
 export const publicRoutes = [
   {
@@ -42,6 +43,7 @@ export const publicRoutes = [
     path: "/search",
     Component: Search,
   },
+  { path: "/recover", Component: RecoverPassword },
 ];
 export const privateRoutes = [
   {
