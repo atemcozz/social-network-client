@@ -2,6 +2,9 @@ import React from "react";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import useForm from "../../hooks/useForm";
+import TextArea from "../UI/Input/TextArea";
+import Dropdown from "../UI/Dropdown/Dropdown";
+import countries from "../../consts/countries";
 const ProfileEditForm = ({ form }) => {
   return (
     <form
@@ -34,6 +37,45 @@ const ProfileEditForm = ({ form }) => {
         placeholder="Никнейм"
         required
       />
+      <Dropdown
+        placeholder="Страна"
+        items={countries.map((country) => ({
+          name: country.rus,
+          value: country.eng,
+        }))}
+      />
+      <Input
+        value={form.data.city}
+        onChange={form.handleChange}
+        name="city"
+        type="text"
+        placeholder="Город"
+      />
+      <Dropdown
+        placeholder="Пол"
+        items={[
+          { name: "Мужской", value: "male" },
+          { name: "Женский", value: "female" },
+          { name: "Не выбрано", value: "" },
+        ]}
+      />
+      <Input
+        value={form.data.birth}
+        onChange={form.handleChange}
+        name="birth"
+        type="date"
+        placeholder="День рождения"
+      />
+      <TextArea
+        value={form.data.description}
+        onChange={form.handleChange}
+        name="description"
+        type="text"
+        autoExpand
+        maxHeight={450}
+        placeholder="О себе"
+      />
+
       <Input
         className={"mt-2"}
         value={form.data.password}

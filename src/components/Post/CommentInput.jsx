@@ -26,6 +26,8 @@ const CommentInput = ({ onSend, reply }) => {
           onChange={(e) => setText(e.target.value)}
           placeholder="Введите комментарий"
           rows={1}
+          autoExpand
+          maxHeight={150}
         />
         <Button
           onClick={() => {

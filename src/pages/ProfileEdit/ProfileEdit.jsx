@@ -33,9 +33,9 @@ const ProfileEdit = () => {
 
   const form = useForm({
     initial: {
-      nickname: user.nickname,
-      name: user.name,
-      surname: user.surname,
+      nickname: user?.nickname,
+      name: user?.name,
+      surname: user?.surname,
       password: "",
       password_repeat: "",
     },
