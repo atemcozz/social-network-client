@@ -1,5 +1,4 @@
-
- React from "react";
+React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useQuery } from "react-query";
@@ -91,13 +90,12 @@ const Profile = () => {
                   <DotsDropdown.Item icon={<MdContentCopy size={"24px"} />}>
                     Скопировать ссылку
                   </DotsDropdown.Item>
-{isStoreUser &&
-                  <DotsDropdown.Item
+{isStoreUser && (<DotsDropdown.Item
                     icon={<MdModeEditOutline size={"24px"} />}
                     onClick={() => navigate("/edit_profile", { state: user })}
                   >
                     Редактировать
-                  </DotsDropdown.Item>}
+                  </DotsDropdown.Item>)}
                 </DotsDropdown>
               </div>
               <div className="flex rounded-lg shadow-md p-4 bg-back gap-4 md:gap-10">
