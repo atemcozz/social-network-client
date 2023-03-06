@@ -12,6 +12,7 @@ const Gallery = ({ posts, children }) => {
 const Item = ({ post }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
   return (
     <div className="relative h-0 pb-[100%] md:rounded-lg rounded shadow cursor-pointer hover:brightness-50 ease-in duration-100 overflow-hidden">
       {loading && <div className="h-full bg-secondary"></div>}

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react";
-import Spinner from "../components/UI/Spinner/Spinner";
 import AppRoutes from "../routes/AppRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
 import ThemeProvider from "../providers/ThemeProvider";

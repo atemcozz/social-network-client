@@ -1,6 +1,6 @@
 import React from "react";
 
-const LinkText = ({ children }) => {
+const LinkedText = ({ children }) => {
   function linkifyText(text) {
     const regex =
       "https?://(?:www.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|www.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|https?://(?:www.|(?!www))[a-zA-Z0-9]+.[^s]{2,}|www.[a-zA-Z0-9]+.[^s]{2,}";
@@ -31,4 +31,4 @@ const LinkText = ({ children }) => {
   return <>{linkifyText(children)}</>;
 };
 
-export default LinkText;
+export default LinkedText;

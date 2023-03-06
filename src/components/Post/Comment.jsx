@@ -3,7 +3,7 @@ import Avatar from "../UI/Avatar/Avatar";
 import * as utils from "../../utils/utils";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown";
 import { MdDeleteForever } from "react-icons/md";
-import LinkText from "../UI/LinkText/LinkText";
+import LinkedText from "../UI/LinkedText/LinkedText";
 import { Link } from "react-router-dom";
 import { BsArrowUpSquare, BsReplyFill } from "react-icons/bs";
 import { useState } from "react";
@@ -46,9 +46,7 @@ const Comment = ({ comment, onDelete, depth = 0 }) => {
                 {utils.getDateFromSQL(comment.created_at)}
               </div>
             </div>
-            <div className="break-words max-w-md">
-              <LinkText>{comment.body}</LinkText>
-            </div>
+            <div className="break-words max-w-md">{comment.body}</div>
           </div>
         </div>
 

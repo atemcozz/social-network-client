@@ -42,13 +42,15 @@ const Dropdown = ({ items, defaultItem, placeholder }) => {
         ref={dropdownRef}
         className={classNames(
           dropdown ? "block" : "hidden",
-          "absolute top-0 right-0 left-0 bg-back-darker shadow rounded z-10 max-h-64 overflow-auto"
+          "absolute top-12 right-0 left-0 bg-back-darker shadow rounded z-10 max-h-64 overflow-auto"
         )}
         onClick={() => setDropdown(false)}
       >
         <ul>
-          {items?.map((item) => (
-            <Item onClick={() => setValue(item)}>{item.name}</Item>
+          {items?.map((item, index) => (
+            <Item onClick={() => setValue(item)} key={index}>
+              {item.name}
+            </Item>
           ))}
         </ul>
       </div>
@@ -58,11 +60,11 @@ const Dropdown = ({ items, defaultItem, placeholder }) => {
 const Item = ({ icon, onClick, children }) => {
   return (
     <li
-      className="w-full p-3 hover:bg-back-darkest ease-in duration-100 cursor-pointer flex gap-2 items-center"
+      className="w-full p-3 hover:bg-back-darkest ease-in duration-100 cursor-pointer flex gap-2 items-center select-none"
       onClick={onClick}
     >
       {icon}
-      <div className="select-none">{children}</div>
+      {children}
     </li>
   );
 };

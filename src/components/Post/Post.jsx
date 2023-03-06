@@ -18,10 +18,10 @@ import * as utils from "../../utils/utils";
 import Tag from "./Tag/Tag";
 import Image from "../UI/Image/Image";
 import Map from "../Map/Map";
-import LinkText from "../UI/LinkText/LinkText";
 import { Link } from "react-router-dom";
 import useStore from "../../hooks/useStore";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import linkifyText from "../../utils/linkifyText";
 const Post = ({ post, onChange, contentExposed = false }) => {
   const navigate = useNavigate();
   const store = useStore();
@@ -153,7 +153,9 @@ const Post = ({ post, onChange, contentExposed = false }) => {
                     <div
                       key={index}
                       className={"overflow-x-hidden break-words"}
-                      dangerouslySetInnerHTML={{ __html: block.content }}
+                      dangerouslySetInnerHTML={{
+                        __html: block.content,
+                      }}
                     ></div>
                   );
                 case "image":

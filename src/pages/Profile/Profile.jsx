@@ -55,6 +55,17 @@ const Profile = () => {
   } = useQuery("fetchUserPosts", () =>
     PostService.getPostsByUser(id).then((res) => res.data)
   );
+  useEffect(() => {
+    if (user?.subscribed) {
+      setSubscribed(user?.subscribed);
+    }
+  }, [user]);
+
+  function handleSubscribe() {
+    UserService.subscribeUser(user.id)
+      .then(() => setSubscribed((s) => !s))
+      .catch(console.log);
+  }
 
   useEffect(() => {
     setIsStoreUser(store.user?.id?.toString() === id);
@@ -128,7 +139,7 @@ const Profile = () => {
                     </Button>
                     <Button
                       variant={subscribed ? "secondary" : "primary"}
-                      onClick={() => setSubscribed((state) => !state)}
+                      onClick={handleSubscribe}
                       className={classNames(
                         isStoreUser ? "hidden" : "block",
                         "text-xs md:text-base"
