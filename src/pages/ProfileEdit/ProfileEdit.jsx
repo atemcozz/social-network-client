@@ -17,6 +17,7 @@ import { useQuery } from "react-query";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 import CloudinaryService from "../../services/CloudinaryService";
 import useForm from "../../hooks/useForm";
+import Heading from "../../components/UI/Heading";
 import { getError } from "../../utils/locales";
 const ProfileEdit = () => {
   const store = useStore();
@@ -103,15 +104,15 @@ const ProfileEdit = () => {
   }
   return (
     <MainLayout>
-      <div className="min-h-screen flex flex-col gap-4 px-4">
+      <div className="min-h-screen px-4">
         <div className="flex items-center gap-4">
           <button
-            className="flex items-center bg-back hover:bg-back-darker p-2 rounded-full shadow text-primary"
+            className="flex items-center bg-back hover:bg-back-darker p-2 rounded-full shadow text-primary mb-4"
             onClick={() => navigate(`/user/${user?.id}`)}
           >
             <BsArrowLeft size={"24px"} />
           </button>
-          <div className="font-bold text-xl">Информация о пользователе</div>
+          <Heading>Информация о пользователе</Heading>
         </div>
         <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
           {form.errors?.length > 0 && (

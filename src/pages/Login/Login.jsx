@@ -8,6 +8,7 @@ import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 import { Link } from "react-router-dom";
+import Heading from "../../components/UI/Heading";
 const Login = () => {
   const store = useStore();
   const [error, setError] = useState();
@@ -38,7 +39,8 @@ const Login = () => {
   return (
     <MainLayout>
       <div className="flex flex-col gap-4 px-4">
-        <div className="font-bold text-xl pl-6">Логин</div>
+        <Heading>Логин</Heading>
+
         <div className="flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
           {error && <ErrorMessage>{error}</ErrorMessage>}
 

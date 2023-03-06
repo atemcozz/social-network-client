@@ -9,7 +9,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
-
+import Heading from "../../components/UI/Heading";
 const Register = () => {
   const store = useStore();
   const [error, setError] = useState();
@@ -48,7 +48,8 @@ const Register = () => {
   return (
     <MainLayout>
       <div className="flex flex-col gap-4 px-4">
-        <div className="font-bold text-xl pl-6">Регистрация</div>
+        <Heading>Регистрация</Heading>
+
         <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
           {form.errors?.length > 0 && (
             <ErrorMessage>{form.errors[0]} </ErrorMessage>

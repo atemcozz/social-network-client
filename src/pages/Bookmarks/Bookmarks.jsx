@@ -7,6 +7,7 @@ import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/Po
 import PostList from "../../components/PostList/PostList";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
+import Heading from "../../components/UI/Heading";
 const Bookmarks = () => {
   const {
     data: postsQuery,
@@ -18,7 +19,8 @@ const Bookmarks = () => {
     return (
       <MainLayout>
         <div className="px-4">
-          <div className="font-bold text-xl mb-4">Закладки</div>
+          <Heading>Закладки</Heading>
+
           <PostPlaceholder />
         </div>
       </MainLayout>
@@ -27,7 +29,7 @@ const Bookmarks = () => {
   return (
     <MainLayout>
       <div className="min-h-screen px-4">
-        <div className="font-bold text-xl mb-4">Закладки</div>
+        <Heading>Закладки</Heading>
 
         <PostList posts={postsQuery?.data} onChange={updatePosts} />
         {error?.message && <ErrorMessage>{error?.message} </ErrorMessage>}

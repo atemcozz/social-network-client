@@ -13,6 +13,7 @@ import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import useStore from "../../hooks/useStore";
 import { useQuery } from "react-query";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
+import Heading from "../../components/UI/Heading";
 const FullPost = () => {
   const store = useStore();
   const { id } = useParams();
@@ -67,7 +68,8 @@ const FullPost = () => {
   return (
     <MainLayout>
       <div className="min-h-screen flex flex-col gap-4">
-        <div className="font-bold text-xl ml-4">Пост</div>
+        <Heading>Пост</Heading>
+
         {postError?.message && (
           <ErrorMessage>{postError?.message}</ErrorMessage>
         )}

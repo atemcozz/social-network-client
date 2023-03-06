@@ -9,6 +9,7 @@ import useStore from "../../hooks/useStore";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 import InfoLabel from "../../components/UI/InfoLabel/InfoLabel";
 import AuthService from "../../services/AuthService";
+import Heading from "../../components/UI/Heading";
 const RecoverPassword = () => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,7 @@ const RecoverPassword = () => {
   return (
     <MainLayout>
       <div className="flex flex-col gap-4 px-4">
-        <div className="font-bold text-xl pl-6">Восстановление пароля</div>
+        <Heading>Восстановление пароля</Heading>
         <div className="flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <Input

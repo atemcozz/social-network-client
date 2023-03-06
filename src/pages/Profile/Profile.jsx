@@ -28,6 +28,7 @@ import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/Po
 import UserPlaceholder from "../../components/UI/Placeholders/UserPlaceholder/UserPlaceholder";
 import classNames from "classnames";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
+import Heading from "../../components/UI/Heading";
 const viewModes = {
   gallery: "gallery",
   posts: "posts",
@@ -86,30 +87,32 @@ const Profile = () => {
   }
   return (
     <MainLayout>
-      <div className="flex flex-col gap-4 px-4">
+      <div className="flex flex-col px-4">
         {userError ? (
           <ErrorMessage error={userError?.message} />
         ) : (
           user && (
             <>
               <div className="flex justify-between items-center">
-                <div className="flex gap-2  text-xl font-bold">
-                  <div>Профиль </div>
-                  <div className="text-primary">{user.nickname}</div>
-                </div>
+                <Heading>
+                  <span>Профиль</span>{" "}
+                  <span className="text-primary">{user.nickname}</span>
+                </Heading>
                 <DotsDropdown>
                   <DotsDropdown.Item icon={<MdContentCopy size={"24px"} />}>
                     Скопировать ссылку
                   </DotsDropdown.Item>
-{isStoreUser && (<DotsDropdown.Item
-                    icon={<MdModeEditOutline size={"24px"} />}
-                    onClick={() => navigate("/edit_profile", { state: user })}
-                  >
-                    Редактировать
-                  </DotsDropdown.Item>)}
+                  {isStoreUser && (
+                    <DotsDropdown.Item
+                      icon={<MdModeEditOutline size={"24px"} />}
+                      onClick={() => navigate("/edit_profile", { state: user })}
+                    >
+                      Редактировать
+                    </DotsDropdown.Item>
+                  )}
                 </DotsDropdown>
               </div>
-              <div className="flex rounded-lg shadow-md p-4 bg-back gap-4 md:gap-10">
+              <div className="flex rounded-lg shadow-md p-4 bg-back gap-4 md:gap-10 mb-4">
                 {md ? (
                   <Avatar src={user.avatar_url} size={"large"} />
                 ) : (

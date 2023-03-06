@@ -14,6 +14,7 @@ import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
 import { useQuery } from "react-query";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
+import Heading from "../../components/UI/Heading";
 const Search = () => {
   const [tagInput, setTagInput] = useState("");
   const [searchType, setSearchType] = useState("posts");
@@ -57,7 +58,7 @@ const Search = () => {
   return (
     <MainLayout>
       <div className="min-h-screen px-4">
-        <div className="font-bold text-xl">Поиск</div>
+        <Heading>Поиск</Heading>
 
         <div className="rounded-lg shadow-md p-4 bg-back mb-4 mt-4">
           <div className="flex gap-2 mb-3">

@@ -6,6 +6,7 @@ import PostList from "../../components/PostList/PostList";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import { useQuery } from "react-query";
+import Heading from "../../components/UI/Heading";
 const New = () => {
   const {
     data: postsQuery,
@@ -18,7 +19,7 @@ const New = () => {
     return (
       <MainLayout>
         <div className="px-4">
-          <div className="font-bold text-xl mb-4">Новое</div>
+          <Heading>Новое</Heading>
           <PostPlaceholder />
         </div>
       </MainLayout>
@@ -27,7 +28,7 @@ const New = () => {
   return (
     <MainLayout>
       <div className="min-h-screen px-4">
-        <div className="font-bold text-xl mb-4">Новое</div>
+        <Heading>Новое</Heading>
 
         <PostList posts={postsQuery?.data} onChange={updatePosts} />
 
