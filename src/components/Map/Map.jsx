@@ -16,7 +16,7 @@ import { useState } from "react";
 import L from "leaflet";
 import { MdContentCopy } from "react-icons/md";
 import useSupercluster from "use-supercluster";
-import LocateTest from "./LocateTest";
+import LocateTest from "./LocateDetect/LocateTest";
 import useStore from "../../hooks/useStore";
 import classNames from "classnames";
 import Button from "../UI/Button/Button";

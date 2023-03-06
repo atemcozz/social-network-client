@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../UI/Button/Button";
 
-import LikeButton from "../UI/Button/LikeButton";
+import LikeButton from "../UI/Button/LikeButton/LikeButton";
 import { BsChatLeftTextFill, BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { HiLocationMarker } from "react-icons/hi";
 import { IoMdOpen } from "react-icons/io";
@@ -11,17 +11,17 @@ import { useState, useEffect } from "react";
 import PostService from "../../services/PostService";
 import UserService from "../../services/UserService";
 import { useNavigate } from "react-router-dom";
-import DotsDropdown from "../UI/Dropdown/DotsDropdown";
+import DotsDropdown from "../UI/Dropdown/DotsDropdown/DotsDropdown";
 import Modal from "../UI/Modal/Modal";
 import Avatar from "../UI/Avatar/Avatar";
-import * as utils from "../../utils/utils";
-import Tag from "./Tag/Tag";
+import Tag from "../UI/Tag/Tag";
 import Image from "../UI/Image/Image";
 import Map from "../Map/Map";
 import { Link } from "react-router-dom";
 import useStore from "../../hooks/useStore";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import linkifyText from "../../utils/linkifyText";
+import getDateFromSQL from "../../utils/getDateFromSQL";
 const Post = ({ post, onChange, contentExposed = false }) => {
   const navigate = useNavigate();
   const store = useStore();
@@ -105,7 +105,7 @@ const Post = ({ post, onChange, contentExposed = false }) => {
               {post.user.nickname}
             </div> */}
             <div className="font-light text-xs">
-              {utils.getDateFromSQL(post.created_at)}
+              {getDateFromSQL(post.created_at)}
             </div>
           </div>
         </div>

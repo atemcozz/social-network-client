@@ -4,9 +4,9 @@ import { useState, useContext } from "react";
 import Button from "../UI/Button/Button";
 import { MdSend } from "react-icons/md";
 
-import Tag from "./Tag/Tag";
+import Tag from "../UI/Tag/Tag";
 import { CommentsContext } from "../CommentSection/CommentSection";
-import TextArea from "../UI/Input/TextArea";
+import TextArea from "../UI/TextArea/TextArea";
 const CommentInput = ({ onSend, reply }) => {
   const { setReply } = useContext(CommentsContext);
   const [text, setText] = useState("");

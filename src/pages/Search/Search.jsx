@@ -7,7 +7,7 @@ import PostList from "../../components/PostList/PostList";
 import { useState } from "react";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
-import Tag from "../../components/Post/Tag/Tag";
+import Tag from "../../components/UI/Tag/Tag";
 import { MdAdd } from "react-icons/md";
 
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";

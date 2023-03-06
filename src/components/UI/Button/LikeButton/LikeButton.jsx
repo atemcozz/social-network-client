@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "./Button";
+import Button from "../Button";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import classNames from "classnames";
 const LikeButton = ({ className, count, active = false, ...props }) => {

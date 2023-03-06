@@ -8,14 +8,14 @@ import {
   useMapEvents,
 } from "react-leaflet";
 
-import markerIconPng from "../../assets/marker.png";
+import markerIconPng from "../../../assets/marker.png";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "./Map.css";
+import "../Map.css";
 
-import LocateTest from "./LocateTest";
-import useStore from "../../hooks/useStore";
-import useTheme from "../../hooks/useTheme";
+import LocateTest from "../LocateDetect/LocateTest";
+import useStore from "../../../hooks/useStore";
+import useTheme from "../../../hooks/useTheme";
 import classNames from "classnames";
 const MapPicker = ({
   center = { lat: 0, lng: 0 },

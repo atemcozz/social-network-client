@@ -1,4 +1,4 @@
-function getNoun(number, one, two, five) {
+function getInflectedNoun(number, one, two, five) {
   let n = Math.abs(number);
   n %= 100;
   if (n >= 5 && n <= 20) {
@@ -13,4 +13,4 @@ function getNoun(number, one, two, five) {
   }
   return five;
 }
-export default getNoun;
+export default getInflectedNoun;

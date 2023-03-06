@@ -1,9 +1,9 @@
 import React from "react";
-import CommentInput from "../Post/CommentInput";
+import CommentInput from "../CommentInput/CommentInput";
 
 import { useState } from "react";
 
-import Comment from "../Post/Comment";
+import Comment from "../Comment/Comment";
 import { createContext } from "react";
 import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
 import useStore from "../../hooks/useStore";

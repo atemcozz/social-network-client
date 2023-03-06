@@ -1,8 +1,8 @@
 import React from "react";
-import TextArea from "../../components/UI/Input/TextArea";
+import TextArea from "../../components/UI/TextArea/TextArea";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
-import Tag from "../../components/Post/Tag/Tag";
+import Tag from "../../components/UI/Tag/Tag";
 import {
   MdAddPhotoAlternate,
   MdVideoCall,
@@ -16,7 +16,7 @@ import PostService from "../../services/PostService";
 import { useNavigate } from "react-router-dom";
 import Toggle from "../../components/UI/Toggle/Toggle";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import MapPicker from "../../components/Map/MapPicker";
+import MapPicker from "../../components/Map/MapPicker/MapPicker";
 import InfoLabel from "../../components/UI/InfoLabel/InfoLabel";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";

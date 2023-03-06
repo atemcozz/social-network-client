@@ -11,10 +11,9 @@ import {
   MdMenu,
 } from "react-icons/md";
 import { FaUserPlus, FaUserCheck } from "react-icons/fa";
-import DotsDropdown from "../../components/UI/Dropdown/DotsDropdown";
+import DotsDropdown from "../../components/UI/Dropdown/DotsDropdown/DotsDropdown";
 
 import UserService from "../../services/UserService";
-import * as utils from "../../utils/utils";
 import Button from "../../components/UI/Button/Button";
 import Avatar from "../../components/UI/Avatar/Avatar";
 
@@ -29,6 +28,7 @@ import UserPlaceholder from "../../components/UI/Placeholders/UserPlaceholder/Us
 import classNames from "classnames";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 import Heading from "../../components/UI/Heading";
+import getInflectedNoun from "../../utils/getInflectedNoun";
 const viewModes = {
   gallery: "gallery",
   posts: "posts",
@@ -126,7 +126,12 @@ const Profile = () => {
                     </div>
                     <div className="bg-back-lighter shadow rounded-md px-2 py-1 w-max">
                       {posts?.length}{" "}
-                      {utils.getNoun(posts?.length, "пост", "поста", "постов")}
+                      {getInflectedNoun(
+                        posts?.length,
+                        "пост",
+                        "поста",
+                        "постов"
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2">

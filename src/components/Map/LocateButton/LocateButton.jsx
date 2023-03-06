@@ -1,4 +1,4 @@
-import Button from "../UI/Button/Button";
+import Button from "../../UI/Button/Button";
 import { BiCurrentLocation } from "react-icons/bi";
 import Control from "react-leaflet-custom-control";
 import { useState } from "react";

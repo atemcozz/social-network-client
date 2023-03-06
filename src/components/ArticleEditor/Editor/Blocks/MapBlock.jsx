@@ -1,6 +1,6 @@
 import React from "react";
 import InfoLabel from "../../../UI/InfoLabel/InfoLabel";
-import MapPicker from "../../../Map/MapPicker";
+import MapPicker from "../../../Map/MapPicker/MapPicker";
 import Button from "../../../UI/Button/Button";
 import { MdDelete } from "react-icons/md";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";

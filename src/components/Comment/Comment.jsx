@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import Avatar from "../UI/Avatar/Avatar";
-import * as utils from "../../utils/utils";
-import DotsDropdown from "../UI/Dropdown/DotsDropdown";
+import DotsDropdown from "../UI/Dropdown/DotsDropdown/DotsDropdown";
 import { MdDeleteForever } from "react-icons/md";
 import LinkedText from "../UI/LinkedText/LinkedText";
 import { Link } from "react-router-dom";
@@ -11,6 +10,7 @@ import Button from "../UI/Button/Button";
 import { CommentsContext } from "../CommentSection/CommentSection";
 import useStore from "../../hooks/useStore";
 import classNames from "classnames";
+import getDateFromSQL from "../../utils/getDateFromSQL";
 
 const Comment = ({ comment, onDelete, depth = 0 }) => {
   const store = useStore();
@@ -43,7 +43,7 @@ const Comment = ({ comment, onDelete, depth = 0 }) => {
               {comment.user.nickname}
             </div> */}
               <div className="font-light text-xs ">
-                {utils.getDateFromSQL(comment.created_at)}
+                {getDateFromSQL(comment.created_at)}
               </div>
             </div>
             <div className="break-words max-w-md">{comment.body}</div>

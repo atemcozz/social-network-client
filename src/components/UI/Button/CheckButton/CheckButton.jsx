@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useState } from "react";
-import Button from "./Button";
+import Button from "../Button";
 
 const CheckButton = ({ children, className, active = false, ...props }) => {
   const [checked, setChecked] = useState(active);

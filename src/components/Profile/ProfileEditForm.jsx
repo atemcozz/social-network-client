@@ -2,7 +2,7 @@ import React from "react";
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import useForm from "../../hooks/useForm";
-import TextArea from "../UI/Input/TextArea";
+import TextArea from "../UI/TextArea/TextArea";
 import Dropdown from "../UI/Dropdown/Dropdown";
 import countries from "../../consts/countries";
 import Form from "../UI/Form";
