@@ -2,7 +2,7 @@ import React from "react";
 import defaultAvatar from "../../../assets/default_avatar.png";
 import { useState } from "react";
 import classNames from "classnames";
-const Avatar = ({ src, size, onClick, pointer }) => {
+const Avatar = ({ src, size = "normal", onClick, pointer }) => {
   const [loading, setLoading] = useState(true);
   const sizes = {
     small: "w-8 h-8",

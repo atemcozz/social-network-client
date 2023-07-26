@@ -9,7 +9,7 @@ import Bookmarks from "../pages/Bookmarks";
 import FullPost from "../pages/FullPost";
 import Search from "../pages/Search";
 import RecoverPassword from "../pages/RecoverPassword";
-
+import UserSubscriptions from "../pages/UserSubscriptions";
 export const publicRoutes = [
   {
     path: "/",
@@ -44,6 +44,7 @@ export const publicRoutes = [
     Component: Search,
   },
   { path: "/recover", Component: RecoverPassword },
+  { path: "/user/:id/subscriptions", Component: UserSubscriptions },
 ];
 export const privateRoutes = [
   {

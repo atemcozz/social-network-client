@@ -16,4 +16,7 @@ export default class UserService {
   static async subscribeUser(id) {
     return api.post(`/user/${id}/subscribe`);
   }
+  static async getUserSubscriptions(id) {
+    return api.get(`/user/${id}/subscriptions`);
+  }
 }
