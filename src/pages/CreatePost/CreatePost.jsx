@@ -10,44 +10,37 @@ import {
   MdVideocam,
   MdAdd,
 } from "react-icons/md";
-import { useRef } from "react";
-import { useState } from "react";
+import {useRef} from "react";
+import {useState} from "react";
 import PostService from "../../services/PostService";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Toggle from "../../components/UI/Toggle/Toggle";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import MapPicker from "../../components/Map/MapPicker/MapPicker";
 import InfoLabel from "../../components/UI/InfoLabel/InfoLabel";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
-import {
-  Editor,
-  useEditor,
-  blockHandler,
-  BlockActions,
-  TextActions,
-} from "../../components/ArticleEditor";
 import CloudinaryService from "../../services/CloudinaryService";
 import Modal from "../../components/UI/Modal/Modal";
+import RichTextEditor from "../../components/RichTextEditor/RichTextEditor";
+import useEditor from "../../components/RichTextEditor/hooks/useEditor";
+import {Text} from "../../components/RichTextEditor/Blocks/Text";
+import {Image} from "../../components/RichTextEditor/Blocks/Image";
+import {Geo} from "../../components/RichTextEditor/Blocks/Geo";
 
 const CreatePost = () => {
-  const photoInput = useRef();
-  const videoInput = useRef();
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [attachments, setAttachments] = useState([]);
-  const [lastMediaID, setLastMediaID] = useState(0);
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
   const [lastTagID, setLastTagID] = useState(0);
   const [error, setError] = useState();
-  const [location, setLocation] = useState();
-  const [locationEnabled, setLocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const navigate = useNavigate();
-  const editor = useEditor();
   const [preview, setPreview] = useState();
+  const editor = useEditor({
+    useBlocks: [Text, Image, Geo],
+  });
 
   function sendPost() {
     const data = {
@@ -107,11 +100,12 @@ const CreatePost = () => {
         .finally(() => setImageLoading(false));
     };
   }
+
   if (loading) {
     return (
       <MainLayout>
         <div className="flex items-center justify-center w-full h-[30vh]">
-          <Spinner />
+          <Spinner/>
         </div>
       </MainLayout>
     );
@@ -119,7 +113,7 @@ const CreatePost = () => {
   return (
     <MainLayout>
       <div className="px-4">
-        <div className="font-bold text-xl mb-4">Новое место</div>
+        <div className="font-bold text-xl mb-4">Новая запись</div>
 
         <div
           className="relative h-32 rounded-t-lg overflow-hidden bg-back cursor-pointer"
@@ -127,7 +121,7 @@ const CreatePost = () => {
         >
           {imageLoading && (
             <div className="h-full flex justify-center items-center">
-              <Spinner />
+              <Spinner/>
             </div>
           )}
           {preview && !imageLoading && (
@@ -138,7 +132,8 @@ const CreatePost = () => {
                 className="w-full object-cover object-top h-32 blur-sm"
               />
 
-              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-back to-transparent"></div>
+              <div
+                className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-back to-transparent"></div>
               <img
                 src={preview}
                 alt="preview"
@@ -149,7 +144,7 @@ const CreatePost = () => {
           {!preview && !imageLoading && (
             <div className="h-full flex items-center justify-center">
               <Button variant="outlined">
-                <MdAddPhotoAlternate size="64px" />
+                <MdAddPhotoAlternate size="64px"/>
               </Button>
             </div>
           )}
@@ -166,131 +161,10 @@ const CreatePost = () => {
             required
           />
 
-          <div className="relative">
-            <div className="rounded-t-lg h-2 bg-secondary"></div>
-            <div className="sticky top-16 z-10">
-              <TextActions editor={editor} />
-            </div>
-
-            <Editor editor={editor} blockHandler={blockHandler} />
-            <BlockActions editor={editor} onBlockLoad={setImageLoading} />
-            <a
-              className="cursor-pointer"
-              onClick={() => alert(JSON.stringify(editor.getBlocks(), 0, 2))}
-            >
-              [show raw]
-            </a>
-          </div>
+          <RichTextEditor editor={editor}/>
           <InfoLabel>
             Используйте блоки для добавления контента в статью
           </InfoLabel>
-          {/* <div className="flex gap-2 items-center flex-wrap">
-            <Button
-              variant="outlined"
-              className={"flex-1"}
-              onClick={() => photoInput.current.click()}
-            >
-              <MdAddPhotoAlternate size="32px" />
-              Фото
-              <input
-                type="file"
-                multiple
-                ref={photoInput}
-                accept="image/*"
-                onChange={(e) => addMedia("photo", e)}
-                className="hidden"
-              />
-            </Button>
-            <Button
-              variant="outlined"
-              className={"flex-1"}
-              onClick={() => videoInput.current.click()}
-            >
-              <MdVideoCall size="32px" />
-              Видео
-              <input
-                type="file"
-                multiple
-                ref={videoInput}
-                accept="video/*"
-                onChange={(e) => addMedia("video", e)}
-                className="hidden"
-              />
-            </Button>
-          </div>
-          <div className="flex flex-wrap gap-2 justify-center">
-            {attachments &&
-              attachments.map((at, index) => {
-                if (at.type === "photo")
-                  return (
-                    <div key={index} className="relative">
-                      <Button
-                        className={"absolute p-1 z-10 right-0"}
-                        onClick={() => removeMedia(at.id)}
-                      >
-                        <MdClose className="text-white" />
-                      </Button>
-                      <img
-                        src={at.url}
-                        alt="img"
-                        className="w-40 h-40 object-cover rounded-lg shadow"
-                      />
-                    </div>
-                  );
-                if (at.type === "video")
-                  return (
-                    <div key={index} className="relative">
-                      <Button
-                        className={"absolute p-1 z-20 right-0"}
-                        onClick={() => removeMedia(at.id)}
-                      >
-                        <MdClose className="text-white" />
-                      </Button>
-                      <div className="absolute inset-0 z-10 flex justify-center items-center">
-                        <MdVideocam size={"64px"} className="text-white" />
-                      </div>
-
-                      <video
-                        src={at.url}
-                        alt="video"
-                        className="w-40 h-40 object-cover rounded-lg shadow"
-                      />
-                    </div>
-                  );
-                return null;
-              })}
-          </div>
-          <TextArea
-            value={description}
-            rows={3}
-            placeholder={"Описание"}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <div className="flex gap-2">
-            <Toggle
-              active={locationEnabled}
-              onChange={() => setLocationEnabled((state) => !state)}
-            />
-            <div>Местоположение</div>
-          </div>
-          {locationEnabled && (
-            <>
-              <InfoLabel>Нажмите на карту, чтобы выбрать место</InfoLabel>
-              <MapPicker
-                position={location}
-                onPositionSet={setLocation}
-                zoom={1}
-              />
-
-              {location && (
-                <Input
-                  value={`${location?.lat}, ${location?.lng}`}
-                  placeholder={"Позиция"}
-                  onChange={processLocationInput}
-                />
-              )}
-            </>
-          )} */}
           <div>
             <div className="font-bold text-lg pb-3">Теги</div>
             <div className="flex gap-2">
@@ -301,7 +175,7 @@ const CreatePost = () => {
               />
 
               <Button onClick={addTag}>
-                <MdAdd size="24px" />
+                <MdAdd size="24px"/>
               </Button>
             </div>
             {tags?.length > 0 && (

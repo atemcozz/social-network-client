@@ -1,87 +1,87 @@
-import { makeAutoObservable } from "mobx";
+import {makeAutoObservable} from "mobx";
 import AuthService from "../services/AuthService";
 import axios from "axios";
-import { API_URL } from "../api/server";
-import { getError } from "../utils/locales";
+import {API_URL} from "../api/server";
+import {getError} from "../utils/locales";
 
 export default class Store {
-  user = {};
-  isAuth = false;
-  isLoading = true;
-  appTheme = "theme-light";
+    user = {};
+    isAuth = true;
+    isLoading = true;
+    appTheme = "theme-light";
 
-  constructor() {
-    makeAutoObservable(this);
-  }
-
-  setAuth(auth) {
-    this.isAuth = auth;
-  }
-
-  setUser(user) {
-    this.user = user;
-  }
-
-  setLoading(loading) {
-    this.isLoading = loading;
-  }
-
-  setAppTheme(theme) {
-    this.appTheme = theme;
-  }
-
-  login(data) {
-    return AuthService.login(data)
-      .then((res) => {
-        localStorage.setItem("access_token", res.data.accessToken);
-        localStorage.setItem("refresh_token", res.data.refreshToken);
-        this.setAuth(true);
-        this.setUser(res.data.user);
-      })
-      .catch((e) => Promise.reject(getError(e.response?.data?.reason)));
-  }
-
-  register(data) {
-    return AuthService.register(data)
-      .then((res) => {
-        localStorage.setItem("access_token", res.data.accessToken);
-        localStorage.setItem("refresh_token", res.data.refreshToken);
-        this.setAuth(true);
-        this.setUser(res.data.user);
-      })
-      .catch((e) => Promise.reject(getError(e.response?.data?.reason)));
-  }
-
-  async logout() {
-    try {
-      await AuthService.logout();
-      //console.log(res);
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("refresh_token");
-      this.setAuth(false);
-      this.setUser({});
-    } catch (e) {
-      console.error(e.response?.data?.reason);
+    constructor() {
+        makeAutoObservable(this);
     }
-  }
 
-  async checkAuth() {
-    try {
-      this.setLoading(true);
-      // await new Promise((res) => setTimeout(res, 3000));
-      const res = await axios.post(`${API_URL}/refresh`, {
-        refreshToken: localStorage.getItem("refresh_token"),
-      });
-      // console.log(res.data);
-      localStorage.setItem("access_token", res.data.accessToken);
-      localStorage.setItem("refresh_token", res.data.refreshToken);
-      this.setAuth(true);
-      this.setUser(res.data.user);
-    } catch (e) {
-      console.error(e.response?.data?.reason);
-    } finally {
-      this.setLoading(false);
-      //
+    setAuth(auth) {
+        this.isAuth = true;
     }
-  }
+
+    setUser(user) {
+        this.user = user;
+    }
+
+    setLoading(loading) {
+        this.isLoading = loading;
+    }
+
+    setAppTheme(theme) {
+        this.appTheme = theme;
+    }
+
+    login(data) {
+        return AuthService.login(data)
+            .then((res) => {
+                localStorage.setItem("access_token", res.data.accessToken);
+                localStorage.setItem("refresh_token", res.data.refreshToken);
+                this.setAuth(true);
+                this.setUser(res.data.user);
+            })
+            .catch((e) => Promise.reject(getError(e.response?.data?.reason)));
+    }
+
+    register(data) {
+        return AuthService.register(data)
+            .then((res) => {
+                localStorage.setItem("access_token", res.data.accessToken);
+                localStorage.setItem("refresh_token", res.data.refreshToken);
+                this.setAuth(true);
+                this.setUser(res.data.user);
+            })
+            .catch((e) => Promise.reject(getError(e.response?.data?.reason)));
+    }
+
+    async logout() {
+        try {
+            await AuthService.logout();
+            //console.log(res);
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("refresh_token");
+            this.setAuth(false);
+            this.setUser({});
+        } catch (e) {
+            console.error(e.response?.data?.reason);
+        }
+    }
+
+    async checkAuth() {
+        try {
+            this.setLoading(true);
+            // await new Promise((res) => setTimeout(res, 3000));
+            const res = await axios.post(`${API_URL}/refresh`, {
+                refreshToken: localStorage.getItem("refresh_token"),
+            });
+            // console.log(res.data);
+            localStorage.setItem("access_token", res.data.accessToken);
+            localStorage.setItem("refresh_token", res.data.refreshToken);
+            this.setAuth(true);
+            this.setUser(res.data.user);
+        } catch (e) {
+            console.error(e.response?.data?.reason);
+        } finally {
+            this.setLoading(false);
+            //
+        }
+    }
 }
