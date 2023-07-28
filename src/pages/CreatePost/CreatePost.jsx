@@ -46,7 +46,7 @@ const CreatePost = () => {
     const data = {
       title: title,
       preview: preview,
-      content: JSON.stringify(editor?.getBlocks()),
+      content: JSON.stringify(editor?.json()),
       tags: tags.map((t) => t.value),
     };
     console.log(data);
