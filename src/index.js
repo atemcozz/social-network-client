@@ -8,7 +8,6 @@ import {QueryClient, QueryClientProvider} from "react-query";
 import ThemeProvider from "./providers/ThemeProvider";
 import {ErrorBoundary} from "react-error-boundary";
 
-//import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,4 +19,3 @@ root.render(
     </QueryClientProvider>
   </ErrorBoundary>,
 );
-//serviceWorkerRegistration.register();
