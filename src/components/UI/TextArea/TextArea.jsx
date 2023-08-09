@@ -1,23 +1,25 @@
 import classNames from "classnames";
-import React from "react";
+import React, {forwardRef} from "react";
 
-const TextArea = ({ className, autoExpand, maxHeight, ...props }) => {
+const TextArea = forwardRef(({className, autoExpand, maxHeight, ...props}, ref) => {
   return (
     <textarea
-      {...props}
+
       className={classNames(
         `bg-secondary border border-secondary-darker text-text-base placeholder:text-text-base 
       text-sm rounded-lg focus:ring-primary focus:border-primary w-full 
-      p-2.5 resize-none overflow-x-hidden`,
-        className
+      p-2.5 overflow-x-hidden`,
+        className,
       )}
       onInput={(e) => {
         e.target.style.height = "";
         e.target.style.height =
           Math.min(e.target.scrollHeight, maxHeight) + "px";
       }}
+      ref={ref}
+      {...props}
     />
   );
-};
+});
 
 export default TextArea;

@@ -1,33 +1,41 @@
 import classNames from "classnames";
 import React from "react";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
-const Form = ({ className, onSubmit, children, ...args }) => {
+const Form = ({className, onSubmit, children, ...props}) => {
   return (
     <form
       className={classNames(
         "flex flex-col gap-2 placeholder:italic",
-        className
+        className,
       )}
-      {...args}
+      {...props}
     >
       {children}
     </form>
   );
 };
-const Field = ({ label, children }) => {
+const Field = ({label, children, error, className, required = false}) => {
   return (
-    <div>
-      {label && <label className="mb-2 inline-block">{label}</label>}
+    <div className={classNames(className)}>
+      {label && <label className="mb-2 inline-block">
+        {label}
+        {required &&
+          <span className={"text-danger"}>*</span>
+        }
+      </label>}
       {children}
+      {error && <ErrorMessage className={"mt-2"}>{error}</ErrorMessage>}
+
     </div>
   );
 };
-const FieldGroup = ({ children, name, className }) => {
+const FieldGroup = ({children, name, className}) => {
   return (
     <fieldset
       className={classNames("border border-secondary rounded p-3", className)}
     >
-      <legend className="text-lg">{name}</legend>
+      <legend className="text-lg font-bold">{name}</legend>
       <div className="flex flex-col gap-2">{children}</div>
     </fieldset>
   );

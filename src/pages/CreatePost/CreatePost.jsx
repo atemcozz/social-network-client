@@ -27,11 +27,12 @@ import useEditor from "../../components/RichTextEditor/hooks/useEditor";
 import {Text} from "../../components/RichTextEditor/Blocks/Text";
 import {Image} from "../../components/RichTextEditor/Blocks/Image";
 import {Geo} from "../../components/RichTextEditor/Blocks/Geo";
+import CreatePostPreviewLoader from "../../components/CreatePostPreviewLoader/CreatePostPreviewLoader";
+import TagsCreateContainer from "../../components/TagsCreateContainer/TagsCreateContainer";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
-  const [tagInput, setTagInput] = useState("");
   const [lastTagID, setLastTagID] = useState(0);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
@@ -46,39 +47,39 @@ const CreatePost = () => {
     const data = {
       title: title,
       preview: preview,
-      content: JSON.stringify(editor?.json()),
+      content: editor?.json(),
       tags: tags.map((t) => t.value),
     };
-    console.log(data);
     setLoading(true);
     PostService.createPost(data)
-      .then((res) => navigate(`/post/${res.data?.post_id}`))
+      .then((res) => navigate(`/post/${res.data?.id}`))
       .catch((e) => setError(e.response?.data?.message || e.message))
       .finally(() => setLoading(false));
   }
 
-  function addTag() {
-    setTagInput("");
-    if (tagInput.trim().length > 30) {
+  function addTag(tag) {
+    if (tag.trim().length > 30) {
       setError("Максимальная длина тега - 30 символов");
-      return;
+      return false;
     }
     if (tags.length > 10) {
       setError("Максимальное число тегов - 10");
-      return;
+      return false;
     }
     if (
-      tagInput.trim().length > 0 &&
-      tags.filter((tag) => tag.value.toLowerCase() === tagInput.toLowerCase())
+      tag.trim().length > 0 &&
+      tags.filter((t) => tag.toLowerCase() === t.value.toLowerCase())
         .length === 0
     ) {
-      const tag = {
+      const newTag = {
         id: lastTagID,
-        value: tagInput[0].toUpperCase() + tagInput.slice(1),
+        value: tag.toLowerCase(),
       };
-      setTags((state) => [...state, tag]);
+      setTags((state) => [...state, newTag]);
       setLastTagID((state) => state + 1);
+      return true;
     }
+    return false;
   }
 
   function removeTag(id) {
@@ -112,90 +113,36 @@ const CreatePost = () => {
   }
   return (
     <MainLayout>
-      <div className="px-4">
-        <div className="font-bold text-xl mb-4">Новая запись</div>
+      <div className="font-bold text-xl mb-4">Новая запись</div>
+      <CreatePostPreviewLoader src={preview} onClick={handlePreview} loading={imageLoading}/>
 
-        <div
-          className="relative h-32 rounded-t-lg overflow-hidden bg-back cursor-pointer"
-          onClick={handlePreview}
-        >
-          {imageLoading && (
-            <div className="h-full flex justify-center items-center">
-              <Spinner/>
-            </div>
-          )}
-          {preview && !imageLoading && (
-            <div className="flex justify-center items-center">
-              <img
-                src={preview}
-                alt="preview"
-                className="w-full object-cover object-top h-32 blur-sm"
-              />
+      <div className="flex flex-col rounded-b-lg shadow-md p-4 bg-back gap-3">
+        {error && <ErrorMessage>{error}</ErrorMessage>}
 
-              <div
-                className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-back to-transparent"></div>
-              <img
-                src={preview}
-                alt="preview"
-                className="w-24 h-24 absolute rounded-lg shadow-xl object-cover"
-              />
-            </div>
-          )}
-          {!preview && !imageLoading && (
-            <div className="h-full flex items-center justify-center">
-              <Button variant="outlined">
-                <MdAddPhotoAlternate size="64px"/>
-              </Button>
-            </div>
-          )}
+        <Input
+          value={title}
+          className="font-bold placeholder:font-normal "
+          placeholder={"Название"}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+
+        <RichTextEditor editor={editor}/>
+
+        <InfoLabel>
+          Используйте блоки для добавления контента в статью
+        </InfoLabel>
+        <div>
+          <div className="font-bold text-lg pb-3">Теги</div>
+          <TagsCreateContainer tags={tags} onAdd={addTag} onRemove={removeTag}/>
         </div>
-
-        <div className="flex flex-col rounded-b-lg shadow-md p-4 bg-back gap-3">
-          {error && <ErrorMessage>{error}</ErrorMessage>}
-
-          <Input
-            value={title}
-            className="font-bold placeholder:font-normal "
-            placeholder={"Название"}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-
-          <RichTextEditor editor={editor}/>
-          <InfoLabel>
-            Используйте блоки для добавления контента в статью
-          </InfoLabel>
-          <div>
-            <div className="font-bold text-lg pb-3">Теги</div>
-            <div className="flex gap-2">
-              <Input
-                placeholder={"Введите тег..."}
-                value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)}
-              />
-
-              <Button onClick={addTag}>
-                <MdAdd size="24px"/>
-              </Button>
-            </div>
-            {tags?.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 pt-3">
-                {tags.map((tag, index) => (
-                  <Tag key={index} id={tag.id} deletable onDelete={removeTag}>
-                    {tag.value}
-                  </Tag>
-                ))}
-              </div>
-            )}
-          </div>
-          {title?.length > 0 && preview ? (
-            <Button variant="primary" onClick={sendPost}>
-              Отправить
-            </Button>
-          ) : (
-            <Button variant="disabled">Отправить</Button>
-          )}
-        </div>
+        {title?.length > 0 && preview ? (
+          <Button variant="primary" onClick={sendPost}>
+            Отправить
+          </Button>
+        ) : (
+          <Button variant="disabled">Отправить</Button>
+        )}
       </div>
     </MainLayout>
   );

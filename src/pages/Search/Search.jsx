@@ -1,63 +1,92 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import PostService from "../../services/PostService";
 
 import PostList from "../../components/PostList/PostList";
 
-import { useState } from "react";
+import {useState} from "react";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import Tag from "../../components/UI/Tag/Tag";
-import { MdAdd } from "react-icons/md";
+import {MdAdd} from "react-icons/md";
 
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
-import { useQuery } from "react-query";
+import {useQuery} from "react-query";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 import Heading from "../../components/UI/Heading";
+import TagsCreateContainer from "../../components/TagsCreateContainer/TagsCreateContainer";
+import {useSearchParams} from "react-router-dom";
+import Paginator from "../../components/Paginator/Paginator";
+
 const Search = () => {
-  const [tagInput, setTagInput] = useState("");
+  const [params, setParams] = useSearchParams();
   const [searchType, setSearchType] = useState("posts");
   const [lastTagID, setLastTagID] = useState(0);
   const [tags, setTags] = useState([]);
   const [sort, setSort] = useState("new");
-
+  const page = Number(params.get("page") || 1);
   const {
     data: posts,
     isLoading: postsLoading,
     refetch: updatePosts,
     error,
-  } = useQuery(["searchPosts", tags, sort], () =>
+  } = useQuery(["searchPosts", tags, sort, page], () =>
     PostService.getPosts({
-      tags: tags.map((tag) => tag.value).join(","),
+      tags: tags.map((tag) => tag.value),
       sort,
-    }).then((res) => res.data)
+      page,
+    }).then((res) => res.data),
   );
-  function addTag() {
-    setTagInput("");
+
+  function sortBy(value) {
+    setSort(value);
+    params.delete("page");
+    params.set("sort", value);
+    setParams(params);
+  }
+
+  function addTag(tag) {
     if (
-      tagInput.trim().length > 0 &&
-      tags.filter((tag) => tag.value.toLowerCase() === tagInput.toLowerCase())
-        .length === 0
+      tag.trim().length &&
+      !tags.filter((t) => tag.toLowerCase() === t.value.toLowerCase())
+        .length
     ) {
-      const tag = {
+      const newTag = {
         id: lastTagID,
-        value: tagInput[0].toUpperCase() + tagInput.slice(1),
+        value: tag.toLowerCase(),
       };
-
-      setTags((state) => [...state, tag]);
+      params.delete("page");
+      params.append("tags[]", newTag.value);
+      setParams(params);
+      setTags((state) => [...state, newTag]);
       setLastTagID((state) => state + 1);
+      return true;
     }
+    return false;
   }
 
-  function removeTag(id) {
+  function removeTag(id, name) {
     const newTags = tags.filter((tag) => tag.id !== id);
+    params.delete("page");
+    const newParams = [...params.entries()].filter(([key, value]) => !(key === "tags[]" && value === name));
     setTags(newTags);
+    setParams(newParams);
   }
 
+  function paginate(page) {
+    params.set("page", page);
+    setParams(params);
+  }
+
+  useEffect(() => {
+    setSort(params.get("sort") || "new");
+    setTags(params.getAll("tags[]")
+      .map((tag, index) => ({id: index, value: tag})));
+  }, []);
   return (
     <MainLayout>
-      <div className="min-h-screen px-4">
+      <div className="min-h-screen">
         <Heading>Поиск</Heading>
 
         <div className="rounded-lg shadow-md p-4 bg-back mb-4 mt-4">
@@ -72,39 +101,22 @@ const Search = () => {
           </div>
           <div className="mb-3">
             <div className="font-bold text-lg mb-3">Теги</div>
-            <div className="flex gap-2">
-              <Input
-                placeholder={"Введите тег..."}
-                value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)}
-              />
-              <Button onClick={addTag}>
-                <MdAdd size="24px" />
-              </Button>
-            </div>
-            {tags?.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 pt-3">
-                {tags.map((tag, index) => (
-                  <Tag key={index} id={tag.id} deletable onDelete={removeTag}>
-                    {tag.value}
-                  </Tag>
-                ))}
-              </div>
-            )}
+            <TagsCreateContainer tags={tags} onAdd={addTag} onRemove={removeTag}/>
+
           </div>
           <div className="font-bold text-lg mb-3">Сортировка</div>
           <div className="flex" role={"group"}>
             <Button
               variant={sort === "new" ? "primary" : "outlined"}
               className={"rounded-r-none flex-1 justify-center"}
-              onClick={() => setSort("new")}
+              onClick={() => sortBy("new")}
             >
               Новое
             </Button>
             <Button
               variant={sort === "popular" ? "primary" : "outlined"}
               className={"rounded-l-none flex-1 justify-center"}
-              onClick={() => setSort("popular")}
+              onClick={() => sortBy("popular")}
             >
               Популярное
             </Button>
@@ -126,9 +138,10 @@ const Search = () => {
           </Radio> */}
           </div>
         </div>
-        {postsLoading && <PostPlaceholder />}
-        <PostList posts={posts} onChange={updatePosts} />
+        {postsLoading && <PostPlaceholder/>}
+        <PostList posts={posts?.contents} onChange={updatePosts}/>
         {error?.message && <ErrorMessage>{error?.message} </ErrorMessage>}
+        <Paginator pagesCount={posts?.pages_count} currentPage={page} onPageChange={paginate}/>
       </div>
     </MainLayout>
   );

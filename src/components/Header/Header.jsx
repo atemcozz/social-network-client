@@ -1,86 +1,98 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Button from "../UI/Button/Button";
-import { GiHamburgerMenu } from "react-icons/gi";
+import {GiHamburgerMenu} from "react-icons/gi";
 import NavActions from "../UI/Sidemenu/NavActions";
-import { Transition } from "@headlessui/react";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import {Transition} from "@headlessui/react";
+import {Link, useNavigate} from "react-router-dom";
 
-import { SiFalcon } from "react-icons/si";
-import useStore from "../../hooks/useStore";
-import { memo } from "react";
+import {FaSearch, FaPlus, FaFire, FaClock, FaAngleDown} from "react-icons/fa";
+import {SiFalcon} from "react-icons/si";
+import store from "../../store";
+import {memo} from "react";
+import ProfileHeaderDropdown from "../ProfileHeaderDropdown/ProfileHeaderDropdown";
+import Menu from "../UI/Menu/Menu";
+import Avatar from "../UI/Avatar/Avatar";
+import {observer} from "mobx-react";
+import LoginModal from "../../features/auth/login/LoginModal";
+import RegisterModal from "../../features/auth/register/RegisterModal";
+import AuthModal from "../../features/auth/AuthModal";
+import MobileSideMenu from "./MobileSideMenu";
 
-const Header = () => {
-  const location = useLocation();
-  const store = useStore();
+const Header = ({page}) => {
+
+
   const [sideMenu, setSideMenu] = useState(false);
-  useEffect(() => {
-    setSideMenu(false);
-  }, [location]);
   return (
     <header className="bg-back shadow-lg w-full sticky h-16 top-0 left-0 z-20">
-      <Transition show={sideMenu}>
-        <Transition.Child
-          enter="transition-opacity duration-250"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity duration-250"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div
-            className={`fixed h-[200vh] z-50 inset-0 bg-[rgba(0,0,0,0.75)]`}
-            onClick={() => setSideMenu(false)}
-          >
-            <Transition.Child
-              enter="transition ease-in-out duration-250 transform"
-              enterFrom="-translate-x-full"
-              enterTo="translate-x-0"
-              leave="transition ease-in-out duration-250 transform"
-              leaveFrom="translate-x-0"
-              leaveTo="-translate-x-full"
-            >
-              <div
-                className={`fixed h-screen bg-back w-4/6 rounded-br-xl rounded-tr-xl overflow-hidden`}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <NavActions />
-              </div>
-            </Transition.Child>
-          </div>
-        </Transition.Child>
-      </Transition>
-      <div className="flex justify-between items-center mx-auto h-full max-w-screen-lg py-2 px-4 lg:px-0">
-        <div className="flex items-center justify-between gap-3">
-          {!store.isLoading && (
+
+      <MobileSideMenu active={sideMenu} onCancel={() => setSideMenu(false)}/>
+
+      <div className="flex justify-between items-center mx-auto h-full max-w-screen-xl py-2 ">
+        <div className="flex items-center gap-3 w-64 mx-4">
+          {!store.userLoading && (
             <Button
               variant={"outlined"}
               className="md:hidden"
               onClick={() => setSideMenu(true)}
             >
-              <GiHamburgerMenu size={"24px"} />
+              <GiHamburgerMenu size={"24px"}/>
             </Button>
           )}
+          <Link to={"/"}>
+            <div className="flex items-center ">
+              <div className=" text-2xl font-bold text-text-base">Falco</div>
+              <SiFalcon size={"32px"} className={"text-primary"}/>
+            </div>
+          </Link>
+        </div>
 
-          <div className="flex items-center ">
-            <div className=" text-2xl font-bold text-text-base">Falco</div>
-            <SiFalcon size={"32px"} className={"text-primary"} />
-          </div>
+
+        <div className={"hidden md:flex flex-1 gap-2 justify-center mx-4"}>
+          <Link to={"/popular"}>
+            <Button variant={page === "popular" ? "primary" : "secondary"}>
+              <FaFire size={"24px"}/> Популярное
+            </Button>
+          </Link>
+          <Link to={"/new"}>
+            <Button variant={page === "new" ? "primary" : "secondary"}>
+              <FaClock size={"24px"}/> Новое
+            </Button>
+          </Link>
         </div>
-        {/* <div className="hidden md:flex items-center justify-between gap-3">
-          <Button onClick={() => navigate(LOGIN_ROUTE)} variant={"outlined"}>
-            Логин
-          </Button>
-          <Button onClick={() => navigate(REGISTER_ROUTE)} variant={"primary"}>
-            Регистрация
-          </Button>
-        </div> */}
-        <div className="hidden md:flex items-center justify-between gap-3">
-          <Button variant={"outlined"}>#КакоеНибудьСобытие</Button>
+        <div className={"hidden md:flex gap-2 items-center w-64 justify-center mx-4"}>
+          {store.auth &&
+            <Link to={"/create"}>
+              <Button variant={"primary"}>
+                <FaPlus size={"24px"}/>
+              </Button>
+            </Link>
+          }
+          <Link to={"/search"}>
+            <Button variant={"secondary"}>
+              <FaSearch size={"24px"}/>
+            </Button>
+          </Link>
+
+          {store.auth && store.user &&
+            <ProfileHeaderDropdown user={store.user}/>
+          }
+          {!store.auth && <div className="flex items-center justify-between gap-2">
+            <Link to={"/login"}>
+              <Button variant={"secondary"}>
+                Войти
+              </Button>
+            </Link>
+            <Link to={"/register"}>
+              <Button variant={"primary"}>
+                Регистрация
+              </Button>
+            </Link>
+          </div>}
         </div>
+
       </div>
     </header>
   );
 };
 
-export default memo(Header);
+export default observer(Header);

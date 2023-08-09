@@ -2,14 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./app/App";
 import "./app/index.css";
-import StoreProvider from "./providers/StoreProvider";
+
+import ErrorBoundaryPage from "./pages/ErrorBoundaryPage/ErrorBoundaryPage";
+import {QueryClient, QueryClientProvider} from "react-query";
+import ThemeProvider from "./providers/ThemeProvider";
+import {ErrorBoundary} from "react-error-boundary";
 
 //import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-
+const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <StoreProvider>
-    <App />
-  </StoreProvider>
+  <ErrorBoundary fallback={<ErrorBoundaryPage/>}>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <App/>
+      </ThemeProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>,
 );
 //serviceWorkerRegistration.register();

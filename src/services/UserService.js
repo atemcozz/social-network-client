@@ -1,22 +1,32 @@
 import api from "../api/server";
 
 export default class UserService {
-  static async fecthUsers() {
-    return api.get("/users");
+  static getUserByID(id) {
+    return api.get(`/user/id/${id}`);
   }
-  static async getUser(id) {
-    return api.get(`/user/${id}`);
+
+
+  static updateUserProfile(id, data) {
+    return api.put(`/user/profile/${id}`, data);
   }
-  static async updateUser(id, data) {
-    return api.put(`/user/${id}`, data);
+
+  static updateUserPassword(data) {
+    return api.put(`/user/password/`, data);
   }
-  static async addBookmark(post_id) {
-    return api.post(`/bookmark`, { post_id });
+
+  static updateUserEmail(data) {
+    return api.put(`/user/email/`, data);
   }
-  static async subscribeUser(id) {
-    return api.post(`/user/${id}/subscribe`);
+
+  static subscribeUser(id) {
+    return api.post(`/user/subscribe/${id}`);
   }
-  static async getUserSubscriptions(id) {
-    return api.get(`/user/${id}/subscriptions`);
+
+  static getUserSubscriptions(id) {
+    return api.get(`/user/subscriptions/${id}`);
+  }
+
+  static getUserSubscribers(id) {
+    return api.get(`/user/subscribers/${id}`);
   }
 }

@@ -1,48 +1,131 @@
-import React from "react";
+import React, {useMemo} from "react";
 import CommentInput from "../CommentInput/CommentInput";
 
-import { useState } from "react";
+import {useState} from "react";
 
 import Comment from "../Comment/Comment";
-import { createContext } from "react";
+import {createContext} from "react";
 import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
-import useStore from "../../hooks/useStore";
+import store from "../../store";
+import CommentList from "../CommentList/CommentList";
+import CommentService from "../../services/CommentService";
 
 export const CommentsContext = createContext();
-const CommentSection = ({ comments, error, onSend, onDelete }) => {
-  const store = useStore();
-  const [reply, setReply] = useState();
+const CommentSection = ({comments, error, onSend, onDelete}) => {
 
-  function arrayToTree(arr, belong = null) {
-    const top = [];
-    arr.forEach((el) => {
-      if (
-        el.belongsTo === belong ||
-        (!el.hasOwnProperty("belongsTo") && belong === null)
-      ) {
-        el.children = arrayToTree(arr, el.id);
-        top.push(el);
-      }
+  const template = [
+    {
+      user: {
+        id: 1,
+        nickname: "atemcozz",
+        avatar_url: null,
+      },
+      id: 0,
+      body: "Test",
+    },
+    {
+      user: {
+        id: 1,
+        nickname: "atemcozz",
+        avatar_url: null,
+      },
+      id: 1,
+      body: "Test",
+      answer_to: 0,
+    },
+    {
+      user: {
+        id: 1,
+        nickname: "atemcozz",
+        avatar_url: null,
+      },
+      id: 2,
+      body: "Test",
+      answer_to: 1,
+    },
+    {
+      user: {
+        id: 1,
+        nickname: "atemcozz",
+        avatar_url: null,
+      },
+      id: 3,
+      body: "Test",
+      answer_to: 1,
+    },
+  ];
+  const commentsByParentID = useMemo(() => {
+    if (!comments) return null;
+    const group = {};
+    comments.forEach(comment => {
+      const parentID = comment.answer_to === undefined ? null : comment.answer_to;
+      group[parentID] = group[parentID] || [];
+      group[parentID].push(comment);
+
     });
-    console.log(top);
-    return top;
+    return group;
+  }, [comments]);
+
+  function getReplies(parentId) {
+    return commentsByParentID[parentId];
   }
+
+  function getRepliesCount(parentID) {
+    let count = 0;
+    const replies = getReplies(parentID);
+    replies?.forEach(reply => {
+      count += getRepliesCount(reply.id) + 1;
+    });
+    return count;
+  }
+
+  function sendCommentAndScroll(comment) {
+    onSend(comment);
+    const replies = getReplies(comment.answer_to);
+    const lastChild = replies?.[replies.length - 1];
+    if (lastChild?.id) {
+      const target = document.querySelector(`[data-id="${lastChild.id}"]`);
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: 'center',
+        inline: 'center',
+      });
+      // const elTop = target.offsetTop;
+      // const offset = window.innerHeight / 2;
+      // window.scrollTo({top: elTop + offset, behavior: "smooth"});
+    }
+
+  }
+
+  async function likeComment(comment) {
+    await CommentService.likeComment(comment.id);
+  }
+
   return (
-    <CommentsContext.Provider value={{ reply, setReply }}>
+    <CommentsContext.Provider
+      value={{
+        rootComments: commentsByParentID[null],
+        getReplies,
+        getRepliesCount,
+        sendComment: sendCommentAndScroll,
+        deleteComment: onDelete,
+        likeComment,
+      }}>
       <div className="flex flex-col gap-2 relative">
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        <div className="flex flex-col gap-2 overflow-auto px-4">
-          {comments?.length > 0 ? (
-            arrayToTree(comments).map((comment, index) => (
-              <Comment key={index} comment={comment} onDelete={onDelete} />
-            ))
-          ) : (
-            <div className="rounded-lg p-2 bg-back-lighter">
+        {store.auth &&
+          <>
+            {!comments.length > 0 && <div className="rounded-lg p-2 bg-back-lighter">
               Никто ещё не оставил комментариев, станьте первым!
-            </div>
-          )}
+            </div>}
+            <CommentInput onSend={sendCommentAndScroll}/>
+          </>}
+
+        <div className="overflow-auto mb-36">
+          {comments?.length > 0 && <CommentList comments={commentsByParentID[null]}/>}
         </div>
-        {store.isAuth && <CommentInput onSend={onSend} reply={reply} />}
+
+
       </div>
     </CommentsContext.Provider>
   );

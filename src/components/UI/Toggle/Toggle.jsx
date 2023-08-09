@@ -1,12 +1,13 @@
-import { Switch } from "@headlessui/react";
+import {Switch} from "@headlessui/react";
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, {forwardRef, useState} from "react";
 
-const Toggle = ({ className, active = false, onChange, ...props }) => {
+const Toggle = forwardRef(({className, active = false, onChange, ...props}, ref) => {
   const [enabled, setEnabled] = useState(active);
 
   return (
     <Switch
+      ref={ref}
       checked={enabled}
       onChange={(e) => {
         setEnabled(e);
@@ -15,7 +16,7 @@ const Toggle = ({ className, active = false, onChange, ...props }) => {
       className={classNames(
         enabled ? "bg-primary" : "bg-back-darkest",
         `relative inline-flex w-11 h-6 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`,
-        className
+        className,
       )}
     >
       <span className="sr-only">Use setting</span>
@@ -23,11 +24,11 @@ const Toggle = ({ className, active = false, onChange, ...props }) => {
         aria-hidden="true"
         className={classNames(
           enabled ? "translate-x-5" : "translate-x-0",
-          `pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`
+          `pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`,
         )}
       />
     </Switch>
   );
-};
+});
 
 export default Toggle;

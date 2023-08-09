@@ -1,76 +1,79 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
-import { useNavigate } from "react-router-dom";
-import useForm from "../../hooks/useForm";
+import {useNavigate} from "react-router-dom";
+import {useForm} from "react-hook-form";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
-import useStore from "../../hooks/useStore";
+import store from "../../store";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import Heading from "../../components/UI/Heading";
+import Form from "../../components/UI/Form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {loginSchema} from "../../features/auth/login/login-validator";
+import AuthLayout from "../../components/Layout/AuthLayout/AuthLayout";
+
 const Login = () => {
-  const store = useStore();
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
-  const form = useForm({
-    initial: {
-      nickname: "",
-      password: "",
-    },
-    onSubmit: formSubmitAction,
+
+  const {register, handleSubmit, formState: {errors}} = useForm({
+    resolver: yupResolver(loginSchema),
   });
+
+  const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState(null);
   const navigate = useNavigate();
-  async function formSubmitAction(data) {
+
+  function formSubmitAction(data) {
     setLoading(true);
-    await store
+    store
       .login(data)
       .then(() => navigate("/"))
-      .catch(setError)
+      .catch(setServerError)
       .finally(() => setLoading(false));
+
   }
+
   if (loading) {
     return (
-      <div className="flex items-center justify-center w-full h-[30vh]">
-        <Spinner />
-      </div>
+      <AuthLayout>
+        <div className="flex flex-col max-w-md mx-auto">
+          <Heading>Логин</Heading>
+          <div className={"flex justify-center items-center rounded-lg shadow-md bg-back p-4 h-72"}>
+            <Spinner/>
+          </div>
+        </div>
+      </AuthLayout>
     );
   }
   return (
-    <MainLayout>
-      <div className="flex flex-col gap-4 px-4">
+    <AuthLayout>
+      <div className="flex flex-col max-w-md mx-auto">
         <Heading>Логин</Heading>
+        <div className="rounded-lg shadow-md bg-back p-4 flex justify-center">
+          <div className={"flex flex-col gap-4 w-full"}>
+            {serverError && <ErrorMessage>{serverError?.response?.data?.message}</ErrorMessage>}
+            <Form autoComplete={"off"}>
+              <Form.Field label={"Никнейм или адрес эл. почты"} error={errors?.login?.message} required>
+                <Input placeholder={"Введите никнейм"} {...register("login")}/>
+              </Form.Field>
+              <Form.Field label={"Пароль"} error={errors?.password?.message} required>
+                <Input type={"password"} placeholder={"Введите пароль"} {...register("password")}/>
+              </Form.Field>
 
-        <div className="flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
-          {error && <ErrorMessage>{error}</ErrorMessage>}
-
-          <form onSubmit={form.handleSubmit} className="flex flex-col gap-2">
-            <Input
-              name="nickname"
-              type="text"
-              placeholder="Никнейм"
-              value={form.data.nickname}
-              onChange={form.handleChange}
-              required
-            />
-            <Input
-              name="password"
-              type="password"
-              placeholder="Пароль"
-              value={form.data.password}
-              onChange={form.handleChange}
-              required
-            />
-            <Button className={"mt-2"}>Войти</Button>
-          </form>
-          <Link to={"/recover"} className={""}>
-            <Button variant="outlined" className={"w-full"}>
-              Забыли пароль?
-            </Button>
-          </Link>
+            </Form>
+            <div className={"flex flex-col gap-2"}>
+              <Button onClick={handleSubmit(formSubmitAction)}>Войти</Button>
+              <Link to={"/recover"} className={""}>
+                <Button variant="outlined" className={"w-full"}>
+                  Забыли пароль?
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-    </MainLayout>
+    </AuthLayout>
   );
 };
 

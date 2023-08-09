@@ -1,16 +1,16 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
-import { useQuery } from "react-query";
+import {useQuery} from "react-query";
 import PostService from "../../services/PostService";
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import {
   MdContentCopy,
   MdModeEditOutline,
   MdGridOn,
   MdMenu,
 } from "react-icons/md";
-import { FaUserPlus, FaUserCheck } from "react-icons/fa";
+import {FaUserPlus, FaUserCheck} from "react-icons/fa";
 import DotsDropdown from "../../components/UI/Dropdown/DotsDropdown/DotsDropdown";
 
 import UserService from "../../services/UserService";
@@ -20,41 +20,35 @@ import Avatar from "../../components/UI/Avatar/Avatar";
 import Tabs from "../../components/UI/Tabs/Tabs";
 import Gallery from "../../components/Gallery/Gallery";
 import PostList from "../../components/PostList/PostList";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
-import useStore from "../../hooks/useStore";
+import store from "../../store";
 import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
 import UserPlaceholder from "../../components/UI/Placeholders/UserPlaceholder/UserPlaceholder";
 import classNames from "classnames";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 import Heading from "../../components/UI/Heading";
 import getInflectedNoun from "../../utils/getInflectedNoun";
-const viewModes = {
-  gallery: "gallery",
-  posts: "posts",
-};
-//
+import ProfileGallery from "../../components/ProfileGallery/ProfileGallery";
+import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
+
 const Profile = () => {
-  const store = useStore();
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [isStoreUser, setIsStoreUser] = useState();
-  const [md, setMd] = useState();
-  const [viewMode, setViewMode] = useState(viewModes.gallery);
+
+  const {id} = useParams();
   const [subscribed, setSubscribed] = useState(false);
   const {
     data: user,
     isLoading: userLoading,
     error: userError,
   } = useQuery("fetchUserInfo", () =>
-    UserService.getUser(id).then((res) => res.data)
+    UserService.getUserByID(id).then((res) => res.data),
   );
   const {
     data: posts,
     isLoading: postsLoading,
     error: postsError,
   } = useQuery("fetchUserPosts", () =>
-    PostService.getPostsByUser(id).then((res) => res.data)
+    PostService.getPostsByUserID(id).then((query) => query.data),
   );
   useEffect(() => {
     if (user?.subscribed) {
@@ -68,154 +62,30 @@ const Profile = () => {
       .catch(console.log);
   }
 
-  useEffect(() => {
-    setIsStoreUser(store.user?.id?.toString() === id);
-  }, [store, id]);
-  useEffect(() => {
-    const handler = (e) => setMd(e.matches);
-    window.matchMedia("(min-width: 768px)").addEventListener("change", handler);
-  }, []);
-  if (postsLoading || userLoading) {
+  if (userLoading) {
     return (
       <MainLayout>
-        <div className="px-4 flex flex-col gap-4">
-          <UserPlaceholder />
-          <PostPlaceholder />
+        <div className="flex flex-col gap-4">
+          <UserPlaceholder/>
+          <PostPlaceholder/>
         </div>
+      </MainLayout>
+    );
+  }
+  if (userError || postsError) {
+    return (
+      <MainLayout>
+        <ErrorMessage>
+          Произошла ошибка при загрузке профиля
+        </ErrorMessage>
       </MainLayout>
     );
   }
   return (
     <MainLayout>
-      <div className="flex flex-col px-4">
-        {userError ? (
-          <ErrorMessage error={userError?.message} />
-        ) : (
-          user && (
-            <>
-              <div className="flex justify-between items-center">
-                <Heading>
-                  <span>Профиль</span>{" "}
-                  <span className="text-primary">{user.nickname}</span>
-                </Heading>
-                <DotsDropdown>
-                  <DotsDropdown.Item icon={<MdContentCopy size={"24px"} />}>
-                    Скопировать ссылку
-                  </DotsDropdown.Item>
-                  {isStoreUser && (
-                    <DotsDropdown.Item
-                      icon={<MdModeEditOutline size={"24px"} />}
-                      onClick={() => navigate("/edit_profile", { state: user })}
-                    >
-                      Редактировать
-                    </DotsDropdown.Item>
-                  )}
-                </DotsDropdown>
-              </div>
-              <div className="flex rounded-lg shadow-md p-4 bg-back gap-4 md:gap-10 mb-4">
-                {md ? (
-                  <Avatar src={user.avatar_url} size={"large"} />
-                ) : (
-                  <Avatar src={user.avatar_url} size={"big"} />
-                )}
-
-                <div className="flex flex-col gap-4 justify-between">
-                  <div className="flex flex-col gap-2">
-                    <div className="text-xl font-bold">
-                      {user.name} {user.surname}
-                    </div>
-                    <div className="bg-back-lighter shadow rounded-md px-2 py-1 w-max">
-                      {posts?.length}{" "}
-                      {getInflectedNoun(
-                        posts?.length,
-                        "пост",
-                        "поста",
-                        "постов"
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <Button
-                      onClick={() => navigate("/edit_profile", { state: user })}
-                      className={classNames(
-                        isStoreUser ? "block" : "hidden",
-                        "text-xs md:text-base"
-                      )}
-                    >
-                      <MdModeEditOutline size={"24px"} />
-                      Редактировать
-                    </Button>
-                    <Button
-                      variant={subscribed ? "secondary" : "primary"}
-                      onClick={handleSubscribe}
-                      className={classNames(
-                        isStoreUser ? "hidden" : "block",
-                        "text-xs md:text-base"
-                      )}
-                    >
-                      {subscribed ? (
-                        <>
-                          <FaUserCheck size={"24px"} /> Вы подписаны
-                        </>
-                      ) : (
-                        <>
-                          <FaUserPlus size={"24px"} /> Подписаться
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </>
-          )
-        )}
-
-        {postsError ? (
-          <ErrorMessage error={postsError?.message} />
-        ) : (
-          <>
-            {posts?.length > 0 ? (
-              <div className="rounded-lg shadow-md overflow-hidden">
-                <Tabs>
-                  <Tabs.Item
-                    active={viewMode === viewModes.gallery}
-                    onClick={() => setViewMode(viewModes.gallery)}
-                  >
-                    <MdGridOn size={"24px"} />
-                  </Tabs.Item>
-                  <Tabs.Item
-                    active={viewMode === viewModes.posts}
-                    onClick={() => setViewMode(viewModes.posts)}
-                  >
-                    <MdMenu size={"24px"} />
-                  </Tabs.Item>
-                </Tabs>
-
-                {viewMode === viewModes.gallery && (
-                  <Gallery>
-                    {posts?.map(
-                      (post, index) =>
-                        post.preview && (
-                          <Link
-                            to={`/post/${post.id}`}
-                            target={"_blank"}
-                            key={index}
-                          >
-                            <Gallery.Item post={post} />
-                          </Link>
-                        )
-                    )}
-                  </Gallery>
-                )}
-                {viewMode === viewModes.posts && <PostList posts={posts} />}
-              </div>
-            ) : (
-              <div className="text-xl font-bold flex justify-center">
-                Постов нет
-              </div>
-            )}
-          </>
-        )}
+      <div className="flex flex-col">
+        <ProfileHeader user={user}/>
+        <PostList posts={posts?.contents}/>
       </div>
     </MainLayout>
   );

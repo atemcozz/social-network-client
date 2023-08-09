@@ -1,29 +1,27 @@
-import React from "react";
-import { useEffect } from "react";
-import { createContext } from "react";
-import useStore from "../hooks/useStore";
+import React, {useState} from "react";
+import {useEffect} from "react";
+import {createContext} from "react";
+
 export const ThemeContext = createContext(null);
-const ThemeProvider = ({ children }) => {
-  const store = useStore();
-  const APP_THEMES = ["theme-dark", "theme-light"];
-  const getTheme = () => {
-    return localStorage.getItem("theme");
-  };
-  const setTheme = (themeName) => {
+const ThemeProvider = ({children}) => {
+  const APP_THEMES = ["theme-light", "theme-dark"];
+  const [theme, setTheme] = useState(APP_THEMES[0]);
+  const applyTheme = (themeName) => {
     if (APP_THEMES.includes(themeName)) {
       APP_THEMES.forEach((theme) => document.body.classList.remove(theme));
       document.body.classList.add(themeName);
       localStorage.setItem("theme", themeName);
-      store.setAppTheme(themeName);
+      setTheme(themeName);
     } else {
       console.error("Theme not found");
+      applyTheme(APP_THEMES[0]);
     }
   };
   useEffect(() => {
-    setTheme(localStorage.getItem("theme"));
+    applyTheme(localStorage.getItem("theme"));
   });
   return (
-    <ThemeContext.Provider value={{ getTheme, setTheme }}>
+    <ThemeContext.Provider value={[theme, applyTheme]}>
       {children}
     </ThemeContext.Provider>
   );

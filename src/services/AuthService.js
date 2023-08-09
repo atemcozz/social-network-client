@@ -1,18 +1,34 @@
-import api from "../api/server";
+import api, {API_URL} from "../api/server";
+import axios from "axios";
 
 export default class AuthService {
-  static async login(data) {
-    return api.post("/login", data);
+  static refresh(data) {
+    return api.post(`/auth/refresh`, data);
   }
-  static async register(data) {
-    return api.post("/register", data);
+
+  static login(data) {
+    return api.post("/auth/login", data);
   }
-  static async logout() {
-    return api.post("/logout", {
+
+  static register(data) {
+    return api.post("/auth/register", data);
+  }
+
+  static logout() {
+    return api.post("/auth/logout", {
       refreshToken: localStorage.getItem("refresh_token"),
     });
   }
-  static async recover(data) {
-    return api.post("/recover", data);
+
+  static requestPasswordRecover(data) {
+    return api.post("/auth/password_recover", data);
+  }
+
+  static confirmPasswordRecover(uuid, data) {
+    return api.post("/auth/password_confirm", data, {
+      params: {
+        uuid,
+      },
+    });
   }
 }

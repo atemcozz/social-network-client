@@ -1,54 +1,33 @@
-import React, { useState, useRef } from "react";
-import { BsArrowLeft } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import React, {useState, useRef} from "react";
+import {BsArrowLeft} from "react-icons/bs";
+import {useNavigate} from "react-router-dom";
 
 import Button from "../../components/UI/Button/Button";
 
 import UserService from "../../services/UserService";
 
-import { MdModeEditOutline } from "react-icons/md";
+import {MdModeEditOutline} from "react-icons/md";
 import ProfileEditForm from "../../components/Profile/ProfileEditForm";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Avatar from "../../components/UI/Avatar/Avatar";
-import { useEffect } from "react";
+import {useEffect} from "react";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
-import useStore from "../../hooks/useStore";
-import { useQuery } from "react-query";
+
+import {useQuery} from "react-query";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
 import CloudinaryService from "../../services/CloudinaryService";
-import useForm from "../../hooks/useForm";
+
 import Heading from "../../components/UI/Heading";
-import { getError } from "../../utils/locales";
+import {getError} from "../../utils/locales";
+import InfoLabel from "../../components/UI/InfoLabel/InfoLabel";
+
+import SecurityForm from "../../components/Profile/SecurityForm";
+import store from "../../store";
+
 const ProfileEdit = () => {
-  const store = useStore();
-  const [error, setError] = useState();
-  const photoInput = useRef();
 
+  const [serverError, setServerError] = useState();
   const navigate = useNavigate();
-
-  const { data: user, isLoading: userLoading } = useQuery(
-    "fetchUserInfo",
-    () => UserService.getUser(store.user.id).then((res) => res.data),
-    { onError: (err) => setError(err) }
-  );
-
-  const form = useForm({
-    initial: {
-      nickname: user?.nickname,
-      name: user?.name,
-      surname: user?.surname,
-      password: "",
-      password_repeat: "",
-    },
-
-    onSubmit: onFormSubmit,
-    validate(data) {
-      if (data.password !== data.password_repeat) {
-        return "Пароли не совпадают";
-      }
-    },
-  });
-
   const [saveLoading, setSaveLoading] = useState(false);
   const [avatar, setAvatar] = useState({});
 
@@ -63,71 +42,62 @@ const ProfileEdit = () => {
       setSaveLoading(true);
       CloudinaryService.uploadImage(file)
         .then((res) => setAvatar(res?.data?.secure_url))
-        .catch(setError)
+        .catch(setServerError)
         .finally(() => setSaveLoading(false));
     };
   }
 
-  async function onFormSubmit(data) {
+  function sendProfileData(data) {
     if (avatar) {
-      data.avatar = avatar;
+      data.avatar_url = avatar;
     }
-    if (!data.password) {
-      delete data.password;
-      delete data.password_repeat;
-    }
-    setSaveLoading(true);
-    UserService.updateUser(user.id, data)
-      .then(() => {
-        if (data.password) {
-          store.logout();
-          navigate("/login");
-        } else {
-          navigate(`/user/${user.id}`);
-        }
-      })
-      .catch((e) => setError(getError(e.response?.data?.reason)))
+    store.updateUserProfile(store.user.id, data)
+      .catch(setServerError)
       .finally(() => setSaveLoading(false));
   }
 
   useEffect(() => {
-    if (user) {
-      setAvatar(user.avatar_url);
+    if (store.user) {
+      setAvatar(store.user.avatar_url);
+      console.log(store.user.avatar_url);
     }
-  }, [user]);
-  if (saveLoading || userLoading) {
+  }, [store.user]);
+  if (saveLoading || !store.user) {
     return (
-      <div className="flex items-center justify-center w-full h-[30vh]">
-        <Spinner />
-      </div>
+      <MainLayout>
+        <div className={"flex items-center justify-center h-96 bg-back rounded-lg"}>
+          <Spinner/>
+        </div>
+
+      </MainLayout>
     );
   }
   return (
     <MainLayout>
-      <div className="min-h-screen px-4">
+
+      <div className="min-h-screen">
         <div className="flex items-center gap-4">
           <button
             className="flex items-center bg-back hover:bg-back-darker p-2 rounded-full shadow text-primary mb-4"
-            onClick={() => navigate(`/user/${user?.id}`)}
+            onClick={() => navigate(`/user/${store.user?.id}`)}
           >
-            <BsArrowLeft size={"24px"} />
+            <BsArrowLeft size={"24px"}/>
           </button>
           <Heading>Информация о пользователе</Heading>
         </div>
         <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
-          {form.errors?.length > 0 && (
-            <ErrorMessage>{form.errors[0]}</ErrorMessage>
-          )}
-          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <InfoLabel>Не забудьте сохранить информацию после внесения изменений</InfoLabel>
+          {serverError && <ErrorMessage>{serverError?.response?.data?.message}</ErrorMessage>}
           <div className="flex items-center justify-center">
-            <Avatar src={avatar} size="large" />
+            <Avatar src={avatar} size="large"/>
           </div>
 
           <Button variant="outlined" onClick={handleAvatar}>
-            <MdModeEditOutline size="24px" />
+            <MdModeEditOutline size="24px"/>
             Изменить аватар
           </Button>
-          {user && <ProfileEditForm form={form} />}
+          <SecurityForm/>
+          <ProfileEditForm onSubmit={sendProfileData} user={store.user}/>
         </div>
       </div>
     </MainLayout>

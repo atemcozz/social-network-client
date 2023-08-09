@@ -1,119 +1,95 @@
-import React from "react";
-import Input from "../../components/UI/Input/Input";
+import React, {useState} from "react";
 import Button from "../../components/UI/Button/Button";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-import useForm from "../../hooks/useForm";
+import Input from "../../components/UI/Input/Input";
+import {useNavigate} from "react-router-dom";
+import {useForm} from "react-hook-form";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
-import useStore from "../../hooks/useStore";
+import store from "../../store";
 import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
+import {Link} from "react-router-dom";
 import Heading from "../../components/UI/Heading";
-const Register = () => {
-  const store = useStore();
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
-  const form = useForm({
-    initial: {
-      name: "",
-      surname: "",
-      nickname: "",
-      password: "",
-      password_repeat: "",
-    },
-    onSubmit: formSubmitAction,
-    validate(data) {
-      if (form.data.password !== form.data.password_repeat) {
-        return "Пароли не совпадают";
-      }
-    },
+import Form from "../../components/UI/Form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import AuthLayout from "../../components/Layout/AuthLayout/AuthLayout";
+import {registerSchema} from "../../features/auth/register/register-validator";
+
+const Login = () => {
+
+  const {register, handleSubmit, formState: {errors}} = useForm({
+    resolver: yupResolver(registerSchema),
   });
+
+  const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState(null);
   const navigate = useNavigate();
+
   function formSubmitAction(data) {
     setLoading(true);
     store
       .register(data)
-      .then(() => navigate("/edit_profile"))
-      .catch(setError)
+      .then(() =>
+        navigate("/"),
+      )
+      .catch(setServerError)
       .finally(() => setLoading(false));
   }
+
   if (loading) {
     return (
-      <div className="flex items-center justify-center w-full h-[30vh]">
-        <Spinner />
-      </div>
+      <AuthLayout>
+        <div className="flex flex-col max-w-md mx-auto">
+          <Heading>Регистрация</Heading>
+          <div className={"flex justify-center items-center rounded-lg shadow-md bg-back p-4 h-96"}>
+            <Spinner/>
+          </div>
+        </div>
+      </AuthLayout>
     );
   }
   return (
-    <MainLayout>
-      <div className="flex flex-col gap-4 px-4">
+    <AuthLayout>
+      <div className="flex flex-col max-w-md mx-auto">
         <Heading>Регистрация</Heading>
-
-        <div className=" flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">
-          {form.errors?.length > 0 && (
-            <ErrorMessage>{form.errors[0]} </ErrorMessage>
-          )}
-          {error && <ErrorMessage>{error} </ErrorMessage>}
-          <form onSubmit={form.handleSubmit} className="flex flex-col gap-2 ">
-            <Input
-              value={form.data.name}
-              onChange={form.handleChange}
-              name="name"
-              type="text"
-              placeholder="Имя"
-              required
-            />
-
-            <Input
-              value={form.data.surname}
-              onChange={form.handleChange}
-              name="surname"
-              type="text"
-              placeholder="Фамилия"
-              required
-            />
-            <Input
-              value={form.data.email}
-              onChange={form.handleChange}
-              name="email"
-              type="email"
-              placeholder="Электронная почта"
-              required
-            />
-            <Input
-              value={form.data.nickname}
-              onChange={form.handleChange}
-              name="nickname"
-              type="text"
-              placeholder="Никнейм"
-              required
-            />
-            <Input
-              value={form.data.password}
-              onChange={form.handleChange}
-              name="password"
-              type="password"
-              placeholder="Пароль"
-              autoComplete="new-password"
-              required
-              className={"mt-2"}
-            />
-            <Input
-              value={form.data.password_repeat}
-              onChange={form.handleChange}
-              name="password_repeat"
-              type="password"
-              autoComplete="off"
-              placeholder="Повторите пароль"
-              required
-            />
-            <Button className={"mt-2"}>Зарегистрироваться</Button>
-          </form>
+        <div className="rounded-lg shadow-md bg-back p-4 flex justify-center">
+          <div className={"flex flex-col gap-4 w-full"}>
+            {serverError && <ErrorMessage>{serverError?.response?.data?.message}</ErrorMessage>}
+            <Form autoComplete={"off"}>
+              <Form.Field label={"Имя"} error={errors?.name?.message} required>
+                <Input placeholder={"Введите имя"} {...register("name")}/>
+              </Form.Field>
+              <Form.Field label={"Фамилия"} error={errors?.surname?.message} required>
+                <Input placeholder={"Введите имя"} {...register("surname")}/>
+              </Form.Field>
+              <Form.Field label={"Никнейм"} error={errors?.nickname?.message} required>
+                <Input placeholder={"Введите никнейм"} {...register("nickname")}/>
+              </Form.Field>
+              <Form.Field label={"Адрес эл. почты"} error={errors?.email?.message} required>
+                <Input type={"email"} autoComplete={"off"}
+                       placeholder={"Введите адрес эл. почты"}  {...register("email")}/>
+              </Form.Field>
+              <Form.Field label={"Пароль"} error={errors?.password?.message} required>
+                <Input type={"password"} autoComplete={"new-password"}
+                       placeholder={"Введите пароль"}  {...register("password")}/>
+              </Form.Field>
+              <Form.Field label={"Повторите пароль"} error={errors?.password_repeat?.message} required>
+                <Input type={"password"} autoComplete={"new-password"}
+                       placeholder={"Повторите пароль"}   {...register("password_repeat")}/>
+              </Form.Field>
+            </Form>
+            <div className={"flex flex-col gap-2"}>
+              <Button onClick={handleSubmit(formSubmitAction)}>Войти</Button>
+              <Link to={"/recover"} className={""}>
+                <Button variant="outlined" className={"w-full"}>
+                  Забыли пароль?
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-    </MainLayout>
+    </AuthLayout>
   );
 };
 
-export default Register;
+export default Login;

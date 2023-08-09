@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import React from "react";
+import React, {forwardRef} from "react";
 
-const Button = ({ children, variant = "primary", className, ...props }) => {
+const Button = forwardRef(({children, variant = "primary", className, ...props}, ref) => {
   const variants = {
     primary: `bg-primary hover:bg-primary-darker ease-in duration-100 text-white`,
     disabled: `bg-secondary opacity-50 text-gray-400 cursor-not-allowed`,
@@ -15,16 +15,17 @@ const Button = ({ children, variant = "primary", className, ...props }) => {
 
   return (
     <button
+      ref={ref}
       className={classNames(
         "rounded-lg p-2 flex items-center gap-2",
         variants[variant],
-        className
+        className,
       )}
       {...props}
     >
       {children}
     </button>
   );
-};
+});
 
 export default Button;

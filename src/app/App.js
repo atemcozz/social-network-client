@@ -1,20 +1,15 @@
-import React, { useEffect } from "react";
-import { observer } from "mobx-react";
-import AppRoutes from "../routes/AppRoutes";
-import { BrowserRouter as Router } from "react-router-dom";
-import ThemeProvider from "../providers/ThemeProvider";
-import useStore from "../hooks/useStore";
+import React, {useEffect} from "react";
+import {observer} from "mobx-react";
 import LayoutPlaceholder from "../components/UI/Placeholders/LayoutPlaceholder/LayoutPlaceholder";
-import { QueryClientProvider } from "react-query";
-import { QueryClient } from "react-query";
+import {RouterProvider} from "react-router-dom";
+import {appRouter} from "../routes/router";
+import store from "../store";
 
-const queryClient = new QueryClient();
 function App() {
-  const store = useStore();
   useEffect(() => {
     if (localStorage.getItem("refresh_token")) {
-      store.checkAuth();
-    } else store.setLoading(false);
+      store.verifyAuth();
+    } else store.setUserLoading(false);
   }, [store]);
 
   if (process.env.REACT_APP_TECHNICAL_WORKS === "1") {
@@ -25,13 +20,11 @@ function App() {
     );
   }
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <Router>
-          {store.isLoading ? <LayoutPlaceholder /> : <AppRoutes />}
-        </Router>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <>
+      {store.userLoading ?
+        <LayoutPlaceholder/> : <RouterProvider router={appRouter}/>}
+
+    </>
   );
 }
 

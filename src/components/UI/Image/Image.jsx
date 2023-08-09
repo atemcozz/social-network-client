@@ -4,34 +4,48 @@ import {useState} from "react";
 import {MdImageNotSupported} from "react-icons/md";
 import BoxPlaceholder from "../Placeholders/BoxPlaceholder/BoxPlaceholder";
 import Spinner from "../Spinner/Spinner";
+import Modal from "../Modal/Modal";
 
-const Image = ({className, display = "inline", ...props}) => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    return (
-        <>
-            {loading && <BoxPlaceholder className={"h-72"}/>}
-            {error && (
-                <div className="rounded-lg bg-secondary h-72 flex justify-center items-center">
-                    <MdImageNotSupported size={"48px"}/>
-                </div>
-            )}
-
-            <img
-                className={classNames(
-                    loading || error ? "hidden" : display,
-                    "w-full rounded-lg", className
-                )}
-                onError={() => {
-                    setError(true);
-                    setLoading(false);
-                }}
-                alt="img"
-                onLoad={() => setLoading(false)}
-                {...props}
-            />
-        </>
-    );
+const Image = ({className, modal = false, display = "inline", src, ...props}) => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [modalActive, setModalActive] = useState(false);
+  if (error) {
+    return <div className="rounded-lg bg-secondary h-72 flex justify-center items-center">
+      <MdImageNotSupported size={"48px"}/>
+    </div>;
+  }
+  return (
+    <>
+      {modalActive &&
+        <Modal onBgClick={() => setModalActive(false)}>
+          <img
+            className="max-w-[90vw] max-h-[90vh] md:max-w-[90vw] md:max-h-[90vh] rounded-lg"
+            alt="img"
+            src={src}
+          />
+        </Modal>}
+      {loading && <BoxPlaceholder className={"h-72"}/>}
+      <img
+        className={classNames(
+          loading ? "hidden" : display,
+          "w-full rounded-lg",
+          modal ? "cursor-pointer" : "cursor-auto", className,
+        )}
+        onError={() => {
+          setError(true);
+          setLoading(false);
+        }}
+        alt="img"
+        onLoad={() => setLoading(false)}
+        src={src}
+        {...props}
+        onClick={() => {
+          modal && setModalActive(true);
+        }}
+      />
+    </>
+  );
 };
 
 export default Image;
