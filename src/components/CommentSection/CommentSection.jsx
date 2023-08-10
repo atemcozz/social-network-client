@@ -111,7 +111,7 @@ const CommentSection = ({comments, error, onSend, onDelete}) => {
         deleteComment: onDelete,
         likeComment,
       }}>
-      <div className="flex flex-col gap-2 relative">
+      <div className="flex flex-col gap-2">
         {error && <ErrorMessage>{error}</ErrorMessage>}
         {store.auth &&
           <>

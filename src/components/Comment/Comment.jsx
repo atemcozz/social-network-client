@@ -54,15 +54,14 @@ const Comment = ({comment}) => {
   return (
     <>
       <div data-id={comment.id} className={`flex flex-col gap-2 flex-1`}>
-        <div className="flex p-2 bg-back shadow rounded-lg items-start justify-between overflow-auto">
+        <div className="flex p-2 bg-back shadow rounded-lg items-start justify-between">
           <div className="flex gap-2 flex-1 relative  w-full">
             <Link to={`/user/${comment.user_id}`}>
               <Avatar src={comment.user_avatar_url} size="normal"/>
             </Link>
-            <div className="flex flex-col flex-1 items-stretch">
+            <div className="flex flex-col flex-1 items-stretch overflow-hidden">
               <div className="flex flex-wrap items-center gap-2">
                 <Link
-                  target={"_blank"}
                   to={`/user/${comment.user_id}`}
                   className="font-semibold text-base cursor-pointer hover:text-primary"
                 >
@@ -70,7 +69,7 @@ const Comment = ({comment}) => {
                 </Link>
 
               </div>
-              <div className="[overflow-wrap:anywhere]">{comment.body}</div>
+              <div className="break-words">{comment.body}</div>
               <div className={"flex justify-between items-center"}>
                 <div className={"flex gap-2"}>
                   {store.auth &&
@@ -104,7 +103,7 @@ const Comment = ({comment}) => {
       </div>
       {replyOpened && expanded &&
         <div className={"flex"}>
-          <div className={"pl-4"}></div>
+          <div className={"pl-2 md:pl-4"}></div>
           <CommentInput parent={comment} onSend={(data) => {
             sendComment(data);
             setReplyOpened(false);
@@ -113,7 +112,7 @@ const Comment = ({comment}) => {
       }
       {childComments?.length && expanded &&
         <div className={"flex"}>
-          <div className={"pl-4 border-l-2 border-secondary-darker hover:border-primary cursor-pointer"}
+          <div className={"pl-2 md:pl-4 border-l-2 border-secondary-darker hover:border-primary cursor-pointer"}
                onClick={() => setExpanded(false)}></div>
           <CommentList comments={childComments}/>
         </div>}
