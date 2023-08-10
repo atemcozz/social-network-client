@@ -53,13 +53,13 @@ const Comment = ({comment}) => {
   }, [expanded]);
   return (
     <>
-      <div data-id={comment.id} className={`flex flex-col gap-2`}>
-        <div className="flex p-2 bg-back shadow rounded-lg items-start justify-between ">
-          <div className="flex gap-2 flex-1 w-full relative">
+      <div data-id={comment.id} className={`flex flex-col gap-2 flex-1`}>
+        <div className="flex p-2 bg-back shadow rounded-lg items-start justify-between overflow-auto">
+          <div className="flex gap-2 flex-1 relative  w-full">
             <Link to={`/user/${comment.user_id}`}>
               <Avatar src={comment.user_avatar_url} size="normal"/>
             </Link>
-            <div className="flex flex-col flex-1 items-stretch w-8/12">
+            <div className="flex flex-col flex-1 items-stretch">
               <div className="flex flex-wrap items-center gap-2">
                 <Link
                   target={"_blank"}
@@ -70,7 +70,7 @@ const Comment = ({comment}) => {
                 </Link>
 
               </div>
-              <div className="break-words ">{comment.body}</div>
+              <div className="[overflow-wrap:anywhere]">{comment.body}</div>
               <div className={"flex justify-between items-center"}>
                 <div className={"flex gap-2"}>
                   {store.auth &&

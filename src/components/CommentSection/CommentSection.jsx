@@ -121,7 +121,7 @@ const CommentSection = ({comments, error, onSend, onDelete}) => {
             <CommentInput onSend={sendCommentAndScroll}/>
           </>}
 
-        <div className="overflow-auto mb-36">
+        <div className="mb-36 overflow-auto">
           {comments?.length > 0 && <CommentList comments={commentsByParentID[null]}/>}
         </div>
 
