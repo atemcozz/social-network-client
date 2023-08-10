@@ -56,6 +56,7 @@ const Map = ({
 
         <LocateTest/>
         <AttributionControl position="bottomright" prefix={false}/>
+
       </MapContainer>
     </div>
   );

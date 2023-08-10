@@ -32,7 +32,7 @@ const Header = ({page}) => {
           {!store.userLoading && (
             <Button
               variant={"outlined"}
-              className="md:hidden"
+              className="lg:hidden"
               onClick={() => setSideMenu(true)}
             >
               <GiHamburgerMenu size={"24px"}/>
@@ -64,6 +64,7 @@ const Header = ({page}) => {
             <Link to={"/create"}>
               <Button variant={"primary"}>
                 <FaPlus size={"24px"}/>
+                Создать
               </Button>
             </Link>
           }

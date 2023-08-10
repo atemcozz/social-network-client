@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo} from "react";
+import React, {useContext, useEffect, useLayoutEffect, useMemo, useRef} from "react";
 import Avatar from "../UI/Avatar/Avatar";
 import DotsDropdown from "../UI/Dropdown/DotsDropdown/DotsDropdown";
 import {MdDeleteForever} from "react-icons/md";
@@ -37,24 +37,25 @@ const Comment = ({comment, depth = 0}) => {
   }
 
   useEffect(() => {
-    if (depth % 7 === 0 && depth > 0) setExpanded(false);
+    if (depth % 7 === 0 && getRepliesCount(comment.id) > 0) setExpanded(false);
   }, []);
   useEffect(() => {
     if (!expanded) {
       setExpanded(true);
     }
   }, [replyOpened]);
-  useEffect(() => {
-    if (!expanded) {
-      const target = document.querySelector(`[data-id="${comment.id}"]`);
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: 'center',
-        inline: 'center',
-      });
-    }
 
-  }, [expanded]);
+  // useLayoutEffect(() => {
+  //
+  //   if (!expanded) {
+  //     const target = document.querySelector(`[data-id="${comment.id}"]`);
+  //     target.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: 'center',
+  //       inline: 'center',
+  //     });
+  //   }
+  // }, [expanded]);
   return (
     <>
       <div data-id={comment.id} className={`flex flex-col gap-2 flex-1`}>
@@ -116,11 +117,11 @@ const Comment = ({comment, depth = 0}) => {
       }
       {childComments?.length && expanded &&
         <div
-          className={classNames("relative", depth % 7 === 0 && depth > 0 && "-ml-28 pt-4 -mt-3 border-t-2 border-secondary-darker bg-back-darker ")}>
+          className={classNames("relative", depth % 7 === 0 && depth > 0 && "-ml-14 md:-ml-28 py-4 -mt-3 border-y-2 border-secondary-darker bg-back-darker ")}>
           <div
-            className={"absolute top-0 left-0 pl-4 h-full border-l-2 border-secondary-darker hover:border-primary cursor-pointer"}
+            className={"absolute top-0 left-0 pl-2 md:pl-4 h-full border-l-2 border-secondary-darker hover:border-primary cursor-pointer"}
             onClick={() => setExpanded(false)}/>
-          <div className={"pl-4"}>
+          <div className={"pl-2 md:pl-4"}>
             <CommentList comments={childComments} depth={depth + 1}/>
           </div>
         </div>}

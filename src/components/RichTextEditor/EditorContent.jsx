@@ -3,7 +3,7 @@ import React from "react";
 const EditorContent = ({editor}) => {
   if (!editor) return null;
   return (
-    <div>
+    <div className={"overflow-hidden"}>
       {editor?.getBlocks()?.map((block, index) => block.render(index))}
     </div>
   );

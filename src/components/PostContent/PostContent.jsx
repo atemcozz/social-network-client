@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from "../UI/Image/Image";
 import Map from "../Map/Map";
+import MapView from "../Map/Yandex/MapView";
 
 const PostContent = ({post}) => {
   if (!post) return null;
@@ -28,11 +29,7 @@ const PostContent = ({post}) => {
             );
           case "geo":
             return (
-              <Map
-                key={index}
-                locations={[block.content]}
-                center={block.content}
-              />
+              <MapView key={index} location={block.content} zoom={12}/>
             );
 
           default:

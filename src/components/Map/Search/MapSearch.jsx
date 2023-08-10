@@ -1,7 +1,8 @@
 import {useMap} from 'react-leaflet';
 import {OpenStreetMapProvider, GeoSearchControl} from 'leaflet-geosearch';
 import {useEffect} from "react";
-import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import "leaflet-geosearch/dist/geosearch.css";
 
 const MapSearch = () => {
   const provider = new OpenStreetMapProvider();
@@ -12,6 +13,7 @@ const MapSearch = () => {
     autoComplete: true, // optional: true|false  - default true
     autoCompleteDelay: 0,
     style: 'button',
+    position: "topright",
   });
   const map = useMap();
   useEffect(() => {
