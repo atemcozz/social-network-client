@@ -15,7 +15,7 @@ import CommentList from "../CommentList/CommentList";
 import CommentInput from "../CommentInput/CommentInput";
 import {FaRegHeart, FaHeart} from "react-icons/fa";
 
-const Comment = ({comment}) => {
+const Comment = ({comment, depth = 0}) => {
   const {getReplies, getRepliesCount, sendComment, deleteComment, likeComment} = useContext(CommentsContext);
   const childComments = getReplies(comment.id);
   const [expanded, setExpanded] = useState(true);
@@ -37,6 +37,9 @@ const Comment = ({comment}) => {
   }
 
   useEffect(() => {
+    if (depth % 7 === 0 && depth > 0) setExpanded(false);
+  }, []);
+  useEffect(() => {
     if (!expanded) {
       setExpanded(true);
     }
@@ -50,6 +53,7 @@ const Comment = ({comment}) => {
         inline: 'center',
       });
     }
+
   }, [expanded]);
   return (
     <>
@@ -111,10 +115,14 @@ const Comment = ({comment}) => {
         </div>
       }
       {childComments?.length && expanded &&
-        <div className={"flex"}>
-          <div className={"pl-2 md:pl-4 border-l-2 border-secondary-darker hover:border-primary cursor-pointer"}
-               onClick={() => setExpanded(false)}></div>
-          <CommentList comments={childComments}/>
+        <div
+          className={classNames("relative", depth % 7 === 0 && depth > 0 && "-ml-28 pt-4 -mt-3 border-t-2 border-secondary-darker bg-back-darker ")}>
+          <div
+            className={"absolute top-0 left-0 pl-4 h-full border-l-2 border-secondary-darker hover:border-primary cursor-pointer"}
+            onClick={() => setExpanded(false)}/>
+          <div className={"pl-4"}>
+            <CommentList comments={childComments} depth={depth + 1}/>
+          </div>
         </div>}
       {!expanded &&
         <Button variant={"outlined"} onClick={() => setExpanded(true)}>Показать ответы
