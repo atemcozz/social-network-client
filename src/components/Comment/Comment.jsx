@@ -56,7 +56,7 @@ const Comment = ({comment}) => {
       <div data-id={comment.id} className={`flex flex-col gap-2`}>
         <div className="flex p-2 bg-back shadow rounded-lg items-start justify-between ">
           <div className="flex gap-2 flex-1 w-full relative">
-            <Link to={`/user/${comment.user_id}`} target={"_blank"}>
+            <Link to={`/user/${comment.user_id}`}>
               <Avatar src={comment.user_avatar_url} size="normal"/>
             </Link>
             <div className="flex flex-col flex-1 items-stretch w-8/12">

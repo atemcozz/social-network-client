@@ -15,7 +15,7 @@ import {useParams} from "react-router-dom";
 import UserSubscriptionCard from "../../components/UserSubscriptionCard/UserSubscriptionCard";
 import ReturnButton from "../../components/ReturnButton/ReturnButton";
 
-const UserSubscriptions = () => {
+const UserSubscribers = () => {
   const navigate = useNavigate();
   const {id} = useParams();
   const {
@@ -23,8 +23,8 @@ const UserSubscriptions = () => {
     isLoading: subsLoading,
     refetch: subsRefetch,
     error,
-  } = useQuery(["fetchUserSubscriptions", id], () =>
-    UserService.getUserSubscriptions(id)
+  } = useQuery(["fetchUserSubscribers", id], () =>
+    UserService.getUserSubscribers(id)
       .then((res) => res.data),
   );
   const {
@@ -37,17 +37,18 @@ const UserSubscriptions = () => {
   if (subsLoading || userLoading) {
     return (
       <MainLayout>
-        <Heading>Подписки</Heading>
+        <Heading>Подписчики</Heading>
         <PostPlaceholder/>
       </MainLayout>
     );
   }
+
   return (
     <MainLayout>
       <div className="min-h-screen">
         <div className="flex items-center gap-4">
           <ReturnButton/>
-          <Heading>Подписки {user?.nickname && <span className={"text-primary"}>{user.nickname}</span>} </Heading>
+          <Heading>Подписчики {user?.nickname && <span className={"text-primary"}>{user.nickname}</span>} </Heading>
         </div>
         {error && <ErrorMessage>{error?.response?.data?.message}</ErrorMessage>}
         <div className="flex flex-col gap-2">
@@ -60,4 +61,4 @@ const UserSubscriptions = () => {
     </MainLayout>
   );
 };
-export default UserSubscriptions;
+export default UserSubscribers;

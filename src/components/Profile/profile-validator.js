@@ -12,5 +12,5 @@ export const profileSchema = yup.object({
     .max(32, "Максимальная длина - 32 символа"),
   country: yup.string().nullable().default(null),
   sex: yup.number().integer().min(0).max(3).default(0),
-  about: yup.string().trim().optional().max(300, "Максимальная длина - 300 символов"),
+  about: yup.string().trim().optional().max(300, "Максимальная длина - 300 символов").default(""),
 });

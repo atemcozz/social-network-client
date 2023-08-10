@@ -40,14 +40,14 @@ const Profile = () => {
     data: user,
     isLoading: userLoading,
     error: userError,
-  } = useQuery("fetchUserInfo", () =>
+  } = useQuery(["fetchUserInfo", id], () =>
     UserService.getUserByID(id).then((res) => res.data),
   );
   const {
     data: posts,
     isLoading: postsLoading,
     error: postsError,
-  } = useQuery("fetchUserPosts", () =>
+  } = useQuery(["fetchUserPosts", id], () =>
     PostService.getPostsByUserID(id).then((query) => query.data),
   );
   useEffect(() => {

@@ -13,6 +13,7 @@ import store from "../../store";
 import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
 import UserService from "../../services/UserService";
 import InfoLabel from "../UI/InfoLabel/InfoLabel";
+import Spinner from "../UI/Spinner/Spinner";
 
 const EmailChangeModal = ({onSubmit, onCancel}) => {
   const {register, handleSubmit, formState: {errors}} = useForm({
@@ -20,16 +21,32 @@ const EmailChangeModal = ({onSubmit, onCancel}) => {
   });
   const [serverError, setServerError] = useState();
   const [info, setInfo] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   function formSubmitAction(data) {
+    setLoading(true);
     UserService.updateUserEmail(data)
       .then(() => setInfo(true))
-      .catch(setServerError);
+      .catch(setServerError)
+      .finally(() => setLoading(false));
   }
 
   if (!store.user) {
     return null;
+  }
+  if (loading) {
+    return (
+      <Modal>
+        <Modal.Header>
+          Изменить адрес эл. почты
+        </Modal.Header>
+        <Modal.Content className={"max-w-md"}>
+          <div className={"flex justify-center items-center h-64"}>
+            <Spinner/>
+          </div>
+        </Modal.Content>
+      </Modal>);
   }
   return (
     <Modal onBgClick={onCancel}>

@@ -9,7 +9,7 @@ import classNames from "classnames";
 import {FaFlag, FaMapMarkerAlt, FaUser, FaUserCheck, FaUserPlus} from "react-icons/fa";
 import {useQuery} from "react-query";
 import UserService from "../../services/UserService";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import store from "../../store";
 import {countriesListRus} from "../../consts/countries";
 
@@ -17,6 +17,7 @@ const ProfileHeader = ({user}) => {
 
   const navigate = useNavigate();
   const [md, setMd] = useState();
+  const [subscribed, setSubscribed] = useState(user.subscribed);
   useEffect(() => {
     const handler = (e) => setMd(e.matches);
     window.matchMedia("(min-width: 768px)").addEventListener("change", handler);
@@ -26,6 +27,11 @@ const ProfileHeader = ({user}) => {
     return navigator.clipboard.writeText(
       `${window.location.protocol}//${window.location.host}/user/${user.id}`,
     );
+  }
+
+  function handleSubscribe() {
+    setSubscribed(s => !s);
+    return UserService.subscribeUser(user.id);
   }
 
   return (
@@ -94,27 +100,45 @@ const ProfileHeader = ({user}) => {
                     "постов",
                   )}</span>
                 </div>
-                <div className={"flex flex-col items-center p-1 flex-1  cursor-pointer"}>
-                  <span className={"text-xl font-bold"}>0</span>
+                <Link to={"subscriptions"} className={"flex flex-col items-center p-1 flex-1  cursor-pointer"}>
+                  <span className={"text-xl font-bold"}>{user.subscriptions_count}</span>
                   <span>подписок</span>
-                </div>
-                <div className={"flex flex-col items-center p-1 flex-1 cursor-pointer"}>
-                  <span className={"text-xl font-bold"}>0</span>
+                </Link>
+                <Link to={"subscribers"} className={"flex flex-col items-center p-1 flex-1 cursor-pointer"}>
+                  <span className={"text-xl font-bold"}>{user.subscribers_count}</span>
                   <span>подписчиков</span>
-                </div>
+                </Link>
               </div>
             </div>
             <div className={"flex gap-2 flex-wrap"}>
-              <Button
-                onClick={() => navigate("/edit_profile", {state: user})}
-                className={classNames(
-                  store?.user?.id === user.id ? "block" : "hidden",
-                  "text-xs md:text-base",
-                )}
-              >
-                <MdModeEditOutline size={"24px"}/>
-                Редактировать
-              </Button>
+              {store?.user?.id === user.id &&
+                <Button
+                  onClick={() => navigate("/edit_profile", {state: user})}
+                  className={classNames(
+                    "text-xs md:text-base",
+                  )}
+                >
+                  <MdModeEditOutline size={"24px"}/>
+                  Редактировать
+                </Button>}
+              {store?.user?.id !== user.id && store?.auth &&
+                <Button
+                  variant={subscribed ? "secondary" : "primary"}
+                  onClick={handleSubscribe}
+                  className={classNames(
+                    "text-xs md:text-base",
+                  )}
+                >
+                  {subscribed ? (
+                    <>
+                      <FaUserCheck size={"24px"}/> Вы подписаны
+                    </>
+                  ) : (
+                    <>
+                      <FaUserPlus size={"24px"}/> Подписаться
+                    </>)}
+                </Button>
+              }
             </div>
 
           </div>
@@ -124,23 +148,6 @@ const ProfileHeader = ({user}) => {
             {user.about}
           </div>}
 
-        {/*<Button*/}
-        {/*  variant={subscribed ? "secondary" : "primary"}*/}
-        {/*  onClick={handleSubscribe}*/}
-        {/*  className={classNames(*/}
-        {/*    isStoreUser ? "hidden" : "block",*/}
-        {/*    "text-xs md:text-base",*/}
-        {/*  )}*/}
-        {/*>*/}
-        {/*  {subscribed ? (*/}
-        {/*    <>*/}
-        {/*      <FaUserCheck size={"24px"}/> Вы подписаны*/}
-        {/*    </>*/}
-        {/*  ) : (*/}
-        {/*    <>*/}
-        {/*      <FaUserPlus size={"24px"}/> Подписаться*/}
-        {/*    </>)}*/}
-        {/*</Button>*/}
 
       </div>
     </div>

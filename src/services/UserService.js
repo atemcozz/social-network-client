@@ -19,7 +19,7 @@ export default class UserService {
   }
 
   static subscribeUser(id) {
-    return api.post(`/user/subscribe/${id}`);
+    return api.put(`/user/subscribe/${id}`);
   }
 
   static getUserSubscriptions(id) {

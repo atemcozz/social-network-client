@@ -11,20 +11,37 @@ import UserService from "../../services/UserService";
 import store from "../../store";
 import {useNavigate} from "react-router-dom";
 import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+import Spinner from "../UI/Spinner/Spinner";
 
 const PasswordChangeModal = ({onSubmit, onCancel}) => {
   const [serverError, setServerError] = useState();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {register, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(passwordSchema),
   });
 
   function formSubmitAction(data) {
+    setLoading(true);
     store.updateUserPassword(data)
       .then(() => navigate("/login"))
-      .catch(setServerError);
+      .catch(setServerError)
+      .finally(() => setLoading(false));
   }
 
+  if (loading) {
+    return (
+      <Modal>
+        <Modal.Header>
+          Изменить пароль
+        </Modal.Header>
+        <Modal.Content className={"max-w-md"}>
+          <div className={"flex justify-center items-center h-64"}>
+            <Spinner/>
+          </div>
+        </Modal.Content>
+      </Modal>);
+  }
   return (
     <Modal onBgClick={onCancel}>
       <Modal.Header>

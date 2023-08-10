@@ -9,6 +9,7 @@ import RecoverPassword from "../pages/RecoverPassword";
 import UserSubscriptions from "../pages/UserSubscriptions";
 import PostModalPage from "../pages/PostModalPage/PostModalPage";
 import PasswordRecoveryConfirm from "../pages/PasswordRecoryConfirm/PasswordRecoveryConfirm";
+import UserSubscribers from "../pages/UserSubscribers/UserSubscribers";
 
 export const publicRoutes = [
   {
@@ -29,7 +30,21 @@ export const publicRoutes = [
   },
   {
     path: "/user/:id",
-    element: <Profile/>,
+    children: [
+      {
+        index: true,
+        element: <Profile/>,
+      },
+      {
+        path: "subscriptions",
+        element: <UserSubscriptions/>,
+      },
+      {
+        path: "subscribers",
+        element: <UserSubscribers/>,
+      },
+    ],
+
   },
   {
     path: "/popular",
@@ -56,5 +71,4 @@ export const publicRoutes = [
       },
     ],
   },
-  {path: "/user/:id/subscriptions", element: <UserSubscriptions/>},
 ];
