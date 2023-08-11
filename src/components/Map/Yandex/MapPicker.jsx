@@ -7,43 +7,36 @@ const MapPicker = ({content, onChange}) => {
   const placemarkRef = useRef();
 
   return (
-    <YMaps
-      query={{
-        load: "package.full",
-        apikey: API_KEY,
-      }}
-    >
-      <div className={"flex justify-center"}>
-        <Map
-          defaultState={{center: [55.75, 37.57], zoom: 4}}
-          width={"100%"}
-          height={"540px"}
-          onClick={(event) => {
-            const coords = event.get("coords");
+    <div className={"flex justify-center"}>
+      <Map
+        defaultState={{center: [55.75, 37.57], zoom: 4}}
+        width={"100%"}
+        height={"540px"}
+        onClick={(event) => {
+          const coords = event.get("coords");
+          onChange(coords);
+        }}
+
+      >
+        <Placemark
+          instanceRef={placemarkRef}
+          onDragEnd={(event) => {
+            const coords = placemarkRef.current.geometry._coordinates;
             onChange(coords);
+
+          }}
+          geometry={content}
+          options={{
+            iconImageSize: [30, 30],
+            draggable: true,
+            preset: "islands#greenIcon",
+            hideIconOnBalloonOpen: false,
+            openEmptyHint: true,
           }}
 
-        >
-          <Placemark
-            instanceRef={placemarkRef}
-            onDragEnd={(event) => {
-              const coords = placemarkRef.current.geometry._coordinates;
-              onChange(coords);
-
-            }}
-            geometry={content}
-            options={{
-              iconImageSize: [30, 30],
-              draggable: true,
-              preset: "islands#greenIcon",
-              hideIconOnBalloonOpen: false,
-              openEmptyHint: true,
-            }}
-
-          />
-        </Map>
-      </div>
-    </YMaps>
+        />
+      </Map>
+    </div>
   );
 };
 

@@ -29,6 +29,9 @@ import {Image} from "../../components/RichTextEditor/Blocks/Image";
 import {Geo} from "../../components/RichTextEditor/Blocks/Geo";
 import CreatePostPreviewLoader from "../../components/CreatePostPreviewLoader/CreatePostPreviewLoader";
 import TagsCreateContainer from "../../components/TagsCreateContainer/TagsCreateContainer";
+import {GeoRoute} from "../../components/RichTextEditor/Blocks/GeoRoute";
+import {API_KEY} from "../../components/Map/Yandex/consts";
+import {YMaps} from "@pbe/react-yandex-maps";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -40,7 +43,7 @@ const CreatePost = () => {
   const navigate = useNavigate();
   const [preview, setPreview] = useState();
   const editor = useEditor({
-    useBlocks: [Text, Image, Geo],
+    useBlocks: [Text, Image, Geo, GeoRoute],
   });
 
   function sendPost() {
@@ -126,9 +129,14 @@ const CreatePost = () => {
           onChange={(e) => setTitle(e.target.value)}
           required
         />
-
-        <RichTextEditor editor={editor}/>
-
+        <YMaps
+          query={{
+            load: "package.full",
+            apikey: API_KEY,
+          }}
+        >
+          <RichTextEditor editor={editor}/>
+        </YMaps>
         <InfoLabel>
           Используйте блоки для добавления контента в статью
         </InfoLabel>
