@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const registerSchema = yup.object({
-  name: yup.string().lowercase().trim()
+  name: yup.string().trim()
     .min(2, "Минимальная длина - 2 символа")
     .max(32, "Максимальная длина - 32 символа"),
   surname: yup.string().trim()
