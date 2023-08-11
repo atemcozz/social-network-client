@@ -27,7 +27,7 @@ const Header = ({page}) => {
 
       <MobileSideMenu active={sideMenu} onCancel={() => setSideMenu(false)}/>
 
-      <div className="flex justify-between items-center mx-auto h-full max-w-screen-xl py-2 px-4 ">
+      <div className="flex justify-between items-center mx-auto h-full max-w-screen-xl py-2 md:px-4 ">
         <div className="flex items-center gap-3 w-64 mx-4">
           {!store.userLoading && (
             <Button

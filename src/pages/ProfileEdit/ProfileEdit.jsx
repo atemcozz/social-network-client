@@ -51,6 +51,7 @@ const ProfileEdit = () => {
     if (avatar) {
       data.avatar_url = avatar;
     }
+    setSaveLoading(true);
     store.updateUserProfile(store.user.id, data)
       .catch(setServerError)
       .finally(() => setSaveLoading(false));

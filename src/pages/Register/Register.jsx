@@ -78,12 +78,7 @@ const Login = () => {
               </Form.Field>
             </Form>
             <div className={"flex flex-col gap-2"}>
-              <Button onClick={handleSubmit(formSubmitAction)}>Войти</Button>
-              <Link to={"/recover"} className={""}>
-                <Button variant="outlined" className={"w-full"}>
-                  Забыли пароль?
-                </Button>
-              </Link>
+              <Button onClick={handleSubmit(formSubmitAction)}>Зарегистрироваться</Button>
             </div>
           </div>
         </div>
