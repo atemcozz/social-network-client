@@ -5,18 +5,19 @@ import {FaClock, FaFire, FaPlus, FaSearch, FaSignInAlt, FaSignOutAlt} from "reac
 import {IoTimer, IoCreate} from "react-icons/io5";
 import {HiFire} from "react-icons/hi";
 
-import {MdDarkMode, MdSearch} from "react-icons/md";
+import {MdCategory, MdDarkMode, MdSearch} from "react-icons/md";
 
 import Toggle from "../Toggle/Toggle";
 import {ThemeContext} from "../../../providers/ThemeProvider";
 
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {observer} from "mobx-react";
 import NavLink from "../NavLink/NavLink";
 import {useState} from "react";
 import {useEffect} from "react";
 import store from "../../../store";
 import {memo} from "react";
+import Button from "../Button/Button";
 
 const NavActions = () => {
 
@@ -69,6 +70,11 @@ const NavActions = () => {
         <FaFire size={"32px"}/>
         Популярное
       </NavLink>
+      {store.auth &&
+        <NavLink to={"/feed"} active={route?.startsWith("/feed")}>
+          <MdCategory size={"32px"}/> Подписки
+        </NavLink>
+      }
       <NavLink to={"/search"} active={route?.startsWith("/search")}>
         <FaSearch size={"32px"}/>
         Поиск

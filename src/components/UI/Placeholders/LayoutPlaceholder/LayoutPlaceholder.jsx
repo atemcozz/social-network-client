@@ -7,7 +7,7 @@ const LayoutPlaceholder = () => {
   return (
     <div className="App bg-back-darker text-text-base">
       <HeaderPlaceholder/>
-      <div className={"py-5 md:px-6 px-4"}>
+      <div className={"py-5 md:px-6 px-4 mt-16"}>
         <div className="max-w-screen-lg mx-auto">
           <div className="flex">
             <main className="w-full lg:max-w-2xl mx-auto flex flex-col gap-4">

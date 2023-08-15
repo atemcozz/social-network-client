@@ -2,6 +2,7 @@ import CreatePost from "../pages/CreatePost";
 import ProfileEdit from "../pages/ProfileEdit";
 import Bookmarks from "../pages/Bookmarks";
 import RequireAuth from "./RequireAuth";
+import Feed from "../pages/Feed/Feed";
 
 export const privateRoutes = [
   {
@@ -15,5 +16,9 @@ export const privateRoutes = [
   {
     path: "/saved",
     element: <RequireAuth> <Bookmarks/> </RequireAuth>,
+  },
+  {
+    path: "/feed",
+    element: <RequireAuth> <Feed/> </RequireAuth>,
   },
 ];

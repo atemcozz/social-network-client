@@ -23,7 +23,6 @@ function App() {
     <>
       {store.userLoading ?
         <LayoutPlaceholder/> : <RouterProvider router={appRouter}/>}
-
     </>
   );
 }

@@ -11,6 +11,12 @@ export default class PostService {
     });
   }
 
+  static getFeedPosts(options) {
+    return api.get(`/post/feed`, {
+      params: options,
+    });
+  }
+
   static getPostByID(id) {
     return api.get(`/post/${id}`);
   }

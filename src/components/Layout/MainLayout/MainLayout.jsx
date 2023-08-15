@@ -7,7 +7,7 @@ const MainLayout = ({page, children}) => {
   return (
     <div className="App bg-back-darker text-text-base">
       <Header page={page}/>
-      <div className={"flex"}>
+      <div className={"flex mt-16"}>
         <aside className={"hidden lg:flex flex-1"}>
         </aside>
         <main className="w-full lg:max-w-screen-md py-5 px-4">{children}</main>

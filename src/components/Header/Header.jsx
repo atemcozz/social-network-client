@@ -6,6 +6,7 @@ import {Transition} from "@headlessui/react";
 import {Link, useNavigate} from "react-router-dom";
 
 import {FaSearch, FaPlus, FaFire, FaClock, FaAngleDown} from "react-icons/fa";
+import {MdCategory} from "react-icons/md";
 import {SiFalcon} from "react-icons/si";
 import store from "../../store";
 import {memo} from "react";
@@ -17,13 +18,14 @@ import LoginModal from "../../features/auth/login/LoginModal";
 import RegisterModal from "../../features/auth/register/RegisterModal";
 import AuthModal from "../../features/auth/AuthModal";
 import MobileSideMenu from "./MobileSideMenu";
+import * as PropTypes from "prop-types";
 
 const Header = ({page}) => {
 
 
   const [sideMenu, setSideMenu] = useState(false);
   return (
-    <header className="bg-back shadow-lg w-full sticky h-16 top-0 left-0 z-20">
+    <header className="bg-back shadow-lg w-full fixed h-16 top-0 left-0 z-20">
 
       <MobileSideMenu active={sideMenu} onCancel={() => setSideMenu(false)}/>
 
@@ -58,6 +60,12 @@ const Header = ({page}) => {
               <FaClock size={"24px"}/> Новое
             </Button>
           </Link>
+          {store.auth && <Link to={"/feed"}>
+            <Button variant={page === "feed" ? "primary" : "secondary"}>
+              <MdCategory size={"24px"}/> Подписки
+            </Button>
+          </Link>}
+
         </div>
         <div className={"hidden md:flex gap-2 items-center w-64 justify-center mx-4"}>
           {store.auth &&

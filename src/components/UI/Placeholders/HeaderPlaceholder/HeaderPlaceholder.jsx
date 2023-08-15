@@ -7,7 +7,7 @@ const HeaderPlaceholder = ({page}) => {
 
 
   return (
-    <header className="bg-back shadow-lg w-full sticky h-16 top-0 left-0 z-20">
+    <header className="bg-back shadow-lg w-full fixed h-16 top-0 left-0 z-20">
 
       <div className="flex justify-between items-center mx-auto h-full max-w-screen-xl py-2 ">
         <div className="flex items-center gap-3 w-64 mx-4">
