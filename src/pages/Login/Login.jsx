@@ -1,17 +1,17 @@
 import React, {useState} from "react";
-import Button from "../../components/UI/Button/Button";
-import Input from "../../components/UI/Input/Input";
+import Button from "../../ui/Button/Button";
+import Input from "../../ui/Input/Input";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
-import Spinner from "../../components/UI/Spinner/Spinner";
+import Spinner from "../../ui/Spinner/Spinner";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import store from "../../store";
-import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
 import {Link} from "react-router-dom";
-import Heading from "../../components/UI/Heading";
-import Form from "../../components/UI/Form";
+import Heading from "../../ui/Heading";
+import Form from "../../ui/Form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {loginSchema} from "../../features/auth/login/login-validator";
+import {loginSchema} from "../../features/Auth";
 import AuthLayout from "../../components/Layout/AuthLayout/AuthLayout";
 
 const Login = () => {

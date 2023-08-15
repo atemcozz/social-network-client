@@ -2,26 +2,24 @@ import React, {useState, useRef} from "react";
 import {BsArrowLeft} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
 
-import Button from "../../components/UI/Button/Button";
+import Button from "../../ui/Button/Button";
 
-import UserService from "../../services/UserService";
 
 import {MdModeEditOutline} from "react-icons/md";
-import ProfileEditForm from "../../components/Profile/ProfileEditForm";
-import Spinner from "../../components/UI/Spinner/Spinner";
-import Avatar from "../../components/UI/Avatar/Avatar";
+import {ProfileEditForm} from "../../features/User";
+import Spinner from "../../ui/Spinner/Spinner";
+import Avatar from "../../ui/Avatar/Avatar";
 import {useEffect} from "react";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 
-import {useQuery} from "react-query";
-import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
-import CloudinaryService from "../../services/CloudinaryService";
 
-import Heading from "../../components/UI/Heading";
-import {getError} from "../../utils/locales";
-import InfoLabel from "../../components/UI/InfoLabel/InfoLabel";
+import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
+import CloudinaryService from "../../api/cloudinary/CloudinaryService";
 
-import SecurityForm from "../../components/Profile/SecurityForm";
+import Heading from "../../ui/Heading";
+import InfoLabel from "../../ui/InfoLabel/InfoLabel";
+
+import {SecurityForm} from "../../features/User";
 import store from "../../store";
 
 const ProfileEdit = () => {

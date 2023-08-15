@@ -1,9 +1,6 @@
 import {makeAutoObservable, observable} from "mobx";
-import AuthService from "../services/AuthService";
-import axios from "axios";
-import {API_URL} from "../api/server";
-import {getError} from "../utils/locales";
-import UserService from "../services/UserService";
+import {AuthService} from "../features/Auth";
+import {UserService} from "../features/User";
 
 class Index {
   user = {};

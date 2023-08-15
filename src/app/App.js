@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {observer} from "mobx-react";
-import LayoutPlaceholder from "../components/UI/Placeholders/LayoutPlaceholder/LayoutPlaceholder";
+import LayoutPlaceholder from "../ui/Placeholders/LayoutPlaceholder/LayoutPlaceholder";
 import {RouterProvider} from "react-router-dom";
 import {appRouter} from "../routes/router";
 import store from "../store";

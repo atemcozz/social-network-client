@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import Input from "../UI/Input/Input";
-import Button from "../UI/Button/Button";
+import Input from "../../ui/Input/Input";
+import Button from "../../ui/Button/Button";
 import {MdAdd} from "react-icons/md";
-import Tag from "../UI/Tag/Tag";
+import Tag from "../../ui/Tag/Tag";
 
 const TagsCreateContainer = ({tags, onAdd, onRemove}) => {
   const [tagInput, setTagInput] = useState("");

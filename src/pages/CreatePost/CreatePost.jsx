@@ -1,8 +1,8 @@
 import React from "react";
-import TextArea from "../../components/UI/TextArea/TextArea";
-import Button from "../../components/UI/Button/Button";
-import Input from "../../components/UI/Input/Input";
-import Tag from "../../components/UI/Tag/Tag";
+import TextArea from "../../ui/TextArea/TextArea";
+import Button from "../../ui/Button/Button";
+import Input from "../../ui/Input/Input";
+import Tag from "../../ui/Tag/Tag";
 import {
   MdAddPhotoAlternate,
   MdVideoCall,
@@ -12,25 +12,23 @@ import {
 } from "react-icons/md";
 import {useRef} from "react";
 import {useState} from "react";
-import PostService from "../../services/PostService";
+import {PostService} from "../../features/Post";
 import {useNavigate} from "react-router-dom";
-import Toggle from "../../components/UI/Toggle/Toggle";
-import Spinner from "../../components/UI/Spinner/Spinner";
-import MapPicker from "../../components/Map/MapPicker/MapPicker";
-import InfoLabel from "../../components/UI/InfoLabel/InfoLabel";
+import Toggle from "../../ui/Toggle/Toggle";
+import Spinner from "../../ui/Spinner/Spinner";
+import InfoLabel from "../../ui/InfoLabel/InfoLabel";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
-import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
-import CloudinaryService from "../../services/CloudinaryService";
-import Modal from "../../components/UI/Modal/Modal";
-import RichTextEditor from "../../components/RichTextEditor/RichTextEditor";
-import useEditor from "../../components/RichTextEditor/hooks/useEditor";
-import {Text} from "../../components/RichTextEditor/Blocks/Text";
-import {Image} from "../../components/RichTextEditor/Blocks/Image";
-import {Geo} from "../../components/RichTextEditor/Blocks/Geo";
-import CreatePostPreviewLoader from "../../components/CreatePostPreviewLoader/CreatePostPreviewLoader";
+import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
+import CloudinaryService from "../../api/cloudinary/CloudinaryService";
+import {RichTextEditor} from "../../features/RichTextEditor";
+import useEditor from "../../features/RichTextEditor/hooks/useEditor";
+import {Text} from "../../features/RichTextEditor";
+import {Image} from "../../features/RichTextEditor";
+import {Geo} from "../../features/RichTextEditor";
+import {CreatePostPreviewLoader} from "../../features/Post";
 import TagsCreateContainer from "../../components/TagsCreateContainer/TagsCreateContainer";
-import {GeoRoute} from "../../components/RichTextEditor/Blocks/GeoRoute";
-import {API_KEY} from "../../components/Map/Yandex/consts";
+import {GeoRoute} from "../../features/RichTextEditor";
+import {API_KEY} from "../../features/Map/consts/consts";
 import {YMaps} from "@pbe/react-yandex-maps";
 
 const CreatePost = () => {

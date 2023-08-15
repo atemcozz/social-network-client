@@ -2,35 +2,18 @@ import React from "react";
 import {useNavigate, useParams} from "react-router-dom";
 
 import {useQuery} from "react-query";
-import PostService from "../../services/PostService";
+import {PostService} from "../../features/Post";
 import {useState, useEffect} from "react";
-import {
-  MdContentCopy,
-  MdModeEditOutline,
-  MdGridOn,
-  MdMenu,
-} from "react-icons/md";
-import {FaUserPlus, FaUserCheck} from "react-icons/fa";
-import DotsDropdown from "../../components/UI/Dropdown/DotsDropdown/DotsDropdown";
 
-import UserService from "../../services/UserService";
-import Button from "../../components/UI/Button/Button";
-import Avatar from "../../components/UI/Avatar/Avatar";
 
-import Tabs from "../../components/UI/Tabs/Tabs";
-import Gallery from "../../components/Gallery/Gallery";
-import PostList from "../../components/PostList/PostList";
-import {Link} from "react-router-dom";
+import {UserService} from "../../features/User";
+
+import {PostList} from "../../features/Post";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
-import store from "../../store";
-import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
-import UserPlaceholder from "../../components/UI/Placeholders/UserPlaceholder/UserPlaceholder";
-import classNames from "classnames";
-import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
-import Heading from "../../components/UI/Heading";
-import getInflectedNoun from "../../utils/getInflectedNoun";
-import ProfileGallery from "../../components/ProfileGallery/ProfileGallery";
-import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
+import {ProfileHeader} from "../../features/User";
+import UserPlaceholder from "../../ui/Placeholders/UserPlaceholder/UserPlaceholder";
+import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
+import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
 
 const Profile = () => {
 

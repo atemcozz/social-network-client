@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import NavLink from "../../UI/NavLink/NavLink";
+import NavLink from "../../../ui/NavLink/NavLink";
 import {FaClock, FaFire, FaSearch} from "react-icons/fa";
 import {Link, useLocation} from "react-router-dom";
-import Button from "../../UI/Button/Button";
+import Button from "../../../ui/Button/Button";
 
 const SideMenu = () => {
   const [route, setRoute] = useState();

@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from "../UI/Button/Button";
+import Button from "../../ui/Button/Button";
 import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
 import {Link} from "react-router-dom";
 

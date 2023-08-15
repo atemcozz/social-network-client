@@ -7,7 +7,6 @@ import FullPost from "../pages/FullPost";
 import Search from "../pages/Search";
 import RecoverPassword from "../pages/RecoverPassword";
 import UserSubscriptions from "../pages/UserSubscriptions";
-import PostModalPage from "../pages/PostModalPage/PostModalPage";
 import PasswordRecoveryConfirm from "../pages/PasswordRecoryConfirm/PasswordRecoveryConfirm";
 import UserSubscribers from "../pages/UserSubscribers/UserSubscribers";
 

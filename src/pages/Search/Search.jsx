@@ -1,20 +1,16 @@
 import React, {useEffect} from "react";
 
-import PostService from "../../services/PostService";
+import {PostService} from "../../features/Post";
 
-import PostList from "../../components/PostList/PostList";
+import {PostList} from "../../features/Post";
 
 import {useState} from "react";
-import Input from "../../components/UI/Input/Input";
-import Button from "../../components/UI/Button/Button";
-import Tag from "../../components/UI/Tag/Tag";
-import {MdAdd} from "react-icons/md";
-
+import Button from "../../ui/Button/Button";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
-import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
+import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
 import {useQuery} from "react-query";
-import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
-import Heading from "../../components/UI/Heading";
+import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
+import Heading from "../../ui/Heading";
 import TagsCreateContainer from "../../components/TagsCreateContainer/TagsCreateContainer";
 import {useSearchParams} from "react-router-dom";
 import Paginator from "../../components/Paginator/Paginator";

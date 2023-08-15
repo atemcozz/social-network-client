@@ -1,12 +1,12 @@
 import React from "react";
 
-import PostService from "../../services/PostService";
-import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
-import PostList from "../../components/PostList/PostList";
-import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
+import {PostService} from "../../features/Post";
+import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
+import {PostList} from "../../features/Post";
+import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import {useQuery} from "react-query";
-import Heading from "../../components/UI/Heading";
+import Heading from "../../ui/Heading";
 import {useLocation, useSearchParams} from "react-router-dom";
 import Paginator from "../../components/Paginator/Paginator";
 import store from "../../store";

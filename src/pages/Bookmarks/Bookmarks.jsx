@@ -2,12 +2,12 @@ import React from "react";
 
 import {useQuery} from "react-query";
 
-import PostService from "../../services/PostService";
-import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
-import PostList from "../../components/PostList/PostList";
+import {PostService} from "../../features/Post";
+import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
+import {PostList} from "../../features/Post";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
-import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
-import Heading from "../../components/UI/Heading";
+import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
+import Heading from "../../ui/Heading";
 
 const Bookmarks = () => {
   const {

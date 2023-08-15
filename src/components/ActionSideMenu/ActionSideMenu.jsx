@@ -1,6 +1,6 @@
 import React from "react";
 import {memo} from "react";
-import NavActions from "../UI/Sidemenu/NavActions";
+import NavActions from "../../ui/Sidemenu/NavActions";
 
 const ActionSideMenu = () => {
   return (

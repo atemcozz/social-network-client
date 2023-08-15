@@ -1,22 +1,21 @@
 import React from "react";
 
-import PostService from "../../services/PostService";
+import {PostService} from "../../features/Post";
 import {useParams} from "react-router-dom";
 
-import Spinner from "../../components/UI/Spinner/Spinner";
-import Post from "../../components/Post/Post";
-import PostPlaceholder from "../../components/UI/Placeholders/PostPlaceholder/PostPlaceholder";
-import CommentSection from "../../components/CommentSection/CommentSection";
+import Spinner from "../../ui/Spinner/Spinner";
+import {Post} from "../../features/Post";
+import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
+import {CommentSection} from "../../features/Comment";
 import {useState} from "react";
 import {useEffect} from "react";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import store from "../../store";
 import {useQuery} from "react-query";
-import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
-import Heading from "../../components/UI/Heading";
-import PostContainer from "../../features/post/PostContainer";
-import LinePlaceholder from "../../components/UI/Placeholders/LinePlaceholder/LinePlaceholder";
-import CommentService from "../../services/CommentService";
+import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
+import Heading from "../../ui/Heading";
+import {PostContainer} from "../../features/Post";
+import {CommentService} from "../../features/Comment";
 
 const FullPost = () => {
 

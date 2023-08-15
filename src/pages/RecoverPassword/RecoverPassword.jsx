@@ -1,18 +1,17 @@
 import React, {useState} from "react";
-import Button from "../../components/UI/Button/Button";
-import Input from "../../components/UI/Input/Input";
+import Button from "../../ui/Button/Button";
+import Input from "../../ui/Input/Input";
 import {useNavigate} from "react-router-dom";
-import Spinner from "../../components/UI/Spinner/Spinner";
-import MainLayout from "../../components/Layout/MainLayout/MainLayout";
+import Spinner from "../../ui/Spinner/Spinner";
 
-import ErrorMessage from "../../components/UI/ErrorMessage/ErrorMessage";
-import InfoLabel from "../../components/UI/InfoLabel/InfoLabel";
-import AuthService from "../../services/AuthService";
-import Heading from "../../components/UI/Heading";
+import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
+import InfoLabel from "../../ui/InfoLabel/InfoLabel";
+import {AuthService} from "../../features/Auth";
+import Heading from "../../ui/Heading";
 import AuthLayout from "../../components/Layout/AuthLayout/AuthLayout";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import Form from "../../components/UI/Form";
+import Form from "../../ui/Form";
 
 const RecoverPassword = () => {
   const [serverError, setServerError] = useState();

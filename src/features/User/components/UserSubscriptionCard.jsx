@@ -1,0 +1,54 @@
+import React from "react";
+import Button from "../../../ui/Button/Button";
+import classNames from "classnames";
+import {FaUserCheck, FaUserPlus} from "react-icons/fa";
+import Avatar from "../../../ui/Avatar/Avatar";
+import {Link} from "react-router-dom";
+import {UserService} from "../api/UserService";
+import {useState} from "react";
+import store from "../../../store";
+
+export const UserSubscriptionCard = ({user}) => {
+  const [subscribed, setSubscribed] = useState(user.subscribed);
+
+  function handleSubscribe() {
+    UserService.subscribeUser(user.id)
+      .then(() => setSubscribed((s) => !s))
+      .catch(console.log);
+  }
+
+  return (
+    <div className="rounded-lg bg-back p-2 flex justify-between items-center max-w-full">
+      <div className="flex items-center gap-2">
+        <Link to={`/user/${user.id}`}>
+          <Avatar src={user.avatar_url} size="normal"/>
+        </Link>
+        <Link to={`/user/${user.id}`}>
+          {user.nickname}
+        </Link>
+      </div>
+      {store?.auth && store?.user?.id !== user.id &&
+        <>
+
+          {subscribed ? (
+            <Button
+              variant={"secondary"}
+              onClick={handleSubscribe}
+              className={classNames("text-xs md:text-base")}
+            >
+              <FaUserCheck size={"24px"}/> Вы подписаны
+            </Button>
+          ) : (
+            <Button
+              variant={"primary"}
+              onClick={handleSubscribe}
+              className={classNames("text-xs md:text-base")}
+            >
+              <FaUserPlus size={"24px"}/> Подписаться
+            </Button>
+          )}
+        </>
+      }
+    </div>
+  );
+};

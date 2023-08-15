@@ -1,7 +1,7 @@
 import CreatePost from "../pages/CreatePost";
 import ProfileEdit from "../pages/ProfileEdit";
 import Bookmarks from "../pages/Bookmarks";
-import RequireAuth from "./RequireAuth";
+import {RequireAuth} from "../features/Auth";
 import Feed from "../pages/Feed/Feed";
 
 export const privateRoutes = [
