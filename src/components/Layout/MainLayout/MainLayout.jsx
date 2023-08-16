@@ -13,8 +13,6 @@ const MainLayout = ({page, children}) => {
         <main className="w-full lg:max-w-screen-md py-5 px-4">{children}</main>
         <aside className={"hidden lg:flex flex-1"}></aside>
       </div>
-
-
     </div>
   );
 };

@@ -3,27 +3,15 @@ import {observer} from "mobx-react";
 import LayoutPlaceholder from "../ui/Placeholders/LayoutPlaceholder/LayoutPlaceholder";
 import {RouterProvider} from "react-router-dom";
 import {appRouter} from "../routes/router";
-import store from "../store";
+import {useAuthorization} from "../hooks/useAuthorization";
 
 function App() {
-  useEffect(() => {
-    if (localStorage.getItem("refresh_token")) {
-      store.verifyAuth();
-    } else store.setUserLoading(false);
-  }, [store]);
-
-  if (process.env.REACT_APP_TECHNICAL_WORKS === "1") {
-    return (
-      <div className="absolute inset-0 bg-primary text-text-base flex justify-center items-center text-xl">
-        На сайте ведутся технические работы
-      </div>
-    );
+  const [userLoading] = useAuthorization();
+  if (userLoading) {
+    return <LayoutPlaceholder/>;
   }
   return (
-    <>
-      {store.userLoading ?
-        <LayoutPlaceholder/> : <RouterProvider router={appRouter}/>}
-    </>
+    <RouterProvider router={appRouter}/>
   );
 }
 
