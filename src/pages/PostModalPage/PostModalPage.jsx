@@ -1,9 +1,4 @@
-import React, {useState} from "react";
-
-import {PostService} from "../../features/Post";
-import {useQuery} from "react-query";
-import {Navigate, useParams} from "react-router-dom";
-import New from "../New";
+import React from "react";
 
 const PostModalPage = () => {
 

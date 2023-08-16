@@ -1,13 +1,14 @@
 import classNames from "classnames";
 import React from "react";
 import styles from "../common/placeholder.module.css";
-const TagPlaceholder = ({ className }) => {
+
+const TagPlaceholder = ({className}) => {
   return (
     <div
       className={classNames(
         "rounded-full shadow-md w-16 h-5",
         styles.placeholder,
-        className
+        className,
       )}
     ></div>
   );

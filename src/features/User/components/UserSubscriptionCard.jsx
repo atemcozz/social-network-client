@@ -1,11 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import Button from "../../../ui/Button/Button";
 import classNames from "classnames";
 import {FaUserCheck, FaUserPlus} from "react-icons/fa";
 import Avatar from "../../../ui/Avatar/Avatar";
 import {Link} from "react-router-dom";
 import {UserService} from "../api/UserService";
-import {useState} from "react";
 import store from "../../../store";
 
 export const UserSubscriptionCard = ({user}) => {

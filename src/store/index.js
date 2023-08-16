@@ -1,4 +1,4 @@
-import {makeAutoObservable, observable} from "mobx";
+import {makeAutoObservable} from "mobx";
 import {AuthService} from "../features/Auth";
 import {UserService} from "../features/User";
 

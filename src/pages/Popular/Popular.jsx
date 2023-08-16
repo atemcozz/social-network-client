@@ -1,9 +1,6 @@
 import React from "react";
-
-import Spinner from "../../ui/Spinner/Spinner";
-import {PostService} from "../../features/Post";
+import {PostList, PostService} from "../../features/Post";
 import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
-import {PostList} from "../../features/Post";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import {useQuery} from "react-query";
 import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";

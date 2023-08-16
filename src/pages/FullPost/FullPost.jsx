@@ -1,21 +1,15 @@
 import React from "react";
 
-import {PostService} from "../../features/Post";
+import {Post, PostContainer, PostService} from "../../features/Post";
 import {useParams} from "react-router-dom";
 
 import Spinner from "../../ui/Spinner/Spinner";
-import {Post} from "../../features/Post";
 import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
-import {CommentSection} from "../../features/Comment";
-import {useState} from "react";
-import {useEffect} from "react";
+import {CommentSection, CommentService} from "../../features/Comment";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
-import store from "../../store";
 import {useQuery} from "react-query";
 import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
 import Heading from "../../ui/Heading";
-import {PostContainer} from "../../features/Post";
-import {CommentService} from "../../features/Comment";
 
 const FullPost = () => {
 

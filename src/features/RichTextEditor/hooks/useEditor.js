@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Editor} from "../lib/Editor";
+import {Editor} from "../lib";
 import {useForceUpdate} from "./useForceUpdate";
 
 const useEditor = (options) => {

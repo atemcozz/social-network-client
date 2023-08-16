@@ -1,8 +1,4 @@
-import React, {forwardRef, useRef, useState} from 'react';
-import useOutsideClick from "../../hooks/useOutsideClick";
-import Button from "../Button/Button";
-import Avatar from "../Avatar/Avatar";
-import {FaAngleDown} from "react-icons/fa";
+import React, {forwardRef} from 'react';
 
 const Menu = ({active, children}) => {
 

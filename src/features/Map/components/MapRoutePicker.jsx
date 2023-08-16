@@ -1,6 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
-import {API_KEY} from "../consts/consts";
+import React, {useEffect, useRef} from 'react';
+import {Map} from "@pbe/react-yandex-maps";
 import Button from "../../../ui/Button/Button";
 
 

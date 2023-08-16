@@ -1,6 +1,5 @@
 import React from "react";
 import {SiFalcon} from "react-icons/si";
-import LinePlaceholder from "../LinePlaceholder/LinePlaceholder";
 import ButtonPlaceholder from "../ButonPlaceholder/ButtonPlaceholder";
 
 const HeaderPlaceholder = ({page}) => {

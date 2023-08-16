@@ -1,5 +1,4 @@
-import api, {API_URL} from "../../../api/server";
-import axios from "axios";
+import api from "../../../api/server";
 
 export class AuthService {
   static refresh(data) {

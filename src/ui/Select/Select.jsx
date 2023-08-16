@@ -1,7 +1,5 @@
 import classNames from "classnames";
-import React from "react";
-import {useState, useRef, useEffect} from "react";
-import {BsThreeDotsVertical} from "react-icons/bs";
+import React, {useRef, useState} from "react";
 import {MdArrowDropDown} from "react-icons/md";
 import useOutsideClick from "../../hooks/useOutsideClick";
 

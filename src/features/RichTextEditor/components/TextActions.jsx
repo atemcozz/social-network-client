@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-const TextActions = ({ editor }) => {
-  
+import React, {useEffect, useState} from "react";
+
+const TextActions = ({editor}) => {
+
   const [active, setActive] = useState([]);
 
   function updateActivebuttons() {
@@ -15,11 +16,11 @@ const TextActions = ({ editor }) => {
   }
 
   useEffect(() => {
-   if(editor) document.addEventListener("selectionchange", updateActivebuttons);
+    if (editor) document.addEventListener("selectionchange", updateActivebuttons);
   }, []);
-  if(!editor) return null;
+  if (!editor) return null;
   return (
-    
+
     <div style={{marginBottom: "8px"}}>
       <div>
         <button
@@ -38,7 +39,7 @@ const TextActions = ({ editor }) => {
             editor.format("italic");
             updateActivebuttons();
           }}
-    
+
         >
           italic
         </button>

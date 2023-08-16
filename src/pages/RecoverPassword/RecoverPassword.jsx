@@ -10,7 +10,6 @@ import {AuthService} from "../../features/Auth";
 import Heading from "../../ui/Heading";
 import AuthLayout from "../../components/Layout/AuthLayout/AuthLayout";
 import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
 import Form from "../../ui/Form";
 
 const RecoverPassword = () => {

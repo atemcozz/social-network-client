@@ -1,16 +1,11 @@
 import React from "react";
-
-import Spinner from "../../ui/Spinner/Spinner";
 import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import {useQuery} from "react-query";
 import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
 import Heading from "../../ui/Heading";
-import {UserService} from "../../features/User";
-import {BsArrowLeft} from "react-icons/bs";
-import {useNavigate} from "react-router-dom";
-import {useParams} from "react-router-dom";
-import {UserSubscriptionCard} from "../../features/User";
+import {UserService, UserSubscriptionCard} from "../../features/User";
+import {useNavigate, useParams} from "react-router-dom";
 import ReturnButton from "../../components/ReturnButton/ReturnButton";
 
 const UserSubscriptions = () => {

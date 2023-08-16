@@ -1,13 +1,8 @@
 import ContentEditable from "react-contenteditable";
-import Button from "../../../../ui/Button/Button";
-import {MdDelete} from "react-icons/md";
-import {FaArrowUp, FaArrowDown} from "react-icons/fa";
 import sanitize from "sanitize-html";
 import sanitizeSettings from "../../consts/sanitizeSettings";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import BlockEditActions from "../BlockEditActions";
-import {useForceUpdate} from "../../hooks/useForceUpdate";
-import useOutsideClick from "../../../../hooks/useOutsideClick";
 
 export const TextBlock = ({
                             children,

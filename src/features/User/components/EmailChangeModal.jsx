@@ -8,7 +8,6 @@ import {emailSchema} from "../validators/email-validator";
 import Modal from "../../../ui/Modal/Modal";
 import {GrClose} from "react-icons/gr";
 import {useNavigate} from "react-router-dom";
-import {passwordSchema} from "../validators/pass-validator";
 import store from "../../../store";
 import ErrorMessage from "../../../ui/ErrorMessage/ErrorMessage";
 import {UserService} from "../api/UserService";

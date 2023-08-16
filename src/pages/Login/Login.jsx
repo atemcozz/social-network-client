@@ -1,13 +1,11 @@
 import React, {useState} from "react";
 import Button from "../../ui/Button/Button";
 import Input from "../../ui/Input/Input";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import Spinner from "../../ui/Spinner/Spinner";
-import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import store from "../../store";
 import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
-import {Link} from "react-router-dom";
 import Heading from "../../ui/Heading";
 import Form from "../../ui/Form";
 import {yupResolver} from "@hookform/resolvers/yup";

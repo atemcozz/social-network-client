@@ -29,4 +29,15 @@ export class UserService {
   static getUserSubscribers(id) {
     return api.get(`/user/subscribers/${id}`);
   }
+
+  static getUnreadNotificationsCount() {
+    return api.get("/user/notifications_count");
+  }
+
+  static getUserNotifications(params) {
+    return api.get("/user/notifications", {
+      params,
+    });
+
+  }
 }

@@ -1,7 +1,4 @@
 import {Block} from "./Block";
-import TextBlock from "../../components/Blocks/TextBlock";
-import sanitize from "sanitize-html";
-import sanitizeSettings from "../../consts/sanitizeSettings";
 
 
 import {GeoRouteBlock} from "../../components/Blocks";

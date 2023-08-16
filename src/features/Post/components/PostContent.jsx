@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from "../../../ui/Image/Image";
-import {MapView} from "../../Map";
-import {MapRouteView} from "../../Map";
+import {MapRouteView, MapView} from "../../Map";
 import {API_KEY} from "../../Map/consts/consts";
 import {YMaps} from "@pbe/react-yandex-maps";
 

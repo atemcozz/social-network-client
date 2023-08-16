@@ -1,12 +1,10 @@
 import React, {useRef, useState} from 'react';
 import Button from "../../../ui/Button/Button";
 import Avatar from "../../../ui/Avatar/Avatar";
-import {FaAngleDown} from "react-icons/fa";
+import {FaAngleDown, FaSignOutAlt} from "react-icons/fa";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import Menu from "../../../ui/Menu/Menu";
-import {BsFillPersonFill} from "react-icons/bs";
-import {BsBookmarkFill} from "react-icons/bs";
-import {FaSignOutAlt} from "react-icons/fa";
+import {BsBookmarkFill, BsFillPersonFill} from "react-icons/bs";
 import {MdDarkMode} from "react-icons/md";
 import Toggle from "../../../ui/Toggle/Toggle";
 import useTheme from "../../../hooks/useTheme";
@@ -21,7 +19,7 @@ export const ProfileHeaderDropdown = ({user}) => {
   useOutsideClick(ref, () => setDropdown(false));
 
   function handleThemeButton() {
-    themeToggleRef.current.click();
+    themeToggleRef.current?.click();
   }
 
   if (!user) return null;

@@ -1,12 +1,11 @@
-import React, {useMemo} from "react";
+import React, {createContext, useMemo} from "react";
 import {CommentInput} from "./CommentInput";
-import {createContext} from "react";
 import ErrorMessage from "../../../ui/ErrorMessage/ErrorMessage";
 import store from "../../../store";
 import CommentList from "./CommentList";
 import {CommentService} from "../api/CommentService";
 
-export const CommentsContext = createContext();
+export const CommentsContext = createContext(null);
 export const CommentSection = ({comments, error, onSend, onDelete}) => {
 
   const commentsByParentID = useMemo(() => {

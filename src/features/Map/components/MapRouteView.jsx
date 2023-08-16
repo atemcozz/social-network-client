@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
+import React, {useRef} from 'react';
+import {Map} from "@pbe/react-yandex-maps";
 
 
 export const MapRouteView = ({locations}) => {

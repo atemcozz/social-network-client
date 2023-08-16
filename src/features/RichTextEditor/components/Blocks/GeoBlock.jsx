@@ -1,8 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import InfoLabel from "../../../../ui/InfoLabel/InfoLabel";
-import Button from "../../../../ui/Button/Button";
-import {MdDelete} from "react-icons/md";
-import {FaArrowUp, FaArrowDown} from "react-icons/fa";
 import BlockEditActions from "../BlockEditActions";
 import {MapPicker} from "../../../Map";
 

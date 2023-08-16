@@ -8,7 +8,7 @@ import {countriesListRus} from "../../../consts/countries";
 import Form from "../../../ui/Form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {profileSchema} from "../validators/profile-validator";
-import {useForm, Controller} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 
 
 const sexOptions = [

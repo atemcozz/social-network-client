@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react";
+import React, {useEffect, useState} from "react";
 import {BsArrowLeft} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
 
@@ -6,10 +6,9 @@ import Button from "../../ui/Button/Button";
 
 
 import {MdModeEditOutline} from "react-icons/md";
-import {ProfileEditForm} from "../../features/User";
+import {ProfileEditForm, SecurityForm} from "../../features/User";
 import Spinner from "../../ui/Spinner/Spinner";
 import Avatar from "../../ui/Avatar/Avatar";
-import {useEffect} from "react";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 
 
@@ -18,8 +17,6 @@ import CloudinaryService from "../../api/cloudinary/CloudinaryService";
 
 import Heading from "../../ui/Heading";
 import InfoLabel from "../../ui/InfoLabel/InfoLabel";
-
-import {SecurityForm} from "../../features/User";
 import store from "../../store";
 
 const ProfileEdit = () => {

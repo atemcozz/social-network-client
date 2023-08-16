@@ -1,6 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
-import {API_KEY} from "../consts/consts";
+import React, {useRef} from 'react';
+import {Map, Placemark} from "@pbe/react-yandex-maps";
 
 
 export const MapPicker = ({content, onChange}) => {
@@ -21,7 +20,7 @@ export const MapPicker = ({content, onChange}) => {
         <Placemark
           instanceRef={placemarkRef}
           onDragEnd={(event) => {
-            const coords = placemarkRef.current.geometry._coordinates;
+            const coords = placemarkRef.current?.geometry?._coordinates;
             onChange(coords);
 
           }}

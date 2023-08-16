@@ -1,17 +1,17 @@
 .placeholder {
-  background-color: var(--secondary);
-  background-position: 0px 0px;
-  background-repeat: repeat;
-  animation: animatedBackground 0.5s ease-in-out infinite;
+    background-color: var(--secondary);
+    background-repeat: repeat;
+    animation: animatedBackground 0.5s ease-in-out infinite;
 }
+
 @keyframes animatedBackground {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
 }

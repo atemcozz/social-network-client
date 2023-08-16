@@ -1,11 +1,6 @@
-import React, {useContext, useEffect, useLayoutEffect, useMemo, useRef} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Avatar from "../../../ui/Avatar/Avatar";
-import DotsDropdown from "../../../ui/Dropdown/DotsDropdown/DotsDropdown";
-import {MdDeleteForever} from "react-icons/md";
-import LinkedText from "../../../ui/LinkedText/LinkedText";
 import {Link} from "react-router-dom";
-import {BsArrowUpSquare, BsReplyFill} from "react-icons/bs";
-import {useState} from "react";
 import Button from "../../../ui/Button/Button";
 import {CommentsContext} from "./CommentSection";
 import store from "../../../store";
@@ -13,7 +8,7 @@ import classNames from "classnames";
 import getDateFromSQL from "../../../utils/getDateFromSQL";
 import CommentList from "./CommentList";
 import {CommentInput} from "./CommentInput";
-import {FaRegHeart, FaHeart} from "react-icons/fa";
+import {FaHeart, FaRegHeart} from "react-icons/fa";
 
 export const Comment = ({comment, depth = 0}) => {
   const {getReplies, getRepliesCount, sendComment, deleteComment, likeComment} = useContext(CommentsContext);

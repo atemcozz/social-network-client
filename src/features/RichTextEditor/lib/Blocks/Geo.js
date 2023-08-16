@@ -1,6 +1,4 @@
 import {Block} from "./Block";
-import sanitize from "sanitize-html";
-import sanitizeSettings from "../../consts/sanitizeSettings";
 import {GeoBlock} from "../../components/Blocks";
 
 export class Geo extends Block {

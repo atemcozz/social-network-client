@@ -5,7 +5,7 @@ import {Link, useLocation} from "react-router-dom";
 import Button from "../../../ui/Button/Button";
 
 const SideMenu = () => {
-  const [route, setRoute] = useState();
+  const [route, setRoute] = useState("");
   const location = useLocation();
   useEffect(() => {
     if (location) {

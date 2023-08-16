@@ -1,16 +1,12 @@
-import React from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 
 import {useQuery} from "react-query";
-import {PostService} from "../../features/Post";
-import {useState, useEffect} from "react";
+import {PostList, PostService} from "../../features/Post";
 
 
-import {UserService} from "../../features/User";
-
-import {PostList} from "../../features/Post";
+import {ProfileHeader, UserService} from "../../features/User";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
-import {ProfileHeader} from "../../features/User";
 import UserPlaceholder from "../../ui/Placeholders/UserPlaceholder/UserPlaceholder";
 import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
 import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";

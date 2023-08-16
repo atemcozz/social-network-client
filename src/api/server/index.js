@@ -15,16 +15,16 @@ api.interceptors.request.use((config) => {
 });
 api.interceptors.response.use(response => {
   return response;
-}, error => {
+}, async error => {
   if (error.response.status === 401 && store.auth) {
     store.verifyAuth().then((token) => {
       error.config.headers.Authorization = `Bearer ${token}`;
-      console.log(token);
+      ;
       return axios.request(error.config);
     });
   }
   if (error?.response?.data?.message === "ERR_USER_BANNED") {
-    store.logout();
+    await store.logout();
   }
 
   throw error;

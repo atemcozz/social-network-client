@@ -1,9 +1,5 @@
 import React, {useEffect} from 'react';
 import EditorContent from "./EditorContent";
-import useEditor from "../hooks/useEditor";
-import {Text} from "../lib/Blocks/Text";
-import {Image} from "../lib/Blocks/Image";
-import {Geo} from "../lib/Blocks/Geo";
 import EditorTopBar from "./EditorTopBar";
 import BlockActions from "./BlockActions";
 import Button from "../../../ui/Button/Button";

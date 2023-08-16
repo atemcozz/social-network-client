@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import EditorTopBarWrapper from "./EditorTopBarWrapper";
 import Button from "../../../ui/Button/Button";
 import {FaBold, FaItalic, FaStrikethrough, FaUnderline} from "react-icons/fa";

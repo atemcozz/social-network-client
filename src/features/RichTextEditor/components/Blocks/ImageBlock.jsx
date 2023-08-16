@@ -1,5 +1,4 @@
-import React, {useRef, useState} from "react";
-import Button from "../../../../ui/Button/Button";
+import React from "react";
 
 import Spinner from "../../../../ui/Spinner/Spinner";
 import Image from "../../../../ui/Image/Image";

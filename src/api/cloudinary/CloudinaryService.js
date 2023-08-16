@@ -1,7 +1,4 @@
-import api, {
-  CLOUDINARY_API_KEY,
-  CLOUDINARY_UPLOAD_PRESET,
-} from "./index";
+import api, {CLOUDINARY_API_KEY, CLOUDINARY_UPLOAD_PRESET} from "./index";
 
 export default class CloudinaryService {
   static uploadImage(data) {

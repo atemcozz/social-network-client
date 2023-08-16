@@ -1,6 +1,5 @@
 import React from 'react';
-import {API_KEY} from "../consts/consts";
-import {Map, Placemark, YMaps} from "@pbe/react-yandex-maps";
+import {Map, Placemark} from "@pbe/react-yandex-maps";
 
 export const MapView = ({location, zoom}) => {
   return (

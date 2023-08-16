@@ -1,17 +1,14 @@
-import React, {createContext} from "react";
+import React, {createContext, useState} from "react";
 import Button from "../../../ui/Button/Button";
 
-import {BsChatLeftTextFill, BsBookmark, BsBookmarkFill, BsHeartFill, BsHeart} from "react-icons/bs";
+import {BsBookmark, BsBookmarkFill, BsChatLeftTextFill, BsHeart, BsHeartFill} from "react-icons/bs";
 import {IoMdOpen} from "react-icons/io";
-import {MdDeleteForever, MdContentCopy} from "react-icons/md";
-
-import {useState, useEffect} from "react";
+import {MdContentCopy, MdDeleteForever} from "react-icons/md";
 import {PostService} from "../api/PostService";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import DotsDropdown from "../../../ui/Dropdown/DotsDropdown/DotsDropdown";
 import Avatar from "../../../ui/Avatar/Avatar";
 import Image from "../../../ui/Image/Image";
-import {Link} from "react-router-dom";
 import store from "../../../store";
 import {FaArrowDown, FaArrowUp} from "react-icons/fa";
 import getDateFromSQL from "../../../utils/getDateFromSQL";
@@ -20,14 +17,14 @@ import {PostTags} from "./PostTags";
 import {PostModal} from "./PostModal";
 import {ButtonWithAuth} from "../../Auth";
 
-export const PostContext = createContext();
+export const PostContext = createContext(null);
 export const Post = ({content, onChange, recursive = true, contentExposed = false}) => {
   const [post, setPost] = useState(content);
   const navigate = useNavigate();
   const [exposed, setExposed] = useState(contentExposed);
   const [modal, setModal] = useState(false);
 
-  function likePost() {
+  async function likePost() {
     if (post.user_like)
       updatePost({
         likes_count: Number(post.likes_count) - 1,
@@ -39,12 +36,12 @@ export const Post = ({content, onChange, recursive = true, contentExposed = fals
         user_like: true,
       });
 
-    PostService.likePost(post.id);
+    return PostService.likePost(post.id);
   }
 
   function addBookmark() {
     updatePost({user_saved: !post.user_saved});
-    PostService.addBookmark(post.id);
+    return PostService.addBookmark(post.id);
   }
 
   function copyLink() {

@@ -1,33 +1,16 @@
-import React from "react";
-import TextArea from "../../ui/TextArea/TextArea";
+import React, {useState} from "react";
 import Button from "../../ui/Button/Button";
 import Input from "../../ui/Input/Input";
-import Tag from "../../ui/Tag/Tag";
-import {
-  MdAddPhotoAlternate,
-  MdVideoCall,
-  MdClose,
-  MdVideocam,
-  MdAdd,
-} from "react-icons/md";
-import {useRef} from "react";
-import {useState} from "react";
-import {PostService} from "../../features/Post";
+import {CreatePostPreviewLoader, PostService} from "../../features/Post";
 import {useNavigate} from "react-router-dom";
-import Toggle from "../../ui/Toggle/Toggle";
 import Spinner from "../../ui/Spinner/Spinner";
 import InfoLabel from "../../ui/InfoLabel/InfoLabel";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
 import CloudinaryService from "../../api/cloudinary/CloudinaryService";
-import {RichTextEditor} from "../../features/RichTextEditor";
+import {Geo, GeoRoute, Image, RichTextEditor, Text} from "../../features/RichTextEditor";
 import useEditor from "../../features/RichTextEditor/hooks/useEditor";
-import {Text} from "../../features/RichTextEditor";
-import {Image} from "../../features/RichTextEditor";
-import {Geo} from "../../features/RichTextEditor";
-import {CreatePostPreviewLoader} from "../../features/Post";
 import TagsCreateContainer from "../../components/TagsCreateContainer/TagsCreateContainer";
-import {GeoRoute} from "../../features/RichTextEditor";
 import {API_KEY} from "../../features/Map/consts/consts";
 import {YMaps} from "@pbe/react-yandex-maps";
 
@@ -35,7 +18,7 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
   const [lastTagID, setLastTagID] = useState(0);
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const navigate = useNavigate();

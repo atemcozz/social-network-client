@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
+
 const useRequest = (request, dependencies = []) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);

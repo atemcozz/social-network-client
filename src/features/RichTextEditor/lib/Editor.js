@@ -9,7 +9,7 @@ export class Editor {
 
   constructor(options) {
     this.blocks = options.blocks || [];
-    this.renderBlock = options.blockHandler || (() => null);
+    this.renderBlock = options?.blockHandler || (() => null);
     if (options.useBlocks) {
       options.useBlocks.forEach((cls) => {
         const instance = new cls();

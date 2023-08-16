@@ -12,6 +12,7 @@ import store from "../../../store";
 import {ProfileHeaderDropdown} from "../../../features/User";
 import {observer} from "mobx-react";
 import MobileSideMenu from "./MobileSideMenu";
+import {NotificationsButton} from "../../../features/User";
 
 
 const Header = ({page}) => {
@@ -43,7 +44,7 @@ const Header = ({page}) => {
         </div>
 
 
-        <div className={"hidden md:flex flex-1 gap-2 justify-center mx-4"}>
+        <div className={"hidden lg:flex flex-1 gap-2 justify-center mx-4"}>
           <Link to={"/popular"}>
             <Button variant={page === "popular" ? "primary" : "secondary"}>
               <FaFire size={"24px"}/> Популярное
@@ -77,7 +78,10 @@ const Header = ({page}) => {
           </Link>
 
           {store.auth && store.user &&
-            <ProfileHeaderDropdown user={store.user}/>
+            <>
+              <NotificationsButton/>
+              <ProfileHeaderDropdown user={store.user}/>
+            </>
           }
           {!store.auth && <div className="flex items-center justify-between gap-2">
             <Link to={"/login"}>
@@ -92,7 +96,11 @@ const Header = ({page}) => {
             </Link>
           </div>}
         </div>
-
+        <div className={"flex md:hidden mx-4"}>
+          {store.auth && store.user &&
+            <NotificationsButton/>
+          }
+        </div>
       </div>
     </header>
   );

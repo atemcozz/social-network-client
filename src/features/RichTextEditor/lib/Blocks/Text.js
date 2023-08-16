@@ -1,6 +1,4 @@
 import {Block} from "./Block";
-import sanitize from "sanitize-html";
-import sanitizeSettings from "../../consts/sanitizeSettings";
 import {TextBlock} from "../../components/Blocks";
 
 export class Text extends Block {

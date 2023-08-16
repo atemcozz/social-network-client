@@ -1,8 +1,7 @@
-import React, {createContext, useState} from 'react';
+import React from 'react';
 import Modal from "../../../ui/Modal/Modal";
 import Button from "../../../ui/Button/Button";
 import {GrClose} from "react-icons/gr";
-import ErrorMessage from "../../../ui/ErrorMessage/ErrorMessage";
 import {Post} from "./Post";
 
 

@@ -1,11 +1,7 @@
-import React from "react";
-import {useState, useContext} from "react";
+import React, {useState} from "react";
 
 import Button from "../../../ui/Button/Button";
 import {MdSend} from "react-icons/md";
-
-import Tag from "../../../ui/Tag/Tag";
-import {CommentsContext} from "./CommentSection";
 import TextArea from "../../../ui/TextArea/TextArea";
 import Avatar from "../../../ui/Avatar/Avatar";
 import store from "../../../store";

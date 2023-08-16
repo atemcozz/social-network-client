@@ -1,6 +1,5 @@
 import classNames from "classnames";
-import React from "react";
-import {useState, useRef, useEffect} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {BsThreeDotsVertical} from "react-icons/bs";
 
 const DotsDropdown = ({children}) => {
@@ -11,8 +10,8 @@ const DotsDropdown = ({children}) => {
     function handleClickOutside(event) {
       if (
         dropdownRef.current &&
-        !dropdownRef.current.contains(event.target) &&
-        !menuRef.current.contains(event.target)
+        !dropdownRef.current?.contains(event.target) &&
+        !menuRef.current?.contains(event.target)
       ) {
         setDropdown(false);
       }

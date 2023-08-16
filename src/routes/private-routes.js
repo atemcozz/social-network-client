@@ -3,6 +3,7 @@ import ProfileEdit from "../pages/ProfileEdit";
 import Bookmarks from "../pages/Bookmarks";
 import {RequireAuth} from "../features/Auth";
 import Feed from "../pages/Feed/Feed";
+import Notifications from "../pages/Notifications/Notifications";
 
 export const privateRoutes = [
   {
@@ -20,5 +21,11 @@ export const privateRoutes = [
   {
     path: "/feed",
     element: <RequireAuth> <Feed/> </RequireAuth>,
+  },
+  {
+    path: "/notifications",
+    element: <RequireAuth>
+      <Notifications/>
+    </RequireAuth>,
   },
 ];

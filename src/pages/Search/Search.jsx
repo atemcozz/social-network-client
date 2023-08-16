@@ -1,10 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 
-import {PostService} from "../../features/Post";
-
-import {PostList} from "../../features/Post";
-
-import {useState} from "react";
+import {PostList, PostService} from "../../features/Post";
 import Button from "../../ui/Button/Button";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
@@ -14,6 +10,7 @@ import Heading from "../../ui/Heading";
 import TagsCreateContainer from "../../components/TagsCreateContainer/TagsCreateContainer";
 import {useSearchParams} from "react-router-dom";
 import Paginator from "../../components/Paginator/Paginator";
+import store from "../../store";
 
 const Search = () => {
   const [params, setParams] = useSearchParams();
@@ -32,6 +29,7 @@ const Search = () => {
       tags: tags.map((tag) => tag.value),
       sort,
       page,
+      t: store.sessionTimestamp,
     }).then((res) => res.data),
   );
 
@@ -116,22 +114,6 @@ const Search = () => {
             >
               Популярное
             </Button>
-            {/* <Radio>
-            <Radio.Item
-              checked={sort === "new"}
-              name={"sort"}
-              onChange={() => setSort("new")}
-            >
-              Новое
-            </Radio.Item>
-            <Radio.Item
-              checked={sort === "popular"}
-              name={"sort"}
-              onChange={() => setSort("popular")}
-            >
-              Популярное
-            </Radio.Item>
-          </Radio> */}
           </div>
         </div>
         {postsLoading && <PostPlaceholder/>}

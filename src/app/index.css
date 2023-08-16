@@ -3,47 +3,51 @@
 @tailwind utilities;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 @layer base {
-  html {
-    -webkit-tap-highlight-color: transparent;
-    overflow-y: scroll;
-  }
+    html {
+        -webkit-tap-highlight-color: transparent;
+        overflow-y: scroll;
+    }
 }
 :root {
-  --primary: #0ea5e9;
-  --primary-darker: #0284c7;
-  --primary-disabled: #004365;
-  --danger: #ef4444;
-  --danger-darker: #dc2626;
-  --success: #22c55e;
-  --success-darker: #16a34a;
-  --like: #ff6262;
+    --primary: #0ea5e9;
+    --primary-darker: #0284c7;
+    --primary-disabled: #004365;
+    --danger: #ef4444;
+    --danger-darker: #dc2626;
+    --success: #22c55e;
+    --success-darker: #16a34a;
+    --like: #ff6262;
 }
+
 .theme-light {
-  --text-base: rgb(50, 50, 50);
-  --text-secondary: rgb(100, 100, 100);
-  --background: #fff;
-  --background-darker: rgb(241, 241, 241);
-  --background-darkest: rgb(215, 215, 215);
-  --background-lighter: rgb(255, 255, 255);
-  --secondary: #ececec;
-  --secondary-darker: #dfdfdf;
+    --text-base: rgb(50, 50, 50);
+    --text-secondary: rgb(100, 100, 100);
+    --background: #fff;
+    --background-darker: rgb(241, 241, 241);
+    --background-darkest: rgb(215, 215, 215);
+    --background-lighter: rgb(255, 255, 255);
+    --secondary: #ececec;
+    --secondary-darker: #dfdfdf;
 }
+
+/*noinspection CssUnusedSymbol*/
 .theme-dark {
-  --text-base: #fff;
-  --text-secondary: rgb(200, 200, 200);
-  --background: #303030;
-  --background-darker: #282828;
-  --background-darkest: #202020;
-  --background-lighter: #363636;
-  --secondary: #454545;
-  --secondary-darker: #404040;
+    --text-base: #fff;
+    --text-secondary: rgb(200, 200, 200);
+    --background: #303030;
+    --background-darker: #282828;
+    --background-darkest: #202020;
+    --background-lighter: #363636;
+    --secondary: #454545;
+    --secondary-darker: #404040;
 }
+
 div[contentEditable="true"]:empty:not(:focus):before {
-  content: attr(placeholder);
+    content: attr(placeholder);
 }

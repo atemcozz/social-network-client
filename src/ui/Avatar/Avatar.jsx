@@ -1,6 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
 import defaultAvatar from "../../assets/default_avatar.png";
-import {useState} from "react";
 import classNames from "classnames";
 
 const Avatar = ({src, size = "normal", onClick, pointer}) => {

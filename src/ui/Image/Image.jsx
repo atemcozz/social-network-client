@@ -1,9 +1,7 @@
 import classNames from "classnames";
-import React from "react";
-import {useState} from "react";
+import React, {useState} from "react";
 import {MdImageNotSupported} from "react-icons/md";
 import BoxPlaceholder from "../Placeholders/BoxPlaceholder/BoxPlaceholder";
-import Spinner from "../Spinner/Spinner";
 import Modal from "../Modal/Modal";
 
 const Image = ({className, modal = false, display = "inline", src, ...props}) => {

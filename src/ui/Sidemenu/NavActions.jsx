@@ -1,29 +1,22 @@
-import React, {useContext} from "react";
-import {BsFillPersonFill} from "react-icons/bs";
-import {BsBookmarkFill} from "react-icons/bs";
+import React, {memo, useContext, useEffect, useState} from "react";
+import {BsBookmarkFill, BsFillPersonFill} from "react-icons/bs";
 import {FaClock, FaFire, FaPlus, FaSearch, FaSignInAlt, FaSignOutAlt} from "react-icons/fa";
-import {IoTimer, IoCreate} from "react-icons/io5";
-import {HiFire} from "react-icons/hi";
 
-import {MdCategory, MdDarkMode, MdSearch} from "react-icons/md";
+import {MdCategory, MdDarkMode} from "react-icons/md";
 
 import Toggle from "../Toggle/Toggle";
 import {ThemeContext} from "../../providers/ThemeProvider";
 
-import {Link, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {observer} from "mobx-react";
 import NavLink from "../NavLink/NavLink";
-import {useState} from "react";
-import {useEffect} from "react";
 import store from "../../store";
-import {memo} from "react";
-import Button from "../Button/Button";
 
 const NavActions = () => {
 
 
   const [theme, setTheme] = useContext(ThemeContext);
-  const [route, setRoute] = useState();
+  const [route, setRoute] = useState("");
   const location = useLocation();
   useEffect(() => {
     if (location) {
@@ -94,9 +87,9 @@ const NavActions = () => {
       </div>
       {store.auth && (
         <NavLink
-          onClick={() => {
-            store.logout();
-          }}
+          onClick={() =>
+            store.logout()
+          }
           to={"/new"}
         >
           <FaSignOutAlt size={"32px"}/>
