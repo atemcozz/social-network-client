@@ -12,8 +12,7 @@ export const UserSubscriptionCard = ({user}) => {
 
   function handleSubscribe() {
     UserService.subscribeUser(user.id)
-      .then(() => setSubscribed((s) => !s))
-      .catch(console.log);
+      .then(() => setSubscribed((s) => !s));
   }
 
   return (

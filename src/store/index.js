@@ -27,7 +27,6 @@ class Index {
   login(data) {
     return AuthService.login(data)
       .then((res) => {
-        console.log(res);
         localStorage.setItem("access_token", res.data.accessToken);
         localStorage.setItem("refresh_token", res.data.refreshToken);
         this.setAuth(true);
@@ -72,7 +71,6 @@ class Index {
 
   updateUserProfile(user_id, data) {
     return UserService.updateUserProfile(user_id, data).then((res) => {
-      console.log(res.data);
       this.setUser(res.data);
     });
   }

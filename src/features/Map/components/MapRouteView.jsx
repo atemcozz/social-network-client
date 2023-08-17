@@ -7,7 +7,6 @@ export const MapRouteView = ({locations}) => {
   const ymapsRef = useRef(null);
 
   const setupYmaps = (ymaps) => {
-    console.log(locations);
     ymapsRef.current = ymaps;
     const multiRoute = new ymapsRef.current.multiRouter.MultiRoute(
       {

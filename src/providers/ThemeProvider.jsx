@@ -13,7 +13,6 @@ const ThemeProvider = ({children}) => {
       localStorage.setItem("theme", themeName);
       setTheme(themeName);
     } else {
-      console.error("Theme not found");
       applyTheme(APP_THEMES[0]);
     }
   };

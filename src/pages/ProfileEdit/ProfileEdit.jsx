@@ -55,7 +55,6 @@ const ProfileEdit = () => {
   useEffect(() => {
     if (store.user) {
       setAvatar(store.user.avatar_url);
-      console.log(store.user.avatar_url);
     }
   }, [store.user]);
   if (saveLoading || !store.user) {

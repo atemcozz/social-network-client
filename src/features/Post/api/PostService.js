@@ -22,7 +22,11 @@ export class PostService {
   }
 
   static getPostsByUserID(user_id) {
-    return api.get(`/post/user/${user_id}`);
+    return api.get(`/post`, {
+      params: {
+        user_id,
+      },
+    });
   }
 
   static getSavedPosts() {

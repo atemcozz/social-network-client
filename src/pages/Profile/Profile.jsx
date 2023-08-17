@@ -35,11 +35,6 @@ const Profile = () => {
     }
   }, [user]);
 
-  function handleSubscribe() {
-    UserService.subscribeUser(user.id)
-      .then(() => setSubscribed((s) => !s))
-      .catch(console.log);
-  }
 
   if (userLoading) {
     return (
