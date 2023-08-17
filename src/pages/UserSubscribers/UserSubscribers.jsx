@@ -7,6 +7,7 @@ import Heading from "../../ui/Heading";
 import {UserService, UserSubscriptionCard} from "../../features/User";
 import {useNavigate, useParams} from "react-router-dom";
 import ReturnButton from "../../components/ReturnButton/ReturnButton";
+import NoContentMessage from "../../components/NoContentMessage/NoContentMessage";
 
 const UserSubscribers = () => {
   const navigate = useNavigate();
@@ -45,6 +46,9 @@ const UserSubscribers = () => {
         </div>
         {error && <ErrorMessage>{error?.response?.data?.message}</ErrorMessage>}
         <div className="flex flex-col gap-2">
+          {(!subs || !subs.length) && (
+            <NoContentMessage/>
+          )}
           {subs?.map((user, index) =>
             <UserSubscriptionCard user={user} key={index}/>,
           )}
