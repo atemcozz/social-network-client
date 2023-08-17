@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import {useQuery} from "react-query";
@@ -13,6 +13,7 @@ import Paginator from "../../components/Paginator/Paginator";
 import store from "../../store";
 
 const Notifications = () => {
+  const [timestamp, setTimestamp] = useState(Date.now());
   const [params, setParams] = useSearchParams();
   const page = Number(params.get("page") || 1);
   const {
@@ -22,7 +23,7 @@ const Notifications = () => {
   } = useQuery(["fetchUserNotifications", page], () =>
     UserService.getUserNotifications({
       page,
-      t: store.sessionTimestamp,
+      t: timestamp,
     })
       .then((res) => res.data),
   );
