@@ -20,7 +20,7 @@ export const PostContent = ({post}) => {
               return (
                 <div
                   key={index}
-                  className={"overflow-x-hidden break-words"}
+                  className={"py-2 overflow-x-hidden break-words"}
                   dangerouslySetInnerHTML={{
                     __html: block.content,
                   }}
