@@ -18,9 +18,9 @@ export const RichTextEditor = ({editor}) => {
       <EditorTopBar editor={editor}/>
       <EditorContent editor={editor}/>
       <BlockActions editor={editor}/>
-      <Button variant={"secondary"} className={"mt-1"}
-              onClick={() => alert(JSON.stringify(editor.json(), null, 2))}>show
-        raw</Button>
+      {/*<Button variant={"secondary"} className={"mt-1"}*/}
+      {/*        onClick={() => alert(JSON.stringify(editor.json(), null, 2))}>show*/}
+      {/*  raw</Button>*/}
     </div>
   );
 };

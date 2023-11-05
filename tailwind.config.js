@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+const {fontFamily} = require('tailwindcss/defaultTheme');
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -10,7 +11,12 @@ module.exports = {
       xl: "1280px",
       "2xl": "1536px",
     },
-
+    fontFamily: {
+      sans: [
+        '"Rubik"',
+        ...fontFamily.sans,
+      ],
+    },
     extend: {
       colors: {
         primary: "var(--primary)",
