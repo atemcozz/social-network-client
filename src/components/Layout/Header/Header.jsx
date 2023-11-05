@@ -39,7 +39,7 @@ const Header = ({page}) => {
           <Link to={"/"}>
             <div className="flex items-center ">
               <div className=" text-2xl font-bold text-text-base">Falco</div>
-              <FalcoIcon width={48} height={48}/>
+              <FalcoIcon width={32} height={32}/>
             </div>
           </Link>
         </div>
