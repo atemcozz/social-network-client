@@ -14,7 +14,11 @@ import AuthLayout from "../../components/Layout/AuthLayout/AuthLayout";
 
 const Login = () => {
 
-  const {register, handleSubmit, formState: {errors}} = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
     resolver: yupResolver(loginSchema),
   });
 

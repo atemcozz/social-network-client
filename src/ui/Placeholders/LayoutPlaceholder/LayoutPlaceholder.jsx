@@ -13,7 +13,8 @@ const LayoutPlaceholder = () => {
         <main className="w-full lg:max-w-screen-md py-5 px-4 flex flex-col gap-4">
           <LinePlaceholder big className={"w-32"}/>
           <PostPlaceholder/>
-          <PostPlaceholder/></main>
+          <PostPlaceholder/>
+        </main>
         <aside className={"hidden lg:flex flex-1"}></aside>
       </div>
     </div>

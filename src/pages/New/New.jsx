@@ -32,10 +32,8 @@ const New = () => {
   if (postsLoading) {
     return (
       <MainLayout page={"new"}>
-        <div className="px-4">
-          <Heading>Новое</Heading>
-          <PostPlaceholder/>
-        </div>
+        <Heading>Новое</Heading>
+        <PostPlaceholder/>
       </MainLayout>
     );
   }

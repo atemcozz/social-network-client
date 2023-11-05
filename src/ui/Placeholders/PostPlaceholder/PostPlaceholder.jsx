@@ -6,7 +6,7 @@ import TagPlaceholder from "../TagPlaceholder/TagPlaceholder";
 
 const PostPlaceholder = () => {
   return (
-    <div className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
+    <article className="flex flex-col rounded-lg shadow-md p-4 bg-back gap-3">
       <div className="flex items-center justify-between">
         <div className="flex gap-2">
           <AvatarPlaceholder/>
@@ -28,7 +28,7 @@ const PostPlaceholder = () => {
         <TagPlaceholder/>
         <TagPlaceholder/>
       </div>
-    </div>
+    </article>
   );
 };
 

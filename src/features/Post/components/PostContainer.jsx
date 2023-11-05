@@ -3,8 +3,8 @@ import classNames from "classnames";
 
 export const PostContainer = ({children, className, ...props}) => {
   return (
-    <div className={classNames(" rounded-lg shadow-md p-4 bg-back", className)} {...props}>
+    <article className={classNames("rounded-lg shadow-md p-4 bg-back", className)} {...props}>
       {children}
-    </div>
+    </article>
   );
 };

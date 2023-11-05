@@ -5,7 +5,6 @@ export class UserService {
     return api.get(`/user/id/${id}`);
   }
 
-
   static updateUserProfile(id, data) {
     return api.put(`/user/profile/${id}`, data);
   }

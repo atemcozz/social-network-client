@@ -25,7 +25,7 @@ const Header = ({page}) => {
       <MobileSideMenu active={sideMenu} onCancel={() => setSideMenu(false)}/>
 
       <div className="flex justify-between items-center mx-auto h-full max-w-screen-xl py-2 md:px-4 ">
-        <div className="flex items-center gap-3 w-64 mx-4">
+        <div className="flex items-center gap-3 flex-1 mx-4">
           {!store.userLoading && (
             <Button
               variant={"outlined"}
@@ -62,7 +62,7 @@ const Header = ({page}) => {
           </Link>}
 
         </div>
-        <div className={"hidden md:flex gap-2 items-center w-64 justify-center mx-4"}>
+        <div className={"hidden md:flex gap-2 items-center justify-center mx-4 flex-1"}>
           {store.auth &&
             <Link to={"/create"}>
               <Button variant={"primary"}>
