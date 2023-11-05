@@ -14,6 +14,7 @@ module.exports = {
     fontFamily: {
       sans: [
         '"Rubik"',
+        "sans-serif",
         ...fontFamily.sans,
       ],
     },
