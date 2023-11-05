@@ -11,6 +11,7 @@ import {NotificationCard} from "../../features/User/components/NotificationCard"
 import NoContentMessage from "../../components/NoContentMessage/NoContentMessage";
 import Paginator from "../../components/Paginator/Paginator";
 import store from "../../store";
+import {Helmet} from "react-helmet";
 
 const Notifications = () => {
   const [timestamp, setTimestamp] = useState(Date.now());
@@ -36,6 +37,7 @@ const Notifications = () => {
   if (isLoading) {
     return (
       <MainLayout>
+        <Helmet><title>Уведомления</title></Helmet>
         <Heading>Уведомления</Heading>
         <PostPlaceholder/>
       </MainLayout>
@@ -44,6 +46,7 @@ const Notifications = () => {
 
   return (
     <MainLayout>
+      <Helmet><title>Уведомления ({notifications?.contents?.length})</title></Helmet>
       <div className="flex items-center gap-4">
         <ReturnButton/>
         <Heading>Уведомления</Heading>

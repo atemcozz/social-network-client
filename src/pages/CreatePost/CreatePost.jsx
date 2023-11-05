@@ -13,6 +13,7 @@ import useEditor from "../../features/RichTextEditor/hooks/useEditor";
 import TagsCreateContainer from "../../components/TagsCreateContainer/TagsCreateContainer";
 import {API_KEY} from "../../features/Map/consts/consts";
 import {YMaps} from "@pbe/react-yandex-maps";
+import {Helmet} from "react-helmet";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -89,6 +90,7 @@ const CreatePost = () => {
   if (loading) {
     return (
       <MainLayout>
+        <Helmet><title>Новая запись</title></Helmet>
         <div className="flex items-center justify-center w-full h-[30vh]">
           <Spinner/>
         </div>
@@ -97,6 +99,7 @@ const CreatePost = () => {
   }
   return (
     <MainLayout>
+      <Helmet><title>Новая запись</title></Helmet>
       <div className="font-bold text-xl mb-4">Новая запись</div>
       <CreatePostPreviewLoader src={preview} onClick={handlePreview} loading={imageLoading}/>
 

@@ -7,6 +7,7 @@ import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlacehold
 import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
 import Heading from "../../ui/Heading";
+import {Helmet} from "react-helmet";
 
 const Bookmarks = () => {
   const {
@@ -18,6 +19,7 @@ const Bookmarks = () => {
   if (postsLoading) {
     return (
       <MainLayout>
+        <Helmet><title>Закладки</title></Helmet>
         <Heading>Закладки</Heading>
         <PostPlaceholder/>
       </MainLayout>
@@ -25,6 +27,7 @@ const Bookmarks = () => {
   }
   return (
     <MainLayout>
+      <Helmet><title>Закладки</title></Helmet>
       <div className="min-h-screen">
         <Heading>Закладки</Heading>
 

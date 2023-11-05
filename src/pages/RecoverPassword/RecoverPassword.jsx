@@ -11,6 +11,7 @@ import Heading from "../../ui/Heading";
 import AuthLayout from "../../components/Layout/AuthLayout/AuthLayout";
 import {useForm} from "react-hook-form";
 import Form from "../../ui/Form";
+import {Helmet} from "react-helmet";
 
 const RecoverPassword = () => {
   const [serverError, setServerError] = useState();
@@ -32,6 +33,7 @@ const RecoverPassword = () => {
   if (loading) {
     return (
       <AuthLayout>
+        <Helmet><title>Восстановление пароля</title></Helmet>
         <div className="flex flex-col max-w-md mx-auto">
           <Heading>Восстановление пароля</Heading>
           <div className={"flex justify-center items-center rounded-lg shadow-md bg-back p-4 h-72"}>
@@ -43,6 +45,7 @@ const RecoverPassword = () => {
   }
   return (
     <AuthLayout>
+      <Helmet><title>Восстановление пароля</title></Helmet>
       <div className="max-w-md mx-auto">
         <Heading>Восстановление пароля</Heading>
         <div className="flex flex-col gap-4 rounded-lg shadow-md p-4 bg-back">

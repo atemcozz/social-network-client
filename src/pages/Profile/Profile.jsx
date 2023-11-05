@@ -10,6 +10,7 @@ import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import UserPlaceholder from "../../ui/Placeholders/UserPlaceholder/UserPlaceholder";
 import PostPlaceholder from "../../ui/Placeholders/PostPlaceholder/PostPlaceholder";
 import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
+import {Helmet} from "react-helmet";
 
 const Profile = () => {
 
@@ -39,6 +40,7 @@ const Profile = () => {
   if (userLoading) {
     return (
       <MainLayout>
+        <Helmet><title>Профиль</title></Helmet>
         <div className="flex flex-col gap-4">
           <UserPlaceholder/>
           <PostPlaceholder/>
@@ -57,6 +59,7 @@ const Profile = () => {
   }
   return (
     <MainLayout>
+      <Helmet><title>Профиль {user?.nickname || ""}</title></Helmet>
       <div className="flex flex-col">
         <ProfileHeader user={user}/>
         <PostList posts={posts?.contents}/>

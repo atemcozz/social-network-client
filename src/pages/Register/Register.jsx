@@ -11,6 +11,7 @@ import Form from "../../ui/Form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import AuthLayout from "../../components/Layout/AuthLayout/AuthLayout";
 import {registerSchema} from "../../features/Auth";
+import {Helmet} from "react-helmet";
 
 const Login = () => {
 
@@ -36,6 +37,7 @@ const Login = () => {
   if (loading) {
     return (
       <AuthLayout>
+        <Helmet><title>Регистрация</title></Helmet>
         <div className="flex flex-col max-w-md mx-auto">
           <Heading>Регистрация</Heading>
           <div className={"flex justify-center items-center rounded-lg shadow-md bg-back p-4 h-96"}>
@@ -47,6 +49,7 @@ const Login = () => {
   }
   return (
     <AuthLayout>
+      <Helmet><title>Регистрация</title></Helmet>
       <div className="flex flex-col max-w-md mx-auto">
         <Heading>Регистрация</Heading>
         <div className="rounded-lg shadow-md bg-back p-4 flex justify-center">

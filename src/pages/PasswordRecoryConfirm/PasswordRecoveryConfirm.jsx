@@ -11,6 +11,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import AuthLayout from "../../components/Layout/AuthLayout/AuthLayout";
 import {passwordConfirmSchema} from "./password-confirm-validator";
 import {AuthService} from "../../features/Auth";
+import {Helmet} from "react-helmet";
 
 const PasswordRecoveryConfirm = () => {
 
@@ -35,6 +36,7 @@ const PasswordRecoveryConfirm = () => {
   if (loading) {
     return (
       <AuthLayout>
+        <Helmet><title>Восстановление пароля</title></Helmet>
         <div className="flex flex-col max-w-md mx-auto">
           <Heading>Восстановление пароля</Heading>
           <div className={"flex justify-center items-center rounded-lg shadow-md bg-back p-4 h-72"}>
@@ -46,6 +48,7 @@ const PasswordRecoveryConfirm = () => {
   }
   return (
     <AuthLayout>
+      <Helmet><title>Восстановление пароля</title></Helmet>
       <div className="flex flex-col max-w-md mx-auto">
         <Heading>Восстановление пароля</Heading>
         <div className="rounded-lg shadow-md bg-back p-4 flex justify-center">

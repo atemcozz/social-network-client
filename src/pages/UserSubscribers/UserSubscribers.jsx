@@ -8,6 +8,7 @@ import {UserService, UserSubscriptionCard} from "../../features/User";
 import {useNavigate, useParams} from "react-router-dom";
 import ReturnButton from "../../components/ReturnButton/ReturnButton";
 import NoContentMessage from "../../components/NoContentMessage/NoContentMessage";
+import {Helmet} from "react-helmet";
 
 const UserSubscribers = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const UserSubscribers = () => {
   if (subsLoading || userLoading) {
     return (
       <MainLayout>
+        <Helmet><title>Подписчики</title></Helmet>
         <Heading>Подписчики</Heading>
         <PostPlaceholder/>
       </MainLayout>
@@ -39,6 +41,7 @@ const UserSubscribers = () => {
 
   return (
     <MainLayout>
+      <Helmet><title>Подписчики {user?.nickname || ""}</title></Helmet>
       <div className="min-h-screen">
         <div className="flex items-center gap-4">
           <ReturnButton/>

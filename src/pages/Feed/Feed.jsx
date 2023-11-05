@@ -8,6 +8,7 @@ import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
 import Heading from "../../ui/Heading";
 import {useSearchParams} from "react-router-dom";
 import store from "../../store";
+import {Helmet} from "react-helmet";
 
 const Feed = () => {
   const [searchParams] = useSearchParams();
@@ -25,6 +26,7 @@ const Feed = () => {
   if (postsLoading) {
     return (
       <MainLayout page={"feed"}>
+        <Helmet><title>Подписки</title></Helmet>
         <Heading>Подписки</Heading>
         <PostPlaceholder/>
       </MainLayout>
@@ -32,6 +34,7 @@ const Feed = () => {
   }
   return (
     <MainLayout page={"feed"}>
+      <Helmet><title>Подписки</title></Helmet>
       <div className="min-h-screen">
         <Heading>Подписки</Heading>
         <PostList posts={posts.contents} onChange={updatePosts}/>

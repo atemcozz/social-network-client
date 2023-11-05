@@ -7,6 +7,7 @@ import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
 import Heading from "../../ui/Heading";
 import {useSearchParams} from "react-router-dom";
 import store from "../../store";
+import {Helmet} from "react-helmet";
 
 const Popular = () => {
   const [searchParams] = useSearchParams();
@@ -25,6 +26,7 @@ const Popular = () => {
   if (postsLoading) {
     return (
       <MainLayout page={"popular"}>
+        <Helmet><title>Популярное</title></Helmet>
         <Heading>Популярное</Heading>
         <PostPlaceholder/>
       </MainLayout>
@@ -32,6 +34,7 @@ const Popular = () => {
   }
   return (
     <MainLayout page={"popular"}>
+      <Helmet><title>Популярное</title></Helmet>
       <div className="min-h-screen">
         <Heading>Популярное</Heading>
         <PostList posts={posts.contents} onChange={updatePosts}/>

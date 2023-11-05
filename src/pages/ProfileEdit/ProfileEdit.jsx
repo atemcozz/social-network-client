@@ -18,6 +18,7 @@ import CloudinaryService from "../../api/cloudinary/CloudinaryService";
 import Heading from "../../ui/Heading";
 import InfoLabel from "../../ui/InfoLabel/InfoLabel";
 import store from "../../store";
+import {Helmet} from "react-helmet";
 
 const ProfileEdit = () => {
 
@@ -60,6 +61,7 @@ const ProfileEdit = () => {
   if (saveLoading || !store.user) {
     return (
       <MainLayout>
+        <Helmet><title>Редактирование профиля</title></Helmet>
         <div className={"flex items-center justify-center h-96 bg-back rounded-lg"}>
           <Spinner/>
         </div>
@@ -69,7 +71,7 @@ const ProfileEdit = () => {
   }
   return (
     <MainLayout>
-
+      <Helmet><title>Редактирование профиля</title></Helmet>
       <div className="min-h-screen">
         <div className="flex items-center gap-4">
           <button

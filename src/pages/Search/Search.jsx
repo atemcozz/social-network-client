@@ -13,6 +13,7 @@ import Paginator from "../../components/Paginator/Paginator";
 import store from "../../store";
 import Input from "../../ui/Input/Input";
 import {useDebounce} from "../../hooks/useDebounce";
+import {Helmet} from "react-helmet";
 
 const Search = () => {
   const [params, setParams] = useSearchParams();
@@ -92,6 +93,7 @@ const Search = () => {
   }, []);
   return (
     <MainLayout>
+      <Helmet><title>Поиск</title></Helmet>
       <div className="min-h-screen">
         <Heading>Поиск</Heading>
 

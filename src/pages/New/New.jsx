@@ -9,6 +9,7 @@ import Heading from "../../ui/Heading";
 import {useSearchParams} from "react-router-dom";
 import Paginator from "../../components/Paginator/Paginator";
 import store from "../../store";
+import {Helmet} from "react-helmet";
 
 const New = () => {
   const [params, setParams] = useSearchParams();
@@ -32,6 +33,7 @@ const New = () => {
   if (postsLoading) {
     return (
       <MainLayout page={"new"}>
+        <Helmet><title>Новое</title></Helmet>
         <Heading>Новое</Heading>
         <PostPlaceholder/>
       </MainLayout>
@@ -39,6 +41,7 @@ const New = () => {
   }
   return (
     <MainLayout page={"new"}>
+      <Helmet><title>Новое</title></Helmet>
       <div className="min-h-screen">
         <Heading>Новое</Heading>
         <PostList posts={posts.contents} onChange={updatePosts}/>

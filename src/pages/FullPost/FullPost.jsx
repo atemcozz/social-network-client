@@ -10,6 +10,7 @@ import MainLayout from "../../components/Layout/MainLayout/MainLayout";
 import {useQuery} from "react-query";
 import ErrorMessage from "../../ui/ErrorMessage/ErrorMessage";
 import Heading from "../../ui/Heading";
+import {Helmet} from "react-helmet";
 
 const FullPost = () => {
 
@@ -44,6 +45,7 @@ const FullPost = () => {
   if (commentsLoading || postLoading) {
     return (
       <MainLayout>
+        <Helmet><title>Пост</title></Helmet>
         <div className="font-bold text-xl mb-4">Пост</div>
         <PostPlaceholder/>
       </MainLayout>
@@ -51,6 +53,7 @@ const FullPost = () => {
   }
   return (
     <MainLayout>
+      <Helmet><title>{post?.title || "Пост"}</title></Helmet>
       <div className="min-h-screen">
         <Heading>Пост</Heading>
         <div className={"mb-4"}>
