@@ -13,6 +13,7 @@ import {ProfileHeaderDropdown} from "../../../features/User";
 import {observer} from "mobx-react";
 import MobileSideMenu from "./MobileSideMenu";
 import {NotificationsButton} from "../../../features/User";
+import FalcoIcon from "../../../ui/Icons/FalcoIcon/FalcoIcon";
 
 
 const Header = ({page}) => {
@@ -38,7 +39,7 @@ const Header = ({page}) => {
           <Link to={"/"}>
             <div className="flex items-center ">
               <div className=" text-2xl font-bold text-text-base">Falco</div>
-              <SiFalcon size={"32px"} className={"text-primary"}/>
+              <FalcoIcon width={48} height={48}/>
             </div>
           </Link>
         </div>
