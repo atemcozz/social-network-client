@@ -1,6 +1,7 @@
 import React from "react";
 import {SiFalcon} from "react-icons/si";
 import ButtonPlaceholder from "../ButonPlaceholder/ButtonPlaceholder";
+import FalcoIcon from "../../Icons/FalcoIcon/FalcoIcon";
 
 const HeaderPlaceholder = ({page}) => {
 
@@ -12,7 +13,7 @@ const HeaderPlaceholder = ({page}) => {
         <div className="flex items-center gap-3 w-64 mx-4">
           <div className="flex items-center ">
             <div className=" text-2xl font-bold text-text-base">Falco</div>
-            <SiFalcon size={"32px"} className={"text-primary"}/>
+            <FalcoIcon width={32} height={32}/>
           </div>
         </div>
 
