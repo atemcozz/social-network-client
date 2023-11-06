@@ -128,12 +128,7 @@ export const Post = ({content, onChange, recursive = true, contentExposed = fals
             </Button>
           )}
           {exposed && (
-            <>
-              <PostContent post={post}/>
-              <Button onClick={() => setExposed(false)} variant={"secondary"}>
-                <FaArrowUp size={"24px"}/> Скрыть
-              </Button>
-            </>
+            <PostContent post={post}/>
           )}
         </div>
 
