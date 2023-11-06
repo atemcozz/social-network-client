@@ -1,4 +1,4 @@
-import React, {memo, useContext, useEffect, useState} from "react";
+import React, {memo, useContext, useEffect, useRef, useState} from "react";
 import {BsBookmarkFill, BsFillPersonFill} from "react-icons/bs";
 import {FaClock, FaFire, FaPlus, FaSearch, FaSignInAlt, FaSignOutAlt} from "react-icons/fa";
 
@@ -18,13 +18,17 @@ const NavActions = () => {
   const [theme, setTheme] = useContext(ThemeContext);
   const [route, setRoute] = useState("");
   const location = useLocation();
+  const ref = useRef();
+  useEffect(() => {
+    ref.current.focus();
+  }, [ref]);
   useEffect(() => {
     if (location) {
       setRoute(location.pathname);
     }
   }, [location]);
   return (
-    <div className="overflow-y-auto max-h-full">
+    <div ref={ref} className="overflow-y-auto max-h-full">
       {!store.auth && (
         <>
           <NavLink to={"/login"} className="text-primary">

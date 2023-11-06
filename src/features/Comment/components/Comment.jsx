@@ -73,23 +73,24 @@ export const Comment = ({comment, depth = 0}) => {
               <div className={"flex justify-between items-center"}>
                 <div className={"flex gap-2"}>
                   {store.auth &&
-                    <span className={"text-primary hover:underline cursor-pointer select-none"}
-                          onClick={() => setReplyOpened(s => !s)}>Ответить</span>}
+                    <button tabIndex={0} className={"text-primary hover:underline cursor-pointer select-none"}
+                            onClick={() => setReplyOpened(s => !s)}>Ответить</button>}
                   {store.auth && store.user?.id === comment.user_id && (
-                    <span className={"text-danger hover:underline cursor-pointer select-none"}
-                          onClick={() => deleteComment(comment.id)}>Удалить</span>)}
+                    <button tabIndex={0} className={"text-danger hover:underline cursor-pointer select-none"}
+                            onClick={() => deleteComment(comment.id)}>Удалить</button>)}
                 </div>
-                <span
+                <button
+                  tabIndex={0}
                   className={classNames("flex items-center gap-1 cursor-pointer select-none", liked ? "text-like hover:text-danger" : "text-primary hover:text-primary-darker")}
                   onClick={handleCommentLike}>
-                    {liked
-                      ?
-                      <FaHeart className={"mt-0.5"} size={"16px"}/>
-                      :
-                      <FaRegHeart className={"mt-0.5"} size={"16px"}/>
-                    }
+                  {liked
+                    ?
+                    <FaHeart className={"mt-0.5"} size={"16px"}/>
+                    :
+                    <FaRegHeart className={"mt-0.5"} size={"16px"}/>
+                  }
                   {likesCount}
-                  </span>
+                </button>
 
               </div>
             </div>

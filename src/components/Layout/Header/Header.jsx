@@ -37,27 +37,27 @@ const Header = ({page}) => {
             </Button>
           )}
           <Link to={"/"}>
-            <div className="flex items-center ">
-              <div className=" text-2xl font-bold text-text-base">Falco</div>
+            <span className="flex items-center ">
+              <span className="text-2xl font-bold text-text-base">Falco</span>
               <FalcoIcon width={32} height={32}/>
-            </div>
+            </span>
           </Link>
         </div>
 
 
         <div className={"hidden lg:flex flex-1 gap-2 justify-center mx-4"}>
           <Link to={"/popular"}>
-            <Button variant={page === "popular" ? "primary" : "secondary"}>
+            <Button variant={page === "popular" ? "primary" : "secondary"} tabIndex={"-1"}>
               <FaFire size={"24px"}/> Популярное
             </Button>
           </Link>
           <Link to={"/new"}>
-            <Button variant={page === "new" ? "primary" : "secondary"}>
+            <Button variant={page === "new" ? "primary" : "secondary"} tabIndex={"-1"}>
               <FaClock size={"24px"}/> Новое
             </Button>
           </Link>
           {store.auth && <Link to={"/feed"}>
-            <Button variant={page === "feed" ? "primary" : "secondary"}>
+            <Button variant={page === "feed" ? "primary" : "secondary"} tabIndex={"-1"}>
               <MdCategory size={"24px"}/> Подписки
             </Button>
           </Link>}
@@ -66,14 +66,14 @@ const Header = ({page}) => {
         <div className={"hidden md:flex gap-2 items-center justify-center mx-4 flex-1"}>
           {store.auth &&
             <Link to={"/create"}>
-              <Button variant={"primary"}>
+              <Button variant={"primary"} tabIndex={"-1"}>
                 <FaPlus size={"24px"}/>
                 Создать
               </Button>
             </Link>
           }
           <Link to={"/search"}>
-            <Button variant={"secondary"}>
+            <Button variant={"secondary"} tabIndex={"-1"}>
               <FaSearch size={"24px"}/>
             </Button>
           </Link>
@@ -86,12 +86,12 @@ const Header = ({page}) => {
           }
           {!store.auth && <div className="flex items-center justify-between gap-2">
             <Link to={"/login"}>
-              <Button variant={"secondary"}>
+              <Button variant={"secondary"} tabIndex={"-1"}>
                 Войти
               </Button>
             </Link>
             <Link to={"/register"}>
-              <Button variant={"primary"}>
+              <Button variant={"primary"} tabIndex={"-1"}>
                 Регистрация
               </Button>
             </Link>

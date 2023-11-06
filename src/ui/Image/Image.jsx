@@ -4,7 +4,7 @@ import {MdImageNotSupported} from "react-icons/md";
 import BoxPlaceholder from "../Placeholders/BoxPlaceholder/BoxPlaceholder";
 import Modal from "../Modal/Modal";
 
-const Image = ({className, modal = false, display = "inline", src, ...props}) => {
+const Image = ({className, modal = false, display = "inline", src, alt = "img", ...props}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [modalActive, setModalActive] = useState(false);
@@ -34,13 +34,14 @@ const Image = ({className, modal = false, display = "inline", src, ...props}) =>
           setError(true);
           setLoading(false);
         }}
-        alt="img"
+        alt={alt}
         onLoad={() => setLoading(false)}
         src={src}
-        {...props}
         onClick={() => {
           modal && setModalActive(true);
         }}
+        {...props}
+
       />
     </>
   );

@@ -24,7 +24,7 @@ export const ProfileEditForm = ({user, onSubmit}) => {
 
   return (
     <Form
-
+      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-2 placeholder:italic"
     >
       <Form.FieldGroup name="Личная информация">
@@ -71,7 +71,7 @@ export const ProfileEditForm = ({user, onSubmit}) => {
         </Form.Field>
 
       </Form.FieldGroup>
-      <Button className={"mt-2"} onClick={handleSubmit(onSubmit)}>Сохранить изменения</Button>
+      <Button className={"mt-2"} type={"submit"}>Сохранить изменения</Button>
 
     </Form>
   );

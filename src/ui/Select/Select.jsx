@@ -17,7 +17,8 @@ const Select = ({options, selected, onChange, placeholder = "Выбрать"}) =
   });
   return (
     <div className="relative" ref={ref}>
-      <div
+      <button
+        type={"button"}
         onClick={() => {
           setIsOpen((state) => !state);
         }}
@@ -27,9 +28,9 @@ const Select = ({options, selected, onChange, placeholder = "Выбрать"}) =
       >
         <MdArrowDropDown size="24px"/>
         {selected?.title || placeholder}
-      </div>
+      </button>
       {isOpen &&
-        <ul className={classNames(
+        <ul tabIndex={-1} className={classNames(
           "absolute top-12 right-0 left-0 bg-secondary shadow-lg rounded z-10 max-h-64 overflow-auto",
         )}
             onClick={() => setIsOpen(false)}>
@@ -44,12 +45,11 @@ const Select = ({options, selected, onChange, placeholder = "Выбрать"}) =
 const Option = ({onClick, option: {value, title}}) => {
   return (
     <li
-      className="w-full p-3 bg-secondary hover:bg-secondary-darker ease-in duration-100 cursor-pointer flex gap-2 items-center select-none"
       value={value}
       onClick={() => onClick(value)}
-      tabIndex={0}
     >
-      {title}
+      <a href="#" tabIndex={0}
+         className={"p-3 w-full h-full inline-block bg-secondary focus:bg-secondary-darker hover:bg-secondary-darker ease-in duration-100 cursor-pointer"}>{title}</a>
     </li>
   );
 };

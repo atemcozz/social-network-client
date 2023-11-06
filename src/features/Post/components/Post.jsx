@@ -149,6 +149,7 @@ export const Post = ({content, onChange, recursive = true, contentExposed = fals
               <Link to={`/post/${post.id}`}>
                 <Button
                   variant={"outlined"}
+                  tabIndex={"-1"}
                 >
                   <BsChatLeftTextFill size={"24px"}/>
                   <div>{post.comments_count}</div>

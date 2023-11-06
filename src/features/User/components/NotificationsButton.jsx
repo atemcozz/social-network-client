@@ -19,7 +19,7 @@ export const NotificationsButton = memo(() => {
   });
   return (
     <Link to={"/notifications"}>
-      <Button variant={"secondary"} className={"relative"}>
+      <Button variant={"secondary"} className={"relative"} tabIndex={"-1"}>
         <FaBell size={"24px"}/>
         {notCount?.count > 0 &&
           <div

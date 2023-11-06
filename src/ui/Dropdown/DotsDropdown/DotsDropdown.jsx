@@ -49,11 +49,16 @@ const DotsDropdown = ({children}) => {
 const Item = ({icon, onClick, children}) => {
   return (
     <li
-      className="p-3 bg-secondary hover:bg-secondary-darker ease-in duration-100 cursor-pointer flex gap-2 items-center"
       onClick={onClick}
     >
-      {icon}
-      <div className="select-none">{children}</div>
+      <a href="#"
+         tabIndex={0}
+         className={"p-3 w-full h-full inline-block bg-secondary focus:bg-secondary-darker hover:bg-secondary-darker ease-in duration-100 cursor-pointer"}>
+        <span className={"flex gap-2"}>
+          {icon}
+          {children}
+        </span>
+      </a>
     </li>
   );
 };

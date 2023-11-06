@@ -14,6 +14,7 @@ import store from "../../store";
 import {Helmet} from "react-helmet";
 
 const Notifications = () => {
+
   const [timestamp, setTimestamp] = useState(Date.now());
   const [params, setParams] = useSearchParams();
   const page = Number(params.get("page") || 1);
@@ -43,10 +44,9 @@ const Notifications = () => {
       </MainLayout>
     );
   }
-
   return (
     <MainLayout>
-      <Helmet><title>Уведомления ({notifications?.contents?.length})</title></Helmet>
+      <Helmet><title>Уведомления ({notifications?.contents?.length.toString()})</title></Helmet>
       <div className="flex items-center gap-4">
         <ReturnButton/>
         <Heading>Уведомления</Heading>

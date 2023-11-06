@@ -12,11 +12,12 @@ const NavLink = ({
                  }) => {
   return (
     <Link
+      tabIndex={0}
       to={to}
       target={target}
       onClick={onClick}
       className={classNames(
-        "p-2 flex items-center gap-2 bg-secondary border-primary hover:border-r-4 hover:bg-secondary-darker ease-in duration-100 text-text-base",
+        "p-2 flex items-center gap-2 bg-secondary border-primary hover:border-r-4 focus:bg-secondary-darker hover:bg-secondary-darker ease-in duration-100 text-text-base",
         active && "border-r-4 bg-secondary-darker",
         className,
       )}

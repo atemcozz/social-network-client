@@ -7,6 +7,8 @@ const Toggle = forwardRef(({className, active = false, onChange, ...props}, ref)
 
   return (
     <Switch
+      name={"sw"}
+      tabIndex={0}
       ref={ref}
       checked={enabled}
       onChange={(e) => {
