@@ -58,23 +58,23 @@ const Login = () => {
         <div className="rounded-lg shadow-md bg-back p-4 flex justify-center">
           <div className={"flex flex-col gap-4 w-full"}>
             {serverError && <ErrorMessage>{serverError?.response?.data?.message}</ErrorMessage>}
-            <Form autoComplete={"off"}>
+            <Form autoComplete={"off"} onSubmit={handleSubmit(formSubmitAction)}>
               <Form.Field label={"Никнейм или адрес эл. почты"} error={errors?.login?.message} required>
                 <Input placeholder={"Введите никнейм"} {...register("login")}/>
               </Form.Field>
               <Form.Field label={"Пароль"} error={errors?.password?.message} required>
                 <Input type={"password"} placeholder={"Введите пароль"} {...register("password")}/>
               </Form.Field>
-
+              <div className={"flex flex-col gap-2 mt-2"}>
+                <Button type={"submit"}>Войти</Button>
+                <Link to={"/recover"} className={""}>
+                  <Button variant="outlined" className={"w-full"}>
+                    Забыли пароль?
+                  </Button>
+                </Link>
+              </div>
             </Form>
-            <div className={"flex flex-col gap-2"}>
-              <Button onClick={handleSubmit(formSubmitAction)}>Войти</Button>
-              <Link to={"/recover"} className={""}>
-                <Button variant="outlined" className={"w-full"}>
-                  Забыли пароль?
-                </Button>
-              </Link>
-            </div>
+
           </div>
         </div>
       </div>

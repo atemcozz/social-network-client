@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
-const Form = ({className, onSubmit, children, ...props}) => {
+const Form = ({className, children, ...props}) => {
   return (
     <form
       className={classNames(
